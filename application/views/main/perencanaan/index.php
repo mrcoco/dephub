@@ -32,3 +32,5 @@ Daftar Diklat Tahun
         <?php $this->lib_perencanaan->print_child($program,7) ?>
     </div>    
 </div>
+
+<a href="perencanaan/dashboard/buat_diklat">Buat Diklat</a>
