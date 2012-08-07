@@ -1,1 +1,0 @@
-var asljQuery = jQuery;jQuery.noConflict();
