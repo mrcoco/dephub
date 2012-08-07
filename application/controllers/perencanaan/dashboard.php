@@ -44,4 +44,38 @@ class Dashboard extends Perencanaan_Controller{
         }
         $this->template->display('main/perencanaan/form_buat_diklat',$data);
     }
+    
+    function insert_diklat(){
+        $data['name']=$this->input->post('name');
+        $data['parent']=$this->input->post('kategori');
+        $data['tanggal_mulai']=$this->input->post('tanggal_mulai');
+        $data['tanggal_akhir']=$this->input->post('tanggal_akhir');
+        $data['deskripsi']=$this->input->post('deskripsi');
+        $data['tujuan']=$this->input->post('tujuan');
+        $data['indikator']=$this->input->post('indikator');
+        $data['pelaksanaan']=$this->input->post('pelaksanaan');
+        $data['lama_pendidikan']=$this->input->post('lama_pendidikan');
+        $data['deskripsi']=$this->input->post('deskripsi');
+        $data['persyaratan']=$this->input->post('persyaratan');
+        $data['materi']=$this->input->post('materi');
+        $data['pelaksana']=$this->input->post('pelaksana');
+        $data['fasilitator']=$this->input->post('fasilitator');
+        $data['jumlah_peserta']=$this->input->post('jumlah_peserta');
+        $data['tempat']=$this->input->post('tempat');
+        $data['tahun_program']=$this->input->post('tahun_program');
+        
+        $this->rnc->insert_diklat($data);
+    }
+    
+    function edit_diklat($id){
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $this->load->library('editor');
+        $data['title']='Bidang Perencanaan';
+        $kategori=$this->rnc->get_kategori();
+        $data['pil_kategori']=array();
+        foreach($kategori as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $this->template->display('main/perencanaan/form_edit_diklat',$data);
+    }
 }
