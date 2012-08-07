@@ -1,10 +1,10 @@
 Form Pembuatan Diklat Baru
 <form method="post" action="perencanaan/dashboard/insert_diklat">
-    <div>Nama : <input type="text" name="name"/></div>
-    <div>Kategori : <?php echo form_dropdown('kategori', $pil_kategori) ?></div>
-    <div>Tanggal mulai : <input type="date" name="tanggal_mulai"/></div>
-    <div>Tanggal selesai : <input type="date" name="tanggal_akhir"/></div>
-    <div>Deskripsi : <?php echo $this->editor->textarea('deskripsi') ?></div>
+    <div>Nama : <input type="text" name="name" value="<?php echo $program['name'] ?>"/></div>
+    <div>Kategori : <?php echo form_dropdown('kategori', $pil_kategori, $program['parent']) ?></div>
+    <div>Tanggal mulai : <input type="date" name="tanggal_mulai" value="<?php echo $program['tanggal_mulai'] ?>"/></div>
+    <div>Tanggal selesai : <input type="date" name="tanggal_akhir" value="<?php echo $program['tanggal_akhir'] ?>"/></div>
+    <div>Deskripsi : <?php echo $this->editor->textarea('deskripsi',$program['deskripsi']) ?></div>
     <div>Tujuan : <?php echo $this->editor->textarea('tujuan') ?></div>
     <div>Indikator : <?php echo $this->editor->textarea('indikator') ?></div>
     <div>Pelaksanaan : <?php echo $this->editor->textarea('pelaksanaan') ?></div>
