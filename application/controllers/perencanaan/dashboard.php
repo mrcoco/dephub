@@ -34,6 +34,17 @@ class Dashboard extends Perencanaan_Controller{
 	$this->template->display('main/perencanaan/index',$data);
     }
     
+    function detail_diklat($id){
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['title']='Bidang Perencanaan';
+        $kategori=$this->rnc->get_kategori();
+        $data['pil_kategori']=array();
+        foreach($kategori as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $this->template->display('main/perencanaan/detail_diklat',$data);
+    }
+    
     function buat_diklat(){
         $this->load->library('editor');
         $data['title']='Bidang Perencanaan';
