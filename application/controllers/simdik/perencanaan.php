@@ -19,10 +19,18 @@ class Perencanaan extends Perencanaan_Controller{
     }
     
     public function index(){
-        //$this->load->library('lib_perencanaan');
+        $this->home();
+        
+    }
+    
+    function home($thn=''){
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $this->load->library('lib_perencanaan');
 	$data['title']='Bidang Perencanaan';
         $data['kategori']=$this->rnc->get_kategori();
-        $data['program']=$this->rnc->get_program($this->thn_default);
+        $data['program']=$this->rnc->get_program($thn);
 	$this->template->display('main/perencanaan/index',$data);
     }
 }
