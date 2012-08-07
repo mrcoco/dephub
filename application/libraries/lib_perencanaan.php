@@ -15,7 +15,7 @@ class Lib_perencanaan {
         if($array){
             foreach($array as $data){
                 if($data['parent']==$parent){
-                    echo '<div>'.$data['name'].'</div>';
+                    echo '<li><a href="#">'.$data['name'].'</li>';
                 }
             }
         }
