@@ -1,0 +1,159 @@
+/* ============================= System Messages ====================================*/
+#system-message    { margin-bottom: 10px; padding: 0;}
+#system-message dt { font-weight: bold; }
+#system-message dd { margin: 0; font-weight: bold; text-indent: 30px; }
+#system-message dd ul { color: #0055BB; margin-bottom: 10px; list-style: none; padding: 10px; border-top: 3px solid #84A7DB; border-bottom: 3px solid #84A7DB; list-style: none;}
+
+/* System Standard Messages */
+#system-message dt.message { display: none; }
+#system-message dd.message {  }
+
+/* System Error Messages */
+#system-message dt.error { display: none; }
+#system-message dd.error ul { color: #c00; background-color: #E6C0C0; border-top: 3px solid #DE7A7B; border-bottom: 3px solid #DE7A7B; }
+
+/* System Notice Messages */
+#system-message dt.notice { display: none; }
+#system-message dd.notice ul { color: #c00; background: #EFE7B8; border-top: 3px solid #F0DC7E; border-bottom: 3px solid #F0DC7E; list-style: none;}
+
+/* Debug */
+#system-debug     { color: #ccc; background-color: #fff; padding: 10px; margin: 10px; }
+#system-debug div { font-size: 11px;}
+
+
+/* ================== Header Color additional classes ==================================*/
+.clear { clear: both; }
+.green {	color: #9EC630; }
+.gray  {	color: #BFBFBF; }
+
+
+/* ===================================== menu tabs =======================================*/
+#topmenu ul.menu-nav {
+	z-index: 999999;
+	position: absolute;
+   	margin:0; padding: 0;
+   	list-style:none;
+	right: 0;
+	bottom: 6px !important; bottom: 5px;
+	font: bold 13px  Arial, 'Trebuchet MS', Tahoma, verdana,  sans-serif;
+	float: right;
+}
+#topmenu li {
+   display:inline;
+   margin:0; padding:0;
+}
+#topmenu a {
+   float:left;
+   background: url(../images/tableft.gif) no-repeat left top;
+   margin:0;
+   padding:0 0 0 4px;
+   text-decoration:none;
+}
+#topmenu a span {
+   float:right;
+   display:block;
+   background: url(../images/tabright.gif) repeat-x right top;
+   padding:6px 15px 3px 8px;
+   color: #FFF;
+}
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+#topmenu a span {float:none;}
+/* End IE5-Mac hack */
+#topmenu a:hover span {
+	color:#FFF;
+}
+#topmenu a:hover {
+   background-position:0% -42px;
+}
+#topmenu a:hover span {
+   background-position:100% -42px;
+}
+#header #current a {
+   background-position:0% -42px;
+	color: #FFF;
+}
+#topmenu #current a span {
+   background-position:100% -42px;
+	color: #FFF;
+}
+/* end menu tabs */
+
+/*=================================== Left Module ==================================*/
+#sidebar .moduletable{
+	margin: 5px 0 10px 0;
+	overflow: hidden;
+}
+
+#sidebar .moduletable h3, #sidebar .moduletable_menu h3{
+	font: 18px "Trebuchet MS", Arial, "MS Sans Serif";
+	font-weight: bold;
+	color: #6297BC;
+}
+
+
+/*================================= left Menu ===========================================*/
+#sidebar ul.menu {
+	list-style:none;
+	margin:10px 0 10px 15px;
+	padding:0;
+}
+#sidebar ul.menu li {
+	margin-bottom:1px;
+	border: 1px solid #f2f2f2;
+	list-style: none;
+}
+#sidebar ul.menu a {
+	display:block;
+	font-weight:bold;
+	color: #333;
+	text-decoration:none;
+	padding:2px 5px 2px 10px;
+	background: #E6E6E6;
+	border-left:4px solid #CCC;
+
+	min-height:18px;
+}
+
+* html body #sidebar ul.menu a { height: 18px; }
+
+#sidebar ul.menu a:hover{
+	padding:2px 5px 2px 10px;
+	background: #f2f2f2;
+	color: #339900;
+	border-left:4px solid #9EC630;
+}
+
+#sidebar ul.menu li#current a{
+	padding:2px 5px 2px 10px;
+	background: #f2f2f2;
+	color: #339900;
+	border-left:4px solid #9EC630;
+	list-style: none;
+}
+
+
+/*=================================== Right Module ==================================*/
+#rightbar .moduletable{
+	margin: 5px 0 10px 0;
+	overflow: hidden;
+}
+
+#rightbar .moduletable h3, #rightbar .moduletable_menu h3{
+	font: 18px "Trebuchet MS", Arial, "MS Sans Serif";
+	font-weight: bold;
+	color: #6297BC;
+}
+
+/* ============================= user 1, user 2 module =============================*/
+#user1 .moduletable, #user2 .moduletable{
+	overflow: hidden;
+	margin: 0px 0 10px 0;
+	z-index:-2;
+}
+
+#user1 .moduletable h3, #user2 .moduletable h3{
+	font: 16px "Trebuchet MS", Arial, "MS Sans Serif";
+	font-weight: bold;
+	color: #000;
+	margin: 0;
+}

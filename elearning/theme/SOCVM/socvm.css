@@ -1,0 +1,333 @@
+/*
+
+Theme Name: Simone de Oliveira Chicarino Veronesi Marinho
+Theme URL: http://www.nce.ufrj.br/
+Description: Free Moodle theme based on Vulcan free theme by web2feel.com
+Author: Ricardo Lacerda Caiado
+Author URI: www.nce.ufrj.br
+Version: 1.1.0
+
+*/
+
+body {
+	margin:0 auto;
+	padding:0px 0px 0px 0px;
+	background:#212121  url(images/body.png);
+	font-family:Arial, verdana,Tahoma,Century gothic,  sans-serif;
+	font-size:12px;
+}
+
+	
+a {
+	color: #5384BF;
+	text-decoration: none;
+	outline:none;
+}
+
+a:visited {
+	color: #5384BF;
+}
+
+a:hover, a:active {
+	color: #214974;
+	text-decoration: none;
+}
+
+h1,h2, h3, h4, h5, h6 {
+	line-height:125%;
+	font-weight: bold;
+}
+
+table {
+	border: 0px solid #e7e7e7;
+	text-align: left;
+	width: 100%;
+}
+
+tr th, thead th {
+	color: #888;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+ul {
+	list-style: square;
+}
+
+
+blockquote {
+	font-style: italic;
+	color: #555;
+	padding:10px;
+}
+
+blockquote blockquote {
+	color: #777;
+}
+
+blockquote em {
+	font-style: normal;
+}
+
+pre {
+	padding: 9px;
+	background: #f9f9f9;
+	border: 1px solid #ccc;
+}
+
+code {
+	padding: 0 3px;
+	background: #eee;
+}
+
+pre code {
+	background: transparent;
+}
+
+.socvm_clear {
+	clear:both;
+}
+
+.rounded {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+/* The Outer cover */
+
+.socvm_masthead {
+	height:218px;
+	background:url(images/masthead.png) repeat-x;
+}
+
+#socvm_wrapper {
+	width:1000px;
+	margin:0px auto;
+	position:relative;
+	padding:0px 0px;
+	}
+
+#socvm_casing {
+	padding:0px 0px ;
+	float:left;
+	width:1000px;
+	margin:0px 0px 0px 0px;
+	background:url(images/casing.png) repeat-y;
+}		
+
+#socvm_topbox{
+	width:1000px;
+	height:66px;
+	margin:0px auto;
+	border:0px solid #ffffff;
+}
+
+	
+/* The Header */
+
+#socvm_top {
+	height:102px;
+	margin:auto;
+	position:relative;
+	background:url(images/top.png) top center no-repeat;
+}
+	
+.socvm_head {
+	width:1000px;
+	margin:0px auto;
+}
+
+.socvm_blogname {
+	width:1000px;
+	margin:25px 0 0 10px;
+	height:70px;
+	text-align:left;
+	float:left;
+	color: #fff; 
+}
+
+.socvm_blogname h1 {
+	font-size:42px;
+	padding:0px 0px 0px 0px;
+	font-weight:normal;
+	text-shadow:1px 1px 0px #172527;
+	color: #fff; 
+}
+
+.socvm_blogname h1  a:link, .socvm_blogname h1  a:visited{ 
+	color: #fff; 
+	display:block;
+	margin:0px 0 0 0px;
+}
+	
+.socvm_blogname h1  a:hover { 
+	color: #fff; 
+}
+
+.socvm_blogname h2 {
+	margin:0px 0px 0px 0px;
+	font-size:32px;
+	font-weight:normal;
+	color: #ffffff; 
+	text-shadow:1px 1px 0px #172527;
+}
+
+
+/*Page menu*/
+
+
+#socvm_foxmenucontainer {
+	height:50px;
+	display:block;
+	margin:0px auto;
+	font: 11px verdana,Arial, Tahoma,Century gothic,  sans-serif;
+	font-weight:normal;
+	text-transform:uppercase;
+	background:#0f1114;
+}
+
+#socvm_menu {
+	margin:0px auto;
+	padding: 0px;
+	height:50px;
+	overflow:hidden;
+	width:1000px;
+}
+	
+#socvm_menu ul {
+	float: left;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+	
+#socvm_menu li {
+	float: left;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	line-height:50px;
+	color:#9faabe;
+}
+	
+#socvm_menu li a, #socvm_menu li a:link, #socvm_menu li a:visited {
+	color:#9faabe;
+	display: block;
+	margin: 0px;
+	padding: 0px 10px ;
+	line-height:50px;
+}
+
+#socvm_menu li a:hover, #socvm_menu li a:active {
+	background:#810E0C;
+	color: #fff;
+	margin: 0px;
+	padding: 0px 10px ;
+	line-height:50px;
+	text-decoration: none;
+}
+
+#socvm_menu li:hover, #socvm_menu li.sfhover { 
+	position: static;
+}
+	
+/* Main Content*/	
+
+
+#socvm_content {
+	float:left;
+	width: 1000px;
+	padding:0px 0px 0px 0px;
+	margin:0px 2px 0px 2px;
+	display:inline;
+	overflow:hidden;
+	color:#454b58;
+	margin-bottom:10px;
+	border-bottom:1px solid #ddd;
+	position:relative;
+}
+
+	
+/* --- FOOTER --- */
+	
+#socvm_footer {
+	padding:10px 0 10px 0px;
+	color:#7F533F;
+	font-size:12px;
+	margin:0px auto;
+	background:#0F0500 ;
+}
+
+#socvm_footer a:link , #socvm_footer a:visited {
+	color:#7F533F;
+}
+
+#socvm_footer a:hover {
+	color:#7F533F;
+}
+
+.socvm_fcred {
+	text-align:center;
+	margin:10px 0px 10px 10px;
+	line-height:16px;
+}
+
+	
+#socvm_bottom {
+	border-top:5px solid #fdaa24;
+	margin:0px auto;
+	width:1000px;
+}
+
+.socvm_bottomcover {
+	background:#210b01 url(images/foot.jpg) center top  no-repeat;
+	margin:0px auto;
+}	
+
+#socvm_bottom ul {
+	list-style-type: none;
+	margin:  0px;
+	padding: 0px 0px 0px 0px ;
+}
+
+#socvm_bottom li {
+	list-style-type: none;
+	margin: 0 ;
+	padding: 0;
+}
+
+
+#socvm_bottom a:link, #socvm_bottom a:visited {
+	color: #CF8767;
+	text-decoration: none;
+	padding: 5px 0px 5px 5px;
+	display:inline;
+
+}
+
+#socvm_bottom a:hover {
+	color: #fff;
+}
+
+#socvm_bottom p {
+	padding: 7px 10px;
+	margin:0;
+}
+
+#socvm_bottom table {
+	width:100%;
+	text-align:center;
+	color:#787d7f;
+}
+
+.#socvm_bottomclear {
+	clear: both;
+}
+
+th.header, td.header, h1.header, h2.header, h3.header, div.header, th.header a {
+    background-image:url(images/top.png);     
+    background-position:top;    
+    background-repeat:repeat-x;
+	color: #ffffff;
+}

@@ -1,0 +1,103 @@
+/*
+    Document   : style
+    Created on : Jul 5, 2012, 5:19:27 PM
+    Author     : irhamnurhalim
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+root {
+    display: block;
+}
+
+body {
+    margin: 40px;
+    font:13px/1.231 arial,helvetica,clean,sans-serif;
+    background-color: #09405D;
+    background-image: url('./img/pg-bg.jpg');
+    background-repeat: repeat;
+    background-attachment: scroll;
+}
+
+header {
+    padding-bottom: 10px;
+}
+
+header .navbar-inner {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
+form label.required {
+    font-weight: bold;
+}
+
+#content {
+    background: #FFF;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.page-header {
+    padding-bottom: 10px;
+}
+
+.logo {
+    font-family: 'Century Gothic',futura,'URW Gothic L',Verdana,sans-serif;
+    font-size: 20pt;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    color:#1E5E00;
+}
+.title-page {
+    font-family: 'Century Gothic',futura,'URW Gothic L',Verdana,sans-serif;
+    font-size: 16pt;
+}
+
+.well-box {
+    font: 35px/26px 'WebServeroffRegular', Arial, sans-serif;
+    letter-spacing: 0;
+    text-align: center;
+}
+/*
+Font Face
+*/
+@font-face {
+    font-family: 'WebServeroffRegular';
+    src: url('font/Web_Serveroff-webfont.eot');
+    src: url('font/Web_Serveroff-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/Web_Serveroff-webfont.woff') format('woff'),
+         url('font/Web_Serveroff-webfont.ttf') format('truetype'),
+         url('font/Web_Serveroff-webfont.svg#WebServeroffRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'WebServeroffItalic';
+    src: url('font/Web_Serveroff-Italic-webfont.eot');
+    src: url('font/Web_Serveroff-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/Web_Serveroff-Italic-webfont.woff') format('woff'),
+         url('font/Web_Serveroff-Italic-webfont.ttf') format('truetype'),
+         url('font/Web_Serveroff-Italic-webfont.svg#WebServeroffItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}

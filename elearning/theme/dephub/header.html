@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php $site='http://localhost/dephub/';?>
+<html<?php echo $direction ?>>
+<head>
+    <?php echo $meta ?>
+    <meta name="keywords" content="moodle, <?php echo $title ?> " />
+    <title><?php echo $title ?></title>
+    <link rel="shortcut icon" href="<?php echo $CFG->themewww .'/'. current_theme() ?>/favicon.ico" />
+
+    <?php include('ui/chameleon.php'); ?>
+    <?php include("$CFG->javascript"); ?>
+    <script src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/jquery.js"></script>
+    <script src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/jquery-ui.js"></script>
+    <script src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/bootstrap.js"></script>
+    <script src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/sisfo.js"></script>
+</head>
+
+<body<?php
+    echo " $bodytags";
+    if ($focus) {
+        echo " onload=\"setfocus()\"";
+    };
+    ?>>
+
+<div id="page">
+
+<div class="container" id="content">
+    <div class="row">
+	<div class="span-24">
+	    <img src="<?php echo $CFG->themewww .'/'. current_theme() ?>/img/header.jpg" />
+	</div>
+    </div>
+    <br />
+    <div class="clear"></div>
+
+    <div id="menu">
+	<div id="yw0" class="navbar">
+	    <div class="navbar-inner">
+	    <div class="container">
+		<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		    <span class="icon-bar"></span>
+		</a>
+		<div class="nav-collapse">
+		    <ul class="nav">
+			<a class="brand" href="#"><img src="<?php echo $CFG->themewww .'/'. current_theme() ?>/img/dephub-icon.png" /></a>
+			<li><a href="<?php echo $site;?>">Halaman Utama</a></li>
+			<li class="active"><a href="<?php echo $site;?>elearning">E-Learning</a></li>
+			<li><a href="<?php echo $site;?>site/dashboard/email">E-Mail</a></li>
+			<li><a href="<?php echo $site;?>site/dashboard/diklat">Manajemen Diklat</a></li>
+			<li><a href="<?php echo $site;?>site/dashboard/library">Library</a></li>
+			<li><a data-toggle="dropdown" class="dropdown-toggle" href="#">Tentang Kita<b class="caret"></b></a>
+			    <ul class="dropdown-menu">
+				<li><a href="<?php echo $site;?>about">Pusbang SDM</a></li>
+				<li><a href="<?php echo $site;?>about/visi_misi">Visi & Misi</a></li>
+				<li><a href="<?php echo $site;?>about/struktur">Struktur Organisasi</a></li>
+				<li><a href="<?php echo $site;?>about/kontak">Kontak</a></li>
+			    </ul>
+			</li>
+		    </ul>
+		</div>
+	    </div>
+	    </div>
+	</div>
+    </div>
+    <!-- mainmenu -->
+
+    <?php if ($home) {
+    ?>
+    <div id="header-home" class="clearfix">
+      <h1 class="title-page"><?php echo $heading ?></h1>
+      <div class="headermenu"><?php echo $menu ?></div>
+    </div>
+    <div class="navbar clearfix">
+        &nbsp;
+    </div>
+<?php } else if ($heading) {
+?>
+    <div id="header" class="clearfix">
+      <h1 class="headermain"><?php echo $heading ?></h1>
+      <div class="headermenu"><?php echo $menu ?></div>
+    </div>
+    <div class="navbar clearfix">
+    <?php if ($navigation) {
+    ?>
+        <div class="breadcrumb"><?php print_navigation($navigation); ?></div>
+        <div class="navbutton"><?php echo $button; ?></div>
+    <?php } ?>
+    </div>
+<?php } ?>
+    <!-- END OF HEADER -->

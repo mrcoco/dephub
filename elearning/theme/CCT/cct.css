@@ -1,0 +1,224 @@
+/*
+
+Theme Name: Cássia Curan Turci
+Theme URL: http://www.nce.ufrj.br/
+Description: Free Moodle theme based on Calypso free theme by web2feel.com
+Author: Ricardo Lacerda Caiado
+Author URI: www.nce.ufrj.br
+Version: 1.1.0
+
+*/
+body {
+	margin:0 auto;
+	padding:0px 0px 0px 0px;
+	background:#fff  url(images/body.png) ;
+	font-family:verdana,Arial, Tahoma,Century gothic,  sans-serif;
+	font-size:12px;
+}
+
+.cct_clear {
+	clear:both;
+}
+.cct_rounded {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+/* The Outer cover */
+
+#cct_wrapper {
+	width:1000px;
+	margin:0px auto;
+	position:relative;
+}
+
+#cct_casing {
+	padding:0px 0px 50px 0px;
+	float:left;
+	width:1000px;
+	margin:0px 0px 0px 0px;
+	background:url(images/casing.png) bottom no-repeat;
+}
+
+#cct_content {
+	float:left;
+	width: 670px;
+	height:100%;
+	padding:0px 0px 0px 0px;
+	margin:20px 0px 0px 0px;
+	display:inline;
+	overflow:hidden;
+	background:#fff;
+	border:1px solid #ddd;
+}		
+
+/* The Header */
+
+#cct_masthead {
+	background:#172527;
+	height:170px;
+}
+
+#cct_top {
+	height:130px;
+	margin:auto;
+	width:1000px;
+	position:relative;
+	background:url(images/top.jpg);
+	white-space:nowrap;
+}
+	
+.cct_blogname {
+	width:1000px;
+	margin:35px 0 0 0px;
+	height:70px;
+	text-align:left;
+	float:left;
+}
+
+.cct_blogname h1 {
+	font-size:40px;
+	padding:0 0 0px 0;
+	font-weight:normal;
+	color: #ffffff;
+}
+
+.cct_blogname h1  a:link, .cct_blogname h1  a:visited { 
+	color: #fff; 
+	display:block;
+	margin:5px 0 0 0px;
+}
+	
+.cct_blogname h1  a:hover { 
+	color: #fff; 
+	}
+
+.cct_blogname h2 {
+	margin:0px 0px 0px 0px;
+	font-size:12px;
+	font-weight:normal;
+	color: #fff; 
+	text-shadow:1px 1px 0px #172527;
+}
+
+.cct_blogname h2  a:link, .cct_blogname h1  a:visited { 
+	color: #fff; 
+	display:inline;
+	margin:5px 0 0 0px;
+}
+
+.cct_blogname h2  a:hover { 
+	color: #fff; 
+	}
+
+/*Page menu*/
+
+#cct_foxmenucontainer {
+	height:40px;
+	display:block;
+	margin:0px auto;
+	font-weight:normal;
+	text-transform:normal;
+	width:1000px;
+	background:url(images/menu.jpg);
+}
+
+#cct_menu {
+	margin:0px auto;
+	padding: 0px 10px;
+	height:40px;
+	overflow:hidden;
+}
+	
+#cct_menu ul {
+	float: left;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+	
+#cct_menu li {
+	float: left;
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+	color: #ffffff;
+}
+	
+#cct_menu li a, #cct_menu li a:link, #cct_menu li a:visited {
+	color:#fff;
+	display: inline;
+	margin: 0px;
+	padding: 0px 10px ;
+	line-height:0px;
+}
+
+#cct_menu li a:hover, #cct_menu li a:active {
+	color: #222;
+	margin: 0px;
+	padding: 0px 10px ;
+	line-height:0px;
+	text-decoration: none;
+}
+	
+	
+/* Footer */
+	
+#cct_footer {
+	padding:10px 0 10px 0px;
+	color:#aaa;
+	font-size:12px;
+	margin:0px auto;
+	background:#1d2f31 ;
+	font-family:Arial;
+}
+
+#cct_footer a:link , #cct_footer a:visited {
+	color:#aaa;
+}
+
+#cct_footer a:hover {
+	color:#fff;
+}
+
+.cct_fcred {
+	text-align:center;
+	margin:10px 0px 10px 10px;
+	line-height:16px;
+}
+
+.cct_bottomcover {
+	background:url(images/bottom.png) ;
+	margin:-12px auto 0px auto;
+	text-align:center;
+}	
+
+#cct_bottom {
+	background:url(images/foot.png) top no-repeat;
+	margin:0px auto;
+	width:1000px;
+	color: #ffffff;
+}
+
+#cct_bottom a:link, #cct_bottom a:visited {
+	color: #c3dcdf;
+	text-decoration: none;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	padding-left: 0px;
+	display: inline;
+}
+
+#cct_bottom a:hover {
+	color: #ffffff;
+}
+
+th.header, td.header, h1.header, h2.header, h3.header, div.header, th.header a {
+    background-image:url(images/menu.jpg);     
+    background-position:top;    
+    background-repeat:repeat-x;
+	color: #ffffff;
+}
+

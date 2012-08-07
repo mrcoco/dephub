@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html<?php echo $direction ?>>
+<head>
+    <?php echo $meta ?>
+    <meta name="keywords" content="moodle, <?php echo $title ?> " />
+    <title><?php echo $title ?></title>
+    <link rel="shortcut icon" href="<?php echo $CFG->themewww .'/'. current_theme() ?>/favicon.ico" />
+    <?php include("$CFG->javascript"); ?>
+    <script src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/cufon-yui.js"></script>
+    <script type="text/javascript" src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/Myriad_Pro_700.font.js"></script>
+    <script type="text/javascript">
+	Cufon.replace('.cct_blogname');
+    </script>
+</head>
+
+<body<?php
+    echo " $bodytags";
+    if ($focus) {
+        echo " onload=\"setfocus()\"";
+    }
+    ?>>
+
+<div id="page">
+
+<div id="cct_masthead"> 
+	<div id="cct_top"> 
+		<div class="cct_blogname">
+			<h1 class="headermain"><?php echo $heading ?></h1><br clear="all" />
+			<h2><a href="http://www.ufrj.br" target="_new">Universidade Federal do Rio de Janeiro</a> - <a href="http://www.ouvidoria.ufrj.br" target="_new">Ouvidoria</a></h2>
+		</div> <!-- end cct_blogname -->
+	</div> <!-- end cct_top -->
+
+<?php //Accessibility: 'headermain' is now H1, see theme/standard/styles_layout.css: .headermain
+      if ($home) {  // This is what gets printed on the home page only
+?>
+    <?php print_container_start(true, '', 'header-home'); ?>
+        
+	<!-- EMPTY -->
+
+    <?php print_container_end(); ?>
+<?php } else if ($heading) {  // This is what gets printed on any other page with a heading
+?>
+    <?php print_container_start(true, '', 'header'); ?>
+
+	<!-- EMPTY -->
+
+    <?php print_container_end(); ?>
+<?php } ?>
+
+<?php //Accessibility: breadcrumb trail/navbar now a DIV, not a table.
+      if ($navigation) { // This is the navigation bar with breadcrumbs  ?>
+	<div id="cct_foxmenucontainer">
+		<div id="cct_menu">
+			<div class="navbar">
+				<div class="breadcrumb"><?php print_navigation($navigation); ?></div>
+				<div class="navbutton"><?php echo $button; ?></div>
+			</div>
+		</div> <!-- end cct_menu -->
+	</div> <!-- end cct_foxmenucontainer -->
+<?php } else if ($heading) { // If no navigation, but a heading, then print a line
+?>
+	<div id="cct_foxmenucontainer">
+		<div id="cct_menu">
+		<div class="navbar">
+			<div class="breadcrumb"><ul><li>Bem-vindo ao Ambiente Virtual de Aprendizagem Moodle</li></ul></div>
+		</div>
+		</div>
+	</div> <!-- end cct_foxmenucontainer -->
+<?php } ?>
+
+</div> <!-- end cct_head -->
+
+    <!-- END OF HEADER -->
+
+<div id="cct_wrapper">
+	<div id="cct_casing">
+		<div id="cct_content" style="width:1000px; margin:20px 0px;">
+
+    <?php print_container_start(false, '', 'content'); ?>

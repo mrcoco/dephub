@@ -1,0 +1,70 @@
+/#moomenuCK {
+clear:both;
+position:relative;
+z-index:800;
+}
+
+#moomenuCK > ul {
+clear:both;
+padding : 0;
+margin : 0;
+}
+
+#moomenuCK .moduletable{
+
+}
+
+#moomenuCK li {
+float:left;
+position:relative;
+text-align : left;
+padding : 0;
+margin : 0;
+}
+
+#moomenuCK li a {
+display:block;
+float : none !important;
+float : left;
+position:relative;
+z-index:1000;
+}
+
+#moomenuCK li ul {
+display:block;
+position:absolute;
+z-index:1100;
+left: -999em;
+clear:left;
+margin:0;
+padding:0;
+text-align : left;
+}
+
+#moomenuCK li ul ul {
+padding:0;
+
+}
+
+#moomenuCK li ul li {
+text-align : left;
+z-index : 1001;
+margin:0;
+padding:0;
+}
+
+#moomenuCK li li a{
+display: block;
+padding : 0;
+margin : 0;
+}
+
+#moomenuCK li:hover ul ul, #moomenuCK li:hover ul ul ul,
+#moomenuCK li.sfhover ul ul, #moomenuCK li.sfhover ul ul ul {
+left: -999em;
+}
+
+#moomenuCK li:hover ul, #moomenuCK li li:hover ul, #moomenuCK li li li:hover ul,
+#moomenuCK li.sfhover ul, #moomenuCK li li.sfhover ul, #moomenuCK li li li.sfhover ul {
+left: auto;
+}

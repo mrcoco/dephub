@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html<?php echo $direction ?>>
+<head>
+    <?php echo $meta ?>
+    <meta name="keywords" content="moodle, <?php echo $title ?> " />
+    <title><?php echo $title ?></title>
+    <link rel="shortcut icon" href="<?php echo $CFG->themewww .'/'. current_theme() ?>/favicon.ico" />
+    <?php include("$CFG->javascript"); ?>
+    <script src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/cufon-yui.js"></script>
+    <script type="text/javascript" src="<?php echo $CFG->themewww .'/'. current_theme() ?>/js/Cicle_300-Cicle_italic_400.font.js"></script>
+    <script type="text/javascript">
+	Cufon.replace('.socvm_blogname');
+    </script>
+</head>
+
+<body<?php
+    echo " $bodytags";
+    if ($focus) {
+        echo " onload=\"setfocus()\"";
+    }
+    ?>>
+
+<div id="page">
+
+<?php //Accessibility: 'headermain' is now H1, see theme/standard/styles_layout.css: .headermain
+if ($home) {  // This is what gets printed on the home page only
+?>
+	<div class="socvm_masthead">
+
+	<?php print_container_start(true, '', 'header-home'); ?>
+
+	<div id="socvm_foxmenucontainer">
+
+		<div id="socvm_menu">
+			<ul><li><a href="http://www.ufrj.br/" target="_new">Universidade Federal do Rio de Janeiro</a></li><li><a href="http://www.ouvidoria.ufrj.br/" target="_new">Ouvidoria</a></li><li></ul>
+		</div>	<!-- menu -->
+
+	</div> <!-- foxmenucontainer -->
+
+	<div id="socvm_top"> 
+
+		<div class="socvm_head">
+
+			<div class="socvm_blogname">
+				<h1><?php echo $heading ?></h1>
+			</div> <!-- blogname -->
+
+		</div> <!-- head -->
+	</div> <!-- top -->
+
+	<?php print_container_end(); ?>
+<?php } else if ($heading) {  // This is what gets printed on any other page with a heading
+?>
+	<div class="socvm_masthead">
+
+	<?php print_container_start(true, '', 'header'); ?>
+	
+
+	<div id="socvm_foxmenucontainer">
+
+		<div id="socvm_menu">
+			<ul><li><a href="http://www.ufrj.br/" target="_new">Universidade Federal do Rio de Janeiro</a></li><li><a href="http://www.ouvidoria.ufrj.br/" target="_new">Ouvidoria</a></li><li></ul>
+		</div>	<!-- menu -->
+
+	</div> <!-- foxmenucontainer -->
+
+	<div id="socvm_top"> 
+
+		<div class="socvm_head">
+
+			<div class="socvm_blogname">
+				<h2><?php echo $heading ?></h2>
+			</div> <!-- blogname -->
+
+		</div> <!-- head -->
+	</div> <!-- top -->
+
+	<?php print_container_end(); ?>
+<?php } ?>
+
+<?php //Accessibility: breadcrumb trail/navbar now a DIV, not a table.
+if ($navigation) { // This is the navigation bar with breadcrumbs  ?>
+
+	<div id="socvm_topbox">
+		<div class="navbar">
+       			<div class="breadcrumb"><?php print_navigation($navigation); ?></div>
+       			<div class="navbutton"><?php echo $button; ?></div>
+		</div>
+	</div>
+
+<?php } else if ($heading) { // If no navigation, but a heading, then print a line
+?>
+	<div id="socvm_topbox">
+		<div class="navbar">
+			<div class="breadcrumb"><ul><li>Bem-vindo ao Ambiente Virtual de Aprendizagem Moodle</div>
+		</div>
+	</div>
+
+<?php } ?>
+
+</div>	<!-- masthead -->
+
+
+
+<div id="socvm_wrapper">
+
+	<div id="socvm_casing">
+		<div id="socvm_content" >
+
+
