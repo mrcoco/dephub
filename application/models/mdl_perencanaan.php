@@ -46,6 +46,15 @@ class Mdl_perencanaan extends CI_Model{
         $this->db->insert('program',$data);
     }
     
+    function update_diklat($clause,$data){
+        $this->db->where('id',$clause);
+        $this->db->update('program',$data);
+    }
+    
+    function delete_diklat($id){
+        $this->db->where('id',$id);
+        $this->db->delete('program');
+    }
 }
 
 /* End of file course.php */
