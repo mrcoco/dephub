@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9.2
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 06, 2012 at 04:05 PM
--- Server version: 5.5.9
--- PHP Version: 5.3.6
+-- Waktu pembuatan: 07. Agustus 2012 jam 09:43
+-- Versi Server: 5.5.16
+-- Versi PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -16,16 +17,16 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `dephub_simdik`
+-- Database: `sisfo_pusbang`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_cv_peserta`
+-- Struktur dari tabel `tb_cv_peserta`
 --
 
-CREATE TABLE `tb_cv_peserta` (
+CREATE TABLE IF NOT EXISTS `tb_cv_peserta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` varchar(45) DEFAULT NULL,
   `nama` varchar(45) DEFAULT NULL,
@@ -46,36 +47,26 @@ CREATE TABLE `tb_cv_peserta` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_cv_peserta`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_daftar_hadir`
+-- Struktur dari tabel `tb_daftar_hadir`
 --
 
-CREATE TABLE `tb_daftar_hadir` (
+CREATE TABLE IF NOT EXISTS `tb_daftar_hadir` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` varchar(45) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_daftar_hadir`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_evaluasi_penyelenggaraan`
+-- Struktur dari tabel `tb_evaluasi_penyelenggaraan`
 --
 
-CREATE TABLE `tb_evaluasi_penyelenggaraan` (
+CREATE TABLE IF NOT EXISTS `tb_evaluasi_penyelenggaraan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` varchar(45) DEFAULT NULL,
   `id_program` varchar(45) DEFAULT NULL,
@@ -85,35 +76,53 @@ CREATE TABLE `tb_evaluasi_penyelenggaraan` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_evaluasi_penyelenggaraan`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_info`
+-- Struktur dari tabel `tb_info`
 --
 
-CREATE TABLE `tb_info` (
+CREATE TABLE IF NOT EXISTS `tb_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `diklat_message` text,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tb_info`
+-- Struktur dari tabel `tb_kategori`
 --
 
+CREATE TABLE IF NOT EXISTS `tb_kategori` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) DEFAULT NULL,
+  `parent` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data untuk tabel `tb_kategori`
+--
+
+INSERT INTO `tb_kategori` (`id`, `name`, `parent`) VALUES
+(1, 'DIKLAT PRAJABATAN', 0),
+(2, 'DIKLAT DALAM JABATAN', 0),
+(3, 'DIKLAT TEKNIS', 0),
+(4, 'Diklat Kepemimpinan', 2),
+(5, 'Diklat Fungsional', 2),
+(6, 'Diklat Teknis Umum', 3),
+(7, 'Diklat Teknis Manajemen', 3),
+(8, 'Diklat Fungsional Keahlian', 5),
+(9, 'Diklat Teknis Fungsional', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_penilaian_kkk`
+-- Struktur dari tabel `tb_penilaian_kkk`
 --
 
-CREATE TABLE `tb_penilaian_kkk` (
+CREATE TABLE IF NOT EXISTS `tb_penilaian_kkk` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` int(11) DEFAULT NULL,
   `id_program` int(11) DEFAULT NULL,
@@ -125,18 +134,13 @@ CREATE TABLE `tb_penilaian_kkk` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_penilaian_kkk`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_penilaian_kkol`
+-- Struktur dari tabel `tb_penilaian_kkol`
 --
 
-CREATE TABLE `tb_penilaian_kkol` (
+CREATE TABLE IF NOT EXISTS `tb_penilaian_kkol` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` int(11) DEFAULT NULL,
   `id_program` int(11) DEFAULT NULL,
@@ -150,18 +154,13 @@ CREATE TABLE `tb_penilaian_kkol` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_penilaian_kkol`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_penilaian_kkp`
+-- Struktur dari tabel `tb_penilaian_kkp`
 --
 
-CREATE TABLE `tb_penilaian_kkp` (
+CREATE TABLE IF NOT EXISTS `tb_penilaian_kkp` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` int(11) DEFAULT NULL,
   `id_program` int(11) DEFAULT NULL,
@@ -175,18 +174,13 @@ CREATE TABLE `tb_penilaian_kkp` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_penilaian_kkp`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_penilaian_sikap_perilaku`
+-- Struktur dari tabel `tb_penilaian_sikap_perilaku`
 --
 
-CREATE TABLE `tb_penilaian_sikap_perilaku` (
+CREATE TABLE IF NOT EXISTS `tb_penilaian_sikap_perilaku` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_program` varchar(45) DEFAULT NULL,
   `nip` varchar(45) DEFAULT NULL,
@@ -210,18 +204,13 @@ CREATE TABLE `tb_penilaian_sikap_perilaku` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_penilaian_sikap_perilaku`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_peserta`
+-- Struktur dari tabel `tb_peserta`
 --
 
-CREATE TABLE `tb_peserta` (
+CREATE TABLE IF NOT EXISTS `tb_peserta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` varchar(25) DEFAULT NULL,
   `nama` varchar(45) DEFAULT NULL,
@@ -234,18 +223,13 @@ CREATE TABLE `tb_peserta` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_peserta`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_program`
+-- Struktur dari tabel `tb_program`
 --
 
-CREATE TABLE `tb_program` (
+CREATE TABLE IF NOT EXISTS `tb_program` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `parent` int(11) DEFAULT NULL,
@@ -262,21 +246,36 @@ CREATE TABLE `tb_program` (
   `fasilitator` text,
   `jumlah_peserta` varchar(45) DEFAULT NULL,
   `tempat` varchar(255) DEFAULT NULL,
+  `tahun_program` year(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
 
 --
--- Dumping data for table `tb_program`
+-- Dumping data untuk tabel `tb_program`
 --
 
+INSERT INTO `tb_program` (`id`, `name`, `parent`, `deskripsi`, `tujuan`, `indikator`, `pelaksanaan`, `lama_pendidikan`, `tanggal_mulai`, `tanggal_akhir`, `persyaratan`, `materi`, `pelaksana`, `fasilitator`, `jumlah_peserta`, `tempat`, `tahun_program`) VALUES
+(1, 'DIklat Prajabatan Tkt. I', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(2, 'DIklat Prajabatan Tkt. II', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(3, 'Diklat Prajabatan Tkt. III', 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(4, 'Analisis Kepegawaian', 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(5, 'Arsiparis', 8, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(6, 'Training of Trainer', 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(7, 'Management of Training', 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(8, 'Diklat Kepemimpinan Tkt IV', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(9, 'Diklat Kepemimpinan Tkt. III', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(10, 'Keselamatan Transportasi', 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(11, 'Perencanaan Transportasi', 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(12, 'Manajemen Legal Drafting', 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012),
+(13, 'ESQ', 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 2012);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_registrasi`
+-- Struktur dari tabel `tb_registrasi`
 --
 
-CREATE TABLE `tb_registrasi` (
+CREATE TABLE IF NOT EXISTS `tb_registrasi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_program` int(11) DEFAULT NULL,
   `id_peserta` varchar(45) DEFAULT NULL,
@@ -284,18 +283,13 @@ CREATE TABLE `tb_registrasi` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_registrasi`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_schedule`
+-- Struktur dari tabel `tb_schedule`
 --
 
-CREATE TABLE `tb_schedule` (
+CREATE TABLE IF NOT EXISTS `tb_schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_program` int(11) DEFAULT NULL,
   `id_widyaiswara` int(11) DEFAULT NULL,
@@ -305,18 +299,13 @@ CREATE TABLE `tb_schedule` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_schedule`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_sociograph`
+-- Struktur dari tabel `tb_sociograph`
 --
 
-CREATE TABLE `tb_sociograph` (
+CREATE TABLE IF NOT EXISTS `tb_sociograph` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` varchar(45) DEFAULT NULL,
   `rank1` int(11) DEFAULT NULL,
@@ -327,18 +316,13 @@ CREATE TABLE `tb_sociograph` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_sociograph`
---
-
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_user`
+-- Struktur dari tabel `tb_user`
 --
 
-CREATE TABLE `tb_user` (
+CREATE TABLE IF NOT EXISTS `tb_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `password` varchar(45) DEFAULT NULL,
@@ -348,21 +332,22 @@ CREATE TABLE `tb_user` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `tb_user`
+-- Dumping data untuk tabel `tb_user`
 --
 
-INSERT INTO `tb_user` VALUES(1, 'Perencanaan', '10c4981bb793e1698a83aea43030a388', 1, 'simdik/perencanaan');
-INSERT INTO `tb_user` VALUES(2, 'Penyelenggaraan', '10c4981bb793e1698a83aea43030a388', 2, 'simdik/penyelenggaraan');
-INSERT INTO `tb_user` VALUES(3, 'Sarana & Prasarana', '10c4981bb793e1698a83aea43030a388', 3, 'simdik/sarpras');
-INSERT INTO `tb_user` VALUES(4, 'Administrator', '10c4981bb793e1698a83aea43030a388', 4, 'simdik/administrator');
+INSERT INTO `tb_user` (`id`, `name`, `password`, `role`, `link`) VALUES
+(1, 'Perencanaan', '21232f297a57a5a743894a0e4a801fc3', 1, 'simdik/perencanaan'),
+(2, 'Penyelenggaraan', '10c4981bb793e1698a83aea43030a388', 2, 'simdik/penyelenggaraan'),
+(3, 'Sarana & Prasarana', '10c4981bb793e1698a83aea43030a388', 3, 'simdik/sarpras'),
+(4, 'Administrator', '10c4981bb793e1698a83aea43030a388', 4, 'simdik/administrator');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_widyaiswara`
+-- Struktur dari tabel `tb_widyaiswara`
 --
 
-CREATE TABLE `tb_widyaiswara` (
+CREATE TABLE IF NOT EXISTS `tb_widyaiswara` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nip` varchar(45) DEFAULT NULL,
   `tempat_lahir` varchar(45) DEFAULT NULL,
@@ -379,7 +364,6 @@ CREATE TABLE `tb_widyaiswara` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `tb_widyaiswara`
---
-
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
