@@ -19,6 +19,7 @@
     <!--scripts-->
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
+    
     <script type="text/javascript" src="assets/js/tm/jquery.tinymce.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-transition.js"></script>
