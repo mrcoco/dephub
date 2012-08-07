@@ -9,24 +9,23 @@
     });
 </script>
 <div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
     <div class="span3">
 	<div class="well">
 	    <h4>LOGIN</h4>
 	    <p>
-		<?php echo form_open('login/auth');?>
+		<?php echo form_open('login/auth'); ?>
 		<select name="username" style="width: 180px">
 		    <option value="1">Bidang Perencanaan</option>
 		    <option value="2">Bidang Penyelenggaraan</option>
 		    <option value="3">Bidang Sarana dan Prasarana</option>
-		    <option value="4">Bagian Umum</option>
-		    <option value="5">Administrator</option>
+		    <option value="4">Administrator</option>
 		</select>
 		<input type="password" name="password" placeholder="password" style="width: 170px"/>
 		<input type="submit" class="btn btn-primary" name="submit" value="Login" />
-		<?php echo form_close();?>
-		<div align="right">
-		    <a href="#" id="bantuan" rel="popover" data-content="<ul><li>Pilih username sesuai dengan bidang atau bagian.</li><li>Masukkan password sesuai dengan bidang atau bagian tersebut.</li></ul>" data-original-title="Bantuan Login">Bantuan?</a></div>
-		<?php echo $this->session->flashdata('msg');?>
+		<?php echo form_close(); ?>
+	    <div align="right">
+		<a href="#" id="bantuan" rel="popover" data-content="<ul><li>Pilih username sesuai dengan bidang atau bagian.</li><li>Masukkan password sesuai dengan bidang atau bagian tersebut.</li></ul>" data-original-title="Bantuan Login">Bantuan?</a></div>
 	    </p>
 	</div>
 	<div class="well">
@@ -56,12 +55,12 @@
 </div>
 <script type="text/javascript">
     $('#calendar').fullCalendar({
-	    editable: false,
-	    events: "<?php echo site_url();?>site/dashboard/event",
-	    loading: function(bool) {
-		    if (bool) $('#loading').show();
-		    else $('#loading').hide();
-	    }
+	editable: false,
+	events: "<?php echo site_url(); ?>site/dashboard/event",
+	loading: function(bool) {
+	    if (bool) $('#loading').show();
+	    else $('#loading').hide();
+	}
 
     });
 </script>
