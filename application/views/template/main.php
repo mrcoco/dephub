@@ -37,7 +37,7 @@
 
 	    <div class="clear"></div>
 	    <div>
-		<h1 class="title-page"><?php echo $title;?> <small><?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?></small></h1>
+		<h1 class="title-page"><?php echo $this->session->userdata('detail');?> <small><?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?></small></h1>
 		<hr />
 		<?php echo $_content;?>
 	    </div><!-- content -->
