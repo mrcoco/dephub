@@ -17,12 +17,12 @@ class Dashboard extends Perencanaan_Controller{
         $this->thn_default = date('Y');
         $this->load->model('mdl_perencanaan','rnc');
     }
-    
+
     public function index(){
         $this->home();
-        
+
     }
-    
+
     function home($thn=''){
         if($thn==''){
             $thn=$this->thn_default;
