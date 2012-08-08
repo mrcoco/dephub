@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 08. Agustus 2012 jam 05:28
+-- Waktu pembuatan: 08. Agustus 2012 jam 07:27
 -- Versi Server: 5.5.16
 -- Versi PHP: 5.3.8
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `tb_feedback_sarpras` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_program` int(11) NOT NULL,
   `1a` text NOT NULL,
   `1b` text NOT NULL,
   `1c` text NOT NULL,
@@ -53,10 +54,18 @@ CREATE TABLE IF NOT EXISTS `tb_feedback_sarpras` (
   `3f` text NOT NULL,
   `manfaat` text NOT NULL,
   `kelebihan_catering` text NOT NULL,
-  `kekurangan_katering` text NOT NULL,
+  `kekurangan_catering` text NOT NULL,
   `keterangan` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data untuk tabel `tb_feedback_sarpras`
+--
+
+INSERT INTO `tb_feedback_sarpras` (`id`, `id_program`, `1a`, `1b`, `1c`, `1d`, `1e`, `2a`, `2b`, `2c`, `2d`, `2e`, `2f`, `2g`, `2h`, `2i`, `2j`, `2k`, `2l`, `3a`, `3b`, `3c`, `3d`, `3e`, `3f`, `manfaat`, `kelebihan_catering`, `kekurangan_catering`, `keterangan`) VALUES
+(1, 1, 'Ga tau###Tes aja lah###Jelek', 'Mana ada###sdvbdsvb ds###', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '', '', '', ''),
+(2, 1, 'Ga tau###Tes aja lah###Jelek', 'Mana ada###fsdbdf eewfew ewfewf efew few###', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '######', '', '', '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

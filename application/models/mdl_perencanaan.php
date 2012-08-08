@@ -55,6 +55,29 @@ class Mdl_perencanaan extends CI_Model{
         $this->db->where('id',$id);
         $this->db->delete('program');
     }
+    
+    function insert_feedback_sarpras($data){
+        $this->db->insert('feedback_sarpras',$data);
+    }
+    
+    function update_feedback_sarpras($data,$clause){
+        $this->db->where('id',$clause);
+        $this->db->update('feedback_sarpras',$data);
+    }
+    
+    function get_feedback_sarpras($id){
+        $data = $this->db->get_where('feedback_sarpras',array('id'=>$id));
+        if($data->num_rows()==1){
+            return $data->row_array();
+        }else{
+            return FALSE;
+        }
+    }
+    
+    function delete_feedback_sarpras($id){
+        $this->db->where('id',$clause);
+        $this->db->delete('feedback_sarpras');
+    }
 }
 
 /* End of file course.php */

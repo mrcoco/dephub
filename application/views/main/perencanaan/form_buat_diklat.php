@@ -86,7 +86,9 @@
                 <div class="control-group">
                     <label class="control-label" for="jml_pes">Jumlah Peserta</label>
                     <div class="controls">
-                        <input type="text" class="input-mini" id="jml_pes" name="jumlah_peserta"><span class="add-on">orang</span>
+                        <div class="input-append">
+                            <input type="text" class="input-mini" id="jml_pes" name="jumlah_peserta"><span class="add-on">orang</span>
+                        </div>
                     </div>
                 </div>
                 <div class="control-group">

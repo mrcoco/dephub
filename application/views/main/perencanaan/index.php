@@ -1,4 +1,3 @@
-<h2>Daftar Diklat Tahun <?php echo date('Y'); ?></h2>
 <div>
     <h3>DIKLAT PRAJABATAN</h3>
     <div class="accordion">
