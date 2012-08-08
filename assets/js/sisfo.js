@@ -14,5 +14,5 @@ jQuery(function($) {
       }
     });
   });
-  $('a').tooltip()
+  $('.tip').tooltip()
 });

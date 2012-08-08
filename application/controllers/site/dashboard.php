@@ -21,8 +21,12 @@ class Dashboard extends CI_Controller {
     }
 
     function diklat() {
-	$data['title'] = 'Sistem Informasi Manajemen Diklat';
-	$this->template->display('main/dashboard/simdik', $data);
+	if ($this->session->userdata('is_login')) {
+	    redirect($this->session->userdata('link'));
+	} else {
+	    $data['title'] = 'Sistem Informasi Manajemen Diklat';
+	    $this->template->display('main/dashboard/simdik', $data);
+	}
     }
 
     function event() {
