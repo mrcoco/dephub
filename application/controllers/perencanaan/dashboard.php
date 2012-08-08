@@ -28,7 +28,6 @@ class Dashboard extends Perencanaan_Controller{
             $thn=$this->thn_default;
         }
         $this->load->library('lib_perencanaan');
-	$data['title']='Bidang Perencanaan';
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
         $data['kategori']=$this->rnc->get_kategori();
         $data['program']=$this->rnc->get_program($thn);
@@ -37,7 +36,6 @@ class Dashboard extends Perencanaan_Controller{
     
     function detail_diklat($id){
         $data['program']=$this->rnc->get_program_by_id($id);
-        $data['title']='Bidang Perencanaan';
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
@@ -49,7 +47,6 @@ class Dashboard extends Perencanaan_Controller{
     
     function buat_diklat(){
         $this->load->library('editor');
-        $data['title']='Bidang Perencanaan';
 	$data['sub_title']='Buat Diklat Baru';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
@@ -79,13 +76,13 @@ class Dashboard extends Perencanaan_Controller{
         $data['tahun_program']=$this->input->post('tahun_program');
         
         $this->rnc->insert_diklat($data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Sudah dimasukkan'));
 	redirect(base_url().'perencanaan/dashboard');        
     }
     
     function edit_diklat($id){
         $data['program']=$this->rnc->get_program_by_id($id);
         $this->load->library('editor');
-        $data['title']='Bidang Perencanaan';
 	$data['sub_title']='Ubah Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
@@ -126,7 +123,7 @@ class Dashboard extends Perencanaan_Controller{
     }
     
     function form_feedback_sarpras($id_program){
-        $data['title']='Bidang Perencanaan';
+        $data['sub_title']='Formulir Evaluasi Penyelenggaraan';
         $data['program']=$this->rnc->get_program_by_id($id_program);
         $this->template->display('main/perencanaan/form_feedback_sarpras',$data);
     }
@@ -169,7 +166,7 @@ class Dashboard extends Perencanaan_Controller{
     }
     
     function edit_feedback_sarpras($id_feedback){
-        $data['title']='Bidang Perencanaan';
+        $data['sub_title']='Ubah Evaluasi Penyelenggaraan';
         
         $data_feedback = $this->rnc->get_feedback_sarpras($id_feedback);
         if($data_feedback){
@@ -256,8 +253,8 @@ class Dashboard extends Perencanaan_Controller{
     }
     
     function display_feedback_sarpras($id){
-        $data['title']='Bidang Perencanaan';
-        
+        $this->load->library('editor');
+        $data['sub_title']='Hasil Evaluasi Penyelenggaraan';
         $data_feedback = $this->rnc->get_feedback_sarpras($id);
         if($data_feedback){
             $data['id']=$data_feedback['id'];
@@ -293,6 +290,9 @@ class Dashboard extends Perencanaan_Controller{
             $data['kelebihan_catering']=$data_feedback['kelebihan_catering'];
             $data['kekurangan_catering']=$data_feedback['kekurangan_catering'];
             $data['keterangan']=$data_feedback['keterangan'];
+            $this->template->display('main/perencanaan/display_feedback_sarpras',$data);
+        }else{      
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Belum ada evaluasi yang dimasukkan'));
             $this->template->display('main/perencanaan/display_feedback_sarpras',$data);
         }
     }
