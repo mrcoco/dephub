@@ -29,6 +29,7 @@ class Dashboard extends Perencanaan_Controller{
         }
         $this->load->library('lib_perencanaan');
 	$data['title']='Bidang Perencanaan';
+	$data['sub_title']='Daftar Diklat Tahun '.$thn;
         $data['kategori']=$this->rnc->get_kategori();
         $data['program']=$this->rnc->get_program($thn);
 	$this->template->display('main/perencanaan/index',$data);
@@ -37,6 +38,7 @@ class Dashboard extends Perencanaan_Controller{
     function detail_diklat($id){
         $data['program']=$this->rnc->get_program_by_id($id);
         $data['title']='Bidang Perencanaan';
+	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
         foreach($kategori as $k){
@@ -48,6 +50,7 @@ class Dashboard extends Perencanaan_Controller{
     function buat_diklat(){
         $this->load->library('editor');
         $data['title']='Bidang Perencanaan';
+	$data['sub_title']='Buat Diklat Baru';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
         foreach($kategori as $k){
@@ -83,6 +86,7 @@ class Dashboard extends Perencanaan_Controller{
         $data['program']=$this->rnc->get_program_by_id($id);
         $this->load->library('editor');
         $data['title']='Bidang Perencanaan';
+	$data['sub_title']='Ubah Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
         foreach($kategori as $k){
