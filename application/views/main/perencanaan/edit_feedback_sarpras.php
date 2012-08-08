@@ -1,5 +1,3 @@
-FORMULIR EVALUASI PENYELENGGARAAN
-<br/>
 <?php echo strtoupper($program['name']) ?>
 <br/>
 PUSAT PENGEMBANGAN SDM APARATUR PERHUBUNGAN

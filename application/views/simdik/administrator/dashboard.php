@@ -3,26 +3,34 @@
 	<fieldset class="fieldset_box">
 	    <!-- Profile -->
 	    <div class="well span1" align="center">
-		<a href="#" rel="tooltip" title="Klik untuk mengatur pengguna" class="tip">
-		    <img src="assets/img/users.png" />
+		<a href="administrator/profiles" rel="tooltip" title="Klik untuk mengatur pengguna" class="tip">
+		    <img src="assets/img/admin/users.png" />
 		</a>
 		<strong>Users</strong>
 	    </div>
 
 	    <!-- Configuration -->
 	    <div class="well span1" align="center">
-		<a href="#" rel="tooltip" title="Klik untuk melakukan pengaturan site" class="tip">
-		    <img src="assets/img/config.png" />
+		<a href="administrator/config" rel="tooltip" title="Klik untuk melakukan pengaturan site" class="tip">
+		    <img src="assets/img/admin/config.png" />
 		</a>
 		<strong>Config</strong>
 	    </div>
 
 	    <!-- Program -->
 	    <div class="well span1" align="center">
-		<a href="#" rel="tooltip" title="Klik untuk melakukan pengaturan program" class="tip">
-		    <img src="assets/img/calendar.png" />
+		<a href="administrator/program" rel="tooltip" title="Klik untuk melakukan pengaturan program" class="tip">
+		    <img src="assets/img/admin/calendar.png" />
 		</a>
 		<strong>Program</strong>
+	    </div>
+
+	    <!-- Information -->
+	    <div class="well span1" align="center">
+		<a href="administrator/info" rel="tooltip" title="Klik untuk mengubah informasi" class="tip">
+		    <img src="assets/img/admin/info.png" />
+		</a>
+		<strong>Info</strong>
 	    </div>
 	</fieldset>
 	<hr />

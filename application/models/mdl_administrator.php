@@ -5,7 +5,7 @@
  * @author Administrator
  */
 class Mdl_administrator extends CI_Model{
-    private $table_program='program';
+    private $table_info='info';
 
     function __construct() {
 	parent::__construct();
@@ -13,6 +13,11 @@ class Mdl_administrator extends CI_Model{
     /**
      * CRUD Administrator
      */
+
+    function get_info()
+    {
+	return $this->db->get($this->table_info);
+    }
 }
 
 /* End of file mdl_administrator.php */
