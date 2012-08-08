@@ -1,4 +1,10 @@
 <h2><?php echo $program['name'] ?></h2>
+<div class="well-small">
+<a href="perencanaan/dashboard/edit_diklat/<?php echo $program['id'] ?>"><i class="icon-edit"></i>Ubah</a>
+<a href="perencanaan/dashboard/delete_diklat/<?php echo $program['id'] ?>"
+   onclick="return confirm('Apakah Anda yakin ingin menghapus Diklat <?php echo $program['name']?>?')">
+    <i class="icon-trash"></i>Hapus</a>
+</div>
 <div>Kategori : <?php echo $pil_kategori[$program['parent']] ?></div>
 <div>Tanggal mulai : <?php echo $program['tanggal_mulai'] ?></div>
 <div>Tanggal akhir : <?php echo $program['tanggal_akhir'] ?></div>

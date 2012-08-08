@@ -11,11 +11,14 @@
  * @author bharata
  */
 class Lib_perencanaan {
-    function print_child($array,$parent){
+    function print_child($array,$parent,$kiri,$kanan,$kelas){
         if($array){
             foreach($array as $data){
                 if($data['parent']==$parent){
-                    echo '<div>'.$data['name'].'</div>';
+                    echo $kiri.'<a href="perencanaan/dashboard/detail_diklat/'.$data['id'].'" class="'.$kelas.'">
+                            '.$data['name'].'
+                        </a>'.$kanan.'
+                        ';
                 }
             }
         }

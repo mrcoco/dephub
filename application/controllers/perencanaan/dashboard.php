@@ -76,6 +76,7 @@ class Dashboard extends Perencanaan_Controller{
         $data['tahun_program']=$this->input->post('tahun_program');
         
         $this->rnc->insert_diklat($data);
+	redirect('perencanaan/dashboard');        
     }
     
     function edit_diklat($id){
@@ -112,9 +113,11 @@ class Dashboard extends Perencanaan_Controller{
         $data['tahun_program']=$this->input->post('tahun_program');
         
         $this->rnc->update_diklat($clause,$data);
+	redirect('perencanaan/dashboard/detail_diklat/'.$clause);        
     }
     
     function delete_diklat($id){
         $this->rnc->delete_diklat($id);
+	redirect('perencanaan/dashboard');        
     }
 }
