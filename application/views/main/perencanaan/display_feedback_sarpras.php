@@ -1,9 +1,4 @@
-<?php echo strtoupper($program['name']) ?>
-<br/>
-PUSAT PENGEMBANGAN SDM APARATUR PERHUBUNGAN
-<br/>
-Saran/Evaluasi Peserta
-<br/>
+<p align="center" class="lead">Saran/Evaluasi Peserta <?php echo strtoupper($program['name']) ?></p>
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#kurikulum" data-toggle="tab">Kurikulum Diklat</a></li>
     <li><a href="#sarpras" data-toggle="tab">Sarana & Prasarana Diklat</a></li>
@@ -62,7 +57,7 @@ Saran/Evaluasi Peserta
             </tbody>
         </table>
     </div>
-    <div class="tab-pane active" id="sarpras">
+    <div class="tab-pane" id="sarpras">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -161,7 +156,7 @@ Saran/Evaluasi Peserta
             </tbody>
         </table>
     </div>
-    <div class="tab-pane active" id="penyelenggaraan">
+    <div class="tab-pane" id="penyelenggaraan">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -218,7 +213,7 @@ Saran/Evaluasi Peserta
             </tbody>
         </table>
     </div>
-    <div class="tab-pane active" id="manfaat">
+    <div class="tab-pane" id="manfaat">
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -232,7 +227,7 @@ Saran/Evaluasi Peserta
             </tbody>
         </table>
     </div>
-    <div class="tab-pane active" id="catering">
+    <div class="tab-pane" id="catering">
         <table class="table table-bordered">
             <thead>
                 <tr>
