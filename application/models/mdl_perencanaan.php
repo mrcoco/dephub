@@ -15,7 +15,7 @@ class Mdl_perencanaan extends CI_Model{
      */
     
     function get_program($thn){
-        $program = $this->db->get_where('program',array('tahun_program'=>$thn))->order_by("id", "asc"); 
+        $program = $this->db->get_where('program',array('tahun_program'=>$thn)); 
         if($program->num_rows()>0){
             return $program->result_array();
         }else{
