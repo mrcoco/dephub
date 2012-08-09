@@ -49,7 +49,7 @@
 		    Untuk melihat kalender per tahun : <button class="btn btn-info" onclick="window.location='site/dashboard/kalender_diklat'"><i class="icon-calendar icon-white"></i> Kalender satu tahun</button>
 		</p>
 	    </div>
-	    <div class="tab-pane" id="informasi">Informasi</div>
+	    <div class="tab-pane" id="informasi"><?php echo $info;?></div>
 	</div>
     </div>
 </div>
