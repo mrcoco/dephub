@@ -51,7 +51,11 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
+<<<<<<< HEAD
 $db['default']['database'] = 'dephub_simdik';
+=======
+$db['default']['database'] = 'sisfo_pusbang';
+>>>>>>> 68c93fd50986e5aaf7bdf6d7af40ae5ef479ec28
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'tb_';
 $db['default']['pconnect'] = TRUE;
@@ -67,7 +71,11 @@ $db['default']['stricton'] = FALSE;
 $db['elearning']['hostname'] = 'localhost';
 $db['elearning']['username'] = 'root';
 $db['elearning']['password'] = '';
+<<<<<<< HEAD
 $db['elearning']['database'] = 'dephub_elearning';
+=======
+$db['elearning']['database'] = 'elearning_dephub';
+>>>>>>> 68c93fd50986e5aaf7bdf6d7af40ae5ef479ec28
 $db['elearning']['dbdriver'] = 'mysql';
 $db['elearning']['dbprefix'] = 'mdl_';
 $db['elearning']['pconnect'] = TRUE;
