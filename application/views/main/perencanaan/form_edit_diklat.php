@@ -1,4 +1,28 @@
-<form method="post" action="perencanaan/dashboard/update_diklat" class="form-horizontal">
+<script type="text/javascript">
+$().ready(function() {    
+	var container = $('div.alert');
+	var validator = $("#form1").validate({
+		errorLabelContainer: container,
+		errorContainer: $(container),
+                rules: {
+			name: "required",
+			tahun_program: "required"
+		},
+		messages: {
+			name: "Nama wajib diisi!",
+			tahun_program: "Tahun program wajib diisi!"
+		}
+
+	});
+	$(".cancel").click(function() {
+		validator.resetForm();
+	});
+});
+</script>
+<div class="alert alert-error fade in none">
+    <h4>Error!</h4>
+</div>
+<form id="form1" method="post" action="perencanaan/dashboard/update_diklat" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id" value="<?php echo $program['id'] ?>"/>
         <legend>Form Pengubahan Diklat</legend>

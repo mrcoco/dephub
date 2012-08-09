@@ -15,7 +15,7 @@ class Mdl_perencanaan extends CI_Model{
      */
     
     function get_program($thn){
-        $program = $this->db->get_where('program',array('tahun_program'=>$thn));
+        $program = $this->db->get_where('program',array('tahun_program'=>$thn)); 
         if($program->num_rows()>0){
             return $program->result_array();
         }else{
@@ -68,6 +68,14 @@ class Mdl_perencanaan extends CI_Model{
         $data = $this->db->get_where('feedback_sarpras',array('id'=>$id));
         if($data->num_rows()==1){
             return $data->row_array();
+        }else{
+            return FALSE;
+        }
+    }
+    function get_feedback_sarpras_program($id){
+        $feedback = $this->db->get_where('feedback_sarpras',array('id_program'=>$id));
+        if($feedback->num_rows()>0){
+            return $feedback->result_array();
         }else{
             return FALSE;
         }
