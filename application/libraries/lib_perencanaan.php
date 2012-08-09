@@ -23,5 +23,19 @@ class Lib_perencanaan {
             }
         }
     }
+    function print_child_feedback($array,$id_program,$kiri,$kanan,$kelas){
+        if($array){
+            $no=1;
+            foreach($array as $data){
+                if($data['id_program']==$id_program){
+                    echo $kiri.'<a href="perencanaan/dashboard/display_feedback_sarpras/'.$data['id'].'"><i class="icon-list-alt"></i> 
+                            Feedback '.$no.'
+                        </a>'.$kanan.'
+                        ';
+                    $no++;
+                }
+            }
+        }
+    }
 }
 

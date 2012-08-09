@@ -1,3 +1,22 @@
+<script type="text/javascript">
+$().ready(function() {    
+	var container = $('div.alert');
+	var validator = $("#form1").validate({
+		errorLabelContainer: container,
+		errorContainer: $(container),
+                rules: {
+		},
+		messages: {
+		}
+	});
+	$(".cancel").click(function() {
+		validator.resetForm();
+	});
+});
+</script>
+<div class="alert alert-error fade in none">
+    <h4>Error!</h4>
+</div>
 <p align="center" class="lead">Saran/Evaluasi Peserta <?php echo strtoupper($program['name']) ?></p>
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#kurikulum" data-toggle="tab">Kurikulum Diklat</a></li>
@@ -6,7 +25,7 @@
     <li><a href="#manfaat" data-toggle="tab">Manfaat dari Program Diklat</a></li>
     <li><a href="#catering" data-toggle="tab">Pemakanan/Catering</a></li>
 </ul>
-<form action="perencanaan/dashboard/update_feedback_sarpras" method="post" class="form-horizontal">
+<form id="form1" action="perencanaan/dashboard/insert_feedback_sarpras" method="post" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
         <div class="tab-content">

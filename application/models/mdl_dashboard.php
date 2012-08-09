@@ -6,10 +6,11 @@
  */
 class Mdl_dashboard extends CI_Model{
     private $table_program='program';
+    private $table_info='info';
 
     function __construct() {
 	parent::__construct();
-	$this->db_elearning=$this->load->database('elearning',TRUE);
+	$this->db_elearning=$this->load->database('elearning');
     }
     /**
      * CRUD Course
@@ -18,6 +19,11 @@ class Mdl_dashboard extends CI_Model{
     function get_all()
     {
 	return $this->db->get($this->table_program);
+    }
+
+    function get_info()
+    {
+	return $this->db->get($this->table_info);
     }
 
     function get_course_moodle()

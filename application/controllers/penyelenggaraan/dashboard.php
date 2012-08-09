@@ -33,7 +33,7 @@ class Dashboard extends Penyelenggaraan_Controller{
     function registrasi(){
         $data['sub_title']='Registrasi Diklat';
         $list_program = $this->rnc->get_program($this->thn);
-        $data['pil_program']=array(-1=>'');
+        $data['pil_program']=array(-1=>'Pilih diklat');
         foreach($list_program as $program){
             $data['pil_program'][$program['id']]=$program['name'];
         }
