@@ -10,7 +10,7 @@ class Mdl_dashboard extends CI_Model{
 
     function __construct() {
 	parent::__construct();
-	$this->db_elearning=$this->load->database('elearning');
+	$this->db_elearning=$this->load->database('elearning',TRUE);
     }
     /**
      * CRUD Course
