@@ -15,7 +15,6 @@ class Mdl_perencanaan extends CI_Model{
      */
     
     function get_program($thn){
-        $this->db->select('id,name,parent');
         $program = $this->db->get_where('program',array('tahun_program'=>$thn));
         if($program->num_rows()>0){
             return $program->result_array();

@@ -1,3 +1,6 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <div>
     <h3>DIKLAT PRAJABATAN</h3>
     <div class="accordion">
@@ -104,4 +107,4 @@
         </div>
     </div>
 
-    <a href="perencanaan/dashboard/buat_diklat" class="btn btn-primary">Buat Diklat</a>
+    <a href="perencanaan/dashboard/buat_diklat" class="btn btn-primary"><i class="icon-plus icon-white"></i> Buat Diklat</a>

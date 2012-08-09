@@ -1,250 +1,265 @@
-FORMULIR EVALUASI PENYELENGGARAAN
-<br/>
-<?php echo strtoupper($program['name']) ?>
-<br/>
-PUSAT PENGEMBANGAN SDM APARATUR PERHUBUNGAN
-<br/>
-<br/>
-<form action="perencanaan/dashboard/insert_feedback_sarpras" method="post">
-    <input type="hidden" name="id_program" value="<?php echo $program['id']?>"/>
-    <table border="1">
-        <thead>
-            <tr>
-                <th colspan="5" width="900px">
-                    Saran/Evaluasi Peserta
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>No</td>
-                <td>Bahan Evaluasi</td>
-                <td>Kekurangan/Kelemahan</td>
-                <td>Alasan</td>
-                <td>Saran Konstruktif</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>Kurikulum Diklat : </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>a. Mata Pelajaran</td>
-                <td><textarea name="1a1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1a2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1a3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>b. Jam Pelajaran</td>
-                <td><textarea name="1b1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1b2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1b3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>c. Kualitas Pembelajaran di Kelas</td>
-                <td><textarea name="1c1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1c2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1c3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>d. Kualitas Bahan Ajar</td>
-                <td><textarea name="1d1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1d2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1d3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>e. Kualitas Evaluasi Pembelajaran<br/>(Ujian Kelulusan Diklat)</td>
-                <td><textarea name="1e1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1e2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="1e3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Sarana dan Prasarana Diklat </td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>a. Toilet (sebutkan lokasinya)</td>
-                <td><textarea name="2a1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2a2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2a3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>b. ATK Diklat (sebutkan apa)</td>
-                <td><textarea name="2b1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2b2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2b3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>c. Asrama Diklat (sebutkan di asrama mana, A/B)</td>
-                <td><textarea name="2c1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2c2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2c3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>d. Gedung Olahraga</td>
-                <td><textarea name="2d1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2d2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2d3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>e. Tempat Ibadah</td>
-                <td><textarea name="2e1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2e2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2e3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>f. Kamar (No berapa, di asrama mana)</td>
-                <td><textarea name="2f1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2f2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2f3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>g. Ruang kelas (sebutkan kelas mana)</td>
-                <td><textarea name="2g1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2g2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2g3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>h. Lab Komputer</td>
-                <td><textarea name="2h1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2h2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2h3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>i. Lab Bahasa</td>
-                <td><textarea name="2i1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2i2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2i3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>j. Perpustakaan</td>
-                <td><textarea name="2j1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2j2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2j3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>k. Koperasi</td>
-                <td><textarea name="2k1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2k2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2k3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>l. Fasilitas Internet</td>
-                <td><textarea name="2l1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2l2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="2l3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Penyelenggaraan Diklat</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>a. Efektifitas penyelenggaraan</td>
-                <td><textarea name="3a1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3a2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3a3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>b. Kesesuaian pelaksanaan program dengan rencana awal</td>
-                <td><textarea name="3b1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3b2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3b3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>c. Kesiapan Panitia</td>
-                <td><textarea name="3c1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3c2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3c3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>d. Administrasi Diklat</td>
-                <td><textarea name="3d1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3d2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3d3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>e. Pelayanan Terhadap peserta</td>
-                <td><textarea name="3e1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3e2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3e3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>f. Kebersihan Lingkungan Diklat</td>
-                <td><textarea name="3f1" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3f2" cols="50" rows="2"></textarea></td>
-                <td><textarea name="3f3" cols="50" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td colspan="4">MANFAAT DARI PROGRAM DIKLAT DI KANTOR ANDA</td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td colspan="4"><textarea name="manfaat" rows="3"></textarea></td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>Permakanan/Catering</td>
-                <td colspan="3">&nbsp;</td>
-            </tr>
-            <tr>
-                <td>&nbsp</td>
-                <td>Kelebihan</td>
-                <td colspan="3"><textarea name="kelebihan_catering" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td>&nbsp</td>
-                <td>Kekurangan</td>
-                <td colspan="3"><textarea name="kekurangan_catering" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2">Keterangan</td>
-                <td colspan="3"><textarea name="keterangan" rows="2"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="5">
-                    <input type="submit" value="Simpan"/>
-                    <input type="reset" value="Reset"/>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<p align="center" class="lead">Saran/Evaluasi Peserta <?php echo strtoupper($program['name']) ?></p>
+<ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#kurikulum" data-toggle="tab">Kurikulum Diklat</a></li>
+    <li><a href="#sarpras" data-toggle="tab">Sarana & Prasarana Diklat</a></li>
+    <li><a href="#penyelenggaraan" data-toggle="tab">Penyelenggaraan Diklat</a></li>
+    <li><a href="#manfaat" data-toggle="tab">Manfaat dari Program Diklat</a></li>
+    <li><a href="#catering" data-toggle="tab">Pemakanan/Catering</a></li>
+</ul>
+<form action="perencanaan/dashboard/update_feedback_sarpras" method="post" class="form-horizontal">
+    <fieldset>
+        <input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
+        <div class="tab-content">
+            <div class="tab-pane active" id="kurikulum">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="4%">No</th>
+                            <th width="24%">Bahan Evaluasi</th>
+                            <th width="24%">Kekurangan/Kelemahan</th>
+                            <th width="24%">Alasan</th>
+                            <th width="24%">Saran Konstruktif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>a.</td>
+                            <td>Mata Pelajaran</td>
+                            <td><textarea name="1a1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1a2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1a3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>b.</td>
+                            <td>Jam Pelajaran</td>
+                            <td><textarea name="1b1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1b2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1b3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>c.</td>
+                            <td>Kualitas Pembelajaran di Kelas</td>
+                            <td><textarea name="1c1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1c2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1c3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>d.</td>
+                            <td>Kualitas Bahan Ajar</td>
+                            <td><textarea name="1d1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1d2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1d3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>e.</td>
+                            <td>Kualitas Evaluasi Pembelajaran<br/>(Ujian Kelulusan Diklat)</td>
+                            <td><textarea name="1e1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1e2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="1e3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="sarpras">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="4%">No</th>
+                            <th width="24%">Bahan Evaluasi</th>
+                            <th width="24%">Kekurangan/Kelemahan</th>
+                            <th width="24%">Alasan</th>
+                            <th width="24%">Saran Konstruktif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>a.</td>
+                            <td>Toilet (sebutkan lokasinya)</td>
+                            <td><textarea name="2a1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2a2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2a3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>b.</td>
+                            <td>ATK Diklat (sebutkan apa)</td>
+                            <td><textarea name="2b1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2b2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2b3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>c.</td>
+                            <td>Asrama Diklat (sebutkan di asrama mana, A/B)</td>
+                            <td><textarea name="2c1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2c2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2c3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>d.</td>
+                            <td>Gedung Olahraga</td>
+                            <td><textarea name="2d1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2d2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2d3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>e.</td>
+                            <td>Tempat Ibadah</td>
+                            <td><textarea name="2e1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2e2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2e3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>f.</td>
+                            <td>Kamar (No berapa, di asrama mana)</td>
+                            <td><textarea name="2f1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2f2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2f3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>g.</td>
+                            <td>Ruang kelas (sebutkan kelas mana)</td>
+                            <td><textarea name="2g1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2g2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2g3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>h.</td>
+                            <td>Lab Komputer</td>
+                            <td><textarea name="2h1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2h2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2h3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>i.</td>
+                            <td>Lab Bahasa</td>
+                            <td><textarea name="2i1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2i2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2i3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>j.</td>
+                            <td>Perpustakaan</td>
+                            <td><textarea name="2j1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2j2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2j3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>k.</td>
+                            <td>Koperasi</td>
+                            <td><textarea name="2k1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2k2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2k3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>l.</td>
+                            <td>Fasilitas Internet</td>
+                            <td><textarea name="2l1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2l2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="2l3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="penyelenggaraan">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="4%">No</th>
+                            <th width="24%">Bahan Evaluasi</th>
+                            <th width="24%">Kekurangan/Kelemahan</th>
+                            <th width="24%">Alasan</th>
+                            <th width="24%">Saran Konstruktif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>a.</td>
+                            <td>Efektifitas penyelenggaraan</td>
+                            <td><textarea name="3a1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3a2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3a3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>b.</td>
+                            <td>Kesesuaian pelaksanaan program dengan rencana awal</td>
+                            <td><textarea name="3b1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3b2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3b3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>c.</td>
+                            <td>Kesiapan Panitia</td>
+                            <td><textarea name="3c1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3c2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3c3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>d.</td>
+                            <td>Administrasi Diklat</td>
+                            <td><textarea name="3d1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3d2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3d3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>e.</td>
+                            <td>Pelayanan Terhadap peserta</td>
+                            <td><textarea name="3e1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3e2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3e3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>f.</td>
+                            <td>Kebersihan Lingkungan Diklat</td>
+                            <td><textarea name="3f1" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3f2" cols="50" rows="2"></textarea></td>
+                            <td><textarea name="3f3" cols="50" rows="2"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="manfaat">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="5">MANFAAT DARI PROGRAM DIKLAT DI KANTOR ANDA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5"><textarea name="manfaat"  class="input-xlarge" rows="3"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="catering">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="4%">No</th>
+                            <th width="24%">Bahan Evaluasi</th>
+                            <th width="72%">Evaluasi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>&nbsp</td>
+                            <td>Kelebihan</td>
+                            <td colspan="3"><textarea name="kelebihan_catering"  class="input-xlarge" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp</td>
+                            <td>Kekurangan</td>
+                            <td colspan="3"><textarea name="kekurangan_catering"  class="input-xlarge" rows="2"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Keterangan</td>
+                            <td colspan="3"><textarea name="keterangan"  class="input-xlarge" rows="2"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-large">Simpan</button>
+        </div>
+    </fieldset>
 </form>
