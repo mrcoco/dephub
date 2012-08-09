@@ -89,7 +89,17 @@ form label.required {
     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-
+label.error-inline{
+    display: inline-block;
+    color: #b94a48;
+    padding-left: 10px;
+}
+label.error{
+    color: #b94a48;
+}
+.none{
+    display: none    
+}
 /*
 Font Face
 */

@@ -174,7 +174,7 @@ class Dashboard extends Perencanaan_Controller{
         
         $this->rnc->insert_feedback_sarpras($data);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
-        redirect(base_url().'perencanaan/dashboard/display_feedback_sarpras/'.$clause);        
+        redirect(base_url().'perencanaan/dashboard/display_feedback_sarpras/'.$data['id_program']);        
     }
     
     function edit_feedback_sarpras($id_feedback){

@@ -107,4 +107,4 @@
         </div>
     </div>
 
-    <a href="perencanaan/dashboard/buat_diklat" class="btn btn-primary"><i class="icon-plus icon-white"></i> Buat Diklat</a>
+    <a href="perencanaan/dashboard/buat_diklat" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Buat Diklat</a>

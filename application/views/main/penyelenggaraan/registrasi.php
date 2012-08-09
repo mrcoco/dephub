@@ -10,8 +10,7 @@
         obj_table.removeAttr('class');
         obj_table.attr('id', 'table'+num);
         $('#table'+num+' .num').text(num);
-        obj_table.show('blind');
-        
+        obj_table.show('blind');    
     }
     function delete_table(obj){
         if(num>1){
@@ -22,6 +21,25 @@
         }
     }
 </script>
+<script type="text/javascript">
+$().ready(function() {    
+	var container = $('div.alert');
+	var validator = $("#form1").validate({
+		errorLabelContainer: container,
+		errorContainer: $(container),
+                rules: {
+		},
+		messages: {
+		}
+	});
+	$(".cancel").click(function() {
+		validator.resetForm();
+	});
+});
+</script>
+<div class="alert alert-error fade in none">
+    <h4>Error!</h4>
+</div>
 
 <!-- Contoh buat di clone -->
 <table width="800" class="example">
@@ -37,7 +55,7 @@
         <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
     </tr>
     <tr>
-        <td>Tgl lahir</td>
+        <td>Tanggal lahir</td>
         <td><input type="date" name="tgl_lahir[]"/></td>
     </tr>
     <tr>
@@ -52,7 +70,7 @@
 <!-- Selesai Contoh-->
 
 
-<form action="" method="POST">
+<form id="form1" action="" method="POST">
     Program Diklat : <?php echo form_dropdown('program', $pil_program) ?>
     <hr/>
     <div id="wrap_form">
@@ -69,7 +87,7 @@
             <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
         </tr>
         <tr>
-            <td>Tgl lahir</td>
+            <td>Tanggal lahir</td>
             <td><input type="date" name="tgl_lahir[]"/></td>
         </tr>
         <tr>
@@ -81,5 +99,6 @@
         </tr>
         </table>
     </div>
-    <a href="javascript:append_table()">Tambah</a>&nbsp;&nbsp;<a href="javascript:delete_table()">Hapus</a>
+    <a href="javascript:append_table()" class="btn btn-primary"><i class="icon-plus"></i> Tambah</a>
+    <a href="javascript:delete_table()" class="btn"><i class="icon-minus"></i> Hapus</a>
 </form>
