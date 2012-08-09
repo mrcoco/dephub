@@ -11,10 +11,15 @@
  * @author bharata
  */
 class Dashboard extends Penyelenggaraan_Controller{
+    
+    protected $thn;
+    
     //put your code here
     function __construct() {
         parent::__construct();
         $this->load->model('mdl_penyelenggaraan','slng');
+        $this->load->model('mdl_perencanaan','rnc');
+        $this->thn = date('Y');
     }
     
     function index(){
@@ -23,5 +28,17 @@ class Dashboard extends Penyelenggaraan_Controller{
     
     function home(){
         
+    }
+    
+    function registrasi(){
+        $data['sub_title']='Registrasi Diklat';
+        $list_program = $this->rnc->get_program($this->thn);
+        $data['pil_program']=array(-1=>'');
+        foreach($list_program as $program){
+            $data['pil_program'][$program['id']]=$program['name'];
+        }
+        
+        
+        $this->template->display('main/penyelenggaraan/registrasi',$data);
     }
 }
