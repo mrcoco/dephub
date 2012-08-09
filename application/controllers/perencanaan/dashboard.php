@@ -34,14 +34,16 @@ class Dashboard extends Perencanaan_Controller{
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
         $data['kategori']=$this->rnc->get_kategori();
         $data['program']=$this->rnc->get_program($thn);
-	$this->template->display('main/perencanaan/index',$data);
+	$this->template->display('main/perencanaan/daftar_diklat',$data);
     }
 
     function detail_diklat($id){
         $data['program']=$this->rnc->get_program_by_id($id);
+        $data['feedback'] = $this->rnc->get_feedback_sarpras_program($id);
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
+        $this->load->library('lib_perencanaan');
         foreach($kategori as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }
@@ -84,6 +86,7 @@ class Dashboard extends Perencanaan_Controller{
         $data['tahun_program']=$this->input->post('tahun_program');
 
         $this->rnc->insert_diklat($data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah ditambahkan'));
 	redirect(base_url().'perencanaan/dashboard');
     }
 
@@ -121,11 +124,13 @@ class Dashboard extends Perencanaan_Controller{
         $data['tahun_program']=$this->input->post('tahun_program');
 
         $this->rnc->update_diklat($clause,$data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah diubah'));
 	redirect(base_url().'perencanaan/dashboard/detail_diklat/'.$clause);
     }
 
     function delete_diklat($id){
         $this->rnc->delete_diklat($id);
+        $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
 	redirect(base_url().'perencanaan/dashboard');
     }
 
@@ -171,7 +176,7 @@ class Dashboard extends Perencanaan_Controller{
 
         $this->rnc->insert_feedback_sarpras($data);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
-        redirect(base_url().'perencanaan/dashboard/display_feedback_sarpras/'.$data['id_program']);        
+        redirect(base_url().'perencanaan/dashboard/detail_diklat/'.$data['id_program']);        
     }
 
     function edit_feedback_sarpras($id_feedback){
@@ -212,7 +217,7 @@ class Dashboard extends Perencanaan_Controller{
             $data['kelebihan_catering']=$data_feedback['kelebihan_catering'];
             $data['kekurangan_catering']=$data_feedback['kekurangan_catering'];
             $data['keterangan']=$data_feedback['keterangan'];
-            $this->template->display('main/perencanaan/edit_feedback_sarpras',$data);
+            $this->template->display('main/perencanaan/form_edit_feedback_sarpras',$data);
         }
 
     }

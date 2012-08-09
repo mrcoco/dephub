@@ -59,7 +59,10 @@
             <td>Feedback Sarana Prasarana</td>
             <td>
                 <a href="perencanaan/dashboard/form_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-plus-sign"></i> Tambah</a>
-                <a href="perencanaan/dashboard/display_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-list-alt"></i> Display</a>             
+                <ul class="unstyled">
+                <?php $this->lib_perencanaan->print_child_feedback($feedback, $program['id'], '<li>', '</li>', '')
+                ?>
+                </ul>
             </td>
         </tr>
     </tbody>

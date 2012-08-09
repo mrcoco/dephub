@@ -72,6 +72,14 @@ class Mdl_perencanaan extends CI_Model{
             return FALSE;
         }
     }
+    function get_feedback_sarpras_program($id){
+        $feedback = $this->db->get_where('feedback_sarpras',array('id_program'=>$id));
+        if($feedback->num_rows()>=1){
+            return $feedback->result_array();
+        }else{
+            return FALSE;
+        }
+    }
     
     function delete_feedback_sarpras($id){
         $this->db->where('id',$clause);
