@@ -56,7 +56,7 @@ $().ready(function() {
                 <div class="control-group">
                     <label class="control-label" for="deskripsi">Deskripsi Singkat</label>
                     <div class="controls">
-                        <textarea name="deskripsi"></textarea>
+                        <?php echo $this->editor->textarea('deskripsi') ?>
                     </div>
                 </div>
             </div>
