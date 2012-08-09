@@ -1,8 +1,11 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <h2><?php echo $program['name'] ?></h2>
 <div class="well-small">
     <a href="perencanaan/dashboard/edit_diklat/<?php echo $program['id'] ?>"><i class="icon-edit"></i>Ubah</a>
     <a href="perencanaan/dashboard/delete_diklat/<?php echo $program['id'] ?>"
-       onclick="return confirm('Apakah Anda yakin ingin menghapus Diklat <?php echo $program['name'] ?>?')">
+       onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $program['name'] ?>?')">
         <i class="icon-trash"></i>Hapus</a>
 </div>
 <table class="table table-striped">
@@ -51,6 +54,13 @@
         </tr>
         <tr>
             <td>Materi</td><td><?php echo $program['materi'] ?></td>
+        </tr>
+        <tr>
+            <td>Feedback</td>
+            <td>
+                <a href="perencanaan/dashboard/form_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-plus"></i>Sarpras</a>
+                <a href="perencanaan/dashboard/display_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-list-alt"></i>Display Sarpras</a>             
+            </td>
         </tr>
     </tbody>
 </table>
