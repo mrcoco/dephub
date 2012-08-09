@@ -19,11 +19,14 @@ class Dashboard extends Perencanaan_Controller{
     }
 
     public function index(){
-        $this->home();
+        $this->daftar_diklat();
+//	$data['title']=$this->session->userdata('detail');
+//	$data['sub_title']='Dashboard';
+//	$this->template->display('main/perencanaan/dashboard',$data);
 
     }
 
-    function home($thn=''){
+    function daftar_diklat($thn=''){
         if($thn==''){
             $thn=$this->thn_default;
         }
@@ -42,7 +45,12 @@ class Dashboard extends Perencanaan_Controller{
         foreach($kategori as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }
-        $this->template->display('main/perencanaan/detail_diklat',$data);
+        if($data['program']){
+            $this->template->display('main/perencanaan/detail_diklat',$data);
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'perencanaan/dashboard');                    
+        }
     }
     
     function buat_diklat(){
@@ -76,7 +84,7 @@ class Dashboard extends Perencanaan_Controller{
         $data['tahun_program']=$this->input->post('tahun_program');
         
         $this->rnc->insert_diklat($data);
-        $this->session->set_flashdata('msg',$this->editor->alert_ok('Sudah dimasukkan'));
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah ditambahkan'));
 	redirect(base_url().'perencanaan/dashboard');        
     }
     
@@ -114,11 +122,13 @@ class Dashboard extends Perencanaan_Controller{
         $data['tahun_program']=$this->input->post('tahun_program');
         
         $this->rnc->update_diklat($clause,$data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah diubah'));
 	redirect(base_url().'perencanaan/dashboard/detail_diklat/'.$clause);        
     }
     
     function delete_diklat($id){
         $this->rnc->delete_diklat($id);
+        $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
 	redirect(base_url().'perencanaan/dashboard');        
     }
     
@@ -163,6 +173,8 @@ class Dashboard extends Perencanaan_Controller{
         $data['keterangan']=$this->input->post('keterangan');
         
         $this->rnc->insert_feedback_sarpras($data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
+        redirect(base_url().'perencanaan/dashboard/display_feedback_sarpras/'.$clause);        
     }
     
     function edit_feedback_sarpras($id_feedback){
@@ -246,10 +258,14 @@ class Dashboard extends Perencanaan_Controller{
         $data['keterangan']=$this->input->post('keterangan');
         
         $this->rnc->update_feedback_sarpras($data,$clause);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah diubah'));
+        redirect(base_url().'perencanaan/dashboard/display_feedback_sarpras/'.$clause);        
     }
     
     function delete_feedback_sarpras($id){
         $this->rnc->delete_feedback_sarpras($id);
+        $this->session->set_flashdata('msg',$this->editor->alert_warning('Feedback/evaluasi telah dihapus'));
+        redirect(base_url().'perencanaan/dashboard/detail_diklat/'.$id);        
     }
     
     function display_feedback_sarpras($id){
@@ -292,8 +308,8 @@ class Dashboard extends Perencanaan_Controller{
             $data['keterangan']=$data_feedback['keterangan'];
             $this->template->display('main/perencanaan/display_feedback_sarpras',$data);
         }else{      
-            $this->session->set_flashdata('msg',$this->editor->alert_ok('Belum ada evaluasi yang dimasukkan'));
-            $this->template->display('main/perencanaan/display_feedback_sarpras',$data);
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Belum ada feedback/evaluasi yang dimasukkan'));
+            redirect(base_url().'perencanaan/dashboard/detail_diklat/'.$id);        
         }
     }
     

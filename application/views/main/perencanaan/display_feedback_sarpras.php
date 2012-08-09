@@ -1,4 +1,13 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <p align="center" class="lead">Saran/Evaluasi Peserta <?php echo strtoupper($program['name']) ?></p>
+<div class="well-small">
+    <a href="perencanaan/dashboard/edit_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-edit"></i>Ubah</a>
+    <a href="perencanaan/dashboard/delete_feedback_sarpras/<?php echo $program['id'] ?>"
+       onclick="return confirm('Apakah Anda yakin ingin menghapus Evaluasi <?php echo $program['name'] ?>?')">
+        <i class="icon-trash"></i>Hapus</a>
+</div>
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#kurikulum" data-toggle="tab">Kurikulum Diklat</a></li>
     <li><a href="#sarpras" data-toggle="tab">Sarana & Prasarana Diklat</a></li>
