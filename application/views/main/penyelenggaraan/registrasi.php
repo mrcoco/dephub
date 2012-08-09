@@ -3,6 +3,43 @@
     $(document).ready(function(){
         $('.example').hide();
     });
+    
+    function validate_form(){
+        pil_prog=$('#pil_prog').attr('value');
+        instansi=$('#instansi').val();
+        if(pil_prog==-1){
+            alert('Anda belum memilih program');
+        }else{
+            if(instansi==""){
+                alert('Anda belum mengisi instansi');
+            }else{
+                data_nama = document.form_reg.elements["nama[]"];
+                data_nip = document.form_reg.elements["nip[]"];
+
+                if(num==1){
+                    if(data_nama.value==""||data_nip.value==""){
+                        alert('Isikan kolom nama dan nip secara lengkap');
+                    }else{
+                        document.form_reg.submit();
+                    }
+                }else{
+                    error=false;
+                    for(i=0;i<data_nama.length;i++){
+                        if(data_nama[i].value==""||data_nip[i].value==""){
+                            error=true;
+                            break;
+                        }
+                    }
+                    if(error){
+                        alert('Isikan kolom nama dan nip secara lengkap');
+                    }else{
+                        document.form_reg.submit();
+                    }
+                }
+            }
+        }
+    }
+    
     function append_table(){
         obj_table=$('.example').clone();
         $('#wrap_form').append(obj_table);
@@ -51,9 +88,10 @@
 
 <!-- Selesai Contoh-->
 
-
-<form action="" method="POST">
-    Program Diklat : <?php echo form_dropdown('program', $pil_program) ?>
+<form name="form_reg" action="penyelenggaraan/dashboard/registrasi_proses" method="POST">
+    Program Diklat : <?php echo form_dropdown('program', $pil_program,'','id="pil_prog"') ?>
+    <br/>
+    Instansi : <textarea id="instansi" name="instansi"></textarea>
     <hr/>
     <div id="wrap_form">
         <table id="table1" width="800">
@@ -82,4 +120,6 @@
         </table>
     </div>
     <a href="javascript:append_table()">Tambah</a>&nbsp;&nbsp;<a href="javascript:delete_table()">Hapus</a>
+    <br/><br/><br/>
+    <div><input type="button" value="Daftarkan" onclick="validate_form()"/></div>
 </form>
