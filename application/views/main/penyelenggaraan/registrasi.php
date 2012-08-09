@@ -124,46 +124,6 @@
     <br/><br/><br/>
     <div><input type="button" value="Daftarkan" onclick="validate_form()"/></div>
 </form>
-=======
-<script>
-    var num=1;
-    $(document).ready(function(){
-        $('.example').hide();
-    });
-    function append_table(){
-        obj_table=$('.example').clone();
-        $('#wrap_form').append(obj_table);
-        num++;
-        obj_table.removeAttr('class');
-        obj_table.attr('id', 'table'+num);
-        $('#table'+num+' .num').text(num);
-        obj_table.show('blind');    
-    }
-    function delete_table(obj){
-        if(num>1){
-            $('table:last-child','#wrap_form').hide('blind',function(){
-                $('table:last-child','#wrap_form').remove();
-            });
-            num--;
-        }
-    }
-</script>
-<script type="text/javascript">
-$().ready(function() {    
-	var container = $('div.alert');
-	var validator = $("#form1").validate({
-		errorLabelContainer: container,
-		errorContainer: $(container),
-                rules: {
-		},
-		messages: {
-		}
-	});
-	$(".cancel").click(function() {
-		validator.resetForm();
-	});
-});
-</script>
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
 </div>
@@ -229,4 +189,3 @@ $().ready(function() {
     <a href="javascript:append_table()" class="btn btn-primary"><i class="icon-plus"></i> Tambah</a>
     <a href="javascript:delete_table()" class="btn"><i class="icon-minus"></i> Hapus</a>
 </form>
->>>>>>> 1fc017a6951e02f175652e94c2e6886cf4d70434
