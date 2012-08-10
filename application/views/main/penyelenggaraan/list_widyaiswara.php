@@ -5,6 +5,9 @@
         $('#list').dataTable();
     } );
 </script>
+<?php 
+echo $msg;
+?>
 Daftar widyaiswara
 <br/>
 <table id="list" width="100%">
@@ -20,13 +23,17 @@ Daftar widyaiswara
         <?php for($i=0;$i<count($list);$i++) {?>
         <tr>
             <td><?php echo ($i+1) ?></td>
-            <td><a href="penyelenggaraan/dashboard/detail_widyaiswara/<?php echo $list[$i]['id'] ?>"><?php echo $list[$i]['nama'] ?></a></td>
+            <td><?php echo $list[$i]['nama'] ?></td>
             <td><?php echo $list[$i]['nip'] ?></td>
+            <td><?php echo $list[$i]['status'] ?></td>
             <td>
-                <a href="penyelenggaraan/dashboard/edit_widyaiswara/<?php echo $list[$i]['id'] ?>">Edit</a>
+                Edit
                 |
-                <a onclick="return confirm('Apakah anda yakin untuk menghapus data ini?')" href="penyelenggaraan/dashboard/delete_widyaiswara/<?php echo $list[$i]['id'] ?>">Delete</a>
+                Delete
+                |
+                
             </td>
         <?php }?>
     </tbody>
 </table>
+
