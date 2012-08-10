@@ -26,7 +26,36 @@ class Mdl_penyelenggaraan extends CI_Model{
             return FALSE;
         }
     }
+    
     function insert_registrasi($data_reg){
         $this->db->insert('registrasi',$data_reg);
+        return TRUE;
+    }
+    
+    function insert_widyaiswara($data){
+        $this->db->insert('widyaiswara',$data);
+    }
+    
+    function getall_widyaiswara(){
+        return $this->db->get_where('widyaiswara')->result_array();
+    }
+    
+    function get_widyaiswara($id){
+        $data = $this->db->get_where('widyaiswara',array('id'=>$id));
+        if($data->num_rows()==1){
+            return $data->row_array();
+        }else{
+            return FALSE;
+        }
+    }
+    
+    function update_widyaiswara($id,$data){
+        $this->db->where('id',$id);
+        $this->db->update('widyaiswara',$data);        
+    }
+    
+    function delete_widyaiswara($id){
+        $this->db->where('id',$id);
+        $this->db->delete('widyaiswara');
     }
 }

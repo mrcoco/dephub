@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <script>
     var num=1;
     $(document).ready(function(){
