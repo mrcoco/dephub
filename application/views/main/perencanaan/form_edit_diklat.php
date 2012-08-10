@@ -1,23 +1,31 @@
 <script type="text/javascript">
-$().ready(function() {    
-	var container = $('div.alert');
-	var validator = $("#form1").validate({
-		errorLabelContainer: container,
-		errorContainer: $(container),
-                rules: {
-			name: "required",
-			tahun_program: "required"
-		},
-		messages: {
-			name: "Nama wajib diisi!",
-			tahun_program: "Tahun program wajib diisi!"
-		}
+    $().ready(function() {    
+        var container = $('div.alert');
+        var validator = $("#form1").validate({
+            errorLabelContainer: container,
+            errorContainer: $(container),
+            rules: {
+                name: "required",
+                tahun_program: "required"
+            },
+            messages: {
+                name: "Nama wajib diisi!",
+                tahun_program: "Tahun program wajib diisi!"
+            }
 
-	});
-	$(".cancel").click(function() {
-		validator.resetForm();
-	});
-});
+        });
+        $(".cancel").click(function() {
+            validator.resetForm();
+        });
+    });
+    $(function(){
+        $('#tgl_mulai').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+        $('#tgl_akhir').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
 </script>
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
@@ -25,7 +33,6 @@ $().ready(function() {
 <form id="form1" method="post" action="perencanaan/dashboard/update_diklat" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id" value="<?php echo $program['id'] ?>"/>
-        <legend>Form Pengubahan Diklat</legend>
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
             <li><a href="#tujuan" data-toggle="tab">Tujuan dan Indikator</a></li>
@@ -79,31 +86,31 @@ $().ready(function() {
                 <div class="control-group">
                     <label class="control-label" for="tgl_mulai">Tanggal Mulai</label>
                     <div class="controls">
-                        <input type="date" name="tanggal_mulai" id="tgl_mulai" value="<?php echo $program['tanggal_mulai'] ?>"/>
+                        <input type="text" name="tanggal_mulai" id="tgl_mulai" value="<?php echo $program['tanggal_mulai'] ?>"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="tgl_mulai">Tanggal Selesai</label>
                     <div class="controls">
-                        <input type="date" name="tanggal_akhir" id="tgl_selesai" value="<?php echo $program['tanggal_akhir'] ?>"/>
+                        <input type="text" name="tanggal_akhir" id="tgl_akhir" value="<?php echo $program['tanggal_akhir'] ?>"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Lama Pendidikan</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('lama_pendidikan',$program['lama_pendidikan']) ?>
+                        <?php echo $this->editor->textarea('lama_pendidikan', $program['lama_pendidikan']) ?>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Cara Pelaksanaan Kegiatan</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('pelaksanaan',$program['pelaksanaan']) ?>
+                        <?php echo $this->editor->textarea('pelaksanaan', $program['pelaksanaan']) ?>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Tempat Pelaksanaan</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('tempat',$program['tempat']) ?>
+                        <?php echo $this->editor->textarea('tempat', $program['tempat']) ?>
                     </div>
                 </div>
             </div>
@@ -119,7 +126,7 @@ $().ready(function() {
                 <div class="control-group">
                     <label class="control-label">Pesyaratan</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('pesyaratan',$program['persyaratan']) ?>
+                        <?php echo $this->editor->textarea('pesyaratan', $program['persyaratan']) ?>
                     </div>
                 </div>
             </div>
@@ -127,13 +134,13 @@ $().ready(function() {
                 <div class="control-group">
                     <label class="control-label">Pelaksana Penanggung Jawab Kegiatan</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('pelaksana',$program['pelaksana']) ?>
+                        <?php echo $this->editor->textarea('pelaksana', $program['pelaksana']) ?>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Fasilitator</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('fasilitator',$program['fasilitator']) ?>
+                        <?php echo $this->editor->textarea('fasilitator', $program['fasilitator']) ?>
                     </div>
                 </div>
             </div>
@@ -141,7 +148,7 @@ $().ready(function() {
                 <div class="control-group">
                     <label class="control-label">Materi Diklat</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('materi',$program['materi']) ?>
+                        <?php echo $this->editor->textarea('materi', $program['materi']) ?>
                     </div>
                 </div>
             </div>

@@ -7,18 +7,22 @@
     function validate_form(){
         pil_prog=$('#pil_prog').attr('value');
         instansi=$('#instansi').val();
+        var container=$('.alert');
         if(pil_prog==-1){
-            alert('Anda belum memilih program');
+            container.show('blind');
+            container.append('Anda belum memilih program<br />');
         }else{
             if(instansi==""){
-                alert('Anda belum mengisi instansi');
+                container.show('blind');
+                container.append('Anda belum mengisi instansi<br />');
             }else{
+                container.show('blind');
                 data_nama = document.form_reg.elements["nama[]"];
                 data_nip = document.form_reg.elements["nip[]"];
 
                 if(num==1){
                     if(data_nama.value==""||data_nip.value==""){
-                        alert('Isikan kolom nama dan nip secara lengkap');
+                        container.append('Isikan kolom nama dan NIP secara lengkap<br />');
                     }else{
                         document.form_reg.submit();
                     }
@@ -31,7 +35,7 @@
                         }
                     }
                     if(error){
-                        alert('Isikan kolom nama dan nip secara lengkap');
+                        container.append('Isikan kolom nama dan NIP secara lengkap<br />');
                     }else{
                         document.form_reg.submit();
                     }
@@ -48,7 +52,11 @@
         obj_table.attr('id', 'table'+num);
         $('#table'+num+' .num').text(num);
         obj_table.show('blind');
-        
+        $(function(){
+            $('#table'+num+' .tgl').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
     }
     function delete_table(obj){
         if(num>1){
@@ -58,70 +66,85 @@
             num--;
         }
     }
+    $(function(){
+        $('#table1 .tgl').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
 </script>
-
+<div class="alert alert-error fade in none">
+    <h4>Error!</h4>
+</div>
 <!-- Contoh buat di clone -->
-<table width="800" id="example" class="table table-striped">
-    <tr>
-        <td colspan="2">Peserta ke-<span class="num"></span></td>
-    </tr>
-    <tr>
-        <td>Nama/NIP</td>
-        <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
-    </tr>
-    <tr>
-        <td>Pangkat/Gol</td>
-        <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
-    </tr>
-    <tr>
-        <td>Tgl lahir</td>
-        <td><input type="date" name="tgl_lahir[]"/></td>
-    </tr>
-    <tr>
-        <td>Jabatan</td>
-        <td><textarea name="jabatan[]"></textarea></td>
-    </tr>
-    <tr>
-        <td colspan="2"><hr/></td>
-    </tr>
+<table width="800" id="example" class="table table-condensed">
+    <thead>
+        <tr>
+            <th colspan="2">Peserta ke-<span class="num"></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Nama/NIP</td>
+            <td><input type="text" name="nama[]" placeholder="Nama"/> / <input type="text" name="nip[]" placeholder="NIP"/></td>
+        </tr>
+        <tr>
+            <td>Pangkat/Gol</td>
+            <td><input type="text" name="pangkat[]" placeholder="Pangkat"/> / <input type="text" name="gol[]" placeholder="Golongan"/></td>
+        </tr>
+        <tr>
+            <td>Tanggal lahir</td>
+            <td><input type="text" class="tgl" placeholder="Tahun-Bulan-Tanggal" name="tgl_lahir[]"/></td>
+        </tr>
+        <tr>
+            <td>Jabatan</td>
+            <td><textarea name="jabatan[]"></textarea></td>
+        </tr>
+    </tbody>
 </table>
 
 <!-- Selesai Contoh-->
 
 <form name="form_reg" action="penyelenggaraan/dashboard/registrasi_proses" method="POST">
-    Program Diklat : <?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?>
-    <br/>
-    Instansi : <textarea id="instansi" name="instansi"></textarea>
-    <hr/>
+    <table width="800" class="table table-condensed">
+        <tr>
+            <td width="143px">Program Diklat</td>
+            <td><?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?></td>
+        </tr>
+        <tr>
+            <td>Asal Instansi Peserta</td>
+            <td><textarea id="instansi" name="instansi"></textarea></td>
+        </tr>
+    </table>
     <div id="wrap_form">
-        <table id="table1" class="table table-striped" width="800">
-            <tr>
-                <td colspan="2">Peserta ke-1</td>
-            </tr>
-            <tr>
-                <td>Nama/NIP</td>
-                <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
-            </tr>
-            <tr>
-                <td>Pangkat/Gol</td>
-                <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
-            </tr>
-            <tr>
-                <td>Tgl lahir</td>
-                <td><input type="date" name="tgl_lahir[]"/></td>
-            </tr>
-            <tr>
-                <td>Jabatan</td>
-                <td><textarea name="jabatan[]"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2"><hr/></td>
-            </tr>
+        <table id="table1" class="table table-condensed" width="800">
+            <thead>
+                <tr>
+                    <th colspan="2">Peserta ke-1</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nama/NIP</td>
+                    <td><input type="text" name="nama[]" placeholder="Nama"/> / <input type="text" name="nip[]" placeholder="NIP"/></td>
+                </tr>
+                <tr>
+                    <td>Pangkat/Gol</td>
+                    <td><input type="text" name="pangkat[]" placeholder="Pangkat"/> / <input type="text" name="gol[]" placeholder="Golongan"/></td>
+                </tr>
+                <tr>
+                    <td>Tanggal lahir</td>
+                    <td><input type="text" class="tgl" name="tgl_lahir[]" placeholder="Tahun-Bulan-Tanggal"/></td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td><textarea name="jabatan[]"></textarea></td>
+                </tr>
+            </tbody>
         </table>
     </div>
     <a href="javascript:append_table()" class="btn btn-small"><i class="icon-plus"></i> Tambah Peserta</a>
     <a href="javascript:delete_table()" class="btn btn-small"><i class="icon-minus"></i> Hapus</a>
     <div class="form-actions">
-        <input type="button" class="btn btn-large btn-primary" value="Daftarkan" onclick="validate_form()"/>
+        <input type="button" class="btn btn-large btn-primary" value="Daftarkan Semua" onclick="validate_form()"/>
     </div>
 </form>

@@ -1,30 +1,37 @@
 <script type="text/javascript">
-$().ready(function() {    
-	var container = $('div.alert');
-	var validator = $("#form1").validate({
-		errorLabelContainer: container,
-		errorContainer: $(container),
-                rules: {
-			name: "required",
-			tahun_program: "required"
-		},
-		messages: {
-			name: "Nama wajib diisi!",
-			tahun_program: "Tahun program wajib diisi!"
-		}
+    $().ready(function() {    
+        var container = $('div.alert');
+        var validator = $("#form1").validate({
+            errorLabelContainer: container,
+            errorContainer: $(container),
+            rules: {
+                name: "required",
+                tahun_program: "required"
+            },
+            messages: {
+                name: "Nama wajib diisi!",
+                tahun_program: "Tahun program wajib diisi!"
+            }
 
-	});
-	$(".cancel").click(function() {
-		validator.resetForm();
-	});
-});
+        });
+        $(".cancel").click(function() {
+            validator.resetForm();
+        });
+    });
+    $(function(){
+        $('#tgl_mulai').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+        $('#tgl_akhir').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
 </script>
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
 </div>
 <form method="post" id="form1" action="perencanaan/dashboard/insert_diklat" class="form-horizontal">
     <fieldset>
-        <legend>Form Pembuatan Diklat Baru</legend>
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
             <li><a href="#tujuan" data-toggle="tab">Tujuan dan Indikator</a></li>
@@ -78,13 +85,13 @@ $().ready(function() {
                 <div class="control-group">
                     <label class="control-label" for="tgl_mulai">Tanggal Mulai</label>
                     <div class="controls">
-                        <input type="date" name="tanggal_mulai" id="tgl_mulai"/>
+                        <input type="text" name="tanggal_mulai"  placeholder="Tahun-Bulan-Tanggal" id="tgl_mulai"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="tgl_mulai">Tanggal Selesai</label>
+                    <label class="control-label" for="tgl_akhir">Tanggal Selesai</label>
                     <div class="controls">
-                        <input type="date" name="tanggal_akhir" id="tgl_selesai"/>
+                        <input type="text" name="tanggal_akhir" placeholder="Tahun-Bulan-Tanggal" id="tgl_akhir"/>
                     </div>
                 </div>
                 <div class="control-group">
