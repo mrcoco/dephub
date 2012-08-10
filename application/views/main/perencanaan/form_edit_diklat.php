@@ -92,7 +92,7 @@
                 <div class="control-group">
                     <label class="control-label" for="tgl_mulai">Tanggal Selesai</label>
                     <div class="controls">
-                        <input type="text" name="tanggal_akhir" id="tgl_selesai" value="<?php echo $program['tanggal_akhir'] ?>"/>
+                        <input type="text" name="tanggal_akhir" id="tgl_akhir" value="<?php echo $program['tanggal_akhir'] ?>"/>
                     </div>
                 </div>
                 <div class="control-group">

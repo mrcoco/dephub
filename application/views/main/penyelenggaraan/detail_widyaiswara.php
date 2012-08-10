@@ -1,5 +1,7 @@
-Curriculum Vitae Pengajar/Penceramah
-<br/>
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
+<p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
 <form action="penyelenggaraan/dashboard/edit_process" method="POST">
 <input type="hidden" name="id" value="<?php echo $data['id']?>"/>    
 <table>
@@ -55,3 +57,4 @@ Curriculum Vitae Pengajar/Penceramah
         <td><?php echo $data['tlp_kantor'] ?></td>
     </tr>
 </table>
+</form>

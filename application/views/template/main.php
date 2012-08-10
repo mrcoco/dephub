@@ -29,7 +29,13 @@
     <script type="text/javascript" src="assets/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-tooltip.js"></script>
     <script type="text/javascript" src="assets/js/sisfo.js"></script>
-
+<script type="text/javascript">
+    $(function(){
+        $('#date').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
+</script>    
 </head>
 <body>
 	<div class="container" id="content">

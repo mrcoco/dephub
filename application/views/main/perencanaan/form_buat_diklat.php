@@ -85,13 +85,13 @@
                 <div class="control-group">
                     <label class="control-label" for="tgl_mulai">Tanggal Mulai</label>
                     <div class="controls">
-                        <input type="text" name="tanggal_mulai" value="<?php echo date("Y-m-d");?>" id="tgl_mulai"/>
+                        <input type="text" name="tanggal_mulai"  placeholder="Tahun-Bulan-Tanggal" id="tgl_mulai"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="tgl_akhir">Tanggal Selesai</label>
                     <div class="controls">
-                        <input type="text" name="tanggal_akhir" value="<?php echo date("Y-m-d");?>" id="tgl_akhir"/>
+                        <input type="text" name="tanggal_akhir" placeholder="Tahun-Bulan-Tanggal" id="tgl_akhir"/>
                     </div>
                 </div>
                 <div class="control-group">

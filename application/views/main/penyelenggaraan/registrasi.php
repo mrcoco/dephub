@@ -7,18 +7,22 @@
     function validate_form(){
         pil_prog=$('#pil_prog').attr('value');
         instansi=$('#instansi').val();
+        var container=$('.alert');
         if(pil_prog==-1){
-            alert('Anda belum memilih program');
+            container.show('blind');
+            container.append('Anda belum memilih program<br />');
         }else{
             if(instansi==""){
-                alert('Anda belum mengisi instansi');
+                container.show('blind');
+                container.append('Anda belum mengisi instansi<br />');
             }else{
+                container.show('blind');
                 data_nama = document.form_reg.elements["nama[]"];
                 data_nip = document.form_reg.elements["nip[]"];
 
                 if(num==1){
                     if(data_nama.value==""||data_nip.value==""){
-                        alert('Isikan kolom nama dan nip secara lengkap');
+                        container.append('Isikan kolom nama dan NIP secara lengkap<br />');
                     }else{
                         document.form_reg.submit();
                     }
@@ -31,7 +35,7 @@
                         }
                     }
                     if(error){
-                        alert('Isikan kolom nama dan nip secara lengkap');
+                        container.append('Isikan kolom nama dan NIP secara lengkap<br />');
                     }else{
                         document.form_reg.submit();
                     }
@@ -48,7 +52,11 @@
         obj_table.attr('id', 'table'+num);
         $('#table'+num+' .num').text(num);
         obj_table.show('blind');
-        
+        $(function(){
+            $('#table'+num+' .tgl').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
     }
     function delete_table(obj){
         if(num>1){
@@ -58,8 +66,15 @@
             num--;
         }
     }
+    $(function(){
+        $('#table1 .tgl').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    });
 </script>
-
+<div class="alert alert-error fade in none">
+    <h4>Error!</h4>
+</div>
 <!-- Contoh buat di clone -->
 <table width="800" id="example" class="table table-condensed">
     <thead>
@@ -78,14 +93,11 @@
         </tr>
         <tr>
             <td>Tanggal lahir</td>
-            <td><input type="text" class="datepicker" name="tgl_lahir[]"/></td>
+            <td><input type="text" class="tgl" placeholder="Tahun-Bulan-Tanggal" name="tgl_lahir[]"/></td>
         </tr>
         <tr>
             <td>Jabatan</td>
             <td><textarea name="jabatan[]"></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="2"><hr/></td>
         </tr>
     </tbody>
 </table>
@@ -120,15 +132,12 @@
                     <td><input type="text" name="pangkat[]" placeholder="Pangkat"/> / <input type="text" name="gol[]" placeholder="Golongan"/></td>
                 </tr>
                 <tr>
-                    <td>Tgl lahir</td>
-                    <td><input type="text" name="tgl_lahir[]" class="datepicker"/></td>
+                    <td>Tanggal lahir</td>
+                    <td><input type="text" class="tgl" name="tgl_lahir[]" placeholder="Tahun-Bulan-Tanggal"/></td>
                 </tr>
                 <tr>
                     <td>Jabatan</td>
                     <td><textarea name="jabatan[]"></textarea></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><hr/></td>
                 </tr>
             </tbody>
         </table>
