@@ -62,7 +62,8 @@ class Dashboard extends Penyelenggaraan_Controller{
             $reg['id_program']=$id_program;
             $reg['status']='daftar';
             $this->slng->insert_registrasi($reg);
-            echo 'sukses<br/>';
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Peserta telah ditambahkan'));
+            redirect(base_url().'penyelenggaraan/dashboard/registrasi');
         }
     }
     
@@ -78,7 +79,8 @@ class Dashboard extends Penyelenggaraan_Controller{
         if($data['data']){
             $this->template->display('main/penyelenggaraan/detail_widyaiswara',$data);
         }else{
-            echo 'tidak ada id';
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Widyaiswara tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/dashboard/list_widyaiswara');
         }
     }
     
@@ -104,7 +106,8 @@ class Dashboard extends Penyelenggaraan_Controller{
         $data['tlp_kantor']=$this->input->post('tlp_kantor');
         $data['status']=1;
         $this->slng->insert_widyaiswara($data);
-        echo 'data sukses dimasukkan';
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Widyaiswara telah ditambahkan'));
+        redirect(base_url().'penyelenggaraan/dashboard/list_widyaiswara');
     }
     
     function edit_widyaiswara($id){
@@ -113,7 +116,8 @@ class Dashboard extends Penyelenggaraan_Controller{
         if($data['data']){
             $this->template->display('main/penyelenggaraan/edit_widyaiswara',$data);
         }else{
-            echo 'tidak ada id';
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Widyaiswara tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/dashboard/list_widyaiswara');
         }
     }
     
@@ -134,6 +138,8 @@ class Dashboard extends Penyelenggaraan_Controller{
         $data['alamat_kantor']=$this->input->post('alamat_kantor');
         $data['tlp_kantor']=$this->input->post('tlp_kantor');
         $this->slng->update_widyaiswara($clause,$data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Widyaiswara telah diubah'));
+        redirect(base_url().'penyelenggaraan/dashboard/detail_widyaiswara'.$clause);
     }
     
     function delete_widyaiswara($id){
@@ -142,9 +148,11 @@ class Dashboard extends Penyelenggaraan_Controller{
         $data['sub_title']='Registrasi Diklat';
         if($data['data']){
             $this->slng->delete_widyaiswara($id);
-            echo 'sudah dihapus';
+            $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
+            redirect(base_url().'perencanaan/dashboard/list_widyaiswara');
         }else{
-            echo 'tidak ada id';
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Widyaiswara tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/dashboard/list_widyaiswara');
         }
     }
 }

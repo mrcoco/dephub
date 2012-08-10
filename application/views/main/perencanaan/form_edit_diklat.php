@@ -33,7 +33,6 @@
 <form id="form1" method="post" action="perencanaan/dashboard/update_diklat" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id" value="<?php echo $program['id'] ?>"/>
-        <legend>Form Pengubahan Diklat</legend>
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
             <li><a href="#tujuan" data-toggle="tab">Tujuan dan Indikator</a></li>
