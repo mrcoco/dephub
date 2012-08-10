@@ -19,7 +19,7 @@
 
 	    <!-- Program -->
 	    <div class="well span1" align="center">
-		<a href="administrator/program" rel="tooltip" title="Klik untuk melakukan pengaturan program" class="tip">
+		<a href="perencanaan/dashboard" rel="tooltip" title="Klik untuk melakukan pengaturan program" class="tip">
 		    <img src="assets/img/admin/calendar.png" />
 		</a>
 		<strong>Program</strong>

@@ -23,10 +23,6 @@ class Dashboard extends Penyelenggaraan_Controller{
     }
     
     function index(){
-        $this->home();
-    }
-    
-    function home(){
         
     }
     
@@ -37,7 +33,6 @@ class Dashboard extends Penyelenggaraan_Controller{
         foreach($list_program as $program){
             $data['pil_program'][$program['id']]=$program['name'];
         }
-        
         
         $this->template->display('main/penyelenggaraan/registrasi',$data);
     }
@@ -69,6 +64,87 @@ class Dashboard extends Penyelenggaraan_Controller{
             $this->slng->insert_registrasi($reg);
             echo 'sukses<br/>';
         }
+    }
+    
+    function list_widyaiswara(){
+        $data['sub_title']='Daftar Widyaiswara';
+        $data['list']=$this->slng->getall_widyaiswara();
+        $this->template->display('main/penyelenggaraan/list_widyaiswara',$data);
+    }
+    
+    function detail_widyaiswara($id){
+        $data['data'] = $this->slng->get_widyaiswara($id);
+        $data['sub_title']='Detail Data '.$data['data']['nama'];
+        if($data['data']){
+            $this->template->display('main/penyelenggaraan/detail_widyaiswara',$data);
+        }else{
+            echo 'tidak ada id';
+        }
+    }
+    
+    function add_widyaiswara(){
+        $data['sub_title']='Isi Data Widyaiswara';
+        $this->template->display('main/penyelenggaraan/cv_widyaiswara',$data);
+    }
+    
+    function insert_widyaiswara(){
+        $data['nama']=$this->input->post('nama');
+        $data['nip']=$this->input->post('nip');
+        $data['tempat_lahir']=$this->input->post('tempat');
+        $data['tanggal_lahir']=$this->input->post('tanggal');
+        $data['pangkat']=$this->input->post('pangkat');
+        $data['golongan']=$this->input->post('gol');
+        $data['instansi']=$this->input->post('instansi');
+        $data['jabatan']=$this->input->post('jabatan');
+        $data['pendidikan_dn']=$this->input->post('dn');
+        $data['pendidikan_ln']=$this->input->post('ln');
+        $data['alamat_rumah']=$this->input->post('alamat_rumah');
+        $data['tlp_rumah']=$this->input->post('tlp_rumah');
+        $data['alamat_kantor']=$this->input->post('alamat_kantor');
+        $data['tlp_kantor']=$this->input->post('tlp_kantor');
+        $data['status']=1;
+        $this->slng->insert_widyaiswara($data);
+        echo 'data sukses dimasukkan';
+    }
+    
+    function edit_widyaiswara($id){
+        $data['data'] = $this->slng->get_widyaiswara($id);
+        $data['sub_title']='Edit Data '.$data['data']['nama'];
+        if($data['data']){
+            $this->template->display('main/penyelenggaraan/edit_widyaiswara',$data);
+        }else{
+            echo 'tidak ada id';
+        }
+    }
+    
+    function edit_process(){
+        $clause=$this->input->post('id');
+        $data['nama']=$this->input->post('nama');
+        $data['nip']=$this->input->post('nip');
+        $data['tempat_lahir']=$this->input->post('tempat');
+        $data['tanggal_lahir']=$this->input->post('tanggal');
+        $data['pangkat']=$this->input->post('pangkat');
+        $data['golongan']=$this->input->post('gol');
+        $data['instansi']=$this->input->post('instansi');
+        $data['jabatan']=$this->input->post('jabatan');
+        $data['pendidikan_dn']=$this->input->post('dn');
+        $data['pendidikan_ln']=$this->input->post('ln');
+        $data['alamat_rumah']=$this->input->post('alamat_rumah');
+        $data['tlp_rumah']=$this->input->post('tlp_rumah');
+        $data['alamat_kantor']=$this->input->post('alamat_kantor');
+        $data['tlp_kantor']=$this->input->post('tlp_kantor');
+        $this->slng->update_widyaiswara($clause,$data);
+    }
+    
+    function delete_widyaiswara($id){
         
+        $data['data'] = $this->slng->get_widyaiswara($id);
+        $data['sub_title']='Registrasi Diklat';
+        if($data['data']){
+            $this->slng->delete_widyaiswara($id);
+            echo 'sudah dihapus';
+        }else{
+            echo 'tidak ada id';
+        }
     }
 }

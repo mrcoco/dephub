@@ -85,7 +85,7 @@ $db['elearning']['cachedir'] = '';
 $db['elearning']['char_set'] = 'utf8';
 $db['elearning']['dbcollat'] = 'utf8_general_ci';
 $db['elearning']['swap_pre'] = '';
-$db['elearning']['autoinit'] = TRUE;
+$db['elearning']['autoinit'] = FALSE;
 $db['elearning']['stricton'] = FALSE;
 
 /* End of file database.php */

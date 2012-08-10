@@ -17,7 +17,7 @@ class Dashboard extends CI_Controller {
 
     function email() {
 	$data['title'] = 'E-Mail';
-	$this->template->display('main/uc', $data);
+	$this->template->display('main/dashboard/email', $data);
     }
 
     function diklat() {
