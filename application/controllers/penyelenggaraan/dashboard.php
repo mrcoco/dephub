@@ -62,7 +62,6 @@ class Dashboard extends Penyelenggaraan_Controller{
             $reg['id_program']=$id_program;
             $reg['status']='daftar';
             $this->slng->insert_registrasi($reg);
-            echo 'sukses<br/>';
         }
     }
     
