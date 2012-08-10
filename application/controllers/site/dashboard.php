@@ -25,7 +25,7 @@ class Dashboard extends CI_Controller {
 	    redirect($this->session->userdata('link'));
 	} else {
 	    $data['title'] = 'Sistem Informasi Manajemen Diklat';
-	    $data['info']=$this->mdl_dashboard->get_info()->row()->diklat_message;
+//	    $data['info']=$this->mdl_dashboard->get_info()->row()->diklat_message;
 	    $this->template->display('main/dashboard/simdik', $data);
 	}
     }

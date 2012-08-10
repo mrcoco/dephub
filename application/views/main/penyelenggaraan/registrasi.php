@@ -61,67 +61,81 @@
 </script>
 
 <!-- Contoh buat di clone -->
-<table width="800" id="example" class="table table-striped">
-    <tr>
-        <td colspan="2">Peserta ke-<span class="num"></span></td>
-    </tr>
-    <tr>
-        <td>Nama/NIP</td>
-        <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
-    </tr>
-    <tr>
-        <td>Pangkat/Gol</td>
-        <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
-    </tr>
-    <tr>
-        <td>Tgl lahir</td>
-        <td><input type="date" name="tgl_lahir[]"/></td>
-    </tr>
-    <tr>
-        <td>Jabatan</td>
-        <td><textarea name="jabatan[]"></textarea></td>
-    </tr>
-    <tr>
-        <td colspan="2"><hr/></td>
-    </tr>
+<table width="800" id="example" class="table table-condensed">
+    <thead>
+        <tr>
+            <th colspan="2">Peserta ke-<span class="num"></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Nama/NIP</td>
+            <td><input type="text" name="nama[]" placeholder="Nama"/> / <input type="text" name="nip[]" placeholder="NIP"/></td>
+        </tr>
+        <tr>
+            <td>Pangkat/Gol</td>
+            <td><input type="text" name="pangkat[]" placeholder="Pangkat"/> / <input type="text" name="gol[]" placeholder="Golongan"/></td>
+        </tr>
+        <tr>
+            <td>Tanggal lahir</td>
+            <td><input type="text" class="datepicker" name="tgl_lahir[]"/></td>
+        </tr>
+        <tr>
+            <td>Jabatan</td>
+            <td><textarea name="jabatan[]"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><hr/></td>
+        </tr>
+    </tbody>
 </table>
 
 <!-- Selesai Contoh-->
 
 <form name="form_reg" action="penyelenggaraan/dashboard/registrasi_proses" method="POST">
-    Program Diklat : <?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?>
-    <br/>
-    Instansi : <textarea id="instansi" name="instansi"></textarea>
-    <hr/>
+    <table width="600">
+        <tr>
+            <td>Program Diklat</td>
+            <td><?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?></td>
+        </tr>
+        <tr>
+            <td>Asal Instansi Peserta</td>
+            <td><textarea id="instansi" name="instansi"></textarea></td>
+        </tr>
+    </table>
     <div id="wrap_form">
-        <table id="table1" class="table table-striped" width="800">
-            <tr>
-                <td colspan="2">Peserta ke-1</td>
-            </tr>
-            <tr>
-                <td>Nama/NIP</td>
-                <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
-            </tr>
-            <tr>
-                <td>Pangkat/Gol</td>
-                <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
-            </tr>
-            <tr>
-                <td>Tgl lahir</td>
-                <td><input type="date" name="tgl_lahir[]"/></td>
-            </tr>
-            <tr>
-                <td>Jabatan</td>
-                <td><textarea name="jabatan[]"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2"><hr/></td>
-            </tr>
+        <table id="table1" class="table table-condensed" width="800">
+            <thead>
+                <tr>
+                    <th colspan="2">Peserta ke-1</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Nama/NIP</td>
+                    <td><input type="text" name="nama[]" placeholder="Nama"/> / <input type="text" name="nip[]" placeholder="NIP"/></td>
+                </tr>
+                <tr>
+                    <td>Pangkat/Gol</td>
+                    <td><input type="text" name="pangkat[]" placeholder="Pangkat"/> / <input type="text" name="gol[]" placeholder="Golongan"/></td>
+                </tr>
+                <tr>
+                    <td>Tgl lahir</td>
+                    <td><input type="text" name="tgl_lahir[]" class="datepicker"/></td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td><textarea name="jabatan[]"></textarea></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><hr/></td>
+                </tr>
+            </tbody>
         </table>
     </div>
     <a href="javascript:append_table()" class="btn btn-small"><i class="icon-plus"></i> Tambah Peserta</a>
     <a href="javascript:delete_table()" class="btn btn-small"><i class="icon-minus"></i> Hapus</a>
     <div class="form-actions">
-        <input type="button" class="btn btn-large btn-primary" value="Daftarkan" onclick="validate_form()"/>
+        <input type="button" class="btn btn-large btn-primary" value="Daftarkan Semua" onclick="validate_form()"/>
     </div>
 </form>
