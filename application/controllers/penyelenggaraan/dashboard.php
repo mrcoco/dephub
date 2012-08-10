@@ -26,6 +26,18 @@ class Dashboard extends Penyelenggaraan_Controller{
         
     }
     
+    function list_peserta($id_program=-1){
+        $data['sub_title']='List Peserta Diklat';
+        $data['list']=$this->slng->getall_peserta($id_program);
+        $list_program = $this->rnc->get_program($this->thn);
+        $data['id_program']=$id_program;
+        $data['pil_program']=array(-1=>'Semua Program');
+        foreach($list_program as $program){
+            $data['pil_program'][$program['id']]=$program['name'];
+        }
+        $this->template->display('main/penyelenggaraan/list_peserta',$data);
+    }
+    
     function registrasi(){
         $data['sub_title']='Registrasi Diklat';
         $list_program = $this->rnc->get_program($this->thn);
@@ -33,7 +45,6 @@ class Dashboard extends Penyelenggaraan_Controller{
         foreach($list_program as $program){
             $data['pil_program'][$program['id']]=$program['name'];
         }
-        
         $this->template->display('main/penyelenggaraan/registrasi',$data);
     }
     
@@ -62,9 +73,20 @@ class Dashboard extends Penyelenggaraan_Controller{
             $reg['id_program']=$id_program;
             $reg['status']='daftar';
             $this->slng->insert_registrasi($reg);
-            $this->session->set_flashdata('msg',$this->editor->alert_ok('Peserta telah ditambahkan'));
-            redirect(base_url().'penyelenggaraan/dashboard/registrasi');
         }
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Peserta telah ditambahkan'));
+        redirect(base_url().'penyelenggaraan/dashboard/list_peserta');
+    }
+    
+    function toggle_status($status){
+        if($status=='accept'){
+            $data['status']='accept';
+        }else{
+            $data['status']='daftar';
+        }
+        $clause['id_peserta']=$this->input->post('id_peserta');
+        $clause['id_program']=$this->input->post('id_program');
+        $this->slng->toggle_status($clause,$data);
     }
     
     function list_widyaiswara(){
