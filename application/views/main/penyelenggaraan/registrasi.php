@@ -1,7 +1,7 @@
 <script>
     var num=1;
     $(document).ready(function(){
-        $('.example').hide();
+        $('#example').hide();
     });
     
     function validate_form(){
@@ -41,10 +41,10 @@
     }
     
     function append_table(){
-        obj_table=$('.example').clone();
+        obj_table=$('#example').clone();
         $('#wrap_form').append(obj_table);
         num++;
-        obj_table.removeAttr('class');
+        obj_table.removeAttr('id');
         obj_table.attr('id', 'table'+num);
         $('#table'+num+' .num').text(num);
         obj_table.show('blind');
@@ -61,9 +61,9 @@
 </script>
 
 <!-- Contoh buat di clone -->
-<table width="800" class="example">
+<table width="800" id="example" class="table table-striped">
     <tr>
-        <td colspan="1">Peserta ke-<span class="num"></span></td>
+        <td colspan="2">Peserta ke-<span class="num"></span></td>
     </tr>
     <tr>
         <td>Nama/NIP</td>
@@ -89,102 +89,39 @@
 <!-- Selesai Contoh-->
 
 <form name="form_reg" action="penyelenggaraan/dashboard/registrasi_proses" method="POST">
-    Program Diklat : <?php echo form_dropdown('program', $pil_program,'','id="pil_prog"') ?>
+    Program Diklat : <?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?>
     <br/>
     Instansi : <textarea id="instansi" name="instansi"></textarea>
     <hr/>
     <div id="wrap_form">
-        <table id="table1" width="800">
-        <tr>
-            <td colspan="1">Peserta ke-1</td>
-        </tr>
-        <tr>
-            <td>Nama/NIP</td>
-            <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
-        </tr>
-        <tr>
-            <td>Pangkat/Gol</td>
-            <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
-        </tr>
-        <tr>
-            <td>Tgl lahir</td>
-            <td><input type="date" name="tgl_lahir[]"/></td>
-        </tr>
-        <tr>
-            <td>Jabatan</td>
-            <td><textarea name="jabatan[]"></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="2"><hr/></td>
-        </tr>
+        <table id="table1" class="table table-striped" width="800">
+            <tr>
+                <td colspan="2">Peserta ke-1</td>
+            </tr>
+            <tr>
+                <td>Nama/NIP</td>
+                <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
+            </tr>
+            <tr>
+                <td>Pangkat/Gol</td>
+                <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
+            </tr>
+            <tr>
+                <td>Tgl lahir</td>
+                <td><input type="date" name="tgl_lahir[]"/></td>
+            </tr>
+            <tr>
+                <td>Jabatan</td>
+                <td><textarea name="jabatan[]"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2"><hr/></td>
+            </tr>
         </table>
     </div>
-    <a href="javascript:append_table()">Tambah</a>&nbsp;&nbsp;<a href="javascript:delete_table()">Hapus</a>
-    <br/><br/><br/>
-    <div><input type="button" value="Daftarkan" onclick="validate_form()"/></div>
-</form>
-<div class="alert alert-error fade in none">
-    <h4>Error!</h4>
-</div>
-
-<!-- Contoh buat di clone -->
-<table width="800" class="example">
-    <tr>
-        <td colspan="1">Peserta ke-<span class="num"></span></td>
-    </tr>
-    <tr>
-        <td>Nama/NIP</td>
-        <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
-    </tr>
-    <tr>
-        <td>Pangkat/Gol</td>
-        <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
-    </tr>
-    <tr>
-        <td>Tanggal lahir</td>
-        <td><input type="date" name="tgl_lahir[]"/></td>
-    </tr>
-    <tr>
-        <td>Jabatan</td>
-        <td><textarea name="jabatan[]"></textarea></td>
-    </tr>
-    <tr>
-        <td colspan="2"><hr/></td>
-    </tr>
-</table>
-
-<!-- Selesai Contoh-->
-
-
-<form id="form1" action="" method="POST">
-    Program Diklat : <?php echo form_dropdown('program', $pil_program) ?>
-    <hr/>
-    <div id="wrap_form">
-        <table id="table1" width="800">
-        <tr>
-            <td colspan="1">Peserta ke-1</td>
-        </tr>
-        <tr>
-            <td>Nama/NIP</td>
-            <td><input type="text" name="nama[]"/>/<input type="text" name="nip[]"/></td>
-        </tr>
-        <tr>
-            <td>Pangkat/Gol</td>
-            <td><input type="text" name="pangkat[]"/>/<input type="text" name="gol[]"/></td>
-        </tr>
-        <tr>
-            <td>Tanggal lahir</td>
-            <td><input type="date" name="tgl_lahir[]"/></td>
-        </tr>
-        <tr>
-            <td>Jabatan</td>
-            <td><textarea name="jabatan[]"></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="2"><hr/></td>
-        </tr>
-        </table>
+    <a href="javascript:append_table()" class="btn btn-small"><i class="icon-plus"></i> Tambah Peserta</a>
+    <a href="javascript:delete_table()" class="btn btn-small"><i class="icon-minus"></i> Hapus</a>
+    <div class="form-actions">
+        <input type="button" class="btn btn-large btn-primary" value="Daftarkan" onclick="validate_form()"/>
     </div>
-    <a href="javascript:append_table()" class="btn btn-primary"><i class="icon-plus"></i> Tambah</a>
-    <a href="javascript:delete_table()" class="btn"><i class="icon-minus"></i> Hapus</a>
 </form>
