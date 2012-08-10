@@ -7,6 +7,7 @@
     <meta charset="utf-8" />
     <title>Pusat Pengembangan SDM Aparatur Perhubungan</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+    <link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />
     <link type="text/css" href="assets/css/bootstrap.css" rel="stylesheet" />
     <link type="text/css" href="assets/css/style.css" rel="stylesheet" />
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
@@ -22,7 +23,7 @@
     <script type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
     <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
-
+    <script type="text/javascript" src="assets/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="assets/js/tm/jquery.tinymce.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>

@@ -1,29 +1,29 @@
 <p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
 <form action="penyelenggaraan/dashboard/insert_widyaiswara" method="POST">
-    <table class="table table-striped">
+    <table class="table table-striped table-condensed">
         <tr>
             <td>Nama</td>
-            <td>: <input type="text" name="nama"/></td>
+            <td><input type="text" placeholder="Nama" name="nama"/></td>
         </tr>
         <tr>
             <td>NIP</td>
-            <td>: <input type="text" name="nip"/></td>
+            <td><input type="text" placeholder="NIP" name="nip"/></td>
         </tr>
         <tr>
-            <td>TTL</td>
-            <td>: <input type="text" name="tempat"/>/<input type="date" name="tanggal"/></td>
+            <td>Tempat Tanggal Lahir</td>
+            <td><input type="text" name="tempat" placeholder="Tempat lahir"/>, <input type="text" id="date" name="tanggal" placeholder="Tahun-Bulan-Tanggal"/></td>
         </tr>
         <tr>
             <td>Pangkat/Gol</td>
-            <td>: <input type="text" name="pangkat"/>/<input type="text" name="gol"/></td>
+            <td><input type="text" name="pangkat" placeholder="Pangkat"/>/<input type="text" placeholder="Golongan" name="gol"/></td>
         </tr>
         <tr>
             <td>Instansi</td>
-            <td>: <textarea name="instansi"></textarea></td>
+            <td><textarea name="instansi"></textarea></td>
         </tr>
         <tr>
             <td>Jabatan</td>
-            <td>: <textarea name="jabatan"></textarea></td>
+            <td><textarea name="jabatan"></textarea></td>
         </tr>
         <tr>
             <td colspan="2">Pendidikan</td>
@@ -46,7 +46,7 @@
         </tr>
         <tr>
             <td>Alamat kantor</td>
-            <td><textarea name="alamat_kantor"></textarea><br/><input type="text" name="tlp_kantor"/></td>
+            <td><textarea name="alamat_kantor"></textarea></td>
         </tr>
         <tr>
             <td>Telepon kantor</td>

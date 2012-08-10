@@ -1,8 +1,8 @@
-<link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />
-<script type="text/javascript" src="assets/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
         $('#list').dataTable();
+        $('select').attr('class','input-mini');
+        $('#program').attr('class','');
         $('#program').change(function(){
             location.href="<?php echo base_url() ?>penyelenggaraan/dashboard/list_peserta/"+$('#program').val();
         });
@@ -43,14 +43,14 @@
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program,'id="program"')?>
-<table id="list" width="100%">
+<table id="list" width="100%" class="table">
     <thead>
         <tr>
-            <th>No</th>
-            <th>Nama</th>
-            <th>NIP</th>
-            <th>Status</th>
-            <th>Aksi</th>
+            <th width="5%">No</th>
+            <th width="25%">Nama</th>
+            <th width="25%">NIP</th>
+            <th width="25%">Status</th>
+            <th width="20%">Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -70,5 +70,6 @@ Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program
         <?php }?>
     </tbody>
 </table>
-<br/><br/><br/><br/>
-<a href="penyelenggaraan/dashboard/registrasi">Registrasi</a>
+<div class="form-actions">
+    <a href="penyelenggaraan/dashboard/registrasi" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah Peserta</a>
+</div>

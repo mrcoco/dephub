@@ -105,9 +105,9 @@
 <!-- Selesai Contoh-->
 
 <form name="form_reg" action="penyelenggaraan/dashboard/registrasi_proses" method="POST">
-    <table width="600">
+    <table width="800" class="table table-condensed">
         <tr>
-            <td>Program Diklat</td>
+            <td width="143px">Program Diklat</td>
             <td><?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?></td>
         </tr>
         <tr>

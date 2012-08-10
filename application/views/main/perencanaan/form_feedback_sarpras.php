@@ -244,7 +244,7 @@ $().ready(function() {
                     </thead>
                     <tbody>
                         <tr>
-                            <td colspan="5"><textarea name="manfaat"  class="input-xlarge" rows="3"></textarea></td>
+                            <td colspan="5"><textarea name="manfaat"  class="input-xxlarge" rows="3"></textarea></td>
                         </tr>
                     </tbody>
                 </table>
@@ -262,16 +262,16 @@ $().ready(function() {
                         <tr>
                             <td>&nbsp</td>
                             <td>Kelebihan</td>
-                            <td colspan="3"><textarea name="kelebihan_catering"  class="input-xlarge" rows="2"></textarea></td>
+                            <td colspan="3"><textarea name="kelebihan_catering"  class="input-xxlarge" rows="2"></textarea></td>
                         </tr>
                         <tr>
                             <td>&nbsp</td>
                             <td>Kekurangan</td>
-                            <td colspan="3"><textarea name="kekurangan_catering"  class="input-xlarge" rows="2"></textarea></td>
+                            <td colspan="3"><textarea name="kekurangan_catering"  class="input-xxlarge" rows="2"></textarea></td>
                         </tr>
                         <tr>
                             <td colspan="2">Keterangan</td>
-                            <td colspan="3"><textarea name="keterangan"  class="input-xlarge" rows="2"></textarea></td>
+                            <td colspan="3"><textarea name="keterangan"  class="input-xxlarge" rows="2"></textarea></td>
                         </tr>
                     </tbody>
                 </table>

@@ -19,10 +19,8 @@ class Dashboard extends Perencanaan_Controller{
     }
 
     public function index(){
-        $this->daftar_diklat();
-//	$data['title']=$this->session->userdata('detail');
-//	$data['sub_title']='Dashboard';
-//	$this->template->display('main/perencanaan/dashboard',$data);
+	$data['sub_title']='Dashboard';
+	$this->template->display('main/perencanaan/dashboard',$data);
 
     }
 
@@ -195,7 +193,7 @@ class Dashboard extends Perencanaan_Controller{
     }
 
     function edit_feedback_sarpras($id_feedback){
-        $data['title']='Bidang Perencanaan';
+        $data['sub_title']='Ubah Evaluasi Penyelenggaraan';
 
         $data_feedback = $this->rnc->get_feedback_sarpras($id_feedback);
         if($data_feedback){

@@ -1,31 +1,30 @@
-Curriculum Vitae Pengajar/Penceramah
-<br/>
+<p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
 <form action="penyelenggaraan/dashboard/edit_process" method="POST">
 <input type="hidden" name="id" value="<?php echo $data['id']?>"/>    
-<table>
+<table class="table table-striped table-condensed">
     <tr>
         <td>Nama</td>
-        <td>: <input type="text" name="nama" value="<?php echo $data['nama'] ?>"/></td>
+        <td><input type="text" name="nama" value="<?php echo $data['nama'] ?>"/></td>
     </tr>
     <tr>
         <td>NIP</td>
-        <td>: <input type="text" name="nip" value="<?php echo $data['nip'] ?>"/></td>
+        <td><input type="text" name="nip" value="<?php echo $data['nip'] ?>"/></td>
     </tr>
     <tr>
-        <td>TTL</td>
-        <td>: <input type="text" name="tempat" value="<?php echo $data['tempat_lahir'] ?>"/>/<input type="date" name="tanggal" value="<?php echo $data['tanggal_lahir'] ?>"/></td>
+        <td>Tempat Tanggal Lahir</td>
+        <td><input type="text" name="tempat" value="<?php echo $data['tempat_lahir'] ?>"/>, <input type="text" id="date" name="tanggal" value="<?php echo $data['tanggal_lahir'] ?>"/></td>
     </tr>
     <tr>
         <td>Pangkat/Gol</td>
-        <td>: <input type="text" name="pangkat" value="<?php echo $data['pangkat'] ?>"/>/<input type="text" name="gol" value="<?php echo $data['pangkat'] ?>"/></td>
+        <td><input type="text" name="pangkat" value="<?php echo $data['pangkat'] ?>"/>/<input type="text" name="gol" value="<?php echo $data['pangkat'] ?>"/></td>
     </tr>
     <tr>
         <td>Instansi</td>
-        <td>: <textarea name="instansi"><?php echo $data['instansi'] ?></textarea></td>
+        <td><textarea name="instansi"><?php echo $data['instansi'] ?></textarea></td>
     </tr>
     <tr>
         <td>Jabatan</td>
-        <td>: <textarea name="jabatan"><?php echo $data['jabatan'] ?></textarea></td>
+        <td><textarea name="jabatan"><?php echo $data['jabatan'] ?></textarea></td>
     </tr>
     <tr>
         <td colspan="2">Pendidikan</td>
@@ -54,7 +53,8 @@ Curriculum Vitae Pengajar/Penceramah
         <td>Telepon kantor</td>
         <td><input type="text" name="tlp_kantor" value="<?php echo $data['tlp_kantor'] ?>"/></td>
     </tr>
-    <tr>
-        <td colspan="2"><input type="submit" value="Simpan"/></td>
-    </tr>
 </table>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </div>
+</form>

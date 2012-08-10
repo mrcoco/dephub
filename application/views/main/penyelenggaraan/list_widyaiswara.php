@@ -1,22 +1,13 @@
-<link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />
-<script type="text/javascript" src="assets/js/jquery.dataTables.js"></script>
 <script>
     $(document).ready(function() {
         $('#list').dataTable();
+        $('select').attr('class','input-mini');
     } );
 </script>
-<<<<<<< HEAD
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-=======
-<?php 
-echo $msg;
-?>
-Daftar widyaiswara
-<br/>
->>>>>>> daa6b1070fd272ad17eae7f738df5efc912d95a2
-<table id="list" width="100%">
+<table id="list" width="100%" class="table">
     <thead>
         <tr>
             <th width="5%">No</th>
@@ -26,7 +17,6 @@ Daftar widyaiswara
         </tr>
     </thead>
     <tbody>
-<<<<<<< HEAD
         <?php for ($i = 0; $i < count($list); $i++) { ?>
             <tr>
                 <td><?php echo ($i + 1) ?></td>
@@ -43,22 +33,3 @@ Daftar widyaiswara
 <div class="form-actions">
     <a href="penyelenggaraan/dashboard/add_widyaiswara" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah Widyaiswara</a>
 </div>
-=======
-        <?php for($i=0;$i<count($list);$i++) {?>
-        <tr>
-            <td><?php echo ($i+1) ?></td>
-            <td><?php echo $list[$i]['nama'] ?></td>
-            <td><?php echo $list[$i]['nip'] ?></td>
-            <td><?php echo $list[$i]['status'] ?></td>
-            <td>
-                Edit
-                |
-                Delete
-                |
-                
-            </td>
-        <?php }?>
-    </tbody>
-</table>
-
->>>>>>> daa6b1070fd272ad17eae7f738df5efc912d95a2
