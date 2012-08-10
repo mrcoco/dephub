@@ -99,7 +99,12 @@ class Dashboard extends Perencanaan_Controller{
         foreach($kategori as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }
-        $this->template->display('main/perencanaan/form_edit_diklat',$data);
+        if($data['program']){
+            $this->template->display('main/perencanaan/form_edit_diklat',$data);
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'perencanaan/dashboard');                    
+        }
     }
 
     function update_diklat(){
@@ -129,15 +134,25 @@ class Dashboard extends Perencanaan_Controller{
     }
 
     function delete_diklat($id){
-        $this->rnc->delete_diklat($id);
-        $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
-	redirect(base_url().'perencanaan/dashboard');
+        if($id){
+            $this->rnc->delete_diklat($id);
+            $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
+            redirect(base_url().'perencanaan/dashboard');
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'perencanaan/dashboard');
+        }
     }
 
     function form_feedback_sarpras($id_program){
         $data['sub_title']='Formulir Evaluasi Penyelenggaraan';
         $data['program']=$this->rnc->get_program_by_id($id_program);
-        $this->template->display('main/perencanaan/form_feedback_sarpras',$data);
+        if($data['program']){
+            $this->template->display('main/perencanaan/form_feedback_sarpras',$data);
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'perencanaan/dashboard');                    
+        }
     }
 
     function insert_feedback_sarpras(){
@@ -218,6 +233,9 @@ class Dashboard extends Perencanaan_Controller{
             $data['kekurangan_catering']=$data_feedback['kekurangan_catering'];
             $data['keterangan']=$data_feedback['keterangan'];
             $this->template->display('main/perencanaan/form_edit_feedback_sarpras',$data);
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Feedback tidak ditemukan'));
+            redirect(base_url().'perencanaan/dashboard');                    
         }
 
     }
@@ -265,9 +283,14 @@ class Dashboard extends Perencanaan_Controller{
     }
 
     function delete_feedback_sarpras($id){
-        $this->rnc->delete_feedback_sarpras($id);
-        $this->session->set_flashdata('msg',$this->editor->alert_warning('Feedback/evaluasi telah dihapus'));
-        redirect(base_url().'perencanaan/dashboard/detail_diklat/'.$id);        
+        if($id){
+            $this->rnc->delete_feedback_sarpras($id);
+            $this->session->set_flashdata('msg',$this->editor->alert_warning('Feedback/evaluasi telah dihapus'));
+            redirect(base_url().'perencanaan/dashboard/detail_diklat/'.$id);        
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Feedback tidak ditemukan'));
+            redirect(base_url().'perencanaan/dashboard');
+        }
     }
 
     function display_feedback_sarpras($id){
