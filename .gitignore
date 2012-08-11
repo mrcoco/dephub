@@ -4,3 +4,6 @@
 */cache/*
 */cache/!index.html
 /application/config/database.php
+/application\config/database.php
+/application\config/database.php
+/application\config/database.php
