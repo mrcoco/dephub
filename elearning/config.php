@@ -1,19 +1,19 @@
-<?php  /// Moodle Configuration File 
+<?php  /// Moodle Configuration File
 
 unset($CFG);
 
 $CFG = new stdClass();
 $CFG->dbtype    = 'mysqli';
 $CFG->dbhost    = 'localhost';
-$CFG->dbname    = 'elearning_dephub';
+$CFG->dbname    = 'dephub_elearning';
 $CFG->dbuser    = 'root';
-$CFG->dbpass    = '';
+$CFG->dbpass    = 'root';
 $CFG->dbpersist =  false;
 $CFG->prefix    = 'mdl_';
 
 $CFG->wwwroot   = 'http://localhost/dephub/elearning';
-$CFG->dirroot   = 'C:\xampp\htdocs\dephub\elearning';
-$CFG->dataroot  = 'C:\xampp\htdocs\dephub\assets\moodledata';
+$CFG->dirroot   = '/Applications/MAMP/htdocs/dephub/elearning';
+$CFG->dataroot  = '/Applications/MAMP/htdocs/dephub/assets/moodledata';
 $CFG->admin     = 'admin';
 
 $CFG->directorypermissions = 00777;  // try 02777 on a server in Safe Mode
