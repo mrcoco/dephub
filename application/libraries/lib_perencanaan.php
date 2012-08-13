@@ -23,6 +23,15 @@ class Lib_perencanaan {
             }
         }
     }
+    function overview($array,$id,$field){
+        if($array){
+            foreach($array as $data){
+                if($data['id']==$id){
+                    return $data[$field];
+                }
+            }
+        }
+    }
     function print_child_feedback($array,$id_program,$kiri,$kanan,$kelas){
         if($array){
             $no=1;

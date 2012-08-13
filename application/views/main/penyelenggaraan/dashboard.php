@@ -1,6 +1,20 @@
 <div class="row">
     <div class="span8">
 	<fieldset class="fieldset_box">
+	    <!-- Program -->
+	    <div class="well span1" align="center">
+		<a href="penyelenggaraan/dashboard/list_peserta" rel="tooltip" title="Klik untuk melihat daftar peserta" class="tip">
+		    <img src="assets/img/menu-icons/users.png" />
+		</a>
+		<strong>Peserta</strong>
+	    </div>
+	    <!-- Profile -->
+	    <div class="well span1" align="center">
+		<a href="penyelenggaraan/dashboard/list_widyaiswara" rel="tooltip" title="Klik untuk melihat daftar widyaiswara" class="tip">
+		    <img src="assets/img/menu-icons/users.png" />
+		</a>
+		<strong>Widyaiswara</strong>
+	    </div>
 	</fieldset>
 	<hr />
 	<div class="alert">
