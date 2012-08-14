@@ -50,3 +50,4 @@
 	<div align="center"><?php echo $pagination;?></div>
     </div>
 </div>
+<?php echo $modal_kamar;?>

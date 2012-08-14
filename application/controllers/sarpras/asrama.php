@@ -8,7 +8,7 @@ class Asrama extends Sarpras_Controller {
     private $limit=200;
     public function index($offset=0)
     {
-	$this->list_asrama($offset,date('Y'), 1,1,'A');
+	redirect('sarpras/asrama/list_asrama/0/'.date('Y').'/'.date('m').'/1/A');
     }
 
     function list_asrama($offset=0,$tahun=2012,$bulan=1,$minggu=1,$asrama='A')
@@ -47,6 +47,7 @@ class Asrama extends Sarpras_Controller {
 		);
 	$var = $this->mdl_sarpras->get_check_list_asrama($this->limit,$offset,$tahun,$bulan,$minggu)->result_array();
 	$i=$offset;
+	$data['modal_kamar']='';
 	foreach ($var as $row)
 	{
 	    $kamar=$this->mdl_sarpras->get_asrama($row['id_kamar'])->row();
@@ -54,7 +55,9 @@ class Asrama extends Sarpras_Controller {
 	    {
 		$this->table->add_row(
 		    ++$i,
-		    '<div align="center">KAMAR '.$this->mdl_sarpras->get_asrama($row['id_kamar'])->row()->nomor.'</div>',
+		    '<div align="center">KAMAR '.
+			$this->mdl_sarpras->get_asrama($row['id_kamar'])->row()->nomor.
+		    '<br /><a href="#kamar'.$row['id_kamar'].'" data-toggle="modal" class="badge badge-success tip" title="Edit"><i class="icon icon-white icon-edit"></i></a></div>',
 		    $this->mon($row['lampu1']),
 		    $this->mon($row['lampu2']),
 		    $this->mon($row['lampu3']),
@@ -71,6 +74,7 @@ class Asrama extends Sarpras_Controller {
 		    $this->mon($row['kebersihan']),
 		    $this->mon($row['keterangan'])
 		    );
+		$data['modal_kamar'].=$this->editor->modal_kamar($row['id_kamar']);
 	    }
 
 	}
@@ -107,7 +111,7 @@ class Asrama extends Sarpras_Controller {
 	} else if($var==''){
 	    return '';
 	} else {
-	    return '<a href="#"><span style="color:red"><img src="assets/img/alert.png" /></span></a>';
+	    return '<a href="#alert" title="Klik untuk melihat laporan" rel="tooltip"><span style="color:red"><img src="assets/img/alert.png" /></span></a>';
 	}
     }
 }

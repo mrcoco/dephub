@@ -69,97 +69,20 @@ class Editor {
 	}
     }
 
-    // Upload functionality
-
-    function upload_input2($id,$val,$action)
+    function modal_kamar($id)
     {
-	$uploadpath = "";
-	$uploadpath = str_ireplace($_SERVER['DOCUMENT_ROOT'],"",realpath($_SERVER['SCRIPT_FILENAME']));
-	$uploadpath = str_ireplace("index.php","",$uploadpath);
-	$button = form_open_multipart('upload/index').'<input type="file" name="'.$id.'" id="'.$id.'"/><input type="hidden" name="'.$id.'" value="'.$val.'" />
-		    <a href="javascript:$(\'#'.$id.'\').uploadifyUpload();" class="btn">Upload</a>'.form_close();
-	$button.= "<script type=\"text/javascript\" language=\"javascript\">
-			$(document).ready(function()
-			{
-				$(\"#$id\").uploadify({
-							uploader: '".base_url()."application/uploadify/uploadify.swf',
-							script: '".base_url()."application/uploadify/uploadify.php',
-							cancelImg: '".base_url()."application/uploadify/cancel.png',
-							folder: '".$uploadpath."assets/uploads',
-							scriptAccess: 'always',
-							multi: true,
-							'onError' : function(a, b, c, d){
-								if(d.status=404)
-									alert('Could not find upload script');
-								else if(d.type === \"HTTP\")
-									alert('error'+d.type+\": \"+d.info);
-								else if(d.type === \"File Size\")
-									alert(c.name+' '+d.type+' Limit: '+Math.round(d.sizeLimit/1024)+'KB');
-								else
-									alert('error'+d.type+\": \"+d.text);
-							},
-							'onComplete' : function(event,queueID,fileObj,response,data){
-									$.post('".site_url('activity/edit/'.$action)."',{filearray: response},function(info){ $(\"#info-$id\").append(info);});
-							},
-							'onAllComplete' : function(event,data){
-
-							}
-						    });
-			});
-		    </script>";
-	return $button;
-    }
-
-    function upload_input($id,$course_id)
-    {
-
-	$button = form_open_multipart('upload/index').'<div id="div-'.$id.'"><input type="file" name="'.$id.'" id="btn-upload-'.$id.'"/>
-		    <a href="javascript:$(\'#btn-upload-'.$id.'\').uploadify(\'upload\');" class="btn" id="btn-do-upload-'.$id.'">Upload</a>'.form_close().'</div>';
-	$button .="<script type=\"text/javascript\" language=\"javascript\">
-			$(document).ready(function()
-			    {
-			    $(\"#btn-upload-$id\").uploadify({
-				height:22,
-				swf:'".base_url()."assets/up/uploadify.swf',
-				uploader:'".base_url()."application/uploadify/uploadify.php',
-				width:80,
-				multi:true,
-				auto: false,
-				buttonText: '<i class=\"icon icon-upload icon-white\"></i> Select',
-				'onUploadStart' : function(){
-					$(\"#pub_$id\").remove();
-					$(\"#info-$id\").append(\"<img src='assets/img/loading.gif' width='16px' id='img_$id'/>\");
-				},
-				'onUploadSuccess' : function(file){
-					$.ajax({
-					    url: '".site_url('activity/upload_file/'.$course_id.'/'.$id)."',
-					    type: 'POST',
-					    dataType: 'json',
-					    data: {fileName: file.name}
-					}).done(function(data){
-					    window.location.reload();
-					});
-				}
-			    });
-			});
-		    </script>";
-	return $button;
-    }
-
-    function modal_aktifitas($i,$kursil,$label_kursil,$kelengkapan,$label_kelengkapan,$peserta,$label_peserta)
-    {
-	return '<div class="modal fade in" id="aktifitas'.$i.'" style="display:none;width: 30%;left: 60%;">
+	return '<div class="modal fade in" id="kamar'.$id.'" style="display:none;width: 30%;left: 60%;">
 		    <div class="modal-header">
 			<button class="close" data-dismiss="modal">x</button>
-			<h3>Aktifitas Pelatihan</h3>
+			<h3>Kamar</h3>
 		    </div>
 		    <div class="modal-body">
-			<table class="table table-condensed">
-			    <tr><th>Aktifitas</th><th>Action</th><th>Status</th></tr>
-			    <tr><td>Kursil</td><td>'.$kursil.'</td><td>'.$label_kursil.'</td></tr>
-			    <tr><td>Kelengkapan</td><td>'.$kelengkapan.'</td><td>'.$label_kelengkapan.'</td></tr>
-			    <tr><td>Peserta</td><td>'.$peserta.'</td><td>'.$label_peserta.'</td></tr>
-			</table>
+			<form method="POST" action="sarpras/asrama/update_kamar/'.$id.'">
+			    <table class="table">
+				<tr><td colspan="2"><div align="center">Lampu</div></td></tr>
+				<tr><td>TL-E 22W</td><td><input type="text" name="lampu1" value="" class="input-small"></td></tr>
+			    </table>
+			</form>
 		    </div>
 		    <div class="modal-footer">
 			<a href="#" class="btn" data-dismiss="modal">Close</a>
@@ -167,35 +90,10 @@ class Editor {
 		</div>';
     }
 
-        function modal_cancel($id,$ket_cancel)
+    function get_status_kamar($id,$var)
     {
-	return '<div class="modal fade in" id="cancel'.$id.'" style="display:none;width: 30%;left: 60%;">
-		    <div class="modal-header">
-			<button class="close" data-dismiss="modal">x</button>
-			<h3>Alasan</h3>
-		    </div>
-		    <div class="modal-body">
-			'.$ket_cancel.'
-		    </div>
-		    <div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-		    </div>
-		</div>';
-    }
-        function modal_popupcancel($id)
-    {
-	return '<div class="modal fade in" id="popup'.$id.'" style="display:none;width: 30%;left: 60%;">
-		    <div class="modal-header">
-			<button class="close" data-dismiss="modal">x</button>
-			<h3>Alasan</h3>
-		    </div>
-		    <div class="modal-body">
-			<form action="dashboard/cancel/'.$id.'" method="POST"><textarea name="ket" style="width: 260px;"></textarea><br><br><button class="btn btn-primary" type="submit">Submit</button></form>
-		    </div>
-		    <div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Close</a>
-		    </div>
-		</div>';
+	$this->_ci->load->model('mdl_sarpras');
+	$q=$this->_ci->mdl_sarpras->get_asrama($id)->$var;
     }
 
     function pagination_custom($url,$total,$limit)
