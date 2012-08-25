@@ -4,7 +4,7 @@
         $('select').attr('class','input-mini');
         $('#program').attr('class','');
         $('#program').change(function(){
-            location.href="<?php echo base_url() ?>penyelenggaraan/dashboard/list_peserta/"+$('#program').val();
+            location.href="<?php echo base_url() ?>penyelenggaraan/peserta/list_peserta/"+$('#program').val();
         });
     } );
     
@@ -14,7 +14,7 @@
             'id_program' : id_program
         }
         $.post(
-            "<?php echo base_url() ?>penyelenggaraan/dashboard/toggle_status/accept",
+            "<?php echo base_url() ?>penyelenggaraan/peserta/toggle_status/accept",
             data,
             function(){
                 $('#status'+id_peserta).attr('class','badge badge-success');           
@@ -28,7 +28,7 @@
             'id_program' : id_program
         }
         $.post(
-            "<?php echo base_url() ?>penyelenggaraan/dashboard/toggle_status/cancel",
+            "<?php echo base_url() ?>penyelenggaraan/peserta/toggle_status/cancel",
             data,
             function(){
                 $('#status'+id_peserta).attr('class','badge badge-info');           
@@ -73,5 +73,5 @@ Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program
     </tbody>
 </table>
 <div class="form-actions">
-    <a href="penyelenggaraan/dashboard/registrasi" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah Peserta</a>
+    <a href="penyelenggaraan/peserta/registrasi" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah Peserta</a>
 </div>

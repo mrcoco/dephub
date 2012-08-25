@@ -9,12 +9,14 @@
 	    </a>
 	    <div class="nav-collapse">
 		<ul class="nav">
-		    <a class="brand" href="<?php echo $this->session->userdata('link');?>"><img src="assets/img/dephub-icon.png" /></a>
-		    <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='dashboard'){echo 'active';};?>"><a href="<?php echo $this->session->userdata('link');?>">Dashboard</a></li>
-		    <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='profiles'){echo 'active';};?>"><a href="administrator/profiles">Profiles</a></li>
-		    <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='config'){echo 'active';};?>"><a href="administrator/config">Site Configuration</a></li>
-		    <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='info'){echo 'active';};?>"><a href="administrator/info">Simdik Info</a></li>
-
+		    <a class="brand" href="#"><img src="assets/img/dephub-icon.png" /></a>
+                    <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='dashboard' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="perencanaan/dashboard">Dashboard</a></li>
+                    <li class="dropdown <?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Diklat<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat' && $this->uri->segment(3)=='daftar_diklat'){echo 'active';};?>"><a href="perencanaan/dashboard/daftar_diklat">Daftar Diklat</a></li>
+                            <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat' && $this->uri->segment(3)=='buat_diklat'){echo 'active';};?>"><a href="perencanaan/dashboard/buat_diklat">Tambah Diklat</a></li>
+                        </ul>
+                    </li>
 		</ul>
 		<ul class="nav pull-right">
 		    <li class="dropdown <?php if($this->uri->segment(2)=='about'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Tentang PSDMAP <b class="caret"></b></a>
