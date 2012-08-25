@@ -20,7 +20,7 @@ class Dashboard extends Perencanaan_Controller{
 
     public function index(){
 	$data['sub_title']='Dashboard';
-	$this->template->display('main/perencanaan/dashboard',$data);
+	$this->template->display('simdik/perencanaan/dashboard',$data);
 
     }
 

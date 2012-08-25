@@ -13,14 +13,14 @@
                     <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dashboard' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/dashboard">Dashboard</a></li>
                     <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Widyaiswara<b class="caret"></b></a>
 			<ul class="dropdown-menu">
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara' && $this->uri->segment(3)=='list_widyaiswara'){echo 'active';};?>"><a href="penyelenggaraan/dashboard/list_widyaiswara">List Widyaiswara</a></li>
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara' && $this->uri->segment(3)=='add_widyaiswara'){echo 'active';};?>"><a href="penyelenggaraan/dashboard/add_widyaiswara">Tambah Widyaiswara</a></li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara' && $this->uri->segment(3)=='list_widyaiswara'){echo 'active';};?>"><a href="penyelenggaraan/widyaiswara/list_widyaiswara">List Widyaiswara</a></li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara' && $this->uri->segment(3)=='add_widyaiswara'){echo 'active';};?>"><a href="penyelenggaraan/widyaiswara/add_widyaiswara">Tambah Widyaiswara</a></li>
                         </ul>
                     </li>
                     <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='peserta' ){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Peserta<b class="caret"></b></a>
 			<ul class="dropdown-menu">
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='peserta' && $this->uri->segment(3)=='list_peserta'){echo 'active';};?>"><a href="penyelenggaraan/dashboard/list_peserta">List Peserta</a></li>
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='peserta' && $this->uri->segment(3)=='registrasi'){echo 'active';};?>"><a href="penyelenggaraan/dashboard/registrasi">Tambah Peserta</a></li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='peserta' && $this->uri->segment(3)=='list_peserta'){echo 'active';};?>"><a href="penyelenggaraan/peserta/list_peserta">List Peserta</a></li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='peserta' && $this->uri->segment(3)=='registrasi'){echo 'active';};?>"><a href="penyelenggaraan/peserta/registrasi">Tambah Peserta</a></li>
                         </ul>
                     </li>
 		</ul>
