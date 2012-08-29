@@ -104,7 +104,7 @@
 
 <!-- Selesai Contoh-->
 
-<form name="form_reg" action="penyelenggaraan/dashboard/registrasi_proses" method="POST">
+<form name="form_reg" action="penyelenggaraan/peserta/registrasi_proses" method="POST">
     <table width="800" class="table table-condensed">
         <tr>
             <td width="143px">Program Diklat</td>

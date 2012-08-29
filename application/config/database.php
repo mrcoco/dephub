@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'root';
+$db['default']['password'] = '';
 $db['default']['database'] = 'dephub_simdik';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'tb_';
@@ -66,7 +66,7 @@ $db['default']['stricton'] = FALSE;
 
 $db['elearning']['hostname'] = 'localhost';
 $db['elearning']['username'] = 'root';
-$db['elearning']['password'] = 'root';
+$db['elearning']['password'] = '';
 $db['elearning']['database'] = 'dephub_elearning';
 $db['elearning']['dbdriver'] = 'mysql';
 $db['elearning']['dbprefix'] = 'mdl_';

@@ -30,7 +30,7 @@
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
 </div>
-<form method="post" id="form1" action="perencanaan/dashboard/insert_diklat" class="form-horizontal">
+<form method="post" id="form1" action="perencanaan/diklat/insert_diklat" class="form-horizontal">
     <fieldset>
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>

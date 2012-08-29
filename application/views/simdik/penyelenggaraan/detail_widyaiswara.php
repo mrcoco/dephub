@@ -3,12 +3,12 @@
 </div>
 <p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
 <div class="well-small">
-    <a href="penyelenggaraan/dashboard/edit_widyaiswara/<?php echo $data['id'] ?>"><i class="icon-edit"></i> Ubah</a>
-    <a href="penyelenggaraan/dashboard/delete_widyaiswara/<?php echo $data['id'] ?>"
+    <a href="penyelenggaraan/widyaiswara/edit_widyaiswara/<?php echo $data['id'] ?>"><i class="icon-edit"></i> Ubah</a>
+    <a href="penyelenggaraan/widyaiswara/delete_widyaiswara/<?php echo $data['id'] ?>"
        onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $data['nama'] ?>?')">
         <i class="icon-trash"></i> Hapus</a>
 </div>
-<form action="penyelenggaraan/dashboard/edit_process" method="POST">
+<form action="penyelenggaraan/widyaiswara/edit_process" method="POST">
 <input type="hidden" name="id" value="<?php echo $data['id']?>"/>    
 <table class="table table-striped">
     <tr>

@@ -25,7 +25,7 @@ $().ready(function() {
     <li><a href="#manfaat" data-toggle="tab">Manfaat dari Program Diklat</a></li>
     <li><a href="#catering" data-toggle="tab">Pemakanan/Catering</a></li>
 </ul>
-<form id="form1" action="perencanaan/dashboard/insert_feedback_sarpras" method="post" class="form-horizontal">
+<form id="form1" action="perencanaan/feedback/insert_feedback_sarpras" method="post" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
         <div class="tab-content">

@@ -1,5 +1,5 @@
 <p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
-<form action="penyelenggaraan/dashboard/edit_process" method="POST">
+<form action="penyelenggaraan/widyaiswara/edit_process" method="POST">
 <input type="hidden" name="id" value="<?php echo $data['id']?>"/>    
 <table class="table table-striped table-condensed">
     <tr>
