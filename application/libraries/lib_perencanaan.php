@@ -15,7 +15,7 @@ class Lib_perencanaan {
         if($array){
             foreach($array as $data){
                 if($data['parent']==$parent){
-                    echo $kiri.'<a href="perencanaan/diklat/detail_diklat/'.$data['id'].'" class="'.$kelas.'">
+                    echo $kiri.'<a href="penyelenggaraan/schedule/buat_schedule/'.$data['id'].'" class="'.$kelas.'">
                             '.$data['name'].'
                         </a>'.$kanan.'
                         ';
