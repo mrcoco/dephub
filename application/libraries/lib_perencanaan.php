@@ -15,7 +15,7 @@ class Lib_perencanaan {
         if($array){
             foreach($array as $data){
                 if($data['parent']==$parent){
-                    echo $kiri.'<a href="perencanaan/dashboard/detail_diklat/'.$data['id'].'" class="'.$kelas.'">
+                    echo $kiri.'<a href="penyelenggaraan/schedule/buat_schedule/'.$data['id'].'" class="'.$kelas.'">
                             '.$data['name'].'
                         </a>'.$kanan.'
                         ';
@@ -37,7 +37,7 @@ class Lib_perencanaan {
             $no=1;
             foreach($array as $data){
                 if($data['id_program']==$id_program){
-                    echo $kiri.'<a href="perencanaan/dashboard/display_feedback_sarpras/'.$data['id'].'"><i class="icon-list-alt"></i> 
+                    echo $kiri.'<a href="perencanaan/feedback/display_feedback_sarpras/'.$data['id'].'"><i class="icon-list-alt"></i> 
                             Feedback '.$no.'
                         </a>'.$kanan.'
                         ';

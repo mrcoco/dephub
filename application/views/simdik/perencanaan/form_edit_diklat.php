@@ -30,7 +30,7 @@
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
 </div>
-<form id="form1" method="post" action="perencanaan/dashboard/update_diklat" class="form-horizontal">
+<form id="form1" method="post" action="perencanaan/diklat/update_diklat" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id" value="<?php echo $program['id'] ?>"/>
         <ul class="nav nav-tabs" id="myTab">

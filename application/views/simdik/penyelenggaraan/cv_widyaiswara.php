@@ -1,5 +1,5 @@
 <p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
-<form action="penyelenggaraan/dashboard/insert_widyaiswara" method="POST">
+<form action="penyelenggaraan/widyaiswara/insert_widyaiswara" method="POST">
     <table class="table table-striped table-condensed">
         <tr>
             <td>Nama</td>

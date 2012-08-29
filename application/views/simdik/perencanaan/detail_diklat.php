@@ -3,8 +3,8 @@
 </div>
 <h2><?php echo $program['name'] ?></h2>
 <div class="well-small">
-    <a href="perencanaan/dashboard/edit_diklat/<?php echo $program['id'] ?>"><i class="icon-edit"></i> Ubah</a>
-    <a href="perencanaan/dashboard/delete_diklat/<?php echo $program['id'] ?>"
+    <a href="perencanaan/diklat/edit_diklat/<?php echo $program['id'] ?>"><i class="icon-edit"></i> Ubah</a>
+    <a href="perencanaan/diklat/delete_diklat/<?php echo $program['id'] ?>"
        onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $program['name'] ?>?')">
         <i class="icon-trash"></i> Hapus</a>
 </div>
@@ -58,7 +58,7 @@
         <tr>
             <td>Feedback Sarana Prasarana</td>
             <td>
-                <a href="perencanaan/dashboard/form_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-plus-sign"></i> Tambah</a>
+                <a href="perencanaan/feedback/form_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-plus-sign"></i> Tambah</a>
                 <ul class="unstyled">
                 <?php $this->lib_perencanaan->print_child_feedback($feedback, $program['id'], '<li>', '</li>', '')
                 ?>
