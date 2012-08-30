@@ -31,7 +31,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         if($id_program!=-1){
             $this->db->where('registrasi.id_program',$id_program);
         }
-        $this->db->join('peserta','registrasi.id_peserta=peserta.id');
+        $this->db->join('cv_peserta','registrasi.id_peserta=cv_peserta.id');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -70,5 +70,36 @@ class Mdl_penyelenggaraan extends CI_Model{
     function delete_widyaiswara($id){
         $this->db->where('id',$id);
         $this->db->delete('widyaiswara');
+    }
+    
+    function getall_instansi(){
+        return $this->db->get('instansi')->result_array();
+    }
+    
+    function getkode_instansi($param){
+        $query=$this->db->get_where('instansi',array('nama_instansi'=>$param));
+        if($query->num_rows()==0){
+            return -1;
+        }else{
+            return $query->row()->kode_kantor;
+        }
+    }
+    
+    function get_peserta($param){
+        $query=$this->db->get_where('cv_peserta',array('instansi'=>$param));
+        if($query->num_rows()==0){
+            return FALSE;
+        }else{
+            return $query->result_array();
+        }
+    }
+    
+    function get_data_peserta($param){
+        $query=$this->db->get_where('cv_peserta',array('nip'=>$param));
+        if($query->num_rows()==0){
+            return FALSE;
+        }else{
+            return $query->row_array();
+        }
     }
 }

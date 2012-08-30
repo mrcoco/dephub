@@ -10,7 +10,7 @@
                 $kiri = '<div class="accordion-group"><div class="accordion-heading"><h4>';
                 $kanan = '</h4></div></div>';
                 $kelas = 'accordion-toggle';
-                $this->lib_perencanaan->print_child($program, 1, $kiri, $kanan, $kelas)
+                $this->lib_perencanaan->print_child_schedule($program, 1, $kiri, $kanan, $kelas)
                 ?>
             </div>
             <h3>DIKLAT DALAM JABATAN</h3>
@@ -24,7 +24,7 @@
                     <div id="collapse1a" class="accordion-body collapse">
                         <div class="accordion-inner">
                             <ol>
-                                <?php $this->lib_perencanaan->print_child($program, 4, '<li>', '</li>', '') ?>
+                                <?php $this->lib_perencanaan->print_child_schedule($program, 4, '<li>', '</li>', '') ?>
                             </ol>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                     <div id="collapseOneb" class="accordion-body collapse">
                                         <div class="accordion-inner">
                                             <ol>
-                                                <?php $this->lib_perencanaan->print_child($program, 8, '<li>', '</li>', '') ?>
+                                                <?php $this->lib_perencanaan->print_child_schedule($program, 8, '<li>', '</li>', '') ?>
                                             </ol>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                     <div id="collapseTwob" class="accordion-body collapse">
                                         <div class="accordion-inner">
                                             <ol>
-                                                <?php $this->lib_perencanaan->print_child($program, 9, '<li>', '</li>', '') ?>
+                                                <?php $this->lib_perencanaan->print_child_schedule($program, 9, '<li>', '</li>', '') ?>
                                             </ol>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                     <div id="collapse3a" class="accordion-body collapse">
                         <div class="accordion-inner">
                             <ol>
-                                <?php $this->lib_perencanaan->print_child($program, 6, '<li>', '</li>', '') ?>
+                                <?php $this->lib_perencanaan->print_child_schedule($program, 6, '<li>', '</li>', '') ?>
                             </ol>
                         </div>
                     </div>
@@ -97,7 +97,7 @@
                     <div id="collapse3b" class="accordion-body collapse">
                         <div class="accordion-inner">
                             <ol>
-                                <?php $this->lib_perencanaan->print_child($program, 7, '<li>', '</li>', '') ?>
+                                <?php $this->lib_perencanaan->print_child_schedule($program, 7, '<li>', '</li>', '') ?>
                             </ol>
                         </div>
                     </div>
