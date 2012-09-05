@@ -9,6 +9,12 @@
 <script type='text/javascript' src='<?php echo base_url()?>assets/js/jquery.weekcalendar.js'></script>
 <script type='text/javascript' src='<?php echo base_url()?>assets/js/calendar_demo.js'></script>
 
+<script>
+    $(document).ready(function(){
+        date = new Date('<?php echo $program['tanggal_mulai']?>');
+        $('#calendar').weekCalendar("gotoWeek",date);
+    });
+</script>
 
 <!--JADWAL TENTATIVE <?php echo strtoupper($program['name']) ?>
 <br/>
