@@ -32,5 +32,6 @@ class Schedule extends Penyelenggaraan_Controller{
     function buat_schedule($id){
         $data['program']=$this->rnc->get_program_by_id($id);
         $this->template->display('simdik/penyelenggaraan/schedule_diklat',$data);
+//        $this->load->view('simdik/penyelenggaraan/schedule_diklat',$data);
     }
 }

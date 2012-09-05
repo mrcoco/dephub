@@ -104,4 +104,29 @@ class Peserta extends Penyelenggaraan_Controller{
         $data_peserta=$this->slng->get_data_peserta($nip);
         echo json_encode($data_peserta);
     }
+    
+    function get_history_pelatihan($id){
+        $history=$this->slng->get_history($id);
+        $data_peserta=$this->slng->get_data_peserta_id($id);
+        
+        $header='History pelatihan '.$data_peserta['nama'];
+        
+        if(count($history)==0){
+            $data='Tidak ada data history pelatihan';
+        }else{
+            $data='<ul>';
+            foreach($history as $h){
+                $data.='<li>'.$h['tahun'].' : '.$h['nama_pelatihan'].'</li>';
+            }
+            $data.='</ul>';
+        }
+        $text = '<div class="modal-header">
+                    <h3>'.$header.'</h3>
+                </div>
+                <div class="modal-body">'.$data.'</div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal">Close</a>
+                </div>';
+        echo $text;
+    }
 }

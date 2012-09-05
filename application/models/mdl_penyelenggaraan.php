@@ -102,4 +102,17 @@ class Mdl_penyelenggaraan extends CI_Model{
             return $query->row_array();
         }
     }
+    
+    function get_data_peserta_id($param){
+        $query=$this->db->get_where('cv_peserta',array('id'=>$param));
+        if($query->num_rows()==0){
+            return FALSE;
+        }else{
+            return $query->row_array();
+        }
+    }
+    
+    function get_history($id){
+        return $this->db->get_where('history_pelatihan',array('id_peserta'=>$id))->result_array();
+    }
 }
