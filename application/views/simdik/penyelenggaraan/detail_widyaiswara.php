@@ -12,55 +12,77 @@
 <input type="hidden" name="id" value="<?php echo $data['id']?>"/>    
 <table class="table table-striped">
     <tr>
-        <td width="20%">Nama</td>
+        <th width="20%">Nama</th>
         <td>: <?php echo $data['nama'] ?></td>
     </tr>
     <tr>
-        <td>NIP</td>
+        <th>NIP</th>
         <td>: <?php echo $data['nip'] ?></td>
     </tr>
     <tr>
-        <td>TTL</td>
+        <th>TTL</th>
         <td>: <?php echo $data['tempat_lahir'] ?>, <?php echo $data['tanggal_lahir'] ?></td>
     </tr>
     <tr>
-        <td>Pangkat/Gol</td>
+        <th>Pangkat/Gol</th>
         <td>: <?php echo $data['pangkat'] ?>/<?php echo $data['golongan'] ?></td>
     </tr>
     <tr>
-        <td>Instansi</td>
+        <th>Instansi</th>
         <td>: <?php echo $data['instansi'] ?></td>
     </tr>
     <tr>
-        <td>Jabatan</td>
+        <th>Jabatan</th>
         <td>: <?php echo $data['jabatan'] ?></td>
     </tr>
     <tr>
-        <td colspan="2">Pendidikan</td>
-    </tr>
-    <tr>
-        <td>a. Dalam negeri</td>
-        <td>: <?php echo $data['pendidikan_dn'] ?></td>
-    </tr>
-    <tr>
-        <td>b. Luar negeri</td>
-        <td>: <?php echo $data['pendidikan_ln'] ?></td>
-    </tr>
-    <tr>
-        <td>Alamat rumah</td>
+        <th>Alamat rumah</th>
         <td>: <?php echo $data['alamat_rumah'] ?></td>
     </tr>
     <tr>
-        <td>Telepon rumah</td>
+        <th>Telepon rumah</th>
         <td>: <?php echo $data['tlp_rumah'] ?></td>
     </tr>
     <tr>
-        <td>Alamat kantor</td>
+        <th>Alamat kantor</th>
         <td>: <?php echo $data['alamat_kantor'] ?></td>
     </tr>
     <tr>
-        <td>Telepon kantor</td>
+        <th>Telepon kantor</th>
         <td>: <?php echo $data['tlp_kantor'] ?></td>
+    </tr>
+    <tr>
+        <th colspan="2">Riwayat Pekerjaan</th>
+    </tr>
+    <tr>
+        <td colspan="2"><ul><?php echo $data['history_jabatan'] ?></ul></td>
+    </tr>
+    <tr>
+        <th colspan="2">Pendidikan</th>
+    </tr>
+    <tr>
+        <td colspan="2">a. Dalam negeri</td>
+    </tr>
+    <tr>
+        <td colspan="2"><ul><?php echo $data['pendidikan_dn'] ?></ul></td>
+    </tr>
+    <tr>
+        <td colspan="2">b. Luar negeri</td>
+    </tr>
+    <tr>
+        <td colspan="2"><ul><?php echo $data['pendidikan_ln'] ?></ul></td>
+    </tr>
+    <tr>
+        <td colspan="2">Riwayat Diklat</td>
+    </tr>
+    <tr>
+        <td colspan="2"><ul><?php echo $data['history_diklat'] ?></ul></td>
+    </tr>
+    <tr>
+        <td colspan="2">Riwayat Kursus</td>
+    </tr>
+    <tr>
+        <td colspan="2"><ul><?php echo $data['history_kursus'] ?></ul></td>
     </tr>
 </table>
 </form>

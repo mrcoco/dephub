@@ -1,8 +1,62 @@
 <script>
-    var num=1;
-    $(document).ready(function(){
+    var num=0;
+    var option;
+    var kode_kantor
+    $(document).ready(function(){        
         $('#example').hide();
+        append_table();
+        $('#instansi').focus(function(){
+            $.getJSON('<?php echo base_url() ?>penyelenggaraan/peserta/list_instansi',function(result){
+                option=result;
+                $('#instansi').typeahead({'source':option});
+            });
+            
+        });
+        $('#instansi').change(function(){
+            console.log($('#instansi').val());
+            $.get('<?php echo base_url() ?>penyelenggaraan/peserta/get_kode_instansi/'+$('#instansi').val(),function(result){
+                kode_kantor=result;
+//                console.log(kode_kantor);
+            });
+        });
     });
+    
+    function tes(num){
+        if(kode_kantor>0){
+            console.log(kode_kantor);
+            $.getJSON('<?php echo base_url() ?>penyelenggaraan/peserta/get_cv_peserta/'+kode_kantor,function(result){
+                option=result;
+                $('#nip'+num).typeahead({'source':option});
+            });
+        }else{
+            alert('Masukkan instansi lebih dahulu');
+            $('#instansi').focus();
+        }
+    }
+    
+    function tes2(num){
+        nip=$('#nip'+num).val();
+        $.getJSON('<?php echo base_url() ?>penyelenggaraan/peserta/get_data_peserta/'+nip,function(result){
+            $('#table'+num+' .id').val(result['id']);
+            $('#table'+num+' .nama').val(result['nama']);
+            $('#table'+num+' .pangkat').val(result['pangkat']);
+            $('#table'+num+' .gol').val(result['golongan']);
+            $('#table'+num+' .tgl').val(result['tanggal_lahir']);
+            $('#table'+num+' .jabatan').text(result['jabatan']);
+            $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
+        });
+    }
+    
+    function view_history(num){
+        if($('#nip'+num).val()==''){
+            alert('Anda harus mengisi NIP untuk melihat data history pelatihannya');
+        }else{
+            $.get("<?php echo base_url() ?>penyelenggaraan/peserta/get_history_pelatihan/"+num,function(result){
+                $('#display_history').html(result);
+                $('#display_history').modal('show');
+            })
+        }
+    }
     
     function validate_form(){
         pil_prog=$('#pil_prog').attr('value');
@@ -51,6 +105,9 @@
         obj_table.removeAttr('id');
         obj_table.attr('id', 'table'+num);
         $('#table'+num+' .num').text(num);
+        $('#table'+num+' .nip').attr('id','nip'+num);
+        $('#table'+num+' .nip').attr('onclick','tes('+num+')');
+        $('#table'+num+' .nip').attr('onchange','tes2('+num+')');
         obj_table.show('blind');
         $(function(){
             $('#table'+num+' .tgl').datepicker({
@@ -66,9 +123,15 @@
             num--;
         }
     }
+    
+
+    
     $(function(){
         $('#table1 .tgl').datepicker({
             format: 'yyyy-mm-dd'
+        });
+        $('#display_history').modal({
+            show: false
         });
     });
 </script>
@@ -83,26 +146,31 @@
         </tr>
     </thead>
     <tbody>
+        <input class="id" type="hidden" name="id[]"/>
         <tr>
-            <td>Nama/NIP</td>
-            <td><input type="text" name="nama[]" placeholder="Nama"/> / <input type="text" name="nip[]" placeholder="NIP"/></td>
+            <td>NIP/Nama</td>
+            <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> / <input class="nama" type="text" name="nama[]" placeholder="Nama" readonly/></td>
         </tr>
         <tr>
             <td>Pangkat/Gol</td>
-            <td><input type="text" name="pangkat[]" placeholder="Pangkat"/> / <input type="text" name="gol[]" placeholder="Golongan"/></td>
+            <td><input class="pangkat" type="text" name="pangkat[]" placeholder="Pangkat" readonly/> / <input class="gol" type="text" name="gol[]" placeholder="Golongan" readonly/></td>
         </tr>
         <tr>
             <td>Tanggal lahir</td>
-            <td><input type="text" class="tgl" placeholder="Tahun-Bulan-Tanggal" name="tgl_lahir[]"/></td>
+            <td><input type="text" class="tgl" placeholder="Tahun-Bulan-Tanggal" name="tgl_lahir[]" readonly/></td>
         </tr>
         <tr>
             <td>Jabatan</td>
-            <td><textarea name="jabatan[]"></textarea></td>
+            <td><textarea class="jabatan" name="jabatan[]" readonly></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2"><span class="view_history">Lihat history pelatihan</span></td>
         </tr>
     </tbody>
 </table>
-
 <!-- Selesai Contoh-->
+
+<div id="display_history" class="modal hide"></div>
 
 <form name="form_reg" action="penyelenggaraan/peserta/registrasi_proses" method="POST">
     <table width="800" class="table table-condensed">
@@ -112,35 +180,10 @@
         </tr>
         <tr>
             <td>Asal Instansi Peserta</td>
-            <td><textarea id="instansi" name="instansi"></textarea></td>
+            <td><input type="text" id="instansi" name="instansi"/></td>
         </tr>
     </table>
     <div id="wrap_form">
-        <table id="table1" class="table table-condensed" width="800">
-            <thead>
-                <tr>
-                    <th colspan="2">Peserta ke-1</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Nama/NIP</td>
-                    <td><input type="text" name="nama[]" placeholder="Nama"/> / <input type="text" name="nip[]" placeholder="NIP"/></td>
-                </tr>
-                <tr>
-                    <td>Pangkat/Gol</td>
-                    <td><input type="text" name="pangkat[]" placeholder="Pangkat"/> / <input type="text" name="gol[]" placeholder="Golongan"/></td>
-                </tr>
-                <tr>
-                    <td>Tanggal lahir</td>
-                    <td><input type="text" class="tgl" name="tgl_lahir[]" placeholder="Tahun-Bulan-Tanggal"/></td>
-                </tr>
-                <tr>
-                    <td>Jabatan</td>
-                    <td><textarea name="jabatan[]"></textarea></td>
-                </tr>
-            </tbody>
-        </table>
     </div>
     <a href="javascript:append_table()" class="btn btn-small"><i class="icon-plus"></i> Tambah Peserta</a>
     <a href="javascript:delete_table()" class="btn btn-small"><i class="icon-minus"></i> Hapus</a>

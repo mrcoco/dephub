@@ -50,26 +50,10 @@ class Peserta extends Penyelenggaraan_Controller{
     
     function registrasi_proses(){
         $id_program=$this->input->post('program');
-        $instansi=$this->input->post('instansi');
+        $id=$this->input->post('id');
         
-        $nama=$this->input->post('nama');
-        $nip=$this->input->post('nama');
-        $pangkat=$this->input->post('pangkat');
-        $gol=$this->input->post('gol');
-        $tgl_lahir=$this->input->post('tgl_lahir');
-        $jabatan=$this->input->post('jabatan');
-        
-        for($i=0;$i<count($nama);$i++){
-            $peserta['nip']=$nip[$i];
-            $peserta['nama']=$nama[$i];
-            $peserta['pangkat']=$pangkat[$i];
-            $peserta['golongan']=$gol[$i];
-            $peserta['tanggal_lahir']=$tgl_lahir[$i];
-            $peserta['jabatan']=$jabatan[$i];
-            $peserta['id_program']=$id_program;
-            $peserta['instansi']=$instansi;
-            
-            $reg['id_peserta']=$this->slng->insert_peserta($peserta);
+        for($i=0;$i<count($id);$i++){
+            $reg['id_peserta']=$id[$i];
             $reg['id_program']=$id_program;
             $reg['status']='daftar';
             $this->slng->insert_registrasi($reg);
@@ -89,4 +73,60 @@ class Peserta extends Penyelenggaraan_Controller{
         $this->slng->toggle_status($clause,$data);
     }
     
+    function list_instansi(){
+        $list_instansi=$this->slng->getall_instansi();
+        $array_list=array();
+        $n=0;
+        foreach($list_instansi as $l){
+            $array_list[$n]=$l['nama_instansi'];
+            $n++;
+        }
+        echo json_encode($array_list);
+    }
+    
+    function get_kode_instansi($nama){
+        $nama=  str_replace('%20', ' ', $nama);
+        echo $this->slng->getkode_instansi($nama);
+    }
+    
+    function get_cv_peserta($kodekantor){
+        $list_peserta=$this->slng->get_peserta($kodekantor);
+        $array_list=array();
+        $n=0;
+        foreach($list_peserta as $l){
+            $array_list[$n]=$l['nip'];
+            $n++;
+        }
+        echo json_encode($array_list);
+    }
+    
+    function get_data_peserta($nip){
+        $data_peserta=$this->slng->get_data_peserta($nip);
+        echo json_encode($data_peserta);
+    }
+    
+    function get_history_pelatihan($id){
+        $history=$this->slng->get_history($id);
+        $data_peserta=$this->slng->get_data_peserta_id($id);
+        
+        $header='History pelatihan '.$data_peserta['nama'];
+        
+        if(count($history)==0){
+            $data='Tidak ada data history pelatihan';
+        }else{
+            $data='<ul>';
+            foreach($history as $h){
+                $data.='<li>'.$h['tahun'].' : '.$h['nama_pelatihan'].'</li>';
+            }
+            $data.='</ul>';
+        }
+        $text = '<div class="modal-header">
+                    <h3>'.$header.'</h3>
+                </div>
+                <div class="modal-body">'.$data.'</div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal">Close</a>
+                </div>';
+        echo $text;
+    }
 }

@@ -7,6 +7,7 @@ class Schedule extends Penyelenggaraan_Controller{
         parent::__construct();
         $this->thn_default = date('Y');
         $this->load->model('mdl_perencanaan','rnc');
+        $this->load->model('mdl_penyelenggaraan','slng');
     }
     
     public function index(){
@@ -31,6 +32,12 @@ class Schedule extends Penyelenggaraan_Controller{
     
     function buat_schedule($id){
         $data['program']=$this->rnc->get_program_by_id($id);
+        $widyaiswara=$this->slng->getall_widyaiswara();
+        $data['autocom_widya']=array();
+        foreach($widyaiswara as $w){
+            $data['autocom_widya'][]=$w['nama'];
+        }
+        $data['autocom_widya']=  json_encode($data['autocom_widya']);
         $this->template->display('simdik/penyelenggaraan/schedule_diklat',$data);
     }
 }

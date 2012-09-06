@@ -15,7 +15,7 @@ class Lib_perencanaan {
         if($array){
             foreach($array as $data){
                 if($data['parent']==$parent){
-                    echo $kiri.'<a href="penyelenggaraan/schedule/buat_schedule/'.$data['id'].'" class="'.$kelas.'">
+                    echo $kiri.'<a href="perencanaan/diklat/detail_diklat/'.$data['id'].'" class="'.$kelas.'">
                             '.$data['name'].'
                         </a>'.$kanan.'
                         ';
@@ -42,6 +42,18 @@ class Lib_perencanaan {
                         </a>'.$kanan.'
                         ';
                     $no++;
+                }
+            }
+        }
+    }
+    function print_child_schedule($array,$parent,$kiri,$kanan,$kelas){
+        if($array){
+            foreach($array as $data){
+                if($data['parent']==$parent){
+                    echo $kiri.'<a href="penyelenggaraan/schedule/buat_schedule/'.$data['id'].'" class="'.$kelas.'">
+                            '.$data['name'].'
+                        </a>'.$kanan.'
+                        ';
                 }
             }
         }
