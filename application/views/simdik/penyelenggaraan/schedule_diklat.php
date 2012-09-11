@@ -2,7 +2,18 @@
 <link rel='stylesheet' type='text/css' href='<?php echo base_url() ?>assets/css/jquery.weekcalendar.css' />
 <link rel='stylesheet' type='text/css' href='<?php echo base_url() ?>assets/css/calendar_default.css' />
 <link rel='stylesheet' type='text/css' href='<?php echo base_url() ?>assets/css/calendar_demo.css' />
-
+<style>
+    .ui-button {
+            margin-left: -1px;
+    }
+    .ui-button-icon-only .ui-button-text {
+            padding: 0.35em;
+    } 
+    .ui-autocomplete-input {
+            margin: 0;
+            padding: 0.4em 0 0.4em 0.45em;
+    }
+</style>
 
 <script type='text/javascript' src='<?php echo base_url() ?>assets/libs/jquery-ui-1.8.11.custom.min.js'></script>
 <script type='text/javascript' src='<?php echo base_url() ?>assets/libs/date.js'></script>
@@ -76,7 +87,6 @@
                             calEvent.end = new Date(endField.val());
                             calEvent.title = titleField.val();
 //                            calEvent.body = bodyField.val();
-//                            $('.loading').removeClass('hide');
                             $calendar.weekCalendar("removeUnsavedEvents");
                             $calendar.weekCalendar("updateEvent", calEvent);
                             $dialogContent.dialog("close");
@@ -104,9 +114,9 @@
 
                 var $dialogContent = $("#event_edit_container");
                 resetForm($dialogContent);
-                var startField = $dialogContent.find("select[name='start']").val(calEvent.start);
-                var endField = $dialogContent.find("select[name='end']").val(calEvent.end);
-                var titleField = $dialogContent.find("input[name='title']").val(calEvent.title);
+                var startField = $dialogContent.find("select[name='mulai']").val(calEvent.start);
+                var endField = $dialogContent.find("select[name='selesai']").val(calEvent.end);
+                var titleField = $dialogContent.find("input[name='nama']").val(calEvent.title);
 //                var bodyField = $dialogContent.find("textarea[name='body']");
 //                bodyField.val(calEvent.body);
 
@@ -163,6 +173,7 @@
         function resetForm($dialogContent) {
             form = $('#example').children().clone();
             $dialogContent.html(form);
+            $('.tr_widyaiswara').hide();
         }
 
         function getEventData() {
@@ -237,28 +248,27 @@
 
         });
         $('#calendar').weekCalendar("gotoWeek",mindate);
-        $('.widyaiswara').hide();
-        $('.widyaiswara').autocomplete({source: array_widya});
         $('.wc-today').hide();
-    });
-    
-    $('#jenis').live('change',function(){
-        if($('#jenis').val()=='materi'){
-            $('.widyaiswara').show();
-        }else{
-            $('.widyaiswara').hide();
-        }
-    });
-    
-    $('.add').live('click',function(){
-        $(this).text('Hapus');
-        $(this).attr('class','del');
-        var append='<tr class="widyaiswara"><td>Widyaiswara</td><td>: <input class="widyaiswara" type="text" name="widyaiswara" /> <span class="add">Tambah</span></td></tr>';
-        $('#form_event').append(append);
-    });
-    
-    $('.del').live('click',function(){
-        $(this).parent().parent().remove();
+        
+        
+        $('#jenis').live('change',function(){
+            if($(this).val()=='materi'){
+                $('.tr_widyaiswara').show();
+            }else{
+                $('.tr_widyaiswara').hide();
+            }
+        });
+
+        $('.add').live('click',function(){
+            $(this).text('Hapus');
+            $(this).attr('class','del');
+            var append_text='<tr class="tr_widyaiswara"><td>Widyaiswara</td><td>: <input type="text" class="widyaiswara" name="widyaiswara[]"/> <span class="add">Tambah</span></td></tr>';
+            $('#event_edit_container #form_event').append(append_text);
+        });
+
+        $('.del').live('click',function(){
+            $(this).parent().parent().remove();
+        });
     });
 </script>
 
@@ -268,9 +278,8 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
 <br/>
 <br/>
 <div id='calendar'></div>
-
 <div id="example" class="hide">
-    <form>
+    <form id="main_form">
         <input type="hidden" id="id_program" name="id_program" value="<?php echo $program['id'] ?>"/>
         <table id="form_event">
             <tr>
@@ -304,13 +313,11 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
                 <td>Nama acara</td>
                 <td>: <input type="text" name="nama" /></td>
             </tr>
-            <tr class="widyaiswara">
+            <tr class="tr_widyaiswara">
                 <td>Widyaiswara</td>
-                <td>: <input class="widyaiswara" type="text" name="widyaiswara" /> <span class="add">Tambah</span></td>
+                <td>: <input type="text" class="widyaiswara" name="widyaiswara[]"/> <span class="add">Tambah</span></td>
             </tr>
         </table>
-        <br/>
-        <div class="loading hide"><img src="<?php echo base_url()?>assets/img/spinner.gif" width="30" height="30"/> Proses menyimpan</div>
     </form>
 </div>
 
