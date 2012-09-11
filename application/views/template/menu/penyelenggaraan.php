@@ -11,6 +11,7 @@
 		<ul class="nav">
 		    <a class="brand" href="#"><img src="assets/img/dephub-icon.png" /></a>
                     <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dashboard' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/dashboard">Dashboard</a></li>
+                    <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='schedule' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/schedule">Jadwal Diklat</a></li>
                     <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Widyaiswara<b class="caret"></b></a>
 			<ul class="dropdown-menu">
                             <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara' && $this->uri->segment(3)=='list_widyaiswara'){echo 'active';};?>"><a href="penyelenggaraan/widyaiswara/list_widyaiswara">List Widyaiswara</a></li>
