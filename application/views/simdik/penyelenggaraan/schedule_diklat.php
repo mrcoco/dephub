@@ -70,7 +70,7 @@
 
 
                 $dialogContent.dialog({
-                    width: 500,
+                    width: 'auto',
                     height: 500,
                     modal: true,
                     title: "Buat Kegiatan Baru",
@@ -121,7 +121,7 @@
 //                bodyField.val(calEvent.body);
 
                 $dialogContent.dialog({
-                    width: 500,
+                    width: 'auto',
                     height: 500,
                     modal: true,
                     title: "Edit - " + calEvent.title,
@@ -258,17 +258,6 @@
                 $('.tr_widyaiswara').hide();
             }
         });
-
-        $('.add').live('click',function(){
-            $(this).text('Hapus');
-            $(this).attr('class','del');
-            var append_text='<tr class="tr_widyaiswara"><td>Widyaiswara</td><td>: <input type="text" class="widyaiswara" name="widyaiswara[]"/> <span class="add">Tambah</span></td></tr>';
-            $('#event_edit_container #form_event').append(append_text);
-        });
-
-        $('.del').live('click',function(){
-            $(this).parent().parent().remove();
-        });
     });
 </script>
 
@@ -283,7 +272,7 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
         <input type="hidden" id="id_program" name="id_program" value="<?php echo $program['id'] ?>"/>
         <table id="form_event">
             <tr>
-                <td width="100">Tanggal</td>
+                <td width="180">Tanggal</td>
                 <td>
                     : <span class="date_holder"></span>
                 </td>
@@ -314,8 +303,25 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
                 <td>: <input type="text" name="nama" /></td>
             </tr>
             <tr class="tr_widyaiswara">
-                <td>Widyaiswara</td>
-                <td>: <input type="text" class="widyaiswara" name="widyaiswara[]"/> <span class="add">Tambah</span></td>
+                <td>Pembicara 1</td>
+                <?php $pil=array('widyaiswara','non widyaiswara','dosen tamu')?>
+                <td>: <?php echo form_dropdown('jenis_pembicara1',$pil,'','id="jenis_pembicara1"')?> <input type="text" name="pembicara1" id="pembicara1"/></td>
+            </tr>
+            <tr class="tr_widyaiswara">
+                <td>Pembicara 2</td>
+                <td>: <?php echo form_dropdown('jenis_pembicara2',$pil,'','id="jenis_pembicara2"')?> <input type="text" name="pembicara2" id="pembicara2"/></td>
+            </tr>
+            <tr class="tr_widyaiswara">
+                <td>Pembicara 3</td>
+                <td>: <?php echo form_dropdown('jenis_pembicara3',$pil,'','id="jenis_pembicara3"')?> <input type="text" name="pembicara3" id="pembicara3"/></td>
+            </tr>
+            <tr>
+                <td>Pendamping 1</td>
+                <td>: <input type="text" name="pendamping1" id="pendamping1"/></td>
+            </tr>
+            <tr>
+                <td>Pendamping 2</td>
+                <td>: <input type="text" name="pendamping2" id="pendamping2"/></td>
             </tr>
         </table>
     </form>

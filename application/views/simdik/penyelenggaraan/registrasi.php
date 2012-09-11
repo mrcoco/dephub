@@ -41,9 +41,9 @@
             $('#table'+num+' .nama').val(result['nama']);
             $('#table'+num+' .pangkat').val(result['pangkat']);
             $('#table'+num+' .gol').val(result['golongan']);
-            $('#table'+num+' .tgl').val(result['tanggal_lahir']);
             $('#table'+num+' .jabatan').text(result['jabatan']);
             $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
+            $('#table'+num+' .view_detail').attr('onclick','view_detail('+result['id']+')');
         });
     }
     
@@ -52,8 +52,19 @@
             alert('Anda harus mengisi NIP untuk melihat data history pelatihannya');
         }else{
             $.get("<?php echo base_url() ?>penyelenggaraan/peserta/get_history_pelatihan/"+num,function(result){
-                $('#display_history').html(result);
-                $('#display_history').modal('show');
+                $('#display_dialog').html(result);
+                $('#display_dialog').modal('show');
+            })
+        }
+    }
+    
+    function view_detail(num){
+        if($('#nip'+num).val()==''){
+            alert('Anda harus mengisi NIP untuk melihat data history pelatihannya');
+        }else{
+            $.get("<?php echo base_url() ?>penyelenggaraan/peserta/get_detail_peserta/"+num,function(result){
+                $('#display_dialog').html(result);
+                $('#display_dialog').modal('show');
             })
         }
     }
@@ -139,7 +150,7 @@
     <h4>Error!</h4>
 </div>
 <!-- Contoh buat di clone -->
-<table width="800" id="example" class="table table-condensed">
+<table id="example" class="table table-condensed">
     <thead>
         <tr>
             <th colspan="2">Peserta ke-<span class="num"></span></th>
@@ -156,21 +167,19 @@
             <td><input class="pangkat" type="text" name="pangkat[]" placeholder="Pangkat" readonly/> / <input class="gol" type="text" name="gol[]" placeholder="Golongan" readonly/></td>
         </tr>
         <tr>
-            <td>Tanggal lahir</td>
-            <td><input type="text" class="tgl" placeholder="Tahun-Bulan-Tanggal" name="tgl_lahir[]" readonly/></td>
-        </tr>
-        <tr>
             <td>Jabatan</td>
             <td><textarea class="jabatan" name="jabatan[]" readonly></textarea></td>
         </tr>
         <tr>
-            <td colspan="2"><span class="view_history">Lihat history pelatihan</span></td>
+            <td colspan="2">
+                <span class="view_detail">Lihat data detail</span>&nbsp;&nbsp;&nbsp;<span class="view_history">Lihat history pelatihan</span> 
+            </td>
         </tr>
     </tbody>
 </table>
 <!-- Selesai Contoh-->
 
-<div id="display_history" class="modal hide"></div>
+<div id="display_dialog" class="modal hide"></div>
 
 <form name="form_reg" action="penyelenggaraan/peserta/registrasi_proses" method="POST">
     <table width="800" class="table table-condensed">
