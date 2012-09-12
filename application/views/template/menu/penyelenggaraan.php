@@ -11,10 +11,17 @@
 		<ul class="nav">
 		    <a class="brand" href="#"><img src="assets/img/dephub-icon.png" /></a>
                     <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dashboard' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/dashboard">Dashboard</a></li>
-                    <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Widyaiswara<b class="caret"></b></a>
+                    <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='schedule' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/schedule">Jadwal Diklat</a></li>
+                    <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/pegawai">Daftar Pegawai</a></li>
+                    <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dosen_tamu'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Pembicara<b class="caret"></b></a>
 			<ul class="dropdown-menu">
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara' && $this->uri->segment(3)=='list_widyaiswara'){echo 'active';};?>"><a href="penyelenggaraan/widyaiswara/list_widyaiswara">List Widyaiswara</a></li>
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='widyaiswara' && $this->uri->segment(3)=='add_widyaiswara'){echo 'active';};?>"><a href="penyelenggaraan/widyaiswara/add_widyaiswara">Tambah Widyaiswara</a></li>
+                            <li class="nav-header">Pembicara Internal</li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pembicara_int' && $this->uri->segment(3)=='list_pembicara'){echo 'active';};?>"><a href="penyelenggaraan/pembicara_int/list_pembicara">Lihat Pembicara Internal</a></li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pembicara_int' && $this->uri->segment(3)=='add_pembicara'){echo 'active';};?>"><a href="penyelenggaraan/pembicara_int/add_pembicara">Tambah Pembicara Internal</a></li>
+                            <li class="divider"></li>
+                            <li class="nav-header">Dosen Tamu</li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dosen_tamu' && $this->uri->segment(3)=='list_dosen'){echo 'active';};?>"><a href="penyelenggaraan/dosen_tamu/list_dosen">Lihat Dosen Tamu</a></li>
+                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dosen_tamu' && $this->uri->segment(3)=='add_dosen'){echo 'active';};?>"><a href="penyelenggaraan/dosen_tamu/add_dosen">Tambah Dosen Tamu</a></li>
                         </ul>
                     </li>
                     <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='peserta' ){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Peserta<b class="caret"></b></a>

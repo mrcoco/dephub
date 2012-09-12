@@ -32,12 +32,19 @@ class Schedule extends Penyelenggaraan_Controller{
     
     function buat_schedule($id){
         $data['program']=$this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/schedule/daftar_diklat');
+        }
         $widyaiswara=$this->slng->getall_widyaiswara();
         $data['autocom_widya']=array();
         foreach($widyaiswara as $w){
             $data['autocom_widya'][]=$w['nama'];
         }
         $data['autocom_widya']=  json_encode($data['autocom_widya']);
+//        foreach($widyaiswara as $w){
+//            $data['autocom_widya'][$w['id']]=$w['nama'];
+//        }
         $this->template->display('simdik/penyelenggaraan/schedule_diklat',$data);
     }
 }

@@ -1,10 +1,4 @@
 <?php
-
-/**
- * Description of mdl_sarpras
- *
- * @author irhamnurhalim
- */
 class Mdl_sarpras extends CI_Model {
 
     private $table_program = 'program';

@@ -15,6 +15,13 @@
 		</a>
 		<strong>Pengajar</strong>
 	    </div>
+	    <!-- Profile -->
+	    <div class="well span1" align="center">
+		<a href="penyelenggaraan/schedule" rel="tooltip" title="Klik untuk melihat jadwal diklat" class="tip">
+		    <img src="assets/img/menu-icons/kelas.png" />
+		</a>
+		<strong>Jadwal</strong>
+	    </div>
 	</fieldset>
 	<hr />
 	<div class="alert">
@@ -26,13 +33,7 @@
     </div>
     <div class="span4">
 	<div class="well">
-	    Menu
-            <ul>
-                <li><a href="penyelenggaraan/widyaiswara/list_widyaiswara">List Widyaiswara</a></li>
-                <li><a href="penyelenggaraan/peserta/list_peserta">List Peserta</a></li>
-                <li><a href="penyelenggaraan/widyaiswara/add_widyaiswara">Tambah Widyaiswara</a></li>
-                <li><a href="penyelenggaraan/peserta/registrasi">Tambah Peserta</a></li>
-            </ul>
+	    Petunjuk
 	</div>
     </div>
 </div>

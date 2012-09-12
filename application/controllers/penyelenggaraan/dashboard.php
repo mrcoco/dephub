@@ -1,15 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of dashboard
- *
- * @author bharata
- */
 class Dashboard extends Penyelenggaraan_Controller{
     
     protected $thn;

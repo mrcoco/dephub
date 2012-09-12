@@ -1,37 +1,11 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of mdl_penyelenggaraan
- *
- * @author bharata
- */
 class Mdl_penyelenggaraan extends CI_Model{
-    //put your code here
-    function insert_peserta($data_peserta){
-        if($this->db->insert('peserta',$data_peserta)){
-            unset($data_peserta['tanggal_lahir']);
-            $query=$this->db->get_where('peserta',$data_peserta);
-            if($query->num_rows()==1){
-                $idv=$query->row_array();
-                return $idv['id'];
-            }else{
-                return FALSE;
-            }
-        }else{
-            return FALSE;
-        }
-    }
-    
+       
     function getall_peserta($id_program){
         if($id_program!=-1){
             $this->db->where('registrasi.id_program',$id_program);
         }
-        $this->db->join('cv_peserta','registrasi.id_peserta=cv_peserta.id');
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -45,16 +19,16 @@ class Mdl_penyelenggaraan extends CI_Model{
         return TRUE;
     }
     
-    function insert_widyaiswara($data){
-        $this->db->insert('widyaiswara',$data);
+    function insert_dosen_tamu($data){
+        $this->db->insert('dosen_tamu',$data);
     }
     
-    function getall_widyaiswara(){
-        return $this->db->get_where('widyaiswara')->result_array();
+    function getall_dosen_tamu(){
+        return $this->db->get_where('dosen_tamu')->result_array();
     }
     
-    function get_widyaiswara($id){
-        $data = $this->db->get_where('widyaiswara',array('id'=>$id));
+    function get_dosen_tamu($id){
+        $data = $this->db->get_where('dosen_tamu',array('id'=>$id));
         if($data->num_rows()==1){
             return $data->row_array();
         }else{
@@ -62,14 +36,14 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
     }
     
-    function update_widyaiswara($id,$data){
+    function update_dosen_tamu($id,$data){
         $this->db->where('id',$id);
-        $this->db->update('widyaiswara',$data);        
+        $this->db->update('dosen_tamu',$data);        
     }
     
-    function delete_widyaiswara($id){
+    function delete_dosen_tamu($id){
         $this->db->where('id',$id);
-        $this->db->delete('widyaiswara');
+        $this->db->delete('dosen_tamu');
     }
     
     function getall_instansi(){
@@ -86,7 +60,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_peserta($param){
-        $query=$this->db->get_where('cv_peserta',array('instansi'=>$param));
+        $query=$this->db->get_where('pegawai',array('instansi'=>$param));
         if($query->num_rows()==0){
             return FALSE;
         }else{
@@ -95,7 +69,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_data_peserta($param){
-        $query=$this->db->get_where('cv_peserta',array('nip'=>$param));
+        $query=$this->db->get_where('pegawai',array('nip'=>$param));
         if($query->num_rows()==0){
             return FALSE;
         }else{
@@ -104,7 +78,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_data_peserta_id($param){
-        $query=$this->db->get_where('cv_peserta',array('id'=>$param));
+        $query=$this->db->get_where('pegawai',array('id'=>$param));
         if($query->num_rows()==0){
             return FALSE;
         }else{
@@ -114,5 +88,13 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function get_history($id){
         return $this->db->get_where('history_pelatihan',array('id_peserta'=>$id))->result_array();
+    }
+    
+    function getall_pembicara_int(){
+        
+    }
+    
+    function get_pembicara_int($id){
+        
     }
 }

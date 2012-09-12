@@ -103,7 +103,6 @@
                     </div>
                 </div>
             </div>
-            <a href="perencanaan/diklat/buat_diklat" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Buat Diklat</a>
         </div>
     </div>
     <div class="span4">

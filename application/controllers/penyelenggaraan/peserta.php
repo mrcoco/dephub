@@ -1,15 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of dashboard
- *
- * @author bharata
- */
 class Peserta extends Penyelenggaraan_Controller{
     
     protected $thn;
@@ -128,5 +117,24 @@ class Peserta extends Penyelenggaraan_Controller{
                     <a href="#" class="btn" data-dismiss="modal">Close</a>
                 </div>';
         echo $text;
+    }
+    
+    function get_detail_peserta($id){
+        $this->load->library('date');
+        $data_peserta=$this->slng->get_data_peserta_id($id);
+        $data['header']='Detail data '.$data_peserta['nama'];
+        foreach($data_peserta as $key=>$item){
+            if($key!='foto'){
+                if($item==''){
+                    $item='-';
+                }
+            }else{
+                if($item==''){
+                    $item=base_url().'assets/public/foto/nopic.jpg';
+                }
+            }
+            $data['peserta'][$key]=$item;
+        }
+        $this->load->view('simdik/penyelenggaraan/ajax_detail_peserta',$data);
     }
 }
