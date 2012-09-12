@@ -1,9 +1,4 @@
 <?php
-/**
- * Description of course
- *
- * @author Administrator
- */
 class Mdl_dashboard extends CI_Model{
     private $table_program='program';
     private $table_info='info';

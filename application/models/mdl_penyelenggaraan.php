@@ -1,32 +1,6 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of mdl_penyelenggaraan
- *
- * @author bharata
- */
 class Mdl_penyelenggaraan extends CI_Model{
-    
-//    function insert_peserta($data_peserta){
-//        if($this->db->insert('peserta',$data_peserta)){
-//            unset($data_peserta['tanggal_lahir']);
-//            $query=$this->db->get_where('peserta',$data_peserta);
-//            if($query->num_rows()==1){
-//                $idv=$query->row_array();
-//                return $idv['id'];
-//            }else{
-//                return FALSE;
-//            }
-//        }else{
-//            return FALSE;
-//        }
-//    }
-    
+       
     function getall_peserta($id_program){
         if($id_program!=-1){
             $this->db->where('registrasi.id_program',$id_program);
@@ -45,15 +19,15 @@ class Mdl_penyelenggaraan extends CI_Model{
         return TRUE;
     }
     
-    function insert_widyaiswara($data){
+    function insert_dosen_tamu($data){
         $this->db->insert('dosen_tamu',$data);
     }
     
-    function getall_widyaiswara(){
+    function getall_dosen_tamu(){
         return $this->db->get_where('dosen_tamu')->result_array();
     }
     
-    function get_widyaiswara($id){
+    function get_dosen_tamu($id){
         $data = $this->db->get_where('dosen_tamu',array('id'=>$id));
         if($data->num_rows()==1){
             return $data->row_array();
@@ -62,12 +36,12 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
     }
     
-    function update_widyaiswara($id,$data){
+    function update_dosen_tamu($id,$data){
         $this->db->where('id',$id);
         $this->db->update('dosen_tamu',$data);        
     }
     
-    function delete_widyaiswara($id){
+    function delete_dosen_tamu($id){
         $this->db->where('id',$id);
         $this->db->delete('dosen_tamu');
     }
@@ -114,5 +88,13 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function get_history($id){
         return $this->db->get_where('history_pelatihan',array('id_peserta'=>$id))->result_array();
+    }
+    
+    function getall_pembicara_int(){
+        
+    }
+    
+    function get_pembicara_int($id){
+        
     }
 }

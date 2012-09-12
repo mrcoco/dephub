@@ -1,9 +1,4 @@
 <?php
-/**
- * Description of course
- *
- * @author Administrator
- */
 class Mdl_perencanaan extends CI_Model{
     private $table_program='program';
 

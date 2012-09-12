@@ -1,9 +1,4 @@
 <?php
-/**
- * Description of mdl_administrator
- *
- * @author Administrator
- */
 class Mdl_administrator extends CI_Model{
     private $table_info='info';
     private $table_user='user';

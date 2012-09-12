@@ -1,15 +1,4 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of dashboard
- *
- * @author bharata
- */
 class Dosen_tamu extends Penyelenggaraan_Controller{
     
     protected $thn;
@@ -28,12 +17,12 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
      
     function list_dosen(){
         $data['sub_title']='Daftar Dosen Tamu';
-        $data['list']=$this->slng->getall_widyaiswara();
+        $data['list']=$this->slng->getall_dosen_tamu();
         $this->template->display('simdik/penyelenggaraan/list_dosen',$data);
     }
     
     function detail_dosen($id){
-        $data['data'] = $this->slng->get_widyaiswara($id);
+        $data['data'] = $this->slng->get_dosen_tamu($id);
         $data['sub_title']='Detail Data '.$data['data']['nama'];
         
         if($data['data']){
@@ -146,13 +135,13 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
         
         $data['status']=1;
         
-        $this->slng->insert_widyaiswara($data);
+        $this->slng->insert_dosen_tamu($data);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Dosen tamu telah ditambahkan'));
         redirect(base_url().'penyelenggaraan/dosen_tamu/list_dosen');
     }
     
     function edit_dosen($id){
-        $data['data'] = $this->slng->get_widyaiswara($id);
+        $data['data'] = $this->slng->get_dosen_tamu($id);
 
         //parsing data pendidikan dn
         $pnddkn_dn=array();
@@ -361,17 +350,17 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
             }
         }
         
-        $this->slng->update_widyaiswara($clause,$data);
+        $this->slng->update_dosen_tamu($clause,$data);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Dosen telah diubah'));
         redirect(base_url().'penyelenggaraan/dosen_tamu/detail_dosen/'.$clause);
     }
     
     function delete_dosen($id){
         
-        $data['data'] = $this->slng->get_widyaiswara($id);
+        $data['data'] = $this->slng->get_dosen_tamu($id);
         $data['sub_title']='Registrasi Diklat';
         if($data['data']){
-            $this->slng->delete_widyaiswara($id);
+            $this->slng->delete_dosen_tamu($id);
             $this->session->set_flashdata('msg',$this->editor->alert_warning('Dosen tamu telah dihapus'));
             redirect(base_url().'penyelenggaraan/dashboard/list_dosen');
         }else{
