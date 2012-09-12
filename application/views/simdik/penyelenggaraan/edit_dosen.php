@@ -46,13 +46,13 @@
         }else if(nip==''){
             alert('Harap isi nip');
         }else{
-            document.form_widyaiswara.submit();
+            document.form_dosen.submit();
         }
     }
         
 </script>
 <p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
-<form name-form_widyaiswara action="penyelenggaraan/widyaiswara/edit_process" method="POST">
+<form name="form_dosen" action="penyelenggaraan/dosen_tamu/edit_process" method="POST">
     <input type="hidden" name="id" value="<?php echo $data['id'] ?>"/>    
     <table class="table table-striped table-condensed">
         <tr>
@@ -242,6 +242,6 @@
     </table>
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <button onclick="location.href='<?php echo base_url()?>penyelenggaraan/widyaiswara/detail_widyaiswara/<?php echo $data['id'] ?>'" type="button" class="btn btn-primary">Batal</button>
+        <button onclick="location.href='<?php echo base_url()?>penyelenggaraan/dosen_tamu/detail_dosen/<?php echo $data['id'] ?>'" type="button" class="btn btn-primary">Batal</button>
     </div>
 </form>

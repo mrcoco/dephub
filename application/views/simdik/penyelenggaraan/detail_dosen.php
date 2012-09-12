@@ -1,14 +1,14 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-<p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
+<p align="center" class="lead">Curriculum Vitae Dosen Tamu</p>
 <div class="well-small">
-    <a href="penyelenggaraan/widyaiswara/edit_widyaiswara/<?php echo $data['id'] ?>"><i class="icon-edit"></i> Ubah</a>
-    <a href="penyelenggaraan/widyaiswara/delete_widyaiswara/<?php echo $data['id'] ?>"
+    <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $data['id'] ?>"><i class="icon-edit"></i> Ubah</a>
+    <a href="penyelenggaraan/dosen_tamu/delete_dosen/<?php echo $data['id'] ?>"
        onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $data['nama'] ?>?')">
         <i class="icon-trash"></i> Hapus</a>
 </div>
-<form action="penyelenggaraan/widyaiswara/edit_process" method="POST">
+<form action="penyelenggaraan/dosen_tamu/edit_process" method="POST">
 <input type="hidden" name="id" value="<?php echo $data['id']?>"/>    
 <table class="table table-striped">
     <tr>

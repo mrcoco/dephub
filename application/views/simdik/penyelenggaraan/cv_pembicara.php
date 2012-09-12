@@ -49,14 +49,14 @@
             }else if(nip==''){
                 alert('Harap isi nip');
             }else{
-                document.form_widyaiswara.submit();
+                document.form_dosen.submit();
             }
         }
         
 </script>
 
-<p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
-<form name="form_widyaiswara" action="penyelenggaraan/widyaiswara/insert_widyaiswara" method="POST">
+<p align="center" class="lead">Curriculum Vitae Pembicara</p>
+<form name="form_dosen" action="penyelenggaraan/dosen_tamu/insert_dosen" method="POST">
     <table class="table table-striped table-condensed">
         <tr>
             <th colspan="2">Data Pribadi</th>
