@@ -33,14 +33,7 @@
     </div>
     <div class="span4">
 	<div class="well">
-	    Menu
-            <ul>
-                <li><a href="penyelenggaraan/widyaiswara/list_widyaiswara">List Widyaiswara</a></li>
-                <li><a href="penyelenggaraan/peserta/list_peserta">List Peserta</a></li>
-                <li><a href="penyelenggaraan/widyaiswara/add_widyaiswara">Tambah Widyaiswara</a></li>
-                <li><a href="penyelenggaraan/peserta/registrasi">Tambah Peserta</a></li>
-                <li><a href="penyelenggaraan/schedule/daftar_diklat">Jadwal Diklat</a></li>
-            </ul>
+	    Petunjuk
 	</div>
     </div>
 </div>

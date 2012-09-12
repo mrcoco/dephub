@@ -10,7 +10,7 @@
  *
  * @author bharata
  */
-class Widyaiswara extends Penyelenggaraan_Controller{
+class Pembicara_int extends Penyelenggaraan_Controller{
     
     protected $thn;
     
@@ -23,33 +23,33 @@ class Widyaiswara extends Penyelenggaraan_Controller{
     }
     
     function index(){
-	$this->list_widyaiswara();       
+	$this->list_pembicara();       
     }
      
-    function list_widyaiswara(){
-        $data['sub_title']='Daftar Widyaiswara';
+    function list_pembicara(){
+        $data['sub_title']='Daftar Pembicara Internal';
         $data['list']=$this->slng->getall_widyaiswara();
-        $this->template->display('simdik/penyelenggaraan/list_widyaiswara',$data);
+        $this->template->display('simdik/penyelenggaraan/list_pembicara',$data);
     }
     
-    function detail_widyaiswara($id){
+    function detail_pembicara($id){
         $data['data'] = $this->slng->get_widyaiswara($id);
         $data['sub_title']='Detail Data '.$data['data']['nama'];
         
         if($data['data']){
-            $this->template->display('simdik/penyelenggaraan/detail_widyaiswara',$data);
+            $this->template->display('simdik/penyelenggaraan/detail_pembicara',$data);
         }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Widyaiswara tidak ditemukan'));
-            redirect(base_url().'penyelenggaraan/widyaiswara/list_widyaiswara');
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Pembicara tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/pembicara_int/list_pembicara');
         }
     }
     
-    function add_widyaiswara(){
-        $data['sub_title']='Isi Data Widyaiswara';
-        $this->template->display('simdik/penyelenggaraan/cv_widyaiswara',$data);
+    function add_pembicara(){
+        $data['sub_title']='Isi Data Pembicara';
+        $this->template->display('simdik/penyelenggaraan/cv_pembicara',$data);
     }
     
-    function insert_widyaiswara(){
+    function insert_pembicara(){
         $data['nama']=$this->input->post('nama');
         $data['nip']=$this->input->post('nip');
         $data['tempat_lahir']=$this->input->post('tempat');
@@ -147,11 +147,11 @@ class Widyaiswara extends Penyelenggaraan_Controller{
         $data['status']=1;
         
         $this->slng->insert_widyaiswara($data);
-        $this->session->set_flashdata('msg',$this->editor->alert_ok('Widyaiswara telah ditambahkan'));
-        redirect(base_url().'penyelenggaraan/widyaiswara/list_widyaiswara');
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pembicara telah ditambahkan'));
+        redirect(base_url().'penyelenggaraan/pembicara_int/list_pembicara');
     }
     
-    function edit_widyaiswara($id){
+    function edit_pembicara($id){
         $data['data'] = $this->slng->get_widyaiswara($id);
 
         //parsing data pendidikan dn
@@ -259,10 +259,10 @@ class Widyaiswara extends Penyelenggaraan_Controller{
         
         $data['sub_title']='Edit Data '.$data['data']['nama'];
         if($data['data']){
-            $this->template->display('simdik/penyelenggaraan/edit_widyaiswara',$data);
+            $this->template->display('simdik/penyelenggaraan/edit_pembicara',$data);
         }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Widyaiswara tidak ditemukan'));
-            redirect(base_url().'penyelenggaraan/widyaiswara/list_widyaiswara');
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Pembicara tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/pembicara_int/list_pembicara');
         }
     }
     
@@ -362,21 +362,21 @@ class Widyaiswara extends Penyelenggaraan_Controller{
         }
         
         $this->slng->update_widyaiswara($clause,$data);
-        $this->session->set_flashdata('msg',$this->editor->alert_ok('Widyaiswara telah diubah'));
-        redirect(base_url().'penyelenggaraan/widyaiswara/detail_widyaiswara/'.$clause);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pembicara telah diubah'));
+        redirect(base_url().'penyelenggaraan/pembicara_int/detail_pembicara/'.$clause);
     }
     
-    function delete_widyaiswara($id){
+    function delete_pembicara($id){
         
         $data['data'] = $this->slng->get_widyaiswara($id);
         $data['sub_title']='Registrasi Diklat';
         if($data['data']){
             $this->slng->delete_widyaiswara($id);
-            $this->session->set_flashdata('msg',$this->editor->alert_warning('Widyaiswara telah dihapus'));
-            redirect(base_url().'penyelenggaraan/dashboard/list_widyaiswara');
+            $this->session->set_flashdata('msg',$this->editor->alert_warning('Pembicara telah dihapus'));
+            redirect(base_url().'penyelenggaraan/dashboard/list_pembicara');
         }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Widyaiswara tidak ditemukan'));
-            redirect(base_url().'penyelenggaraan/widyaiswara/list_widyaiswara');
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Pembicara tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/pembicara_int/list_pembicara');
         }
     }
 }
