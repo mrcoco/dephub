@@ -68,11 +68,11 @@
             })
         }
     }
-    
     function validate_form(){
         pil_prog=$('#pil_prog').attr('value');
         instansi=$('#instansi').val();
         var container=$('.alert');
+        container.html('');
         if(pil_prog==-1){
             container.show('blind');
             container.append('Anda belum memilih program<br />');
@@ -108,7 +108,8 @@
             }
         }
     }
-    
+
+
     function append_table(){
         obj_table=$('#example').clone();
         $('#wrap_form').append(obj_table);
@@ -146,9 +147,7 @@
         });
     });
 </script>
-<div class="alert alert-error fade in none">
-    <h4>Error!</h4>
-</div>
+<div class="alert alert-error fade in none"></div>
 <!-- Contoh buat di clone -->
 <table id="example" class="table table-condensed">
     <thead>
@@ -181,7 +180,7 @@
 
 <div id="display_dialog" class="modal hide"></div>
 
-<form name="form_reg" action="penyelenggaraan/peserta/registrasi_proses" method="POST">
+<form name="form_reg" id="form_reg" action="penyelenggaraan/peserta/registrasi_proses" method="POST">
     <table width="800" class="table table-condensed">
         <tr>
             <td width="143px">Program Diklat</td>

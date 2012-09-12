@@ -5,59 +5,58 @@
 <div class="modal-body">
     <table class="table table-condensed">
         <tr>
-            <td colspan="2"><img src="<?php echo $peserta['foto']?>" width="75" height="100"/></td>
+            <td colspan="2"><center><img src="<?php echo $peserta['foto']?>" width="75" height="100"/></center></td>
         </tr>
         <tr>
-            <td>Nama</td>
+            <th width="30%">Nama</th>
             <td><?php echo $peserta['nama']?></td>
         </tr>
         <tr>
-            <td>NIP</td>
+            <th>NIP</th>
             <td><?php echo $peserta['nip']?></td>
         </tr>
         <tr>
-            <td>TTL</td>
-            <td><?php echo $peserta['tempat_lahir']?>, <?php echo $this->date->konversi1($peserta['tanggal_lahir'])?></td>
+            <th>Tempat Tanggal Lahir</th>
+            <td><?php echo $peserta['tempat_lahir']?>, <?php echo $this->date->konversi2($peserta['tanggal_lahir'])?></td>
         </tr>
         <tr>
-            <td>Pangkat</td>
+            <th>Pangkat</th>
             <td><?php echo $peserta['pangkat']?></td>
         </tr>
         <tr>
-            <td>Golongan</td>
+            <th>Golongan</th>
             <td><?php echo $peserta['golongan']?></td>
         </tr>
         <tr>
-            <td>Jabatan</td>
+            <th>Jabatan</th>
             <td><?php echo $peserta['jabatan']?></td>
         </tr>
         <tr>
-            <td>TMT Golongan</td>
+            <th>TMT Golongan</th>
             <td><?php echo $this->date->konversi1($peserta['tmtgol'])?></td>
         </tr>
         <tr>
-            <td>TMT CPNS</td>
+            <th>TMT CPNS</th>
             <td><?php echo $this->date->konversi1($peserta['tmtcpns'])?></td>
         </tr>
         <tr>
-            <td>TMT PNS</td>
+            <th>TMT PNS</th>
             <td><?php echo $this->date->konversi1($peserta['tmtpns'])?></td>
         </tr>
         <tr>
-            <td>TMT Jabatan</td>
+            <th>TMT Jabatan</th>
             <td><?php echo $this->date->konversi1($peserta['tmtgol'])?></td>
         </tr>
         <tr>
-            <td>TMT Jabatan Baru</td>
+            <th>TMT Jabatan Baru</th>
             <td><?php echo $this->date->konversi1($peserta['tmtjabbaru'])?></td>
         </tr>
         <tr>
-            <td>TMT Mutasi</td>
+            <th>TMT Mutasi</th>
             <td><?php echo $this->date->konversi1($peserta['tmtmutasi'])?></td>
         </tr>
     </table>
 </div>
 <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-</div>
 </div>
