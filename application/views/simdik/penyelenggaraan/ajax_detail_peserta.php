@@ -1,8 +1,9 @@
 <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3><?php echo $header?></h3>
 </div>
 <div class="modal-body">
-    <table>
+    <table class="table table-condensed">
         <tr>
             <td colspan="2"><img src="<?php echo $peserta['foto']?>" width="75" height="100"/></td>
         </tr>
@@ -58,4 +59,5 @@
 </div>
 <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
+</div>
 </div>
