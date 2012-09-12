@@ -120,6 +120,7 @@ class Peserta extends Penyelenggaraan_Controller{
     }
     
     function get_detail_peserta($id){
+        $this->load->library('date');
         $data_peserta=$this->slng->get_data_peserta_id($id);
         $data['header']='Detail data '.$data_peserta['nama'];
         foreach($data_peserta as $key=>$item){
