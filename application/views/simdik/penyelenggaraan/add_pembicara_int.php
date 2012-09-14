@@ -34,5 +34,5 @@
     }
 </script>
 
-Cari : <input type="text" id="cari"/>
+Cari Pembicara: <input type="text" id="cari" placeholder="Masukkan nama"/>
 <div id="body_table"></div>    

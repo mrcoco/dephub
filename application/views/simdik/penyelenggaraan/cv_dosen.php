@@ -17,39 +17,34 @@
 
         $('.del').live('click',function(){
             $(this).parent().remove();
-        });
-
-        $('.add_riwayat_jabatan').live('click',function(){
-            $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="riwayat_jbtn[]"/> <input type="text" name="periode_jbtn[]"/> <span class="add_riwayat_jabatan">Tambah</span></div>';
-            $("#riwayat").append(appendTxt);			
-        });
-                
+        });                
         $('.add_dlm_ngri').live('click',function(){
-            var appendTxt = '<div><input type="text" name="dlm_ngri[]"/> <input type="text" name="periode_dlm_ngri[]"/> <span class="add_dlm_ngri">Tambah</span></div>';
-            $("#dlm_ngri").append(appendTxt);			
+            $(this).text('Delete');
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_dlm_ngri').clone().removeClass().appendTo('#dlm_ngri');
         });
                 
         $('.add_luar_ngri').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="luar_ngri[]"/> <input type="text" name="periode_luar_ngri[]"/> <span class="add_luar_ngri">Tambah</span></div>';
-            $("#luar_ngri").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_luar_ngri').clone().removeClass().appendTo('#luar_ngri');
+        });
+        $('.add_riwayat_jabatan').live('click',function(){
+            $(this).text('Delete');
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_riwayat').clone().removeClass().appendTo('#riwayat');
         });
                 
         $('.add_kursus').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="kursus[]"/> <input type="text" name="thn_kursus[]"/> <span class="add_kursus">Tambah</span></div>';
-            $("#kursus").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_kursus').clone().removeClass().appendTo('#kursus');
         });
                 
         $('.add_diklat').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="diklat[]"/> <span class="add_diklat">Tambah</span></div>';
-            $("#diklat").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_diklat').clone().removeClass().appendTo('#diklat');
         });
     });
         
@@ -76,7 +71,7 @@
 
 <p align="center" class="lead">Curriculum Vitae Dosen Tamu</p>
 <form name="form_dosen" action="penyelenggaraan/dosen_tamu/insert_dosen" method="POST">
-    <table class="table table-striped table-condensed">
+    <table class="table table-striped">
         <tr>
             <th colspan="2">Data Pribadi</th>
         </tr>
@@ -131,16 +126,17 @@
             <td colspan="2">a. Dalam negeri</td>
         </tr>
         <tr>
-            <td>Pendidikan</td>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;Tahun</td>
-        </tr>
-        <tr>
             <td colspan="2">
                 <div id="dlm_ngri">
                     <div>
-                        <input type="text" name="dlm_ngri[]"/>
-                        <input type="text" name="periode_dlm_ngri[]"/>
-                        <span class="add_dlm_ngri">Tambah</span>
+                        <input type="text" placeholder="Pendidikan" name="dlm_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_dlm_ngri[]"/>
+                        <button type="button" class="add_dlm_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_dlm_ngri hide">
+                        <input type="text" placeholder="Pendidikan" name="dlm_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_dlm_ngri[]"/>
+                        <button type="button" class="add_dlm_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -149,16 +145,19 @@
             <td colspan="2">b. Luar negeri</td>
         </tr>
         <tr>
-            <td>Pendidikan</td>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;Tahun</td>
-        </tr>
-        <tr>
             <td colspan="2">
                 <div id="luar_ngri">
-                    <div>
-                        <input type="text" name="luar_ngri[]"/>
-                        <input type="text" name="periode_luar_ngri[]"/>
-                        <span class="add_luar_ngri">Tambah</span>
+                    <div class="form-inline">
+                        <input type="text" placeholder="Pendidikan" name="luar_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_luar_ngri[]"/>
+                        <button type="button" class="add_luar_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_luar_ngri hide">
+                        <div class="form-inline">
+                            <input type="text" placeholder="Pendidikan" name="luar_ngri[]"/>
+                            <input type="text" class="input-small" placeholder="Tahun" name="periode_luar_ngri[]"/>
+                            <button type="button" class="add_luar_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                        </div>
                     </div>
                 </div>
             </td>
@@ -167,16 +166,17 @@
             <th colspan="2">Riwayat Pekerjaan</th>
         </tr>
         <tr  class="pns">
-            <td>Nama Jabatan</td>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;Periode</td>
-        </tr>
-        <tr  class="pns">
             <td colspan="2">
                 <div id="riwayat">
                     <div>
-                        <input type="text" name="riwayat_jbtn[]"/>
-                        <input type="text" name="periode_jbtn[]"/>
-                        <span class="add_riwayat_jabatan">Tambah</span>
+                        <input type="text" placeholder="Jabatan" name="riwayat_jbtn[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_jbtn[]"/>
+                        <button type="button" class="add_riwayat_jabatan btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_riwayat hide">
+                        <input type="text" placeholder="Jabatan" name="riwayat_jbtn[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_jbtn[]"/>
+                        <button type="button" class="add_riwayat_jabatan btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -185,16 +185,17 @@
             <th colspan="2">Riwayat Kursus</th>
         </tr>
         <tr  class="pns">
-            <td>Nama Kursus</td>
-            <td>&nbsp;&nbsp;&nbsp;&nbsp;Tahun</td>
-        </tr>
-        <tr  class="pns">
             <td colspan="2">
                 <div id="kursus">
                     <div>
-                        <input type="text" name="kursus[]"/>
-                        <input type="text" name="thn_kursus[]"/>
-                        <span class="add_kursus">Tambah</span>
+                        <input type="text" placeholder="Nama Kursus" name="kursus[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="thn_kursus[]"/>
+                        <button type="button" class="add_kursus btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_kursus hide">
+                        <input type="text" placeholder="Nama Kursus" name="kursus[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="thn_kursus[]"/>
+                        <button type="button" class="add_kursus btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -206,15 +207,18 @@
             <td colspan="2">
                 <div id="diklat">
                     <div>
-                        <input type="text" name="diklat[]"/>
-                        <span class="add_diklat">Tambah</span>
+                        <input type="text" placeholder="Nama Diklat" name="diklat[]"/>
+                        <button type="button" class="add_diklat btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_diklat hide">
+                        <input type="text" placeholder="Nama Diklat" name="diklat[]"/>
+                        <button type="button" class="add_diklat btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
         </tr>
     </table>
     <div class="form-actions">
-        <button onclick="validate()" type="button" class="btn btn-primary">Simpan</button>
-        <button type="reset" class="btn cancel">Ulangi</button>
+        <button onclick="validate()" type="button" class="btn btn-primary btn-large pull-right">Simpan Dosen</button>
     </div>
 </form>

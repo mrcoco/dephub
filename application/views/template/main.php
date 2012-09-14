@@ -31,6 +31,7 @@
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-transition.js"></script>
+    <script type="text/javascript" src="assets/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-tooltip.js"></script>
     <script type="text/javascript" src="assets/js/sisfo.js"></script>
 <script type="text/javascript">
