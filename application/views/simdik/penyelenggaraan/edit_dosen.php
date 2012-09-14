@@ -21,37 +21,32 @@
 
         $('.add_riwayat_jabatan').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="riwayat_jbtn[]"/> <input type="text" name="periode_jbtn[]"/> <span class="add_riwayat_jabatan">Tambah</span></div>';
-            $("#riwayat").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_riwayat').clone().removeClass().appendTo('#riwayat');
         });
                 
         $('.add_dlm_ngri').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="dlm_ngri[]"/> <input type="text" name="periode_dlm_ngri[]"/> <span class="add_dlm_ngri">Tambah</span></div>';
-            $("#dlm_ngri").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_dlm_ngri').clone().removeClass().appendTo('#dlm_ngri');
         });
                 
         $('.add_luar_ngri').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="luar_ngri[]"/> <input type="text" name="periode_luar_ngri[]"/> <span class="add_luar_ngri">Tambah</span></div>';
-            $("#luar_ngri").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_luar_ngri').clone().removeClass().appendTo('#luar_ngri');
         });
         
         $('.add_kursus').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="kursus[]"/> <input type="text" name="thn_kursus[]"/> <span class="add_kursus">Tambah</span></div>';
-            $("#kursus").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_kursus').clone().removeClass().appendTo('#kursus');
         });
 
         $('.add_diklat').live('click',function(){
             $(this).text('Delete');
-            $(this).attr('class','del');
-            var appendTxt = '<div><input type="text" name="diklat[]"/> <span class="add_diklat">Tambah</span></div>';
-            $("#diklat").append(appendTxt);			
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_diklat').clone().removeClass().appendTo('#diklat');
         });
     });
         
@@ -123,23 +118,24 @@
             <td colspan="2">a. Dalam negeri</td>
         </tr>
         <tr>
-            <td>Jenjang</td>
-            <td>Tahun</td>
-        </tr>
-        <tr>
             <td colspan="2">
                 <div id="dlm_ngri">
                     <?php for($i=0;$i<count($data['dn']);$i++){?>
                     <div>
                         <input type="text" name="dlm_ngri[]" value="<?php echo $data['dn'][$i]?>"/>
-                        <input type="text" name="periode_dlm_ngri[]" value="<?php echo $data['periode_dn'][$i]?>"/>
-                        <span class="del">Delete</span>
+                        <input type="text" class="input-small" name="periode_dlm_ngri[]" value="<?php echo $data['periode_dn'][$i]?>"/>
+                        <button type="button" class="del btn btn-mini btn-danger">Delete</button>
                     </div>
                     <?php } ?>
                     <div>
-                        <input type="text" name="dlm_ngri[]"/>
-                        <input type="text" name="periode_dlm_ngri[]"/>
-                        <span class="add_dlm_ngri">Tambah</span>
+                        <input type="text" placeholder="Pendidikan" name="dlm_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_dlm_ngri[]"/>
+                        <button type="button" class="add_dlm_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_dlm_ngri hide">
+                        <input type="text" placeholder="Pendidikan" name="dlm_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_dlm_ngri[]"/>
+                        <button type="button" class="add_dlm_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -148,26 +144,24 @@
             <td colspan="2">b. Luar negeri</td>
         </tr>
         <tr>
-            <td>Jenjang</td>
-            <td>Tahun</td>
-        </tr>
-        <tr>
             <td colspan="2">
                 <div id="luar_ngri">
                     <?php for($i=0;$i<count($data['ln']);$i++){?>
                     <div>
                         <input type="text" name="luar_ngri[]" value="<?php echo $data['ln'][$i]?>"/>
-                        <input type="text" name="periode_luar_ngri[]" value="<?php echo $data['periode_ln'][$i]?>"/>
-                        <span class="del">Delete</span>
-                        <?php if($i==(count($data['ln'])-1)) {?>
-                        <span class="add_luar_ngri">Tambah</span>
-                        <?php } ?>
+                        <input type="text" class="input-small" name="periode_luar_ngri[]" value="<?php echo $data['periode_ln'][$i]?>"/>
+                        <button type="button" class="del btn btn-mini btn-danger">Delete</button>
                     </div>
                     <?php } ?>
                     <div>
-                        <input type="text" name="luar_ngri[]"/>
-                        <input type="text" name="periode_luar_ngri[]"/>
-                        <span class="add_luar_ngri">Tambah</span>
+                        <input type="text" placeholder="Pendidikan" name="dlm_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_dlm_ngri[]"/>
+                        <button type="button" class="add_luar_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_luar_ngri hide">
+                        <input type="text" placeholder="Pendidikan" name="dlm_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_dlm_ngri[]"/>
+                        <button type="button" class="add_luar_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -176,26 +170,24 @@
             <th colspan="2">Riwayat Pekerjaan</th>
         </tr>
         <tr class="pns">
-            <td>Nama Jabatan</td>
-            <td>Periode</td>
-        </tr>
-        <tr class="pns">
             <td colspan="2">
                 <div id="riwayat">
                     <?php for($i=0;$i<count($data['riwayat']);$i++){?>
                     <div>
                         <input type="text" name="riwayat_jbtn[]" value="<?php echo $data['riwayat'][$i]?>"/>
-                        <input type="text" name="periode_jbtn[]" value="<?php echo $data['periode'][$i]?>"/>
-                        <span class="del">Delete</span>
-                        <?php if($i==(count($data['riwayat'])-1)) {?>
-                        <span class="add_riwayat_jabatan">Tambah</span>
-                        <?php } ?>
+                        <input type="text" class="input-small" name="periode_jbtn[]" value="<?php echo $data['periode'][$i]?>"/>
+                        <button type="button" class="del btn btn-mini btn-danger">Delete</button>
                     </div>
                     <?php } ?>
                     <div>
-                        <input type="text" name="riwayat_jbtn[]"/>
-                        <input type="text" name="periode_jbtn[]"/>
-                        <span class="add_riwayat_jabatan">Tambah</span>
+                        <input type="text" placeholder="Jabatan" name="riwayat_jbtn[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_jbtn[]"/>
+                        <button type="button" class="add_riwayat_jabatan btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_riwayat hide">
+                        <input type="text" placeholder="Jabatan" name="riwayat_jbtn[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_jbtn[]"/>
+                        <button type="button" class="add_riwayat_jabatan btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -204,26 +196,24 @@
             <th colspan="2">Riwayat Kursus</th>
         </tr>
         <tr class="pns">
-            <td>Nama Kursus</td>
-            <td>Tahun</td>
-        </tr>
-        <tr class="pns">
             <td colspan="2">
                 <div id="kursus">
                     <?php for($i=0;$i<count($data['kursus']);$i++){?>
                     <div>
                         <input type="text" name="kursus[]" value="<?php echo $data['kursus'][$i]?>"/>
-                        <input type="text" name="thn_kursus[]" value="<?php echo $data['periode_kursus'][$i]?>"/>
-                        <span class="del">Delete</span>
-                        <?php if($i==(count($data['kursus'])-1)) {?>
-                        <span class="add_kursus">Tambah</span>
-                        <?php } ?>
+                        <input type="text" class="input-small" name="thn_kursus[]" value="<?php echo $data['periode_kursus'][$i]?>"/>
+                        <button type="button" class="del btn btn-mini btn-danger">Delete</button>
                     </div>
                     <?php } ?>
                     <div>
-                        <input type="text" name="kursus[]"/>
-                        <input type="text" name="thn_kursus[]"/>
-                        <span class="add_kursus">Tambah</span>
+                        <input type="text" placeholder="Nama Kursus" name="kursus[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="thn_kursus[]"/>
+                        <button type="button" class="add_kursus btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_kursus hide">
+                        <input type="text" placeholder="Nama Kursus" name="kursus[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="thn_kursus[]"/>
+                        <button type="button" class="add_kursus btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -237,15 +227,16 @@
                     <?php for($i=0;$i<count($data['diklat']);$i++){?>
                     <div>
                         <input type="text" name="diklat[]" value="<?php echo $data['diklat'][$i]?>"/>
-                        <span class="del">Delete</span>
-                        <?php if($i==(count($data['diklat'])-1)) {?>
-                        <span class="add_diklat">Tambah</span>
-                        <?php } ?>
+                        <button type="button" class="del btn btn-mini btn-danger">Delete</button>
                     </div>
                     <?php } ?>
                     <div>
-                        <input type="text" name="diklat[]"/>
-                        <span class="add_diklat">Tambah</span>
+                        <input type="text" placeholder="Nama Diklat" name="diklat[]"/>
+                        <button type="button" class="add_diklat btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_diklat hide">
+                        <input type="text" placeholder="Nama Diklat" name="diklat[]"/>
+                        <button type="button" class="add_diklat btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
                 </div>
             </td>
@@ -253,6 +244,6 @@
     </table>
     <div class="form-actions">
         <button type="submit" class="btn btn-primary">Simpan</button>
-        <button onclick="location.href='<?php echo base_url()?>penyelenggaraan/dosen_tamu/detail_dosen/<?php echo $data['id'] ?>'" type="button" class="btn btn-primary">Batal</button>
+        <a href='<?php echo base_url()?>penyelenggaraan/dosen_tamu/detail_dosen/<?php echo $data['id'] ?>'" class="btn">Batal</a>
     </div>
 </form>

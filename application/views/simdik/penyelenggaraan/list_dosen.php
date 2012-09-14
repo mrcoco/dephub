@@ -7,7 +7,7 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-<table id="list" width="100%" class="table">
+<table id="list" width="100%" class="table table-bordered table-condensed">
     <thead>
         <tr>
             <th width="5%">No</th>
@@ -25,9 +25,10 @@
                     <?php echo $list[$i]['is_pns']?'PNS':'Profesional' ?>
                 </td>
                 <td>
-                    <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $list[$i]['id'] ?>">Edit</a>
-                    |
-                    <a onclick="return confirm('Apakah anda yakin untuk menghapus data ini?')" href="penyelenggaraan/dosen_tamu/delete_dosen/<?php echo $list[$i]['id'] ?>">Delete</a>
+                    <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $list[$i]['id'] ?>"><i class="icon-edit"></i> Ubah</a>
+                    <a href="penyelenggaraan/dosen_tamu/delete_dosen/<?php echo $list[$i]['id'] ?>"
+                    onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['nama'] ?>?')">
+                        <i class="icon-trash"></i> Hapus</a>
                 </td>
             <?php } ?>
     </tbody>

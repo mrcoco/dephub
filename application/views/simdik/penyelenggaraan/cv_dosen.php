@@ -219,6 +219,6 @@
         </tr>
     </table>
     <div class="form-actions">
-        <button onclick="validate()" type="button" class="btn btn-primary btn-large pull-right">Simpan Dosen</button>
+        <button onclick="validate()" type="button" class="btn btn-primary btn-large">Simpan Dosen</button>
     </div>
 </form>

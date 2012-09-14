@@ -24,7 +24,6 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
     function detail_dosen($id){
         $data['data'] = $this->slng->get_dosen_tamu($id);
         $data['sub_title']='Detail Data '.$data['data']['nama'];
-        
         if($data['data']){
             $this->template->display('simdik/penyelenggaraan/detail_dosen',$data);
         }else{
@@ -155,6 +154,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
     
     function edit_dosen($id){
         $data['data'] = $this->slng->get_dosen_tamu($id);
+        if(!$data['data']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Dosen tamu tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/dosen_tamu/list_dosen');
+        }
         $data['kategori']=array(
             -1=>'---Pilih kategori---',
             0=>'Profesional',
@@ -265,12 +268,7 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
         $data['data']['diklat']=$data_diklat;
         
         $data['sub_title']='Edit Data '.$data['data']['nama'];
-        if($data['data']){
-            $this->template->display('simdik/penyelenggaraan/edit_dosen',$data);
-        }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Dosen tamu tidak ditemukan'));
-            redirect(base_url().'penyelenggaraan/dosen_tamu/list_dosen');
-        }
+        $this->template->display('simdik/penyelenggaraan/edit_dosen',$data);
     }
     
     function edit_process(){
