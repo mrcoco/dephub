@@ -16,13 +16,20 @@
         <td>: <?php echo $data['nama'] ?></td>
     </tr>
     <tr>
+        <th width="20%">Kategori</th>
+        <td>: <?php echo $data['is_pns']?'PNS':'Profesional' ?></td>
+    </tr>
+    <?php if($data['is_pns']){?>
+    <tr>
         <th>NIP</th>
         <td>: <?php echo $data['nip'] ?></td>
     </tr>
+    <?php } ?>
     <tr>
         <th>TTL</th>
         <td>: <?php echo $data['tempat_lahir'] ?>, <?php echo $data['tanggal_lahir'] ?></td>
     </tr>
+    <?php if($data['is_pns']){?>
     <tr>
         <th>Pangkat/Gol</th>
         <td>: <?php echo $data['pangkat'] ?>/<?php echo $data['golongan'] ?></td>
@@ -35,6 +42,7 @@
         <th>Jabatan</th>
         <td>: <?php echo $data['jabatan'] ?></td>
     </tr>
+    <?php } ?>
     <tr>
         <th>Alamat rumah</th>
         <td>: <?php echo $data['alamat_rumah'] ?></td>
@@ -51,12 +59,14 @@
         <th>Telepon kantor</th>
         <td>: <?php echo $data['tlp_kantor'] ?></td>
     </tr>
+    <?php if($data['is_pns']){?>
     <tr>
         <th colspan="2">Riwayat Pekerjaan</th>
     </tr>
     <tr>
-        <td colspan="2"><ul><?php echo $data['history_jabatan'] ?></ul></td>
+        <td colspan="2"><ul><?php echo ($data['history_jabatan']=='')?'Belum ada data':$data['history_jabatan'] ?></ul></td>
     </tr>
+    <?php } ?>
     <tr>
         <th colspan="2">Pendidikan</th>
     </tr>
@@ -64,25 +74,27 @@
         <td colspan="2">a. Dalam negeri</td>
     </tr>
     <tr>
-        <td colspan="2"><ul><?php echo $data['pendidikan_dn'] ?></ul></td>
+        <td colspan="2"><ul><?php echo ($data['pendidikan_dn']=='')?'Belum ada data':$data['pendidikan_dn'] ?></ul></td>
     </tr>
     <tr>
         <td colspan="2">b. Luar negeri</td>
     </tr>
     <tr>
-        <td colspan="2"><ul><?php echo $data['pendidikan_ln'] ?></ul></td>
+        <td colspan="2"><ul><?php echo ($data['pendidikan_ln']=='')?'Belum ada data':$data['pendidikan_ln'] ?></ul></td>
     </tr>
+    <?php if($data['is_pns']){?>
     <tr>
         <td colspan="2">Riwayat Diklat</td>
     </tr>
     <tr>
-        <td colspan="2"><ul><?php echo $data['history_diklat'] ?></ul></td>
+        <td colspan="2"><ul><?php echo ($data['history_diklat']=='')?'Belum ada data':$data['history_diklat'] ?></ul></td>
     </tr>
     <tr>
         <td colspan="2">Riwayat Kursus</td>
     </tr>
     <tr>
-        <td colspan="2"><ul><?php echo $data['history_kursus'] ?></ul></td>
+        <td colspan="2"><ul><?php echo ($data['history_kursus']=='')?'Belum ada data':$data['history_kursus'] ?></ul></td>
     </tr>
+    <?php } ?>
 </table>
 </form>

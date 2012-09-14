@@ -35,11 +35,16 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
     
     function add_dosen(){
         $data['sub_title']='Isi Data Dosen';
+        $data['kategori']=array(
+            -1=>'---Pilih kategori---',
+            0=>'Profesional',
+            1=>'PNS');
         $this->template->display('simdik/penyelenggaraan/cv_dosen',$data);
     }
     
     function insert_dosen(){
         $data['nama']=$this->input->post('nama');
+        $data['is_pns']=$this->input->post('kategori');
         $data['nip']=$this->input->post('nip');
         $data['tempat_lahir']=$this->input->post('tempat');
         $data['tanggal_lahir']=$this->input->post('tanggal');
@@ -64,8 +69,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_dlm_ngri[$i]==''){
                     $periode_dlm_ngri[$i]='-';
                 }
-                $text = '<li>'.$periode_dlm_ngri[$i].' : '.$dlm_ngri[$i].'</li>';
-                $data['pendidikan_dn'].=$text;
+                if($dlm_ngri[$i]!='-'||$periode_dlm_ngri[$i]!='-'){
+                    $text = '<li>'.$periode_dlm_ngri[$i].' : '.$dlm_ngri[$i].'</li>';
+                    $data['pendidikan_dn'].=$text;
+                }
             }
         }
         
@@ -81,8 +88,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_luar_ngri[$i]==''){
                     $periode_luar_ngri[$i]='-';
                 }
-                $text = '<li>'.$periode_luar_ngri[$i].' : '.$luar_ngri[$i].'</li>';
-                $data['pendidikan_ln'].=$text;
+                if($luar_ngri[$i]!='-'||$periode_luar_ngri[$i]!='-'){
+                    $text = '<li>'.$periode_luar_ngri[$i].' : '.$luar_ngri[$i].'</li>';
+                    $data['pendidikan_ln'].=$text;
+                }
             }
         }
         
@@ -98,8 +107,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_jbtn[$i]==''){
                     $periode_jbtn[$i]='-';
                 }
-                $text = '<li>'.$periode_jbtn[$i].' : '.$riwayat_jbtn[$i].'</li>';
-                $data['history_jabatan'].=$text;
+                if($riwayat_jbtn[$i]!='-'||$periode_jbtn[$i]!='-'){
+                    $text = '<li>'.$periode_jbtn[$i].' : '.$riwayat_jbtn[$i].'</li>';
+                    $data['history_jabatan'].=$text;
+                }
             }
         }
         
@@ -115,8 +126,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_kursus[$i]==''){
                     $periode_kursus[$i]='-';
                 }
-                $text = '<li>'.$kursus[$i].' : '.$periode_kursus[$i].'</li>';
-                $data['history_kursus'].=$text;
+                if($kursus[$i]!='-'||$periode_kursus[$i]!='-'){
+                    $text = '<li>'.$kursus[$i].' : '.$periode_kursus[$i].'</li>';
+                    $data['history_kursus'].=$text;
+                }
             }
         }
         
@@ -142,7 +155,12 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
     
     function edit_dosen($id){
         $data['data'] = $this->slng->get_dosen_tamu($id);
-
+        $data['kategori']=array(
+            -1=>'---Pilih kategori---',
+            0=>'Profesional',
+            1=>'PNS');
+        
+        
         //parsing data pendidikan dn
         $pnddkn_dn=array();
         $periode_dn=array();
@@ -282,8 +300,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_dlm_ngri[$i]==''){
                     $periode_dlm_ngri[$i]='-';
                 }
-                $text = '<li>'.$periode_dlm_ngri[$i].' : '.$dlm_ngri[$i].'</li>';
-                $data['pendidikan_dn'].=$text;
+                if($dlm_ngri[$i]!='-'||$periode_dlm_ngri[$i]!='-'){
+                    $text = '<li>'.$periode_dlm_ngri[$i].' : '.$dlm_ngri[$i].'</li>';
+                    $data['pendidikan_dn'].=$text;
+                }
             }
         }
         
@@ -299,8 +319,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_luar_ngri[$i]==''){
                     $periode_luar_ngri[$i]='-';
                 }
-                $text = '<li>'.$periode_luar_ngri[$i].' : '.$luar_ngri[$i].'</li>';
-                $data['pendidikan_ln'].=$text;
+                if($luar_ngri[$i]!='-'||$periode_luar_ngri[$i]!='-'){
+                    $text = '<li>'.$periode_luar_ngri[$i].' : '.$luar_ngri[$i].'</li>';
+                    $data['pendidikan_ln'].=$text;
+                }
             }
         }
         
@@ -316,8 +338,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_jbtn[$i]==''){
                     $periode_jbtn[$i]='-';
                 }
-                $text = '<li>'.$periode_jbtn[$i].' : '.$riwayat_jbtn[$i].'</li>';
-                $data['history_jabatan'].=$text;
+                if($riwayat_jbtn[$i]!='-'||$periode_jbtn[$i]!='-'){
+                    $text = '<li>'.$periode_jbtn[$i].' : '.$riwayat_jbtn[$i].'</li>';
+                    $data['history_jabatan'].=$text;
+                }
             }
         }
         
@@ -333,8 +357,10 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
                 if($periode_kursus[$i]==''){
                     $periode_kursus[$i]='-';
                 }
-                $text = '<li>'.$periode_kursus[$i].' : '.$kursus[$i].'</li>';
-                $data['history_kursus'].=$text;
+                if($kursus[$i]!='-'||$periode_kursus[$i]!='-'){
+                    $text = '<li>'.$periode_kursus[$i].' : '.$kursus[$i].'</li>';
+                    $data['history_kursus'].=$text;
+                }
             }
         }
         
@@ -362,7 +388,7 @@ class Dosen_tamu extends Penyelenggaraan_Controller{
         if($data['data']){
             $this->slng->delete_dosen_tamu($id);
             $this->session->set_flashdata('msg',$this->editor->alert_warning('Dosen tamu telah dihapus'));
-            redirect(base_url().'penyelenggaraan/dashboard/list_dosen');
+            redirect(base_url().'penyelenggaraan/dosen_tamu/list_dosen');
         }else{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Dosen tamu tidak ditemukan'));
             redirect(base_url().'penyelenggaraan/dosen_tamu/list_dosen');

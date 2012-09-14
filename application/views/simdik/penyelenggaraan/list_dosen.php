@@ -12,7 +12,7 @@
         <tr>
             <th width="5%">No</th>
             <th width="35%">Nama</th>
-            <th width="35%">NIP</th>
+            <th width="35%">Kategori</th>
             <th width="25%">Aksi</th>
         </tr>
     </thead>
@@ -21,7 +21,9 @@
             <tr>
                 <td><?php echo ($i + 1) ?></td>
                 <td><a href="penyelenggaraan/dosen_tamu/detail_dosen/<?php echo $list[$i]['id'] ?>"><?php echo $list[$i]['nama'] ?></a></td>
-                <td><?php echo $list[$i]['nip'] ?></td>
+                <td>
+                    <?php echo $list[$i]['is_pns']?'PNS':'Profesional' ?>
+                </td>
                 <td>
                     <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $list[$i]['id'] ?>">Edit</a>
                     |

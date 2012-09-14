@@ -20,7 +20,13 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function insert_dosen_tamu($data){
+        //insert data ke tabel dosen tamu
         $this->db->insert('dosen_tamu',$data);
+        $id=$this->db->query('select LAST_INSERT_ID() as id')->row()->id;
+        
+        //insert data ke tabel pembicara
+        $pembicara=array('id_tabel'=>$id,'jenis'=>3);
+        $this->db->insert('pembicara',$pembicara);
     }
     
     function getall_dosen_tamu(){
@@ -96,5 +102,45 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function get_pembicara_int($id){
         
+    }
+    
+    function get_pegawai_pembicara($per_page,$offset,$filter){
+        $str_query='select tb_pegawai.id,nama, nip, jenis from tb_pegawai left join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
+        }
+        $str_query.= ' limit '.$offset.', '.$per_page;
+        return $this->db->query($str_query)->result_array();
+    }
+    
+    function count_pegawai_pembicara($filter){
+        $str_query='select count(tb_pegawai.id) as num from tb_pegawai left join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
+        }
+        return $this->db->query($str_query)->row()->num;
+    }
+    
+    function update_pembicara($jenis,$id){
+        if($jenis!=0){
+            //cek id udah ada blom? klo udah update, klo blom insert
+            $this->db->where('id_tabel',$id);
+            $this->db->where('jenis',1);
+            $this->db->or_where('jenis',2);
+            $num=$this->db->get('pembicara')->num_rows();
+            if($num==0){
+                //insert
+                $data=array('id_tabel'=>$id,'jenis'=>$jenis);
+                $this->db->insert('pembicara',$data);
+            }else{
+                //update
+                $data=array('jenis'=>$jenis);
+                $this->db->where('id_tabel',$id);
+                $this->db->update('pembicara',$data);
+            }
+        }else{
+            $this->db->where('id_tabel',$id);
+            $this->db->delete('pembicara');
+        }
     }
 }
