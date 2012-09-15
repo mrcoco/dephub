@@ -13,7 +13,7 @@
 <?php foreach($array as $a){?>
 <?php
     if($a['jenis']==''){
-        $a['jenis']='-';
+        $a['jenis']='bukan pembicara';
     }else{
         if($a['jenis']=='1'){
             $a['jenis']='non widyaiswara';

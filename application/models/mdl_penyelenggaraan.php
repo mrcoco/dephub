@@ -97,7 +97,8 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function getall_pembicara_int(){
-        
+        $str_query='select tb_pegawai.id,nama, nip, jenis from tb_pegawai inner join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel';
+        return $this->db->query($str_query)->result_array();
     }
     
     function get_pembicara_int($id){

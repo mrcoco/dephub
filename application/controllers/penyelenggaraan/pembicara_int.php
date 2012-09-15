@@ -17,6 +17,8 @@ class Pembicara_int extends Penyelenggaraan_Controller{
      
     function list_pembicara(){
         //menampilkan daftar pembicara dengan status widyaiswara dan non-widyaiswara
+        $data['list']=$this->slng->getall_pembicara_int();
+        $this->template->display('simdik/penyelenggaraan/list_pembicara_int',$data);
     }
     
     function detail_pembicara($id){
