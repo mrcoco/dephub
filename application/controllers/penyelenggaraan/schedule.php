@@ -36,15 +36,10 @@ class Schedule extends Penyelenggaraan_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'penyelenggaraan/schedule/daftar_diklat');
         }
-        $dosen_tamu=$this->slng->getall_dosen_tamu();
-        $data['autocom_widya']=array();
-        foreach($dosen_tamu as $w){
-            $data['autocom_widya'][]=$w['nama'];
-        }
-        $data['autocom_widya']=  json_encode($data['autocom_widya']);
-//        foreach($dosen_tamu as $w){
-//            $data['autocom_widya'][$w['id']]=$w['nama'];
-//        }
         $this->template->display('simdik/penyelenggaraan/schedule_diklat',$data);
+    }
+    
+    function ajax_pembicara($jenis){
+        echo json_encode($this->slng->ajax_pembicara($jenis));
     }
 }

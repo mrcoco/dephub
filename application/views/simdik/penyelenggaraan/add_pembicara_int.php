@@ -20,6 +20,8 @@
         }
     }
     function status(jenis,id){
+        $('#jenis'+id).text('');
+        $('#jenis'+id).append('<img src="<?php echo base_url()?>assets/img/loading_animation.gif" width=15 height=15/>');
         $.get('<?php echo base_url()?>penyelenggaraan/pembicara_int/update_status/'+jenis+'/'+id,function(result){
             text_jenis='';
             if(jenis==0){
@@ -29,7 +31,7 @@
             }else if(jenis==2){
                 text_jenis='widyaiswara'
             }
-
+            $('#jenis'+id).empty();
             $('#jenis'+id).text(text_jenis);
         });
     }

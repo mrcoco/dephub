@@ -144,4 +144,22 @@ class Mdl_penyelenggaraan extends CI_Model{
             $this->db->delete('pembicara');
         }
     }
+    
+    function ajax_pembicara($jenis){
+        if($jenis!=3){
+            $str_query='select nama, tb_p.id as id_pembicara, jenis from tb_pegawai inner join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel where jenis='.$jenis;
+            $res=$this->db->query($str_query)->result_array();
+        }else{
+            $str_query='select nama, tb_p.id as id_pembicara, jenis from tb_dosen_tamu inner join (select * from tb_pembicara where jenis=3) as tb_p on tb_dosen_tamu.id=tb_p.id_tabel';
+            $res=$this->db->query($str_query)->result_array();
+        }
+        $array1=array();
+        $array2=array();
+        foreach($res as $r){
+            $array1[$r['nama']]=$r['id_pembicara'];
+            $array2[]=$r['nama'];
+        }
+        $retval=array(1=>$array1,2=>$array2);
+        return $retval;
+    }
 }

@@ -14,10 +14,12 @@
     <tbody>
         <?php $i=1 ?>
         <?php foreach($list as $l){?>
-        <td><?php echo $i?></td>
-        <td><?php echo $l['nama']?></td>
-        <td><?php echo $l['nip']?></td>
-        <td><?php echo $l['jenis']?></td>
+        <tr>
+            <td><?php echo $i?></td>
+            <td><?php echo $l['nama']?></td>
+            <td><?php echo $l['nip']?></td>
+            <td><?php echo $l['jenis']==1?'non widyaiswara':'widyaiwsara'?></td>
+        </tr>
         <?php $i++?>
         <?php } ?>
     </tbody>
