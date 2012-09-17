@@ -29,9 +29,9 @@
     <td><span id="jenis<?php echo $a['id']?>" class="label label-info"><?php echo $a['jenis']?></span></td>
     <td>
         <div class="btn-group" data-toggle="buttons-radio">
-            <button type="button" class="btn <?php if($a['jenis']=='non widyaiswara')echo 'active'; ?>" onclick="status(1,<?php echo $a['id']?>)">Non-widya</button>
-            <button type="button" class="btn <?php if($a['jenis']=='widyaiswara')echo 'active'; ?>" onclick="status(2,<?php echo $a['id']?>)">Widya</button>
-            <button type="button" class="btn <?php if($a['jenis']=='-')echo 'active'; ?>" onclick="status(0,<?php echo $a['id']?>)">Tidak ada</button>
+            <button type="button" class="btn <?php if($a['jenis']=='non widyaiswara')echo 'active btn-info'; ?>" onclick="status(1,<?php echo $a['id']?>)">Non-widya</button>
+            <button type="button" class="btn <?php if($a['jenis']=='widyaiswara')echo 'active btn-info'; ?>" onclick="status(2,<?php echo $a['id']?>)">Widya</button>
+            <button type="button" class="btn <?php if($a['jenis']=='-')echo 'active btn-info'; ?>" onclick="status(0,<?php echo $a['id']?>)">Tidak ada</button>
         </div>
     </td>
 </tr>

@@ -3,13 +3,11 @@
     <h3><?php echo $header?></h3>
 </div>
 <div class="modal-body">
-    <table class="table table-condensed">
+    <table class="table table-condensed" width="200px">
         <tr>
-            <td colspan="2"><center><img src="<?php echo $peserta['foto']?>" width="75" height="100"/></center></td>
-        </tr>
-        <tr>
-            <th width="30%">Nama</th>
+            <th>Nama</th>
             <td><?php echo $peserta['nama']?></td>
+            <td rowspan="4" width="77px"><center><img src="<?php echo $peserta['foto']?>" width="75" height="100"/></center></td>
         </tr>
         <tr>
             <th>NIP</th>
@@ -26,34 +24,42 @@
         <tr>
             <th>Golongan</th>
             <td><?php echo $peserta['golongan']?></td>
+            <td></td>
         </tr>
         <tr>
             <th>Jabatan</th>
             <td><?php echo $peserta['jabatan']?></td>
+            <td></td>
         </tr>
         <tr>
             <th>TMT Golongan</th>
             <td><?php echo $this->date->konversi1($peserta['tmtgol'])?></td>
+            <td></td>
         </tr>
         <tr>
             <th>TMT CPNS</th>
             <td><?php echo $this->date->konversi1($peserta['tmtcpns'])?></td>
+            <td></td>
         </tr>
         <tr>
             <th>TMT PNS</th>
             <td><?php echo $this->date->konversi1($peserta['tmtpns'])?></td>
+            <td></td>
         </tr>
         <tr>
             <th>TMT Jabatan</th>
             <td><?php echo $this->date->konversi1($peserta['tmtgol'])?></td>
+            <td></td>
         </tr>
         <tr>
             <th>TMT Jabatan Baru</th>
             <td><?php echo $this->date->konversi1($peserta['tmtjabbaru'])?></td>
+            <td></td>
         </tr>
         <tr>
             <th>TMT Mutasi</th>
             <td><?php echo $this->date->konversi1($peserta['tmtmutasi'])?></td>
+            <td></td>
         </tr>
     </table>
 </div>
