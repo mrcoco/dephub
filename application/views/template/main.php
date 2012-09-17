@@ -7,8 +7,8 @@
     <meta charset="utf-8" />
     <title>Pusat Pengembangan SDM Aparatur Perhubungan</title>
     <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
-    <link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />
 <!--    <link type="text/css" href="assets/css/bootstrap_new.min.css" rel="stylesheet" />-->
+<!--    <link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />-->
     <link type="text/css" href="assets/css/bootstrap.css" rel="stylesheet" />
     <link type="text/css" href="assets/css/style.css" rel="stylesheet" />
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
@@ -39,8 +39,15 @@
         $('#date').datepicker({
             format: 'yyyy-mm-dd'
         });
-    });
-</script>    
+        $('#list').dataTable();
+        $('#list_length, #list_info').addClass('pull-right');
+        $('select[name="list_length"]').addClass('input-mini');
+        $('#list_filter input').attr('placeholder','Masukkan nama/NIP');
+        $('#list_paginate').addClass('pagination');
+//        $('#list_previous, #list_next').addClass('btn');
+    } );
+</script>
+
 </head>
 <body>
 	<div class="container" id="content">

@@ -1,7 +1,5 @@
 <script>
     $(document).ready(function() {
-        $('#list').dataTable();
-        $('select').attr('class','input-mini');
         $('#program').attr('class','');
         $('#program').change(function(){
             location.href="<?php echo base_url() ?>penyelenggaraan/peserta/list_peserta/"+$('#program').val();
@@ -41,7 +39,7 @@
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program,'id="program"')?>
-<table id="list" width="100%" class="table table-bordered table-condensed">
+<table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
             <th width="5%">No</th>
