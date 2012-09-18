@@ -4,14 +4,14 @@
 <link rel='stylesheet' type='text/css' href='<?php echo base_url() ?>assets/css/calendar_demo.css' />
 <style>
     .ui-button {
-            margin-left: -1px;
+        margin-left: -1px;
     }
     .ui-button-icon-only .ui-button-text {
-            padding: 0.35em;
+        padding: 0.35em;
     } 
     .ui-autocomplete-input {
-            margin: 0;
-            padding: 0.4em 0 0.4em 0.45em;
+        margin: 0;
+        padding: 0.4em 0 0.4em 0.45em;
     }
 </style>
 
@@ -20,15 +20,16 @@
 <script type='text/javascript' src='<?php echo base_url() ?>assets/js/jquery.weekcalendar.js'></script>
 
 <script>
-    var array_widya=<?php echo $autocom_widya ?>;
-    var mindate = new Date('<?php echo $program['tanggal_mulai'] ?>');
-    var maxdate = new Date('<?php echo $program['tanggal_akhir'] ?>');
+    var data_json;
     $(document).ready(function(){
-        
+        var mindate = new Date('<?php echo $program['tanggal_mulai'] ?>');
+        var maxdate = new Date('<?php echo $program['tanggal_akhir'] ?>');
         var $calendar = $('#calendar');
-        var id = 10;
-
+        var id = 1;
+        
         $calendar.weekCalendar({
+            dateFormat: 'd M Y',
+            use24Hour: true,
             displayOddEven:true,
             timeslotsPerHour : 4,
             allowCalEventOverlap : true,
@@ -36,7 +37,7 @@
             firstDayOfWeek : 0,
             minDate:mindate,
             maxDate:maxdate,
-            businessHours :{start: 1, end: 24, limitDisplay: true },
+            businessHours :{start: 0, end: 24, limitDisplay: true },
             daysToShow : 7,
             //      switchDisplay: {'1 day': 1, '3 next days': 3, 'work week': 5, 'full week': 7},
             title: function(daysToShow) {
@@ -60,12 +61,18 @@
             resizable : function(calEvent, $event) {
                 return calEvent.readOnly != true;
             },
-            eventNew : function(calEvent, $event) {
+            eventNew : function(calEvent, $event){
                 var $dialogContent = $("#event_edit_container");
                 resetForm($dialogContent);
                 var startField = $dialogContent.find("select[name='mulai']").val(calEvent.start);
                 var endField = $dialogContent.find("select[name='selesai']").val(calEvent.end);
                 var titleField = $dialogContent.find("input[name='nama']");
+                var kegiatan = $dialogContent.find("select[name='jenis']");
+                var p1 = $dialogContent.find("input[name='id_p1']");
+                var p2 = $dialogContent.find("input[name='id_p2']");
+                var p3 = $dialogContent.find("input[name='id_p3']");
+                var pendamping1 = $dialogContent.find("input[name='pendamping1']");
+                var pendamping2 = $dialogContent.find("input[name='pendamping2']");
                 //var bodyField = $dialogContent.find("textarea[name='body']");
 
 
@@ -86,7 +93,8 @@
                             calEvent.start = new Date(startField.val());
                             calEvent.end = new Date(endField.val());
                             calEvent.title = titleField.val();
-//                            calEvent.body = bodyField.val();
+                            text_body='Pe';
+                            //                            calEvent.body = bodyField.val();
                             $calendar.weekCalendar("removeUnsavedEvents");
                             $calendar.weekCalendar("updateEvent", calEvent);
                             $dialogContent.dialog("close");
@@ -117,8 +125,8 @@
                 var startField = $dialogContent.find("select[name='mulai']").val(calEvent.start);
                 var endField = $dialogContent.find("select[name='selesai']").val(calEvent.end);
                 var titleField = $dialogContent.find("input[name='nama']").val(calEvent.title);
-//                var bodyField = $dialogContent.find("textarea[name='body']");
-//                bodyField.val(calEvent.body);
+                //                var bodyField = $dialogContent.find("textarea[name='body']");
+                //                bodyField.val(calEvent.body);
 
                 $dialogContent.dialog({
                     width: 'auto',
@@ -136,7 +144,7 @@
                             calEvent.start = new Date(startField.val());
                             calEvent.end = new Date(endField.val());
                             calEvent.title = titleField.val();
-//                            calEvent.body = bodyField.val();
+                            //                            calEvent.body = bodyField.val();
 
                             $calendar.weekCalendar("updateEvent", calEvent);
                             $dialogContent.dialog("close");
@@ -249,14 +257,40 @@
         });
         $('#calendar').weekCalendar("gotoWeek",mindate);
         $('.wc-today').hide();
-        
-        
-        $('#jenis').live('change',function(){
-            if($(this).val()=='materi'){
-                $('.tr_widyaiswara').show();
-            }else{
-                $('.tr_widyaiswara').hide();
-            }
+    });
+    
+    $('#jenis').live('change',function(){
+        if($(this).val()=='materi'){
+            $('.tr_widyaiswara').show();
+        }else{
+            $('.tr_widyaiswara').hide();
+        }
+    });
+
+
+    $('.autocom').live('change',function(){
+
+        id=$(this).attr('id');
+        val=$(this).val();
+
+        input=$(this).siblings("input[type='text']");
+        $.getJSON('<?php echo base_url() ?>penyelenggaraan/schedule/ajax_pembicara/'+val, function(data){
+            data_json=data;
+        }).then(function(){
+            $( '.nama_'+id ).autocomplete({
+                source: data_json[2],
+                change: function(event, ui){
+                    if(ui.item){
+                        nama=$(this).val();
+                        pid=$(this).siblings('input[type="hidden"]');
+                        pid.val(data_json[1][nama]);
+                    }else{
+                        alert('Anda harus memilih dari daftar nama yang disediakan');
+                        $(this).val('');
+                        $(this).focus();
+                    }
+                }
+            });
         });
     });
 </script>
@@ -302,18 +336,18 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
                 <td>Nama acara</td>
                 <td>: <input type="text" name="nama" /></td>
             </tr>
+            <?php $pil = array(-1 => '-- Pilih --', 1 => 'non widyaiswara', 2 => 'widyaiswara', 3 => 'dosen tamu') ?>
             <tr class="tr_widyaiswara">
                 <td>Pembicara 1</td>
-                <?php $pil=array('widyaiswara','non widyaiswara','dosen tamu')?>
-                <td>: <?php echo form_dropdown('jenis_pembicara1',$pil,'','id="jenis_pembicara1"')?> <input type="text" name="pembicara1" id="pembicara1"/></td>
+                <td>: <?php echo form_dropdown('jenis_pembicara1', $pil, '', 'id="p1" class="autocom"') ?> <input type="text" class="nama_p1" name="nama_p1"/><input type="hidden" name="id_p1"/></td>
             </tr>
             <tr class="tr_widyaiswara">
                 <td>Pembicara 2</td>
-                <td>: <?php echo form_dropdown('jenis_pembicara2',$pil,'','id="jenis_pembicara2"')?> <input type="text" name="pembicara2" id="pembicara2"/></td>
+                <td>: <?php echo form_dropdown('jenis_pembicara2', $pil, '', 'id="p2" class="autocom"') ?> <input type="text" class="nama_p2" name="nama_p2"/><input type="hidden" name="id_p2"/></td>
             </tr>
             <tr class="tr_widyaiswara">
                 <td>Pembicara 3</td>
-                <td>: <?php echo form_dropdown('jenis_pembicara3',$pil,'','id="jenis_pembicara3"')?> <input type="text" name="pembicara3" id="pembicara3"/></td>
+                <td>: <?php echo form_dropdown('jenis_pembicara3', $pil, '', 'id="p3" class="autocom"') ?> <input type="text" class="nama_p3" name="nama_p3"/><input type="hidden" name="id_p3"/></td>
             </tr>
             <tr>
                 <td>Pendamping 1</td>
