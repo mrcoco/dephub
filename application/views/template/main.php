@@ -43,13 +43,40 @@
         $('#list_length, #list_info').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');
         $('#list_filter input').attr('placeholder','Masukkan nama/NIP');
-        $('#list_paginate').addClass('pagination');
+        $('#list_paginate').addClass('pager');
 //        $('#list_previous, #list_next').addClass('btn');
     } );
 </script>
 
 </head>
 <body>
+<div id="mainmenu">
+    <div id="yw0" class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+	<div class="container">
+	    <div class="nav-collapse">
+		<ul class="nav">
+                    <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
+		    <li class="<?php if($this->uri->segment(1)==''){echo 'active';};?>"><a href="<?php echo site_url();?>">Halaman Utama</a></li>
+		    <li class="<?php if($this->uri->segment(2)=='dashboard' && $this->uri->segment(3)=='elearning'){echo 'active';};?>"><a href="site/dashboard/elearning">E-Learning</a></li>
+		    <li class="<?php if($this->uri->segment(2)=='dashboard' && $this->uri->segment(3)=='email'){echo 'active';};?>"><a href="site/dashboard/email">E-Mail</a></li>
+		    <li class="<?php if($this->uri->segment(2)=='dashboard' && $this->uri->segment(3)=='diklat'){echo 'active';};?>"><a href="site/dashboard/diklat">Manajemen Diklat</a></li>
+		    <li class="<?php if($this->uri->segment(2)=='dashboard' && $this->uri->segment(3)=='library'){echo 'active';};?>"><a href="site/dashboard/library">Library</a></li>
+		    <li class="dropdown <?php if($this->uri->segment(2)=='about'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Tentang PPSDMAP<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+			    <li class="<?php if($this->uri->segment(1)=='about' && $this->uri->segment(2)==''){echo 'active';};?>"><a href="about">Pusbang SDM</a></li>
+			    <li class="<?php if($this->uri->segment(1)=='about' && $this->uri->segment(2)=='visi_misi'){echo 'active';};?>"><a href="about/visi_misi">Visi & Misi</a></li>
+			    <li class="<?php if($this->uri->segment(1)=='about' && $this->uri->segment(2)=='struktur'){echo 'active';};?>"><a href="about/struktur">Struktur Organisasi</a></li>
+			    <li class="<?php if($this->uri->segment(1)=='about' && $this->uri->segment(2)=='kontak'){echo 'active';};?>"><a href="about/kontak">Kontak</a></li>
+			</ul>
+		    </li>
+		</ul>
+	    </div>
+	</div>
+	</div>
+    </div>
+</div>
+<!-- mainmenu -->    
 	<div class="container" id="content">
 	    <?php echo $_header;?>
 	    <br />
@@ -59,7 +86,6 @@
 	    <div class="clear"></div>
 	    <div>
 		<h1 class="title-page"><?php echo $this->session->userdata('detail');?> <small><?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?></small></h1>
-		<hr />
 		<?php echo $_content;?>
 	    </div><!-- content -->
 	    <div class="clear"></div>
