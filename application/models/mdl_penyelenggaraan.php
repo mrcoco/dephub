@@ -125,9 +125,9 @@ class Mdl_penyelenggaraan extends CI_Model{
     function update_pembicara($jenis,$id){
         if($jenis!=0){
             //cek id udah ada blom? klo udah update, klo blom insert
+            $where = '(jenis=1 or jenis=2)';
             $this->db->where('id_tabel',$id);
-            $this->db->where('jenis',1);
-            $this->db->or_where('jenis',2);
+            $this->db->where($where);
             $num=$this->db->get('pembicara')->num_rows();
             if($num==0){
                 //insert
