@@ -52,7 +52,7 @@ $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
 
-$db['default']['database'] = 'sisfo_pusbang';
+$db['default']['database'] = 'dephub_simdik';
 
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'tb_';
@@ -70,7 +70,7 @@ $db['elearning']['hostname'] = 'localhost';
 $db['elearning']['username'] = 'root';
 $db['elearning']['password'] = '';
 
-$db['elearning']['database'] = 'elearning_dephub';
+$db['elearning']['database'] = 'dephub_elearning';
 
 $db['elearning']['dbdriver'] = 'mysql';
 $db['elearning']['dbprefix'] = 'mdl_';

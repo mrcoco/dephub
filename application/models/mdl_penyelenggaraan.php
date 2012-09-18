@@ -164,12 +164,12 @@ class Mdl_penyelenggaraan extends CI_Model{
 	}
 	
     function getall_pegawai(){
-        $str_query='select * from tb_cv_peserta';
+        $str_query='select * from tb_pegawai';
         return $this->db->query($str_query)->result_array();
     }
     
     function get_pegawai($per_page,$offset,$filter){
-        $str_query='select * from tb_cv_peserta';
+        $str_query='select * from tb_pegawai';
         if($filter!=''){
             $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
         }
@@ -178,7 +178,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function count_pegawai($filter){
-        $str_query='select count(tb_cv_peserta.id) as num FROM tb_cv_peserta';
+        $str_query='select count(tb_pegawai.id) as num FROM tb_pegawai';
         if($filter!=''){
             $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
         }
@@ -186,7 +186,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_data_pegawai_id($param){
-        $query=$this->db->query('select * from tb_cv_peserta where id = '.$param);
+        $query=$this->db->query('select * from tb_pegawai where id = '.$param);
         //echo $param.'s'.$query->num_rows();
         if($query->num_rows()==0){
             return FALSE;
