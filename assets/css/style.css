@@ -16,7 +16,7 @@ root {
 }
 
 body {
-    margin: 40px;
+    margin: 0;
     background-color: #09405D;
     background-image: url('../img/pg-bg.jpg');
     background-repeat: repeat;
@@ -39,12 +39,21 @@ header .navbar-inner {
 form label.required {
     font-weight: bold;
 }
-
+#header{
+    background: no-repeat center url('../img/header.jpg');
+    width: 940px;
+    height: 220px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 #content {
     background: #FFF;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding: 15px;
+    margin-top: 40px;
 /*
 -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
