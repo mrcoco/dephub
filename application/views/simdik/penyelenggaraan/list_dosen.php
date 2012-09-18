@@ -1,13 +1,7 @@
-<script>
-    $(document).ready(function() {
-        $('#list').dataTable();
-        $('select').attr('class','input-mini');
-    } );
-</script>
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-<table id="list" width="100%" class="table table-bordered table-condensed">
+<table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
             <th width="5%">No</th>
@@ -25,8 +19,8 @@
                     <?php echo $list[$i]['is_pns']?'PNS':'Profesional' ?>
                 </td>
                 <td>
-                    <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $list[$i]['id'] ?>"><i class="icon-edit"></i> Ubah</a>
-                    <a href="penyelenggaraan/dosen_tamu/delete_dosen/<?php echo $list[$i]['id'] ?>"
+                    <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $list[$i]['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
+                    <a href="penyelenggaraan/dosen_tamu/delete_dosen/<?php echo $list[$i]['id'] ?>"  class="btn btn-danger"
                     onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['nama'] ?>?')">
                         <i class="icon-trash"></i> Hapus</a>
                 </td>

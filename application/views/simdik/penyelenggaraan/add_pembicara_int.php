@@ -7,7 +7,7 @@
     });
     function load(page,filter){
         $('#body_table').empty();
-        $('#body_table').append('<center><img src="<?php echo base_url()?>assets/img/spinner.gif"/></center>');
+        $('#body_table').append('<center>Loading... <img src="<?php echo base_url()?>assets/img/spinner.gif"/></center>');
         if(filter!=''){
             $.get('<?php echo base_url()?>penyelenggaraan/pembicara_int/ajax_list/'+page+'/'+filter, function(result){
                 $('#body_table').html(result);
@@ -37,5 +37,5 @@
     }
 </script>
 
-Cari Pembicara: <input type="text" id="cari" placeholder="Masukkan nama/nip"/>
+Search: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
 <div id="body_table"></div>    

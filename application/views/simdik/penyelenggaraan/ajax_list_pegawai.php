@@ -1,42 +1,34 @@
+<script>
+    function view_detail(num){
+            $.get("<?php echo base_url() ?>penyelenggaraan/pegawai/detail_pegawai/"+num,function(result){
+                $('#display_dialog').html(result);
+                $('#display_dialog').modal('show');
+            })
+    }
+</script>
+    
+<div id="display_dialog" class="modal hide"></div>
+
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
             <th width="5%" id="no">No</th>
             <th width="30%" id="nama">Nama</th>
             <th width="20%" id="nip">NIP</th>
-            <th width="15%" id="jenis">Jenis</th>
-            <th width="30%">Aksi</th>
+            <th width="45%">Aksi</th>
         </tr>
     </thead>
     <tbody id="body_table">
 <?php $no=$offset+1?>
 <?php foreach($array as $a){?>
-<?php
-    if($a['jenis']==''){
-        $a['jenis']='bukan pembicara';
-    }else{
-        if($a['jenis']=='1'){
-            $a['jenis']='non widyaiswara';
-        }else if($a['jenis']=='2'){
-            $a['jenis']='widyaiswara';
-        }
-    }
-?>
 <tr>
     <td><?php echo $no?></td>
     <td><?php echo $a['nama']?></td>
     <td><?php echo $a['nip']?></td>
-    <td><span id="jenis<?php echo $a['id']?>" class="label label-info"><?php echo $a['jenis']?></span></td>
-    <td>
-        <div class="btn-group" data-toggle="buttons-radio">
-            <button type="button" class="btn <?php if($a['jenis']=='non widyaiswara')echo 'active btn-info'; ?>" onclick="status(1,<?php echo $a['id']?>)">Non-widya</button>
-            <button type="button" class="btn <?php if($a['jenis']=='widyaiswara')echo 'active btn-info'; ?>" onclick="status(2,<?php echo $a['id']?>)">Widya</button>
-            <button type="button" class="btn <?php if($a['jenis']=='-')echo 'active btn-info'; ?>" onclick="status(0,<?php echo $a['id']?>)">Tidak ada</button>
-        </div>
-    </td>
+    <td><span class="btn btn-mini btn-info" onclick="view_detail(<?php echo $a['id']; ?> )">Lihat detail pegawai</span></td>
 </tr>
 <?php $no++ ?>
-<?php } ?>
+<?php }?>
 </tbody>
 </table>
 <div id="footer">
