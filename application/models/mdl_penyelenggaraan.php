@@ -144,4 +144,43 @@ class Mdl_penyelenggaraan extends CI_Model{
             $this->db->delete('pembicara');
         }
     }
+    
+    function getall_pegawai(){
+        $str_query='select * from tb_cv_peserta';
+        return $this->db->query($str_query)->result_array();
+    }
+    
+//    function get_pegawai($page, $filter){
+//        $awal=($page-1)*$filter;
+//        $str_query='select * from tb_cv_peserta
+//            where id >= '.$awal.' and id <'.($awal+$filter);
+//        return $this->db->query($str_query)->result_array();
+//    }
+    
+    function get_pegawai($per_page,$offset,$filter){
+        $str_query='select * from tb_cv_peserta';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
+        }
+        $str_query.= ' limit '.$offset.', '.$per_page;
+        return $this->db->query($str_query)->result_array();
+    }
+    
+    function count_pegawai($filter){
+        $str_query='select count(tb_cv_peserta.id) as num FROM tb_cv_peserta';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
+        }
+        return $this->db->query($str_query)->row()->num;
+    }
+    
+    function get_data_pegawai_id($param){
+        $query=$this->db->query('select * from tb_cv_peserta where id = '.$param);
+        //echo $param.'s'.$query->num_rows();
+        if($query->num_rows()==0){
+            return FALSE;
+        }else{
+            return $query->row_array();
+        }
+    }
 }
