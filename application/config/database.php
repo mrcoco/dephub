@@ -70,7 +70,7 @@ $db['elearning']['hostname'] = 'localhost';
 $db['elearning']['username'] = 'root';
 $db['elearning']['password'] = '';
 
-$db['elearning']['database'] = 'elearning_dephub';
+$db['elearning']['database'] = 'dephub_elearning';
 
 $db['elearning']['dbdriver'] = 'mysql';
 $db['elearning']['dbprefix'] = 'mdl_';

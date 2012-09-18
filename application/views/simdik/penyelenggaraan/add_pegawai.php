@@ -186,7 +186,7 @@
     <table width="800" class="table table-condensed">
         <tr>
             <td width="143px">Program Diklat</td>
-            <td><?php// echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?></td>
+            <td><?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?></td>
         </tr>
         <tr>
             <td>Asal Instansi Peserta</td>
