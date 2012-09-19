@@ -15,14 +15,14 @@ class Pegawai extends Penyelenggaraan_Controller{
         $this->list_pegawai();
     }
     
-    function list_pegawai_awal(){
+    function list_pegawai(){
         //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
         $data['sub_title']='List Pegawai';
         $this->template->display('simdik/penyelenggaraan/list_pegawai',$data);
     }
     
     //function list_pegawai($page=1,$filter='all')
-    function list_pegawai($page=1,$filter=''){
+    function list_pegawai_ajax($page=1,$filter=''){
         //melist pegawai, pake paging dan ada filter berdasarkan instansi
         $data['cur_page']=$page;
         $data['per_page']=25;
@@ -52,6 +52,11 @@ class Pegawai extends Penyelenggaraan_Controller{
         foreach($data_pegawai as $key=>$item){
             $data['pegawai'][$key]=$item;
         }
+        $data_history=$this->slng->get_history($id);
+//        foreach($data_history as $key=>$item){
+//            $data['history'][$key]=$item;
+//        }
+        $data['history']=$data_history;
         $this->load->view('simdik/penyelenggaraan/ajax_detail_pegawai',$data);
     
     }

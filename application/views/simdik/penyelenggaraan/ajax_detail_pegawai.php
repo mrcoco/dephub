@@ -4,11 +4,9 @@
 </div>
 <div class="modal-body">
     <table class="table table-condensed">
-        <!--
         <tr>
-            <td colspan="2"><center><img src="<?php //echo $peserta['foto']?>" width="75" height="100"/></center></td>
+            <td colspan="2"><center><img src="<?php echo $pegawai['foto']?>" width="75" height="100"/></center></td>
         </tr>
-        -->
         <tr>
             <th width="30%">Nama</th>
             <td><?php echo $pegawai['nama']?></td>
@@ -69,6 +67,29 @@
             <th>Telepon</th>
             <td><?php echo $pegawai['telepon']?></td>
         </tr>
+        <tr>
+            <th>TMT Golongan</th>
+            <td><?php echo $this->date->konversi2($pegawai['tmtgol'])?></td>
+        </tr>
+        <tr>
+            <th>TMT PNS</th>
+            <td><?php echo $this->date->konversi2($pegawai['tmtpns'])?></td>
+        </tr>
+        <tr>
+            <th>TMT Jabatan</th>
+            <td><?php echo $this->date->konversi2($pegawai['tmtjabatan'])?></td>
+        </tr>
+        <tr>
+            <th>History</th>
+            <td>
+                <?php 
+            foreach($history as $h){
+                echo "- ".$h['nama_pelatihan']." (".$h['tahun'].")<br/>";
+                }?>
+            </td>
+        </tr>
+        
+            
     </table>
 </div>
 <div class="modal-footer">
