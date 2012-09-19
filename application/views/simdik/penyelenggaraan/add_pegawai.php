@@ -109,36 +109,6 @@
             }
         }
     }
-
-
-    function append_table(){
-        obj_table=$('#example').clone();
-        $('#wrap_form').append(obj_table);
-        num++;
-        obj_table.removeAttr('id');
-        obj_table.attr('id', 'table'+num);
-        $('#table'+num+' .num').text(num);
-        $('#table'+num+' .nip').attr('id','nip'+num);
-        $('#table'+num+' .nip').attr('onclick','tes('+num+')');
-        $('#table'+num+' .nip').attr('onchange','tes2('+num+')');
-        obj_table.show('blind');
-        $(function(){
-            $('#table'+num+' .tgl').datepicker({
-                format: 'yyyy-mm-dd'
-            });
-        });
-    }
-    
-    function delete_table(obj){
-        if(num>1){
-            $('table:last-child','#wrap_form').hide('blind',function(){
-                $('table:last-child','#wrap_form').remove();
-            });
-            num--;
-        }
-    }
-    
-
     
     $(function(){
         $('#table1 .tgl').datepicker({
@@ -155,27 +125,86 @@
 <table id="example" class="table table-condensed">
     <thead>
         <tr>
-            <th colspan="2">Peserta ke-<span class="num"></span></th>
+            <th colspan="2">Penambahan Pegawai</th>
         </tr>
     </thead>
     <tbody>
         <input class="id" type="hidden" name="id[]"/>
         <tr>
             <td>NIP/Nama</td>
-            <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> / <input class="nama" type="text" name="nama[]" placeholder="Nama" readonly/></td>
+            <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> / <input class="nama" type="text" name="nama[]" placeholder="Nama"/></td>
+        </tr>
+        <tr>
+            <td>Tempat Tanggal Lahir</td>
+            <td><input class="tempat" type="text" name="tempat[]" placeholder="Tempat Lahir"/> / <input class="tanggal" type="text" name="tanggal[]" placeholder="Tanggal Lahir"/></td>
         </tr>
         <tr>
             <td>Pangkat/Gol</td>
-            <td><input class="pangkat" type="text" name="pangkat[]" placeholder="Pangkat" readonly/> / <input class="gol" type="text" name="gol[]" placeholder="Golongan" readonly/></td>
+            <td><input class="pangkat" type="text" name="pangkat[]" placeholder="Pangkat"/> / <input class="gol" type="text" name="gol[]" placeholder="Golongan"/></td>
         </tr>
         <tr>
             <td>Jabatan</td>
-            <td><textarea class="jabatan" name="jabatan[]" readonly></textarea></td>
+            <td><textarea class="jabatan" name="jabatan[]" placeholder="Jabatan"></textarea></td>
         </tr>
         <tr>
-            <td colspan="2">
-                <span class="view_detail btn btn-mini btn-info">Lihat detail peserta</span> <span class="view_history btn btn-mini btn-info">Lihat history pelatihan</span> 
-            </td>
+            <td>Instansi</td>
+            <td><input class="instansi" type="text" name="instansi[]" placeholder="Instansi"/></td>
+        </tr>
+        <tr>
+            <td>Jenis Kelamin</td>
+            <td><input class="jenis_kelamin" type="text" name="jenis_kelamin[]" placeholder="Jenis Kelamin"/></td>
+        </tr>
+        <tr>
+            <td>Gelar Akademis</td>
+            <td><input class="gelar_akademik" type="text" name="gelar_akademik[]" placeholder="Gelar Akademis"/></td>
+        </tr>
+        <tr>
+            <td>Pendidikan Terakhir</td>
+            <td><input class="pendidikan_terakhir" type="text" name="pendidikan_terakhir[]" placeholder="Pendidikan Terakhir"/></td>
+        </tr>
+        <tr>
+            <td>Unit Kerja</td>
+            <td><input class="unit_kerja" type="text" name="unit_kerja[]" placeholder="Unit Kerja"/></td>
+        </tr>
+        <tr>
+            <td>Alamat Rumah</td>
+            <td><input class="alamat_rumah" type="text" name="alamat_rumah[]" placeholder="Alamat Rumah"/></td>
+        </tr>
+        <tr>
+            <td>Agama</td>
+            <td><input class="agama" type="text" name="agama[]" placeholder="Agama"/></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input class="email" type="text" name="email[]" placeholder="Email"/></td>
+        </tr>
+        <tr>
+            <td>Telepon</td>
+            <td><input class="telepon" type="text" name="telepon[]" placeholder="Telepon"/></td>
+        </tr>
+        <tr>
+            <td>TMT Golongan</td>
+            <td><input class="tmt_golongan" type="text" name="tmt_golongan[]" placeholder="TMT Golongan"/></td>
+        </tr>
+        <tr>
+            <td>TMTC PNS</td>
+            <td><input class="tmtc_pns" type="text" name="tmtc_pns[]" placeholder="TMTC PNS"/></td>
+        </tr>
+        <tr>
+            <td>TMT PNS</td>
+            <td><input class="tmt_pns" type="text" name="tmt_pns[]" placeholder="TMT PNS"/></td>
+        </tr>
+        <tr>
+            <td>TMT Jabatan</td>
+            <td><input class="tmt_jabatan" type="text" name="tmt_jabatan[]" placeholder="TMT Jabatan"/></td>
+        </tr>
+        <tr>
+            <td>TMT Jabatan Baru</td>
+            <td><input class="tmt_jabatan_baru" type="text" name="tmt_jabatan_baru[]" placeholder="TMT Jabatan Baru"/></td>
+        </tr>
+        <tr>
+            <td>TMT Mutasi</td>
+            <td><input class="tmt_mutasi" type="text" name="tmt_mutasi[]" placeholder="TMT Mutasi"/></td>
         </tr>
     </tbody>
 </table>
@@ -183,21 +212,9 @@
 <div id="display_dialog" class="modal hide"></div>
 
 <form name="form_reg" id="form_reg" action="penyelenggaraan/peserta/registrasi_proses" method="POST">
-    <table width="800" class="table table-condensed">
-        <tr>
-            <td width="143px">Program Diklat</td>
-            <td><?php echo form_dropdown('program', $pil_program, '', 'id="pil_prog"') ?></td>
-        </tr>
-        <tr>
-            <td>Asal Instansi Peserta</td>
-            <td><input type="text" id="instansi" name="instansi"/></td>
-        </tr>
-    </table>
     <div id="wrap_form">
     </div>
     <div class="form-actions">
-        <a href="javascript:append_table()" class="btn btn-small"><i class="icon-plus"></i> Tambah Peserta</a>
-        <a href="javascript:delete_table()" class="btn btn-small"><i class="icon-minus"></i> Hapus</a>
-        <input type="button" class="btn btn-large btn-primary pull-right" value="Daftarkan Semua" onclick="validate_form()"/>
+        <input type="button" class="btn btn-large btn-primary pull-right" value="Daftar" onclick="validate_form()"/>
     </div>
 </form>

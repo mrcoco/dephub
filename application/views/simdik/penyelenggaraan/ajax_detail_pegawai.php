@@ -72,12 +72,24 @@
             <td><?php echo $this->date->konversi2($pegawai['tmtgol'])?></td>
         </tr>
         <tr>
+            <th>TMTC PNS</th>
+            <td><?php echo $this->date->konversi2($pegawai['tmtcpns'])?></td>
+        </tr>
+        <tr>
             <th>TMT PNS</th>
             <td><?php echo $this->date->konversi2($pegawai['tmtpns'])?></td>
         </tr>
         <tr>
             <th>TMT Jabatan</th>
             <td><?php echo $this->date->konversi2($pegawai['tmtjabatan'])?></td>
+        </tr>
+        <tr>
+            <th>TMT Jabatan Baru</th>
+            <td><?php echo $this->date->konversi2($pegawai['tmtjabbaru'])?></td>
+        </tr>
+        <tr>
+            <th>TMT Mutasi</th>
+            <td><?php echo $this->date->konversi2($pegawai['tmtmutasi'])?></td>
         </tr>
         <tr>
             <th>History</th>

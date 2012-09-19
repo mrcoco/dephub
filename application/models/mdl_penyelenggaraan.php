@@ -194,4 +194,9 @@ class Mdl_penyelenggaraan extends CI_Model{
             return $query->row_array();
         }
     }
+    
+    function insert_pegawai($data_reg){
+        $this->db->insert('pegawai',$data_reg);
+        return TRUE;
+    }
 }

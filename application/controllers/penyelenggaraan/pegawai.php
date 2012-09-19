@@ -32,16 +32,6 @@ class Pegawai extends Penyelenggaraan_Controller{
         $data['num_res']=$this->slng->count_pegawai($filter);
         $data['num_page']=ceil($data['num_res']/$data['per_page']);
         echo $this->load->view('simdik/penyelenggaraan/ajax_list_pegawai',$data,true);
-        
-//        $data['sub_title']='List Pegawai Diklat';
-//        $data['list']=$this->slng->get_pegawai_list(1,10);
-//        $list_program = $this->rnc->get_program($this->thn);
-//        $data['id_program']=$id_program;
-//        $data['pil_program']=array(-1=>'Semua Program');
-//        foreach($list_program as $program){
-//            $data['pil_program'][$program['id']]=$program['name'];
-//        }
-//        $this->template->display('simdik/penyelenggaraan/list_pegawai',$data);
     }
     
     function detail_pegawai($id){
