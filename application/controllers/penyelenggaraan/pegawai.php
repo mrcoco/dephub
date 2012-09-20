@@ -53,7 +53,7 @@ class Pegawai extends Penyelenggaraan_Controller{
     
     function tambah_pegawai(){
         //menampilkan form untuk memasukkan data pegawai yg belum ada di database
-        $data['sub_title']='Penambahan Peserta';
+        $data['sub_title']='Penambahan Pegawai';
         $list_program = $this->rnc->get_program($this->thn);
         $data['pil_program']=array(-1=>'Pilih diklat');
         foreach($list_program as $program){
@@ -64,6 +64,21 @@ class Pegawai extends Penyelenggaraan_Controller{
     
     function tambah_pegawai_process(){
         //process penambahan pegawai
+        
+//        foreach ($_POST as $isi)
+//        {
+//            $reg[$isi]=$_POST[$isi];
+//        }
+
+        //var_dump($_POST);
+        
+        $reg=$_POST;
+        $reg['id']=$this->slng->count_pegawai('')+1;
+        //die("isi dari nip -> ".$_POST['nip']);
+        $this->slng->insert_pegawai($_POST);
+            
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah ditambahkan'));
+        redirect(base_url().'penyelenggaraan/pegawai/list_pegawai');
     }
     
     function edit_pegawai($id){
