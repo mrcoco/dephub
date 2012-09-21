@@ -60,7 +60,7 @@ class Dashboard extends CI_Controller {
 
     function library() {
 	$data['title'] = 'Perpustakaan';
-	$this->template->display('main/uc', $data);
+	$this->template->display('main/perpustakaan/uc', $data);
     }
 
     /*
