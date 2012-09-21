@@ -4,12 +4,13 @@
 </div>
 <div class="modal-body">
     <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a href="#i" data-toggle="tab">Keterangan Perorangan</a></li>
-        <li><a href="#tujuan" data-toggle="tab">Tujuan dan Indikator</a></li>
-        <li><a href="#pelaksanaan" data-toggle="tab">Pelaksanaan</a></li>
-        <li><a href="#peserta" data-toggle="tab">Peserta</a></li>
-        <li><a href="#pelaksana" data-toggle="tab">Pelaksana dan Fasilitator</a></li>
-        <li><a href="#materi" data-toggle="tab">Materi</a></li>
+        <li class="active"><a href="#i" data-toggle="tab">Biodata</a></li>
+        <li><a href="#tujuan" data-toggle="tab">Pendidikan</a></li>
+        <li><a href="#pelaksanaan" data-toggle="tab">Riwayat Pekerjaan</a></li>
+        <li><a href="#peserta" data-toggle="tab">Penghargaan</a></li>
+        <li><a href="#pelaksana" data-toggle="tab">Pengalaman</a></li>
+        <li><a href="#materi" data-toggle="tab">Keluarga</a></li>
+        <li><a href="#materi" data-toggle="tab">Organisasi</a></li>
     </ul>
     
     <div class="tab-pane active" id="i">
