@@ -211,3 +211,7 @@ Font Face
 .sidemenu{
     padding: 8px 0;
 }
+.modal-wide{
+    width: 800px;
+    left: 40%;    
+}

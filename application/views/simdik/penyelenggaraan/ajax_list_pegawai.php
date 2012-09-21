@@ -7,7 +7,7 @@
     }
 </script>
     
-<div id="display_dialog" class="modal hide"></div>
+<div id="display_dialog" class="modal hide modal-wide"></div>
 
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
