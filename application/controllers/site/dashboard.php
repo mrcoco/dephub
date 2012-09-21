@@ -58,9 +58,13 @@ class Dashboard extends CI_Controller {
 	$this->template->display('main/uc', $data);
     }
 
-    function library() {
+    function library($id="public") {
 	$data['title'] = 'Perpustakaan';
-	$this->template->display('main/uc', $data);
+        if($id=="user"){
+            $this->template->display('main/elibrary/user', $data);            
+        }else{
+            $this->template->display('main/elibrary/index', $data);
+        }
     }
 
     /*
