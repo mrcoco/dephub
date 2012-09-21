@@ -65,13 +65,6 @@ class Pegawai extends Penyelenggaraan_Controller{
     function tambah_pegawai_process(){
         //process penambahan pegawai
         
-//        foreach ($_POST as $isi)
-//        {
-//            $reg[$isi]=$_POST[$isi];
-//        }
-
-        //var_dump($_POST);
-        
         $reg=$_POST;
         $reg['id']=$this->slng->count_pegawai('')+1;
         //die("isi dari nip -> ".$_POST['nip']);
