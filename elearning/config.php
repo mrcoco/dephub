@@ -7,13 +7,13 @@ $CFG->dbtype    = 'mysqli';
 $CFG->dbhost    = 'localhost';
 $CFG->dbname    = 'dephub_elearning';
 $CFG->dbuser    = 'root';
-$CFG->dbpass    = 'root';
+$CFG->dbpass    = '';
 $CFG->dbpersist =  false;
 $CFG->prefix    = 'mdl_';
 
 $CFG->wwwroot   = 'http://localhost/dephub/elearning';
-$CFG->dirroot   = '/Applications/MAMP/htdocs/dephub/elearning';
-$CFG->dataroot  = '/Applications/MAMP/htdocs/dephub/assets/moodledata';
+$CFG->dirroot   = 'C:/xampp/htdocs/dephub/elearning';
+$CFG->dataroot  = 'C:/xampp/htdocs/dephub/assets/moodledata';
 $CFG->admin     = 'admin';
 
 $CFG->directorypermissions = 00777;  // try 02777 on a server in Safe Mode
