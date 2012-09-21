@@ -7,7 +7,7 @@ $CFG->dbtype    = 'mysqli';
 $CFG->dbhost    = 'localhost';
 $CFG->dbname    = 'dephub_elearning';
 $CFG->dbuser    = 'root';
-$CFG->dbpass    = 'root';
+$CFG->dbpass    = '';
 $CFG->dbpersist =  false;
 $CFG->prefix    = 'mdl_';
 

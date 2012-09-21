@@ -8,6 +8,13 @@
             <td colspan="2"><center><img src="<?php echo $pegawai['foto']?>" width="75" height="100"/></center></td>
         </tr>
         <tr>
+            <td colspan="2"><center>DAFTAR RIWAYAT HIDUP</center></td>
+        </tr>
+        <tr>
+            <th width="30%">Nama</th>
+            <td><?php echo $pegawai['nama']?></td>
+        </tr>
+        <tr>
             <th width="30%">Nama</th>
             <td><?php echo $pegawai['nama']?></td>
         </tr>
