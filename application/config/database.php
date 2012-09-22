@@ -51,7 +51,9 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
+
 $db['default']['database'] = 'dephub_simdik';
+
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'tb_';
 $db['default']['pconnect'] = TRUE;
@@ -67,7 +69,9 @@ $db['default']['stricton'] = FALSE;
 $db['elearning']['hostname'] = 'localhost';
 $db['elearning']['username'] = 'root';
 $db['elearning']['password'] = '';
+
 $db['elearning']['database'] = 'dephub_elearning';
+
 $db['elearning']['dbdriver'] = 'mysql';
 $db['elearning']['dbprefix'] = 'mdl_';
 $db['elearning']['pconnect'] = TRUE;
@@ -79,6 +83,26 @@ $db['elearning']['dbcollat'] = 'utf8_general_ci';
 $db['elearning']['swap_pre'] = '';
 $db['elearning']['autoinit'] = FALSE;
 $db['elearning']['stricton'] = FALSE;
+
+
+
+$db['sdm']['hostname'] = 'localhost';
+$db['sdm']['username'] = 'root';
+$db['sdm']['password'] = '';
+
+$db['sdm']['database'] = 'db_sdm';
+
+$db['sdm']['dbdriver'] = 'mysql';
+$db['sdm']['dbprefix'] = '';
+$db['sdm']['pconnect'] = TRUE;
+$db['sdm']['db_debug'] = TRUE;
+$db['sdm']['cache_on'] = FALSE;
+$db['sdm']['cachedir'] = '';
+$db['sdm']['char_set'] = 'utf8';
+$db['sdm']['dbcollat'] = 'utf8_general_ci';
+$db['sdm']['swap_pre'] = '';
+$db['sdm']['autoinit'] = FALSE;
+$db['sdm']['stricton'] = FALSE;
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */

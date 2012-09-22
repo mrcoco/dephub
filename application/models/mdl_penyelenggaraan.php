@@ -125,9 +125,9 @@ class Mdl_penyelenggaraan extends CI_Model{
     function update_pembicara($jenis,$id){
         if($jenis!=0){
             //cek id udah ada blom? klo udah update, klo blom insert
+            $where = '(jenis=1 or jenis=2)';
             $this->db->where('id_tabel',$id);
-            $this->db->where('jenis',1);
-            $this->db->or_where('jenis',2);
+            $this->db->where($where);
             $num=$this->db->get('pembicara')->num_rows();
             if($num==0){
                 //insert
@@ -143,5 +143,60 @@ class Mdl_penyelenggaraan extends CI_Model{
             $this->db->where('id_tabel',$id);
             $this->db->delete('pembicara');
         }
+    }
+    
+    function ajax_pembicara($jenis){
+        if($jenis!=3){
+            $str_query='select nama, tb_p.id as id_pembicara, jenis from tb_pegawai inner join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel where jenis='.$jenis;
+            $res=$this->db->query($str_query)->result_array();
+        }else{
+            $str_query='select nama, tb_p.id as id_pembicara, jenis from tb_dosen_tamu inner join (select * from tb_pembicara where jenis=3) as tb_p on tb_dosen_tamu.id=tb_p.id_tabel';
+            $res=$this->db->query($str_query)->result_array();
+        }
+        $array1=array();
+        $array2=array();
+        foreach($res as $r){
+            $array1[$r['nama']]=$r['id_pembicara'];
+            $array2[]=$r['nama'];
+        }
+        $retval=array(1=>$array1,2=>$array2);
+        return $retval;
+	}
+	
+    function getall_pegawai(){
+        $str_query='select * from tb_pegawai';
+        return $this->db->query($str_query)->result_array();
+    }
+    
+    function get_pegawai($per_page,$offset,$filter){
+        $str_query='select * from tb_pegawai';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
+        }
+        $str_query.= ' limit '.$offset.', '.$per_page;
+        return $this->db->query($str_query)->result_array();
+    }
+    
+    function count_pegawai($filter){
+        $str_query='select count(tb_pegawai.id) as num FROM tb_pegawai';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
+        }
+        return $this->db->query($str_query)->row()->num;
+    }
+    
+    function get_data_pegawai_id($param){
+        $query=$this->db->query('select * from tb_pegawai where id = '.$param);
+        //echo $param.'s'.$query->num_rows();
+        if($query->num_rows()==0){
+            return FALSE;
+        }else{
+            return $query->row_array();
+        }
+    }
+    
+    function insert_pegawai($data_reg){
+        $this->db->insert('pegawai',$data_reg);
+        return TRUE;
     }
 }

@@ -81,7 +81,7 @@
 	    <?php echo $_header;?>
 	    <br />
 	    <div class="clear"></div>
-	    <?php echo $_menu;?>
+	    <?php if(!isset($_menu)){echo '';}else{echo $_menu;}?>
 
 	    <div class="clear"></div>
 	    <div>

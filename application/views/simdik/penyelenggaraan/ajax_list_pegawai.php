@@ -1,55 +1,34 @@
+<script>
+    function view_detail(num){
+            $.get("<?php echo base_url() ?>penyelenggaraan/pegawai/detail_pegawai/"+num,function(result){
+                $('#display_dialog').html(result);
+                $('#display_dialog').modal('show');
+            })
+    }
+</script>
+    
+<div id="display_dialog" class="modal hide modal-wide"></div>
+
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
             <th width="5%" id="no">No</th>
             <th width="30%" id="nama">Nama</th>
             <th width="20%" id="nip">NIP</th>
-            <th width="20%" id="jenis">Jenis</th>
-            <th width="25%">Aksi</th>
+            <th width="45%">Aksi</th>
         </tr>
     </thead>
     <tbody id="body_table">
 <?php $no=$offset+1?>
 <?php foreach($array as $a){?>
-<?php
-    if($a['jenis']==''){
-        $a['jenis_t']='Bukan Pembicara';
-    }else{
-        if($a['jenis']=='1'){
-            $a['jenis_t']='Non-widyaiswara';
-        }else if($a['jenis']=='2'){
-            $a['jenis_t']='Widyaiswara';
-        }
-    }
-?>
 <tr>
     <td><?php echo $no?></td>
     <td><?php echo $a['nama']?></td>
     <td><?php echo $a['nip']?></td>
-<!--   <td><span id="jenis<?php echo $a['id']?>" class="label label-info"><?php echo $a['jenis']?></span></td> -->
-    <td>
-        <div class="btn-group">
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                <span id="jenis<?php echo $a['id']?>"><?php echo $a['jenis_t']?></span>
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="javascript:void(0)" onclick="status(1,<?php echo $a['id']?>)">Non-widyaiswara</a></li>
-                <li><a href="javascript:void(0)" onclick="status(2,<?php echo $a['id']?>)">Widyaiswara</a></li>
-                <li><a href="javascript:void(0)" onclick="status(0,<?php echo $a['id']?>)">Bukan Pembicara</a></li>
-            </ul>
-        </div>        
-    </td>
-    <td>
-        <div class="btn-group" data-toggle="buttons-radio">
-            <button type="button" class="btn <?php if($a['jenis']=='1')echo 'active'; ?>" onclick="status(1,<?php echo $a['id']?>)">Non-widya</button>
-            <button type="button" class="btn <?php if($a['jenis']=='2')echo 'active'; ?>" onclick="status(2,<?php echo $a['id']?>)">Widya</button>
-            <button type="button" class="btn <?php if($a['jenis']=='')echo 'active'; ?>" onclick="status(0,<?php echo $a['id']?>)">Bukan</button>
-        </div>
-    </td>
+    <td><span class="btn btn-mini btn-info" onclick="view_detail(<?php echo $a['id']; ?> )">Lihat detail pegawai</span></td>
 </tr>
 <?php $no++ ?>
-<?php } ?>
+<?php }?>
 </tbody>
 </table>
 <div id="footer">
