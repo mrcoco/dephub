@@ -1,18 +1,3 @@
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3><?php echo $header?></h3>
-</div>
-<div class="modal-body">
-    <ul class="nav nav-tabs" id="myTab">
-        <li class="active"><a href="#i" data-toggle="tab">Biodata</a></li>
-        <li><a href="#ii" data-toggle="tab">Pendidikan</a></li>
-        <li><a href="#iii" data-toggle="tab">Riwayat Pekerjaan</a></li>
-        <li><a href="#iv" data-toggle="tab">Penghargaan</a></li>
-        <li><a href="#v" data-toggle="tab">Pengalaman</a></li>
-        <li><a href="#vi" data-toggle="tab">Keluarga</a></li>
-        <li><a href="#vii" data-toggle="tab">Organisasi</a></li>
-    </ul>
-    
     <div class="tab-content">
         <div class="tab-pane active" id="i">
             <table class="table table-condensed">
@@ -187,8 +172,3 @@
 
         </div>
     </div>
-</div>
-<div class="modal-footer">
-    <a href="penyelenggaraan/pegawai/detail_pegawai/<?php echo $pegawai['id']?>" class="btn" target="_blank">Print</a>
-    <a href="#" class="btn" data-dismiss="modal">Close</a>
-</div>
