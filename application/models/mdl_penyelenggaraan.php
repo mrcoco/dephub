@@ -186,7 +186,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_data_pegawai_id($param){
-        $query=$this->db->query('select * from tb_pegawai2 where id = '.$param);
+        $query=$this->db->query('select * from tb_pegawai where id = '.$param);
         //echo $param.'s'.$query->num_rows();
         if($query->num_rows()==0){
             return FALSE;
