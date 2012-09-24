@@ -14,8 +14,9 @@
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Riwayat</a></li>
                 <li><a href="#">Favorit</a></li>
+				<li><a href="http://localhost/dephub/site/dashboard/library/upload_form">Upload</a></li>
                 <li class="nav-header">Kategori file</li>
-                <li class="active"><a href="#"><i class="icon-file icon-white"></i>Kategori 1</a></li>
+                <li ><a href="#"><i class="icon-file icon-white"></i>Kategori 1</a></li>
                 <li><a href="#"><i class="icon-film"></i>Kategori 2</a></li>
                 <li><a href="#"><i class="icon-picture"></i>Kategori 3</a></li>
                 <li><a href="#"><i class="icon-book"></i>Kategori 4</a></li>
@@ -30,8 +31,10 @@
             <div class="input-append">
                 <input type="text" name="search" placeholder="Cari file" class="input-xlarge"/><button class="btn" type="button">Search</button>
             </div>
-        </form>                
-        <h1>Selamat Datang</h1>
+        </form>   
+
+			
+			 <h1>Selamat Datang</h1>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas magna non turpis laoreet sed blandit velit accumsan. Nulla posuere tortor eu est egestas iaculis. Curabitur semper, urna sed elementum rutrum, lacus justo scelerisque mi, quis sodales risus est id enim. Aenean molestie augue id tortor elementum auctor. Sed eleifend erat porta justo gravida convallis. Maecenas ut ipsum sit amet tellus lacinia mattis. Vivamus sit amet sapien tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
