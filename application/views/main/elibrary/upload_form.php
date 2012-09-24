@@ -27,17 +27,14 @@
         </div>
     </div>
     <div class="span9">
-        <form method="GET" action="">
-            <div class="input-append">
-                <input type="text" name="search" placeholder="Cari file" class="input-xlarge"/><button class="btn" type="button">Search</button>
-            </div>
-        </form>   
-
-			
+        			
 			<?php echo form_open_multipart('elibrary/upload/do_upload');?>
 			<table>
-				<input type="file" name="userfile" size="20" /> <br />
-				<input type="text" name="" size="20" />
+				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
+				<tr><td>Kategori </td><td> : <input type="text" name="category" size="20" /> </td></tr>
+				<!-- <tr><td>Tipe File </td><td> : <input type="text" name="type" size="20" /> </td></tr> -->
+				<!-- <tr><td>Image</td> <td> : <input type="file" name="image" size="20" /> </td></tr> -->
+				<tr><td>Keterangan </td><td> : <input type="text" name="keterangan" size="20" /> </td></tr>
 			</table>
 
 			<br /><br />
