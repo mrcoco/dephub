@@ -63,10 +63,8 @@ class Dashboard extends CI_Controller {
         if($id=="user"){
             $this->template->display('main/elibrary/user', $data);            
         }else if($id=="upload_form"){
-			$this->template->display('main/elibrary/upload_form', $data);
-		}
-		
-		else{
+            $this->template->display('main/elibrary/upload_form', $data);
+	}else{
             $this->template->display('main/elibrary/index', $data);
         }
 //>>>>>>> ad4a2d0ca07040c564ebb355b799fbb9f469d17b

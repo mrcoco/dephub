@@ -28,5 +28,5 @@
     </tbody>
 </table>
 <div class="form-actions">
-    <a href="penyelenggaraan/dosen_tamu/add_dosen" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah Dosen Tamu</a>
+    <a href="penyelenggaraan/dosen_tamu/add_dosen" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
 </div>

@@ -243,7 +243,7 @@
         </tr>
     </table>
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Simpan</button>
-        <a href='<?php echo base_url()?>penyelenggaraan/dosen_tamu/detail_dosen/<?php echo $data['id'] ?>'" class="btn">Batal</a>
+        <input type="submit" class="btn btn-primary btn-large" value="Simpan"/>
+        <input type="button" class="btn btn-large" value="Cancel" onclick="history.go(-1)" />
     </div>
 </form>

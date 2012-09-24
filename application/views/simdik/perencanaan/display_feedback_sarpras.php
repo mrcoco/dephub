@@ -3,8 +3,8 @@
 </div>
 <p align="center" class="lead">Saran/Evaluasi Peserta <?php echo strtoupper($program['name']) ?></p>
 <div class="well-small">
-    <a href="perencanaan/feedback/edit_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-edit"></i>Ubah</a>
-    <a href="perencanaan/feedback/delete_feedback_sarpras/<?php echo $program['id'] ?>"
+    <a href="perencanaan/feedback/edit_feedback_sarpras/<?php echo $program['id'] ?>" class="btn"><i class="icon-edit"></i>Ubah</a>
+    <a href="perencanaan/feedback/delete_feedback_sarpras/<?php echo $program['id'] ?>" class="btn btn-danger"
        onclick="return confirm('Apakah Anda yakin ingin menghapus Evaluasi <?php echo $program['name'] ?>?')">
         <i class="icon-trash"></i>Hapus</a>
 </div>
