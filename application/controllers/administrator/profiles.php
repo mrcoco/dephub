@@ -24,8 +24,8 @@ class Profiles extends Administrator_Controller {
 	$data['modal_user']='';
 	foreach($user as $row)
 	{
-	    $btn=anchor('#edit-'.$row['id'],'Edit Password',array('id'=>'edit-'.$row['id'],'class'=>'btn btn-success','data-toggle'=>'modal'));
-	    $btn_cancel=anchor('administrator/profiles','Cancel',array('id'=>'cancel-'.$row['id'],'class'=>'btn btn-warning'));
+	    $btn=anchor('#edit-'.$row['id'],'Edit Password',array('id'=>'edit-'.$row['id'],'class'=>'btn btn-info','data-toggle'=>'modal'));
+	    $btn_cancel=anchor('administrator/profiles','Cancel',array('id'=>'cancel-'.$row['id'],'class'=>'btn'));
 	    $this->table->add_row(
 		    ++$i,
 		    $row['name'],
@@ -49,7 +49,7 @@ class Profiles extends Administrator_Controller {
 		    $("#edit-'.$id.'").click(function(){
 			$("#edit-'.$id.'").remove();
 			$("#box-'.$id.'").append(
-			    \'<div id="form-'.$id.'">'.form_open('administrator/profiles/edit_password').'<input type="hidden" name="id" value="'.$id.'"><input type="password" name="old-password" placeholder="Password Lama"/><br /><input type="password" name="new-password" placeholder="Password Baru"/><input type="password" name="renew-password" placeholder="Konfirmasi Password Lama"/><br /><button type="submit" class="btn btn-primary">Simpan</button>'.$btn_cancel.form_close().'</div>\'
+			    \'<div id="form-'.$id.'">'.form_open('administrator/profiles/edit_password').'<input type="hidden" name="id" value="'.$id.'"><input type="password" class="input-medium" name="old-password" placeholder="Password Lama"/><br /><input class="input-medium" type="password" name="new-password" placeholder="Password Baru"/> <input type="password" name="renew-password" class="input-medium" placeholder="Konfirmasi Password"/><br /><button type="submit" class="btn btn-primary">Simpan</button> '.$btn_cancel.form_close().'</div>\'
 			);
 		    });
 		    $("#cancel-'.$id.'").click(function(){
