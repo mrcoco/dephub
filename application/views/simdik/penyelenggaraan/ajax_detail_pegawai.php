@@ -506,6 +506,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <a href="penyelenggaraan/pegawai/detail_pegawai/<?php echo $pegawai['id'] ?>" class="btn" target="_blank">Print</a>
+    <a href="penyelenggaraan/pegawai/detail_pegawai_print/<?php echo $pegawai['id'] ?>" class="btn" target="_blank">Print</a>
     <a href="#" class="btn" data-dismiss="modal">Close</a>
 </div>
