@@ -25,7 +25,9 @@
     <td><?php echo $no?></td>
     <td><?php echo $a['nama']?></td>
     <td><?php echo $a['nip']?></td>
-    <td><span class="btn btn-mini btn-info" onclick="view_detail(<?php echo $a['id']; ?> )">Lihat detail pegawai</span></td>
+    <td>
+        <button class="btn btn-mini btn-info" onclick="view_detail(<?php echo $a['id']; ?> )"><i class="icon-zoom-in icon-white"></i> Detail</button>
+    </td>
 </tr>
 <?php $no++ ?>
 <?php }?>
