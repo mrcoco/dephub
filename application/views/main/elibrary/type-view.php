@@ -1,6 +1,6 @@
 <div class="row">
     
-    <div class="span3">
+     <div class="span3">
         <div class="well sidemenu">
             <ul class="nav nav-list">
                 <li>TEGUH NUGRAHA</li>
@@ -29,21 +29,27 @@
     </div>
     <div class="span9">
         			
-			<?php echo form_open_multipart('elibrary/upload/do_upload');?>
-			<table>
-				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
-				<tr><td>Kategori </td><td> : <input type="text" name="category" size="20" /> </td></tr>
-				<!-- <tr><td>Tipe File </td><td> : <input type="text" name="type" size="20" /> </td></tr> -->
-				<!-- <tr><td>Image</td> <td> : <input type="file" name="image" size="20" /> </td></tr> -->
-				<tr><td>Keterangan </td><td> : <input type="text" name="keterangan" size="20" /> </td></tr>
-			</table>
+			<h3>Tipe File</h3>
+			<?php if(count($bibliography)<1){?>
+			masuk
+			<?php }
+			else{?>
+			<ul>
+                         
+			<?php foreach ($bibliography as $number => $n):?>
+			
+			<li><a href="<?php echo './assets/elibrary/uploads/'.$bibliography[$number]['title'];?>"><?php echo $bibliography[$number]['title'];?></a></li>
+			
+			<br />
+			<?php endforeach; ?>
+			<?php }?>
+			</ul>
+				
+				
 
-			<br /><br />
-
-			<input type="submit" value="upload" />
-
-			</form>
         
-     
+        
     </div>
 </div>
+
+
