@@ -199,4 +199,44 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->insert('pegawai',$data_reg);
         return TRUE;
     }
+    
+    function get_schedule($id){
+        return $this->db->get_where('schedule',array('id_program'=>$id))->result_array();
+    }
+    
+    function insert_schedule($data,$materi){
+        $this->db->insert('schedule',$data);
+        $id=$this->db->query('select LAST_INSERT_ID() as id')->row()->id;
+        
+        if(count($materi['arr_pembicara'])>0){
+            //insert pemateri
+            $ins_pemateri=array();
+            $x=0;
+            foreach($materi['arr_pembicara'] as $a){
+                $ins_pemateri[$x]['id_schedule']=$id;
+                $ins_pemateri[$x]['id_pembicara']=$a;
+                $x++;
+            }
+            $this->db->insert_batch('pemateri',$ins_pemateri);
+        }
+       
+        if(count($materi['arr_pendamping'])>0){
+            //insert pendamping
+            $ins_pendamping=array();
+            $x=0;
+            foreach($materi['arr_pendamping'] as $a){
+                $ins_pendamping[$x]['id_schedule']=$id;
+                $ins_pendamping[$x]['nama']=$a;
+                $x++;
+            }
+            $this->db->insert_batch('pendamping',$ins_pendamping);
+        }
+
+        return true;
+    }
+    
+    function update_waktu($data,$where){
+        $this->db->where($where);
+        $this->db->update('schedule',$data);
+    }
 }

@@ -3,8 +3,8 @@
 </div>
 <p align="center" class="lead">Curriculum Vitae Dosen Tamu</p>
 <div class="well-small">
-    <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $data['id'] ?>"><i class="icon-edit"></i> Ubah</a>
-    <a href="penyelenggaraan/dosen_tamu/delete_dosen/<?php echo $data['id'] ?>"
+    <a href="penyelenggaraan/dosen_tamu/edit_dosen/<?php echo $data['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
+    <a href="penyelenggaraan/dosen_tamu/delete_dosen/<?php echo $data['id'] ?>" class="btn btn-danger"
        onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $data['nama'] ?>?')">
         <i class="icon-trash"></i> Hapus</a>
 </div>

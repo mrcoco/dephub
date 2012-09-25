@@ -52,7 +52,7 @@ class Diklat extends Perencanaan_Controller{
             $this->template->display('simdik/perencanaan/detail_diklat',$data);
         }else{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
-            redirect(base_url().'perencanaan/dashboard');                    
+            redirect(base_url().'perencanaan/diklat');                    
         }
     }
 
@@ -88,7 +88,7 @@ class Diklat extends Perencanaan_Controller{
 
         $this->rnc->insert_diklat($data);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah ditambahkan'));
-	redirect(base_url().'perencanaan/dashboard');
+	redirect(base_url().'perencanaan/diklat');
     }
 
     function edit_diklat($id){
@@ -104,7 +104,7 @@ class Diklat extends Perencanaan_Controller{
             $this->template->display('simdik/perencanaan/form_edit_diklat',$data);
         }else{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
-            redirect(base_url().'perencanaan/dashboard');                    
+            redirect(base_url().'perencanaan/diklat');                    
         }
     }
 
@@ -138,10 +138,10 @@ class Diklat extends Perencanaan_Controller{
         if($id){
             $this->rnc->delete_diklat($id);
             $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
-            redirect(base_url().'perencanaan/dashboard');
+            redirect(base_url().'perencanaan/diklat');
         }else{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
-            redirect(base_url().'perencanaan/dashboard');
+            redirect(base_url().'perencanaan/diklat');
         }
     }
 

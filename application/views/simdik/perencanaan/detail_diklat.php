@@ -3,8 +3,8 @@
 </div>
 <h2><?php echo $program['name'] ?></h2>
 <div class="well-small">
-    <a href="perencanaan/diklat/edit_diklat/<?php echo $program['id'] ?>"><i class="icon-edit"></i> Ubah</a>
-    <a href="perencanaan/diklat/delete_diklat/<?php echo $program['id'] ?>"
+    <a href="perencanaan/diklat/edit_diklat/<?php echo $program['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
+    <a href="perencanaan/diklat/delete_diklat/<?php echo $program['id'] ?>" class="btn btn-danger"
        onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $program['name'] ?>?')">
         <i class="icon-trash"></i> Hapus</a>
 </div>

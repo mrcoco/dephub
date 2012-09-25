@@ -196,6 +196,6 @@
     <div class="form-actions">
         <a href="javascript:append_table()" class="btn btn-small"><i class="icon-plus"></i> Tambah Peserta</a>
         <a href="javascript:delete_table()" class="btn btn-small"><i class="icon-minus"></i> Hapus</a>
-        <input type="button" class="btn btn-large btn-primary pull-right" value="Daftarkan Semua" onclick="validate_form()"/>
+        <input type="button" class="btn btn-large btn-primary pull-right" value="Simpan Semua" onclick="validate_form()"/>
     </div>
 </form>

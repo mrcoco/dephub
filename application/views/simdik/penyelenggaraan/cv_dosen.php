@@ -95,11 +95,11 @@
             <td>Pangkat/Gol</td>
             <td><input type="text" name="pangkat" placeholder="Pangkat"/>/<input type="text" placeholder="Golongan" name="gol"/></td>
         </tr>
-        <tr class="pns">
+        <tr>
             <td>Instansi</td>
             <td><textarea name="instansi"></textarea></td>
         </tr>
-        <tr class="pns">
+        <tr>
             <td>Jabatan</td>
             <td><textarea name="jabatan"></textarea></td>
         </tr>
@@ -147,25 +147,23 @@
         <tr>
             <td colspan="2">
                 <div id="luar_ngri">
-                    <div class="form-inline">
+                    <div>
+                        <input type="text" placeholder="Pendidikan" name="luar_ngri[]"/>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_luar_ngri[]"/>
+                        <button type="button" class="add_luar_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>                        
+                    </div>
+                    <div class="input_luar_ngri hide">
                         <input type="text" placeholder="Pendidikan" name="luar_ngri[]"/>
                         <input type="text" class="input-small" placeholder="Tahun" name="periode_luar_ngri[]"/>
                         <button type="button" class="add_luar_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
                     </div>
-                    <div class="input_luar_ngri hide">
-                        <div class="form-inline">
-                            <input type="text" placeholder="Pendidikan" name="luar_ngri[]"/>
-                            <input type="text" class="input-small" placeholder="Tahun" name="periode_luar_ngri[]"/>
-                            <button type="button" class="add_luar_ngri btn btn-mini"><i class="icon-plus"></i> Tambah</button>
-                        </div>
-                    </div>
                 </div>
             </td>
         </tr>
-        <tr class="pns">
+        <tr>
             <th colspan="2">Riwayat Pekerjaan</th>
         </tr>
-        <tr  class="pns">
+        <tr>
             <td colspan="2">
                 <div id="riwayat">
                     <div>
@@ -181,10 +179,10 @@
                 </div>
             </td>
         </tr>
-        <tr  class="pns">
+        <tr>
             <th colspan="2">Riwayat Kursus</th>
         </tr>
-        <tr  class="pns">
+        <tr>
             <td colspan="2">
                 <div id="kursus">
                     <div>
@@ -200,7 +198,7 @@
                 </div>
             </td>
         </tr>
-        <tr  class="pns">
+        <tr>
             <th colspan="2">Riwayat Diklat</th>
         </tr>
         <tr  class="pns">
@@ -219,6 +217,7 @@
         </tr>
     </table>
     <div class="form-actions">
-        <button onclick="validate()" type="button" class="btn btn-primary btn-large">Simpan Dosen</button>
+        <button onclick="validate()" type="button" class="btn btn-primary btn-large">Simpan</button>
+        <input type="button" class="btn btn-large" value="Cancel" onclick="history.go(-1)" />
     </div>
 </form>
