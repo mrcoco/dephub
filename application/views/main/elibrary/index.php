@@ -1,7 +1,7 @@
 <div class="row">
     <div class="span3">
         <div class="well">
-            <form method="POST" action="site/dashboard/library/user">
+            <?php echo form_open_multipart('elibrary/user');?> <!-- tambahin login -->
                 <legend>Login</legend>
 		<input type="text" name="username" placeholder="username" class="input-medium"/>
 		<input type="password" name="password" placeholder="password" class="input-medium"/>
@@ -11,7 +11,7 @@
         <div class="well sidemenu">
             <ul class="nav nav-list">
                 <li class="nav-header">Kategori file</li>
-                <li class="active"><a href="#"><i class="icon-file icon-white"></i>Kategori 1</a></li>
+                <li ><a href="#"><i class="icon-file icon-white"></i>Kategori 1</a></li>
                 <li><a href="#"><i class="icon-film"></i>Kategori 2</a></li>
                 <li><a href="#"><i class="icon-picture"></i>Kategori 3</a></li>
                 <li><a href="#"><i class="icon-book"></i>Kategori 4</a></li>

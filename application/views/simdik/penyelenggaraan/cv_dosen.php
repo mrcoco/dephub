@@ -95,11 +95,11 @@
             <td>Pangkat/Gol</td>
             <td><input type="text" name="pangkat" placeholder="Pangkat"/>/<input type="text" placeholder="Golongan" name="gol"/></td>
         </tr>
-        <tr class="pns">
+        <tr>
             <td>Instansi</td>
             <td><textarea name="instansi"></textarea></td>
         </tr>
-        <tr class="pns">
+        <tr>
             <td>Jabatan</td>
             <td><textarea name="jabatan"></textarea></td>
         </tr>
@@ -160,10 +160,10 @@
                 </div>
             </td>
         </tr>
-        <tr class="pns">
+        <tr>
             <th colspan="2">Riwayat Pekerjaan</th>
         </tr>
-        <tr  class="pns">
+        <tr>
             <td colspan="2">
                 <div id="riwayat">
                     <div>
@@ -179,10 +179,10 @@
                 </div>
             </td>
         </tr>
-        <tr  class="pns">
+        <tr>
             <th colspan="2">Riwayat Kursus</th>
         </tr>
-        <tr  class="pns">
+        <tr>
             <td colspan="2">
                 <div id="kursus">
                     <div>
@@ -198,7 +198,7 @@
                 </div>
             </td>
         </tr>
-        <tr  class="pns">
+        <tr>
             <th colspan="2">Riwayat Diklat</th>
         </tr>
         <tr  class="pns">
