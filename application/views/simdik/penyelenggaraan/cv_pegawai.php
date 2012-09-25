@@ -9,7 +9,7 @@
         <link type="text/css" href="assets/css/bootstrap.css" rel="stylesheet" />
 
 
-        <title>Pusat Pengembangan SDM Aparatur Perhubungan</title>
+        <title>LAPORAN CV PEGAWAI</title>
 
     </head>
     <body>
@@ -75,6 +75,8 @@
     <td></td>
 </tr>
 </table>
+        
+        <hr/>
 
 <table class="table table-condensed table-striped table-bordered">
     <tr>
@@ -100,6 +102,7 @@
     </tr>
 </table>
 
+        <hr/>
 
 <table class="table table-condensed table-striped table-bordered">
     <tr>
@@ -123,6 +126,7 @@
     </tr>
 </table>
 
+        <hr/>
 
 <table class="table table-condensed table-striped table-bordered">
     <tr>
@@ -146,6 +150,7 @@
     </tr>
 </table>
 
+        <hr/>
 
 <table class="table table-condensed table-striped table-bordered">
     <tr>
@@ -172,6 +177,7 @@
     </tr>
 </table>
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -201,6 +207,7 @@
     </tr>
 </table>
 
+        <hr/>
 
 
 <table class="table table-condensed  table-striped table-bordered">
@@ -222,6 +229,7 @@
 </table>
 
 
+        <hr/>
 
 
 <table class="table table-condensed  table-striped table-bordered">
@@ -245,6 +253,7 @@
 </table>
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -272,6 +281,7 @@
 </table>
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -300,6 +310,7 @@
 
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -324,6 +335,7 @@
 
 
 
+        <hr/>
 
 <table class="table table-condensed table-striped table-bordered">
     <tr>
@@ -346,6 +358,7 @@
 </table>
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -371,6 +384,7 @@
 </table>
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -397,6 +411,7 @@
 
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -422,6 +437,7 @@
 </table>
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -447,6 +463,7 @@
 </table>
 
 
+        <hr/>
 
 
 <table class="table table-condensed table-striped table-bordered">
@@ -471,6 +488,5 @@
         <td></td>
     </tr>
 </table>
-
-</body>
+        
 </html>

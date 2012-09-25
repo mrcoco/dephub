@@ -53,7 +53,10 @@ class Pegawai extends Penyelenggaraan_Controller{
     
     function detail_pegawai_print($id){
         //menampilkan data detail pegawai
+        
+        
         $this->load->library('date');
+        $this->load->helper('pdfexport_helper.php');
         $data_pegawai=$this->slng->get_data_pegawai_id($id);
         $data['header']='Detail data '.$data_pegawai['nama'];
         foreach($data_pegawai as $key=>$item){
@@ -64,9 +67,18 @@ class Pegawai extends Penyelenggaraan_Controller{
 //            $data['history'][$key]=$item;
 //        }
         $data['history']=$data_history;
-        $this->load->view('simdik/penyelenggaraan/cv_pegawai',$data);
+        //$this->load->view('simdik/penyelenggaraan/cv_pegawai',$data);
     
+        //pdf
+        
+        $data['pageTitle'] = "Annual Report";
+        $data['htmView'] = $this->load->view('simdik/penyelenggaraan/cv_pegawai',$data,TRUE);
+        $this->load->view('simdik/penyelenggaraan/cv_pegawai',$data,TRUE);
+                      
+        pdf_create($data['htmView'],'detail_pegawai');                                                                 
+        
     }
+   
     
     function tambah_pegawai(){
         //menampilkan form untuk memasukkan data pegawai yg belum ada di database
