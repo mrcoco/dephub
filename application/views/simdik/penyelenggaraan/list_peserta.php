@@ -71,5 +71,5 @@ Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program
     </tbody>
 </table>
 <div class="form-actions">
-    <a href="penyelenggaraan/peserta/registrasi" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah Peserta</a>
+    <a href="penyelenggaraan/peserta/registrasi" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
 </div>

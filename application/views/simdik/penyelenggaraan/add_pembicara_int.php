@@ -25,11 +25,11 @@
         $.get('<?php echo base_url()?>penyelenggaraan/pembicara_int/update_status/'+jenis+'/'+id,function(result){
             text_jenis='';
             if(jenis==0){
-                text_jenis='bukan pembicara'
+                text_jenis='Bukan Pembicara'
             }else if(jenis==1){
-                text_jenis='non widyaiswara'
+                text_jenis='Non-widyaiswara'
             }else if(jenis==2){
-                text_jenis='widyaiswara'
+                text_jenis='Widyaiswara'
             }
             $('#jenis'+id).empty();
             $('#jenis'+id).text(text_jenis);

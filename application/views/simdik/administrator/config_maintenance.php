@@ -1,6 +1,6 @@
 <div class="row">
     <div class="span3">
-	<div class="well">
+	<div class="well sidemenu">
 	    <ul class="nav nav-list" id="yw3">
 		<li class="nav-header"><span>Menu</span></li>
 		<li class="<?php
@@ -38,9 +38,10 @@ if ($this->uri->segment('3') == 'update_maintenance') {
 		<td><textarea name="message"></textarea></td>
 	    </tr>
 	</table>
-	<div class="form-actions">
-	    <input type="submit" name="submit" value="Update" class="btn btn-primary" />
-	</div>
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary btn-large" value="Simpan"/>
+            <input type="reset" class="btn btn-large" value="Reset" />
+        </div>
 <?php echo form_close(); ?>
     </div>
 </div>
