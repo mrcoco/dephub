@@ -87,14 +87,47 @@ class Schedule extends Penyelenggaraan_Controller{
         $data_where['jam_selesai']=$this->input->post('old_end');
         $data_where['tanggal']=$this->input->post('old_date');
         $data_where['materi']=$this->input->post('title');
+        $data_where['id_program']=$this->input->post('id_program');
         $this->slng->update_waktu($data_new,$data_where);
     }
     
-    function get_data_schedule(){
-        
+    function ajax_get_data_schedule(){
+        $where['jam_mulai']=$this->input->post('where_start');
+        $where['jam_selesai']=$this->input->post('where_end');
+        $where['tanggal']=$this->input->post('where_date');
+        $where['materi']=$this->input->post('title');
+        $where['id_program']=$this->input->post('id_program');
+        $retval=$this->slng->get_item_schedule($where);
+        echo json_encode($retval);
+    }
+    
+    function ajax_get_form_pemateri_pembimbing($id){
+        //query nama, id, dan jenis pembicara & pendamping
+        $data['qry_pemateri'] = $this->slng->get_pemateri($id);
+        $data['qry_pendamping']=$this->slng->get_pendamping($id);
+        echo $this->load->view('simdik/penyelenggaraan/ajax_pemateri',$data,TRUE);
+    }
+    
+    function ajax_delete_schedule($id){
+        $this->slng->del_schedule($id);
+        echo 'Delete success';
     }
     
     function ajax_edit_all(){
+        $this->load->library('date');
         
+        $data_where['id']=$this->input->post('idschedule');
+        $data_ins['id_program']=$this->input->post('id_program');
+        $data_ins['jam_mulai']=$this->input->post('jam_mulai');
+        $data_ins['jam_selesai']=$this->input->post('jam_selesai');
+        $data_ins['tanggal']=$this->date->konversi3($this->input->post('tanggal'));
+        $data_ins['jenis']=$this->input->post('jenis');
+        $data_ins['materi']=$this->input->post('materi');
+        
+        $data_materi['arr_pembicara']=$this->input->post('id_pembicara');
+        $data_materi['arr_pendamping']=$this->input->post('pendamping');
+        
+        $this->slng->update_schedule($data_ins,$data_materi,$data_where);
+        echo json_encode($data_ins);
     }
 }
