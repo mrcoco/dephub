@@ -81,12 +81,27 @@
 	    <?php echo $_header;?>
 	    <br />
 	    <div class="clear"></div>
-	    <?php if(!isset($_menu)){echo '';}else{echo $_menu;}?>
+	    <?php if(isset($_menu)){echo $_menu;}?>
 
 	    <div class="clear"></div>
-	    <div>
-		<h1 class="title-page"><?php echo $this->session->userdata('detail');?> <small><?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?></small></h1>
-		<?php echo $_content;?>
+	    <div class="row">
+                <div class="span12">
+                    <h1 class="title-page"><?php if(isset($_title)){echo $_title;}?>
+                        <small><?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?></small>
+                    </h1>
+                </div>
+		<?php if(isset($_sidebar)){?>
+                <div class="span3">
+                    <?php echo $_sidebar;?>
+                </div>
+                <div class="span9">
+                    <?php echo $_content;?>
+                </div>
+                <?php }else{?>
+                <div class="span12">
+                <?php echo $_content; ?>
+                </div>
+                <?php }?>
 	    </div><!-- content -->
 	    <div class="clear"></div>
 

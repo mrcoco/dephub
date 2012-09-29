@@ -12,7 +12,6 @@ class Dashboard extends Administrator_Controller{
 	$this->template->display('simdik/administrator/dashboard',$data);
     }
 
-
 }
 
 /* End of file dashboard.php */

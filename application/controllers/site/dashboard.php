@@ -58,16 +58,10 @@ class Dashboard extends CI_Controller {
 	$this->template->display('main/uc', $data);
     }
 
-    function library($id="public") {
-	$data['title'] = 'Perpustakaan';
-        if($id=="user"){
-            $this->template->display('main/elibrary/user', $data);            
-        }else if($id=="upload_form"){
-            $this->template->display('main/elibrary/upload_form', $data);
-	}else{
-            $this->template->display('main/elibrary/index', $data);
-        }
-//>>>>>>> ad4a2d0ca07040c564ebb355b799fbb9f469d17b
+    function library() {
+	$data['user']='blm';
+            $this->template->display_lib('main/elibrary/index', $data);
+
     }
 
     /*
