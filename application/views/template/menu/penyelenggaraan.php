@@ -2,11 +2,12 @@
     <ul class="nav nav-pills">
         <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dashboard' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/dashboard">Dashboard</a></li>
         <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='schedule' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/schedule">Jadwal Diklat</a></li>
-		<li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)==''){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Daftar Pegawai<b class="caret"></b></a>
-			<ul class="dropdown-menu">
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)=='list_pegawai'){echo 'active';};?>"><a href="penyelenggaraan/pegawai/list_pegawai">List Pegawai</a></li>
-                            <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)=='tambah_pegawai'){echo 'active';};?>"><a href="penyelenggaraan/pegawai/tambah_pegawai">Tambah Pegawai</a></li>
-                        </ul>
+        <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)==''){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Daftar Pegawai<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)=='list_pegawai'){echo 'active';};?>"><a href="penyelenggaraan/pegawai/list_pegawai">List Pegawai</a></li>
+                <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)=='tambah_pegawai'){echo 'active';};?>"><a href="penyelenggaraan/pegawai/tambah_pegawai">Tambah Pegawai</a></li>
+            </ul>
+        </li>
         <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='dosen_tamu'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Pembicara<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li class="nav-header">Pembicara Internal</li>

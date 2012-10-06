@@ -16,10 +16,10 @@
 	    <p>
 		<?php echo form_open('login/auth'); ?>
 		<select name="username" style="width: 180px">
+		    <option value="4">Administrator</option>
 		    <option value="1">Bidang Perencanaan</option>
 		    <option value="2">Bidang Penyelenggaraan</option>
 		    <option value="3">Bidang Sarana dan Prasarana</option>
-		    <option value="4">Administrator</option>
 		</select>
 		<input type="password" name="password" placeholder="password" style="width: 170px"/>
 		<input type="submit" class="btn btn-primary" name="submit" value="Login" />
