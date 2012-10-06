@@ -116,7 +116,6 @@
                                 data_post.pendamping=arr_pndmpng;
                             }
                             
-                            console.log(data_post);
                             $.post("<?php echo base_url()?>penyelenggaraan/schedule/ajax_save",data_post);
                             
                             $calendar.weekCalendar("removeUnsavedEvents");
@@ -143,13 +142,12 @@
                     new_start : calEvent.start.getHours()+':'+calEvent.start.getMinutes()+':'+calEvent.start.getSeconds(),
                     new_end : calEvent.end.getHours()+':'+calEvent.end.getMinutes()+':'+calEvent.end.getSeconds(),
                     new_date : calEvent.start.getFullYear()+'-'+(calEvent.start.getMonth()+1)+'-'+calEvent.start.getDate(),
-                    title : calEvent.title
+                    title : calEvent.title,
+                    id_program: idprogram
                 }
                 $.post("<?php echo base_url()?>penyelenggaraan/schedule/ajax_update_waktu", data_post);
             },
             eventResize : function(calEvent, $event) {
-                //console.log($event);
-                //console.log(calEvent);
                 data_post={
                     old_start : $event.start.getHours()+':'+$event.start.getMinutes()+':'+$event.start.getSeconds(),
                     old_end : $event.end.getHours()+':'+$event.end.getMinutes()+':'+$event.end.getSeconds(),
@@ -157,7 +155,8 @@
                     new_start : calEvent.start.getHours()+':'+calEvent.start.getMinutes()+':'+calEvent.start.getSeconds(),
                     new_end : calEvent.end.getHours()+':'+calEvent.end.getMinutes()+':'+calEvent.end.getSeconds(),
                     new_date : calEvent.start.getFullYear()+'-'+(calEvent.start.getMonth()+1)+'-'+calEvent.start.getDate(),
-                    title : calEvent.title
+                    title : calEvent.title,
+                    id_program: idprogram
                 }
                 $.post("<?php echo base_url()?>penyelenggaraan/schedule/ajax_update_waktu", data_post);
             },
@@ -172,48 +171,91 @@
                 var startField = $dialogContent.find("select[name='mulai']").val(calEvent.start);
                 var endField = $dialogContent.find("select[name='selesai']").val(calEvent.end);
                 var titleField = $dialogContent.find("input[name='nama']").val(calEvent.title);
-                
+                var kegiatan = $dialogContent.find("select[name='jenis']");
+                var json;
+                var id_schedule;
                 //bagian ajax buat ngeload data lainnya
                 data_where={
                     where_start : calEvent.start.getHours()+':'+calEvent.start.getMinutes()+':'+calEvent.start.getSeconds(),
                     where_end : calEvent.end.getHours()+':'+calEvent.end.getMinutes()+':'+calEvent.end.getSeconds(),
                     where_date : calEvent.start.getFullYear()+'-'+(calEvent.start.getMonth()+1)+'-'+calEvent.start.getDate(),
-                    title : calEvent.title
+                    title : calEvent.title,
+                    id_program: idprogram
                 }
-                $.post("<?php echo base_url()?>penyelenggaraan/schedule/get_data_schedule", data_where,function(data){
-                    
-                });
-                
-                
-                $dialogContent.dialog({
-                    modal: true,
-                    width: 'auto',
-                    height: 500,
-                    title: "Edit - " + calEvent.title,
-                    close: function() {
-                    $dialogContent.dialog("destroy");
-                    $dialogContent.hide();
-                    $('#calendar').weekCalendar("removeUnsavedEvents");
-                    },
-                    buttons: {
-                        save : function() {
-                            //fungsi ajax buat ngupdate db
-                            console.log(data_where);
-                            
-                            $calendar.weekCalendar("updateEvent", calEvent);
-                            $dialogContent.dialog("close");
-                        },
-                        "delete" : function() {
-                            //fungsi ajax buat delete db
-                            
-                            $calendar.weekCalendar("removeEvent", calEvent.id);
-                            $dialogContent.dialog("close");
-                        },
-                        cancel : function() {
-                            $dialogContent.dialog("close");
-                        }
+                $.post("<?php echo base_url()?>penyelenggaraan/schedule/ajax_get_data_schedule", data_where,function(data){
+                    json=$.parseJSON(data);
+                    id_schedule=json['id'];
+                    $dialogContent.find("select[name='jenis']").val(json['jenis']);
+                }).then(function(){
+                    if(json['jenis']=='materi'){
+                        $.get("<?php echo base_url()?>penyelenggaraan/schedule/ajax_get_form_pemateri_pembimbing/"+json['id'],function(data){
+                            $dialogContent.find('#form_event').append(data);
+                            jum_col_pmbcr=0;
+                            jum_col_pndmpng=0;
+                        });
                     }
-                }).show();
+                    $dialogContent.dialog({
+                        modal: true,
+                        width: 'auto',
+                        height: 500,
+                        title: "Edit - " + calEvent.title,
+                        close: function() {
+                        $dialogContent.dialog("destroy");
+                        $dialogContent.hide();
+                        $('#calendar').weekCalendar("removeUnsavedEvents");
+                        },
+                        buttons: {
+                            save : function() {
+                                //fungsi ajax buat ngupdate db
+                                calEvent.start = new Date(startField.val());
+                                calEvent.end = new Date(endField.val());
+                                calEvent.title = titleField.val();
+                                mulai=$dialogContent.find("select[name='mulai'] option:selected").text();
+                                selesai=$dialogContent.find("select[name='selesai'] option:selected").text();
+                                pil_jenis=$dialogContent.find("select[name='jenis'] option:selected").val();
+                                data_post = {
+                                        idschedule : id_schedule,
+                                        id_program : idprogram,
+                                        jam_mulai : mulai,
+                                        jam_selesai : selesai,
+                                        tanggal : $dialogContent.find(".date_holder").text(),
+                                        jenis : pil_jenis,
+                                        materi : calEvent.title
+                                    }
+
+                                if(kegiatan.val()=='materi'){
+                                    arr_pmbcr = [];
+                                    arr_pndmpng = [];
+                                    $dialogContent.find("input[name^='id_pmbcr']").each(function(index){
+                                        arr_pmbcr.push($(this).val());
+                                    });
+                                    $dialogContent.find("input[name^='pendamping']").each(function(index){
+                                        arr_pndmpng.push($(this).val());
+                                    });
+
+                                    data_post.id_pembicara = arr_pmbcr;
+                                    data_post.pendamping=arr_pndmpng;
+                                }
+                                $.post("<?php echo base_url()?>penyelenggaraan/schedule/ajax_edit_all",data_post,function(data){
+                                    console.log(data);
+                                });
+                                $calendar.weekCalendar("updateEvent", calEvent);
+                                $dialogContent.dialog("close");
+                            },
+                            "delete" : function() {
+                                //fungsi ajax buat delete db
+                                $.get("<?php echo base_url()?>penyelenggaraan/schedule/ajax_delete_schedule/"+id_schedule,function(data){
+                                    console.log(data);
+                                });
+                                $calendar.weekCalendar("removeEvent", calEvent.id);
+                                $dialogContent.dialog("close");
+                            },
+                            cancel : function() {
+                                $dialogContent.dialog("close");
+                            }
+                        }
+                    }).show()
+                });
 
                 var startField = $dialogContent.find("select[name='mulai']").val(calEvent.start);
                 var endField = $dialogContent.find("select[name='selesai']").val(calEvent.end);
@@ -396,7 +438,7 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
 <div class="sample1 hide">
     <table>
         <tr class="tr_widyaiswara">
-            <td>Pembicara <span class="ke"></span></td>
+            <td>Pembicara</td>
             <td>: <?php echo form_dropdown('jenis_pembicara', $pil, '', 'id="p1" class="jenis"') ?> <input type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/> <span class="add_pmbcr">Tambah</span></td>
         </tr>
     </table>

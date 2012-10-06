@@ -59,8 +59,8 @@ class Dashboard extends CI_Controller {
     }
 
     function library() {
-	
-            $this->template->display('main/elibrary/index', $data);
+	$data['user']='blm';
+            $this->template->display_lib('main/elibrary/index', $data);
 
     }
 
