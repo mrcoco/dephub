@@ -1,20 +1,7 @@
-<?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-    
-/*
-* Subject          : Export pdf using dompdf
-* Author           : Sanjay
-* Version          : CodeIgniter_2.0.3
-* Warning         : Any change in this file may cause abnormal behaviour of application.
-*
-*/
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 function pdf_create($html, $filename, $stream=TRUE) {
-    require_once("/application/third_party/pdf/dompdf_config.inc.php");
+    require_once(APPPATH."/third_party/pdf/dompdf_config.inc.php");
     
     $dompdf = new DOMPDF();
     $dompdf->load_html($html);
@@ -24,7 +11,7 @@ function pdf_create($html, $filename, $stream=TRUE) {
 }
 
 function pdf_landscape($html, $filename, $stream=TRUE) {
-    require_once("/application/third_party/pdf/dompdf_config.inc.php");
+    require_once(APPPATH."/third_party/pdf/dompdf_config.inc.php");
     
     $dompdf = new DOMPDF();
     $dompdf->load_html($html);
