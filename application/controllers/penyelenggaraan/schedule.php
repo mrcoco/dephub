@@ -59,6 +59,42 @@ class Schedule extends Penyelenggaraan_Controller{
         $this->template->display('simdik/penyelenggaraan/schedule_diklat',$data);
     }
     
+    function print_schedule($id){
+        $this->load->library('date');
+        $data['program']=$this->rnc->get_program_by_id($id);
+        
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'penyelenggaraan/schedule/daftar_diklat');
+        }
+        
+        //menghitung jumlah minggu
+        $start =  date_create_from_format('Y-m-d', $data['program']['tanggal_mulai']);
+        $end = date_create_from_format('Y-m-d', $data['program']['tanggal_akhir']);
+        
+        $data['week'] = date_format($end, 'W')-date_format($start, 'W')+1;
+        
+        $data['arr_jam']=array();
+        
+        $obj_hari_mulai=date_create_from_format('H:i', '00:00');
+        $obj_hari_selesai=date_create_from_format('H:i', '23:00');
+        $obj_tambah_menit=  date_interval_create_from_date_string('1 hour');
+        
+        $hasil_add = $obj_hari_mulai;
+        while($hasil_add<=$obj_hari_selesai){
+            $jam_awal=date_format($hasil_add,'H:i');
+            $hasil_add = date_add($hasil_add, $obj_tambah_menit);
+            $jam_akhir=date_format($hasil_add,'H:i');
+            $data['arr_jam'][] = $jam_awal.'-'.$jam_akhir;
+        }
+        
+        
+        $html=$this->load->view('simdik/penyelenggaraan/schedule_print',$data,true);
+        
+        $this->load->helper('pdfexport');
+        pdf_landscape($html, 'Tes');
+    }
+    
     function ajax_pembicara($jenis){
         echo json_encode($this->slng->ajax_pembicara($jenis));
     }

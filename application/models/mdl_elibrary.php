@@ -10,11 +10,11 @@ class Mdl_elibrary extends CI_Model{
     function get_category() {
 	
 	}
-	function insert_category(){
+    function insert_category(){
 	}
-	function update_category(){
+    function update_category(){
 	}
-	function delete_category(){
+    function delete_category(){
 	}
 	
     function get_bibliography_by_id($id) {
