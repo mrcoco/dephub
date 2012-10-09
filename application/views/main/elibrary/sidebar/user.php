@@ -1,6 +1,6 @@
 <div class="well sidemenu">
     <ul class="nav nav-list">
-        <li><?php echo $nama; ?></li>
+        <li><?php echo 'admin'; ?></li>
         <li class="divider"></li>
         <li><a href="#">Edit Profil</a></li>
         <li><a href="site/dashboard/library/">Logout</a></li>

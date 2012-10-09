@@ -58,7 +58,11 @@ class Mdl_elibrary extends CI_Model{
 	function insert_bibliography($data){
 	$this->db->insert('elib_bibliography',$data);
 	}
-	function update_bibliography() {
+	function update_bibliography($data) {
+            $this->db->where('id',$data['id']);
+            $this->db->update('elib_bibliography',$data);
+            
+            
 	}
 	function delete_bibliography($id){
             $this->db->where('id',$id);
@@ -68,8 +72,8 @@ class Mdl_elibrary extends CI_Model{
 	}
 	function search_bibliography_by_title_or_author($string){
             $this->db->like('title', $string); 
-            $this->db->or_like('author', $string);
-            $this->db->get();
+            //$this->db->or_like('author', $string);
+            $bibliography= $this->db->get('elib_bibliography');
             return $bibliography->result_array();
             
         }

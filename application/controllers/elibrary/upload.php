@@ -11,7 +11,7 @@ class Upload extends CI_Controller {
 
 	function index()
 	{
-		$this->template->display('main/elibrary/upload_form', array('error' => ' ' ));
+		$this->template->display_lib('main/elibrary/upload_form', array('error' => ' ' ));
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
 
@@ -27,7 +27,7 @@ class Upload extends CI_Controller {
 		if ( ! $this->upload->do_upload())
 		{
 			$error = array('error' => $this->upload->display_errors());
-                        $this->template->display('main/elibrary/upload_form', $error);
+                        $this->template->display_lib('main/elibrary/upload_form', $error);
 		}
 		else
 		{
@@ -43,12 +43,11 @@ class Upload extends CI_Controller {
 			$datainsert['location']='./assets/elibrary/uploads/'.$data['upload_data']['orig_name'];
 			$datainsert['keterangan']=$this->input->post('keterangan');
 			$this->elib->insert_bibliography($datainsert);
-			$this->template->display('main/elibrary/upload_success', $data);
+			$this->template->display_lib('main/elibrary/upload_success', $data);
 		}
 	}
 	function upload_again(){
-               
-		$this->template->display('main/elibrary/upload_form');
+		$this->template->display_lib('main/elibrary/upload_form');
 	}
 }
 ?>
