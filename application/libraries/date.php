@@ -16,6 +16,15 @@ class Date{
         return $part[2].'-'.$this->index_bulan_ina($part[1]).'-'.$part[0];
     }
     
+    function konversi4($in){
+        //merubah ke tanggal indonesia
+        $bulan=array(
+            '','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'
+        );
+        $obj_date=  date_create_from_format('Y-m-d', $in);
+        echo date_format($obj_date, 'j').' '.$bulan[date_format($obj_date, 'n')].' '.date_format($obj_date, 'Y');
+    }
+    
     function index_bulan_ina($bulan){
         if(strcasecmp($bulan,'jan')==0||strcasecmp($bulan,'januari')==0){
             return '01';
@@ -45,7 +54,6 @@ class Date{
     }
     
     function extract_date($in){
-        //merubah format tanggal yy-mm-dd jadi dd-mm-yy
         $obj_date=  date_create_from_format('Y-m-d H:i:s', $in);
         
         $a[] = date_format($obj_date, 'Y');

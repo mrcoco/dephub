@@ -52,8 +52,7 @@ $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
 
-$db['default']['database'] = 'dephub_simdik';
-
+$db['default']['database'] = 'sisfo_pusbang';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = 'tb_';
 $db['default']['pconnect'] = TRUE;
