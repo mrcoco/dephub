@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 24, 2012 at 07:24 AM
+-- Generation Time: Oct 10, 2012 at 05:46 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -26,22 +26,22 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `tb_elib_bibliography` (
-  `bibliographyid` int(6) NOT NULL AUTO_INCREMENT,
+  `id` int(6) NOT NULL AUTO_INCREMENT,
   `title` text NOT NULL,
   `category` int(2) NOT NULL,
   `type` int(2) NOT NULL,
   `imageurl` text NOT NULL,
   `location` text NOT NULL,
   `keterangan` text NOT NULL,
-  PRIMARY KEY (`bibliographyid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=40 ;
 
 --
 -- Dumping data for table `tb_elib_bibliography`
 --
 
-INSERT INTO `tb_elib_bibliography` (`bibliographyid`, `title`, `category`, `type`, `imageurl`, `location`, `keterangan`) VALUES
-(17, 'checklist_preparations_timeline.pdf', 0, 1, '0', './assets/elibrary/uploads/checklist_preparations_timeline.pdf', '');
+INSERT INTO `tb_elib_bibliography` (`id`, `title`, `category`, `type`, `imageurl`, `location`, `keterangan`) VALUES
+(39, 'Coupling2.pdf', 0, 1, '0', './assets/elibrary/uploads/Coupling.pdf', '  ');
 
 -- --------------------------------------------------------
 
@@ -50,9 +50,9 @@ INSERT INTO `tb_elib_bibliography` (`bibliographyid`, `title`, `category`, `type
 --
 
 CREATE TABLE IF NOT EXISTS `tb_elib_category` (
-  `categoryid` int(2) NOT NULL AUTO_INCREMENT,
+  `id` int(2) NOT NULL AUTO_INCREMENT,
   `categoryname` varchar(20) NOT NULL,
-  PRIMARY KEY (`categoryid`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `categoryname` (`categoryname`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
@@ -60,6 +60,6 @@ CREATE TABLE IF NOT EXISTS `tb_elib_category` (
 -- Dumping data for table `tb_elib_category`
 --
 
-INSERT INTO `tb_elib_category` (`categoryid`, `categoryname`) VALUES
+INSERT INTO `tb_elib_category` (`id`, `categoryname`) VALUES
 (2, ''),
 (1, 'Dokumen');

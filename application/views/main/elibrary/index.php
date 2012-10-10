@@ -1,6 +1,6 @@
 <div class="input-append">
-    <form method="GET" action="">
-        <input type="text" name="search" placeholder="Cari file" class="input-xlarge"/><button class="btn" type="button">Search</button>
+    <?php echo form_open_multipart('elibrary/search/');?>
+        <input type="text" name="search" placeholder="Cari file" class="input-xlarge"/><button class="btn" type="submit">Search</button>
     </form>                
     <h1>Selamat Datang</h1>
     <p>
