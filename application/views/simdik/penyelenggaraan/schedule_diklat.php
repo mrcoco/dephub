@@ -406,7 +406,7 @@
     $('.add_pmbcr').live('click',function(){
         if((jum_col_pmbcr-1)>0){
             $(this).text('Hapus');
-            $(this).attr('class','del_pmbcr');
+            $(this).attr('class','del_pmbcr btn btn-mini btn-danger');
         }
         parent = $(this).parent().parent();
         append_pembicara(true,parent);
@@ -418,7 +418,7 @@
     $('.add_pndmpng').live('click',function(){
         if((jum_col_pndmpng-1)>0){
             $(this).text('Hapus');
-            $(this).attr('class','del_pndmpng');
+            $(this).attr('class','del_pndmpng btn btn-mini btn-danger');
             append_pendamping();
         }
     });
@@ -439,7 +439,7 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
     <table>
         <tr class="tr_widyaiswara">
             <td>Pembicara</td>
-            <td>: <?php echo form_dropdown('jenis_pembicara', $pil, '', 'id="p1" class="jenis"') ?> <input type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/> <span class="add_pmbcr">Tambah</span></td>
+            <td>: <?php echo form_dropdown('jenis_pembicara', $pil, '', 'id="p1" class="jenis"') ?> <input type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/> <span class="add_pmbcr btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
         </tr>
     </table>
 </div>
@@ -447,7 +447,7 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
     <table>
         <tr class="tr_widyaiswara">
             <td>Pendamping</td>
-            <td>: <input type="text" name="pendamping[]"/> <span class="add_pndmpng">Tambah</span></td>
+            <td>: <input type="text" name="pendamping[]"/> <span class="add_pndmpng btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
         </tr>
     </table>
 </div>
@@ -491,4 +491,4 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
     </form>
 </div>
 <div id="event_edit_container"></div>
-<a href="<?php echo base_url()?>penyelenggaraan/schedule/print_schedule/<?php echo $program['id']?>">Cetak Jadwal</a>
+<a class="btn btn-primary" href="<?php echo base_url()?>penyelenggaraan/schedule/print_schedule/<?php echo $program['id']?>">Cetak Jadwal</a>
