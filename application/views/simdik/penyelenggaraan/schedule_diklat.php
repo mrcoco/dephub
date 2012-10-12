@@ -190,8 +190,8 @@
                     if(json['jenis']=='materi'){
                         $.get("<?php echo base_url()?>penyelenggaraan/schedule/ajax_get_form_pemateri_pembimbing/"+json['id'],function(data){
                             $dialogContent.find('#form_event').append(data);
-                            jum_col_pmbcr=0;
-                            jum_col_pndmpng=0;
+                            jum_col_pmbcr=$dialogContent.find('.nama_pmbcr').length+1;
+                            jum_col_pndmpng=$dialogContent.find('.nama_pndmpng').length+1;
                         });
                     }
                     $dialogContent.dialog({
@@ -274,7 +274,6 @@
         }
 
         function getEventData() {
-            <?php $d=$data_json[0]?>
             return {events : 
                 [
                 <?php foreach($data_json as $d){?>
@@ -395,7 +394,9 @@
         }else{
             parent.after(text);
         }
+        console.log('Sebelum : '+jum_col_pmbcr);
         jum_col_pmbcr++;
+        console.log('Sesudah : '+jum_col_pmbcr);
     }
     function append_pendamping(){
         text = $('.sample2 > table > tbody').children().clone();
@@ -404,6 +405,7 @@
     }
     
     $('.add_pmbcr').live('click',function(){
+        console.log(jum_col_pmbcr);
         if((jum_col_pmbcr-1)>0){
             $(this).text('Hapus');
             $(this).attr('class','del_pmbcr');
@@ -416,11 +418,12 @@
     });
     
     $('.add_pndmpng').live('click',function(){
+        console.log(jum_col_pndmpng);
         if((jum_col_pndmpng-1)>0){
             $(this).text('Hapus');
             $(this).attr('class','del_pndmpng');
-            append_pendamping();
         }
+        append_pendamping();
     });
     $('.del_pndmpng').live('click',function(){
         $(this).parent().parent().remove();
@@ -447,7 +450,7 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
     <table>
         <tr class="tr_widyaiswara">
             <td>Pendamping</td>
-            <td>: <input type="text" name="pendamping[]"/> <span class="add_pndmpng">Tambah</span></td>
+            <td>: <input class="nama_pndmpng" type="text" name="pendamping[]"/> <span class="add_pndmpng">Tambah</span></td>
         </tr>
     </table>
 </div>

@@ -22,16 +22,16 @@
     <tr class="tr_widyaiswara">
         <td>Pendamping</td>
         <?php if($i<count($qry_pendamping)-1) {?>
-        <td>: <input type="text" name="pendamping[]" value="<?php echo $qry_pendamping[$i]['nama']?>"/> <span class="del_pndmpng">Hapus</span></td>
+        <td>: <input class="nama_pndmpng" type="text" name="pendamping[]" value="<?php echo $qry_pendamping[$i]['nama']?>"/> <span class="add_pndmpng">Tambah</span></td>
         <?php } else { ?>
-        <td>: <input type="text" name="pendamping[]" value="<?php echo $qry_pendamping[$i]['nama']?>"/> <span class="add_pndmpng">Tambah</span></td>
+        <td>: <input class="nama_pndmpng" type="text" name="pendamping[]" value="<?php echo $qry_pendamping[$i]['nama']?>"/> <span class="add_pndmpng">Tambah</span></td>
         <?php } ?>
     </tr>
 <?php } ?>
 <?php } else {?>
     <tr class="tr_widyaiswara">
         <td>Pendamping</td>
-        <td>: <input type="text" name="pendamping[]"/> <span class="add_pndmpng">Tambah</span></td>
+        <td>: <input class="nama_pndmpng" type="text" name="pendamping[]"/> <span class="add_pndmpng">Tambah</span></td>
     </tr>
 <?php } ?>
 

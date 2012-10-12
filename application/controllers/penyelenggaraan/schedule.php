@@ -43,18 +43,19 @@ class Schedule extends Penyelenggaraan_Controller {
         $json_array = array();
         if (count($data['schedule']) != 0) {
             //proses json
-            $i = 1;
+            $i = 0;
             foreach ($data['schedule'] as $item) {
+                $i++;
                 $isi['id'] = $i;
                 $isi['start'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_mulai']);
                 $isi['end'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_selesai']);
                 $isi['title'] = $item['materi'];
                 $json_array[] = $isi;
-                $i++;
             }
+            $data['id_max'] = $i;
+        }else{
+            $data['id_max'] = 1;
         }
-
-        $data['id_max'] = $i - 1;
         $data['data_json'] = $json_array;
         $this->template->display('simdik/penyelenggaraan/schedule_diklat', $data);
     }
@@ -191,9 +192,10 @@ class Schedule extends Penyelenggaraan_Controller {
         $data_ins['jenis'] = $this->input->post('jenis');
         $data_ins['materi'] = $this->input->post('materi');
 
-        $data_materi['arr_pembicara'] = $this->input->post('id_pembicara');
-        $data_materi['arr_pendamping'] = $this->input->post('pendamping');
-
+        if($data_ins['jenis']=='materi'){
+            $data_materi['arr_pembicara'] = $this->input->post('id_pembicara');
+            $data_materi['arr_pendamping'] = $this->input->post('pendamping');
+        }
         $this->slng->insert_schedule($data_ins, $data_materi);
     }
 
