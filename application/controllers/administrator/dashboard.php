@@ -5,12 +5,33 @@
  * @author irhamnurhalim
  */
 class Dashboard extends Administrator_Controller{
+    
+    protected $thn_default;
+    
+    function __construct() {
+        parent::__construct();
+        $this->thn_default = date('Y');
+        $this->load->model('mdl_perencanaan','rnc');
+    }
+
     public function index()
     {
-	$data['title']=$this->session->userdata('detail');
-	$data['sub_title']='Dashboard';
-	$this->template->display('simdik/administrator/dashboard',$data);
+        $this->daftar_diklat();
     }
+    function daftar_diklat($thn=''){
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+	$data['sub_title']='Daftar Diklat Tahun '.$thn;
+        $data['kategori']=$this->rnc->get_kategori();
+        $data['pil_kategori']=array();
+        foreach($data['kategori'] as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $data['program']=$this->rnc->get_program($thn);
+	$this->template->display('simdik/administrator/daftar_diklat',$data);
+    }
+
 
 }
 

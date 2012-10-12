@@ -1,6 +1,6 @@
 
         			
-			<?php echo form_open_multipart('elibrary/upload/do_upload');?>
+			<?php echo form_open_multipart('elibrary/edit/do_edit');?>
 			<table>
 				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
 				<tr><td>Kategori </td><td> : <input type="text" name="category" size="20" /> </td></tr>

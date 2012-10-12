@@ -251,5 +251,4 @@ class Schedule extends Penyelenggaraan_Controller {
         $this->slng->update_schedule($data_ins, $data_materi, $data_where);
         echo json_encode($data_ins);
     }
-
 }
