@@ -1,5 +1,20 @@
 <?php
 class Date{
+        
+    function get_month_name($idx){
+        $arr_month = array(
+            'Januari','Februari','Maret',
+            'April','Mei','Juni','Juli','Agustus',
+            'September','Oktober','November','Desember'
+        );
+        return $arr_month[$idx-1];
+    }    
+    
+    function get_day_name($idx){
+        $arr_date = array('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu');
+        return $arr_date[$idx-1];
+    }
+    
     function konversi1($in){
         //merubah format tanggal yy-mm-dd jadi dd-mm-yy
         $obj_date=  date_create_from_format('Y-m-d', $in);
@@ -23,6 +38,15 @@ class Date{
         );
         $obj_date=  date_create_from_format('Y-m-d', $in);
         echo date_format($obj_date, 'j').' '.$bulan[date_format($obj_date, 'n')].' '.date_format($obj_date, 'Y');
+    }
+    
+    function konversi5($in){
+        //merubah ke tanggal indonesia
+        $bulan=array(
+            '','Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'
+        );
+        $obj_date=  date_create_from_format('Y-m-d', $in);
+        return date_format($obj_date, 'j').' '.$bulan[date_format($obj_date, 'n')].' '.date_format($obj_date, 'Y');
     }
     
     function index_bulan_ina($bulan){

@@ -204,6 +204,10 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get_where('schedule',array('id_program'=>$id))->result_array();
     }
     
+    function get_schedule_pemateri($id){
+        
+    }
+    
     function insert_schedule($data,$materi){
         $this->db->insert('schedule',$data);
         $id=$this->db->query('select LAST_INSERT_ID() as id')->row()->id;
