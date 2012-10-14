@@ -71,9 +71,9 @@ class Pegawai extends Penyelenggaraan_Controller{
     
         //pdf
         
-        //$data['pageTitle'] = "Annual Report";
+        $data['pageTitle'] = "Annual Report";
         $data['htmView'] = $this->load->view('simdik/penyelenggaraan/cv_pegawai',$data,TRUE);
-        //$this->load->view('simdik/penyelenggaraan/cv_pegawai',$data,TRUE);
+        $this->load->view('simdik/penyelenggaraan/cv_pegawai',$data,TRUE);
                       
         pdf_create($data['htmView'],'detail_pegawai');                                                                 
         

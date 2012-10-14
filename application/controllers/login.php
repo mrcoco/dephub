@@ -20,7 +20,7 @@ class Login extends CI_Controller {
 	if ($this->form_validation->run() === FALSE) {
 	    redirect('site/dashboard/diklat');
 	} else {
-	    $this->session->set_flashdata('msg', '<div class="alert alert-success fade in" id="login_success">Login berhasil</div>');
+//	    $this->session->set_flashdata('msg', '<div class="alert alert-success fade in" id="login_success">Login berhasil</div>');
 	    redirect($this->session->userdata('link'));
 	}
     }

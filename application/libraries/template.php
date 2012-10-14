@@ -36,8 +36,22 @@ class Template {
 	} else {
 	    $menu = 'template/menu/dashboard';
 	}
+        $data['_title'] = $this->_ci->session->userdata('detail');
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
         $data['_menu'] = $this->_ci->load->view($menu, $data, true);
+        $data['_content'] = $this->_ci->load->view($template, $data, true);
+        $this->_ci->load->view('/template/main.php', $data);
+    }
+    
+    function display_lib($template, $data = null) {
+	//if($data['user']=='masuk'){
+            $data['_sidebar'] = $this->_ci->load->view('main/elibrary/sidebar/user', $data, true);            
+        //} else {
+	//    $data['_sidebar'] = $this->_ci->load->view('main/elibrary/sidebar/public', $data, true);
+	//}
+        $data['_title'] = 'E-library';
+        $data['_header'] = $this->_ci->load->view('template/header', $data, true);
+        //$data['_menu'] = $this->_ci->load->view($menu, $data, true);
         $data['_content'] = $this->_ci->load->view($template, $data, true);
         $this->_ci->load->view('/template/main.php', $data);
     }

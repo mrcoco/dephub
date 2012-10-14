@@ -12,7 +12,9 @@ class User extends CI_Controller {
 	function index()
 	{
 		$data = array('bibliography' => $this->elib->getall_bibliography(),'error'=>array('error' => ' ' ));
-		$this->template->display('main/elibrary/dashboard', $data);
+                $data['user']='masuk';
+                $data['nama']='teguh';
+		$this->template->display_lib('main/elibrary/dashboard', $data);
                 
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}

@@ -11,7 +11,7 @@ class Perencanaan_Controller extends CI_Controller{
     function __construct() {
 	parent::__construct();
 	$this->load->library('access');
-	if(!$this->access->is_perencanaan() && !$this->access->is_login()){
+	if(!$this->access->is_login()){
 	    $this->session->set_flashdata('msg',$this->editor->alert_error('<strong>Perhatian!</strong> Anda belum login. Silakan klik tombol Login di atas untuk masuk ke aplikasi'));
 	    redirect('site/dashboard/diklat');
 	}
@@ -31,7 +31,7 @@ class Penyelenggaraan_Controller extends CI_Controller{
     function __construct() {
 	parent::__construct();
 	$this->load->library('access');
-	if(!$this->access->is_penyelenggaraan() && !$this->access->is_login()){
+	if(!$this->access->is_login()){
 	    $this->session->set_flashdata('msg',$this->editor->alert_error('<strong>Perhatian!</strong> Anda belum login. Silakan klik tombol Login di atas untuk masuk ke aplikasi'));
 	    redirect('site/dashboard/diklat');
 	}
@@ -51,7 +51,7 @@ class Sarpras_Controller extends CI_Controller{
     function __construct() {
 	parent::__construct();
 	$this->load->library('access');
-	if(!$this->access->is_sarpras() && !$this->access->is_login()){
+	if(!$this->access->is_login()){
 	    $this->session->set_flashdata('msg',$this->editor->alert_error('<strong>Perhatian!</strong> Anda belum login. Silakan klik tombol Login di atas untuk masuk ke aplikasi'));
 	    redirect('site/dashboard/diklat');
 	}
@@ -72,7 +72,7 @@ class Administrator_Controller extends CI_Controller{
     function __construct() {
 	parent::__construct();
 	$this->load->library('access');
-	if(!$this->access->is_administrator() && !$this->access->is_login()){
+	if(!$this->access->is_login()){
 	    $this->session->set_flashdata('msg',$this->editor->alert_error('<strong>Perhatian!</strong> Anda belum login. Silakan klik tombol Login di atas untuk masuk ke aplikasi'));
 	    redirect('site/dashboard/diklat');
 	}

@@ -5,73 +5,80 @@
         <base href="<?php echo base_url(); ?>" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8" />
+
+        <link type="text/css" href="assets/css/bootstrap.css" rel="stylesheet" />
+
+
         <title>LAPORAN CV PEGAWAI</title>
 
     </head>
     <body>
-    <center><img src="
-        <?php 
-        if($pegawai['nama']!='')
-            echo $pegawai['foto'];
-        else
-            echo "assets/public/foto/nopic.jpg";
-        ?>
-        " width="75" height="100"/></center>
-    <center><h1>DAFTAR RIWAYAT HIDUP</h1></center>
-        <table width="100%" border="1" cellspacing="0">
+        <table class="table table-condensed">
+            <tr>
+                <th colspan="3"><center>DAFTAR RIWAYAT HIDUP</center></th>
+    </tr>
     <tr>
-        <td width="30%">Nama</td>
+        <th width="30%">Nama</th>
         <td><?php echo $pegawai['nama'] ?></td>
+        <td rowspan="4" width="77px"><center><img src="<?php echo $pegawai['foto'] ?>" width="75" height="100"/></center></td>
 </tr>
 <tr>
-    <td>NIP</td>
+    <th>NIP</th>
     <td><?php echo $pegawai['nip'] ?></td>
 </tr>
 <tr>
-    <td>Tempat Tanggal Lahir</td>
+    <th>Tempat Tanggal Lahir</th>
     <td><?php echo $pegawai['tempat_lahir'] ?>, <?php echo $this->date->konversi2($pegawai['tanggal_lahir']) ?></td>
 </tr>
 <tr>
-    <td>Pangkat</td>
+    <th>Pangkat</th>
     <td><?php echo $pegawai['pangkat'] ?></td>
 </tr>
 <tr>
-    <td>Golongan</td>
+    <th>Golongan</th>
     <td><?php echo $pegawai['golongan'] ?></td>
+    <td></td>
 </tr>
 <tr>
-    <td>NPWP</td>
+    <th>NPWP</th>
     <td><?php //echo $pegawai['npwp']   ?></td>
+    <td></td>
 </tr>
 <tr>
-    <td>Jenis Kelamin</td>
+    <th>Jenis Kelamin</th>
     <td><?php echo $pegawai['jenis_kelamin'] ?></td>
+    <td></td>
 </tr>
 <tr>
-    <td>Agama</td>
+    <th>Agama</th>
     <td><?php echo $pegawai['agama'] ?></td>
+    <td></td>
 </tr>
 <tr>
-    <td>Status Perkawinan</td>
+    <th>Status Perkawinan</th>
     <td><?php //echo $pegawai['status']   ?></td>
+    <td></td>
 </tr>
 <tr>
-    <td>Alamat Rumah</td>
+    <th>Alamat Rumah</th>
     <td><?php echo $pegawai['alamat_rumah'] ?></td>
+    <td></td>
 </tr>
 <tr>
-    <td>Keterangan Badan</td>
+    <th>Keterangan Badan</th>
     <td><?php //echo $pegawai['keterangan']   ?></td>
+    <td></td>
 </tr>
 <tr>
-    <td>Kegemaran (hobby)</td>
+    <th>Kegemaran (hobby)</th>
     <td><?php //echo $pegawai['hobby']   ?></td>
+    <td></td>
 </tr>
 </table>
         
-        <br/>
+        <hr/>
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="7" align="center">Pendidikan di dalam dan luar negeri</th>
     </tr>
@@ -95,9 +102,9 @@
     </tr>
 </table>
 
-        <br/>
+        <hr/>
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="6" align="center">Kursus/latihan di dalam dan di luar negeri</th>
     </tr>
@@ -119,9 +126,9 @@
     </tr>
 </table>
 
-        <br/>
+        <hr/>
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="6" align="center">Diklat jabatan / penjenjangan</th>
     </tr>
@@ -143,9 +150,9 @@
     </tr>
 </table>
 
-        <br/>
+        <hr/>
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="6" align="center">Diklat jabatan / penjenjangan</th>
     </tr>
@@ -170,10 +177,10 @@
     </tr>
 </table>
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="7" align="center">Pengalaman jabatan / pekerjaan</th>
     </tr>
@@ -200,10 +207,10 @@
     </tr>
 </table>
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed  table-striped table-bordered">
     <tr>
         <th colspan="4" align="center">Pengalaman jabatan / pekerjaan</th>
     </tr>
@@ -222,10 +229,10 @@
 </table>
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed  table-striped table-bordered">
     <tr>
         <th colspan="5" align="center">Kunjungan ke luar negeri</th>
     </tr>
@@ -246,10 +253,10 @@
 </table>
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="7" align="center">Istri / suami</th>
     </tr>
@@ -274,10 +281,10 @@
 </table>
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="7" align="center">Anak</th>
     </tr>
@@ -303,10 +310,10 @@
 
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="5" align="center">Orang tua</th>
     </tr>
@@ -328,9 +335,9 @@
 
 
 
-        <br/>
+        <hr/>
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="5" align="center">Mertua</th>
     </tr>
@@ -351,10 +358,10 @@
 </table>
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="6" align="center">Saudara</th>
     </tr>
@@ -377,10 +384,10 @@
 </table>
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="6" align="center">Semasa mengikuti pendidikan pada slte ke bawah</th>
     </tr>
@@ -404,10 +411,10 @@
 
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="6" align="center">Semasa mengikuti pendidikan pada perguruan tinggi</th>
     </tr>
@@ -430,10 +437,10 @@
 </table>
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="6" align="center">Sesudah selesai pendidikan atau selama menjadi pegawai</th>
     </tr>
@@ -456,10 +463,10 @@
 </table>
 
 
-        <br/>
+        <hr/>
 
 
-<table width="100%"  border="1" cellspacing="0">
+<table class="table table-condensed table-striped table-bordered">
     <tr>
         <th colspan="5" align="center">Keterangan lain-lain</th>
     </tr>

@@ -204,6 +204,10 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get_where('schedule',array('id_program'=>$id))->result_array();
     }
     
+    function get_schedule_pemateri($id){
+        
+    }
+    
     function insert_schedule($data,$materi){
         $this->db->insert('schedule',$data);
         $id=$this->db->query('select LAST_INSERT_ID() as id')->row()->id;
@@ -238,5 +242,79 @@ class Mdl_penyelenggaraan extends CI_Model{
     function update_waktu($data,$where){
         $this->db->where($where);
         $this->db->update('schedule',$data);
+    }
+    
+    function get_item_schedule($where){
+        $this->db->where($where);
+        return $this->db->get('schedule')->row_array();
+    }
+    
+    function get_pemateri($id){
+        $this->db->join('pembicara','pembicara.id=pemateri.id_pembicara');
+        $pemateri=$this->db->get_where('pemateri',array('id_schedule'=>$id))->result_array();
+        for($i=0;$i<count($pemateri);$i++){
+            if($pemateri[$i]['jenis']!=3){
+                $tb='pegawai';
+            }else{
+                $tb='dosen_tamu';
+            }
+            $pemateri[$i]['nama']=$this->db->get_where($tb,array('id'=>$pemateri[$i]['id_tabel']))->row()->nama;
+        }
+        return $pemateri;
+    }
+    
+    function get_pendamping($id){
+        return $this->db->get_where('pendamping',array('id_schedule'=>$id))->result_array();
+    }
+    
+    function del_schedule($id){
+        $this->db->where('id_schedule',$id);
+        $this->db->delete('pendamping');
+        
+        $this->db->where('id_schedule',$id);
+        $this->db->delete('pemateri');
+        
+        $this->db->where('id',$id);
+        $this->db->delete('schedule');
+    }
+    
+    function update_schedule($data,$materi,$where){
+        //update schedule
+        $this->db->where($where);
+        $this->db->update('schedule',$data);
+        
+        $this->db->where('id_schedule',$where['id']);
+        $this->db->delete('pendamping');
+        
+        $this->db->where('id_schedule',$where['id']);
+        $this->db->delete('pemateri');
+        
+        $id=$where['id'];
+        
+        if(count($materi['arr_pembicara'])>0){
+            //insert pemateri
+            $ins_pemateri=array();
+            $x=0;
+            foreach($materi['arr_pembicara'] as $a){
+                $ins_pemateri[$x]['id_schedule']=$id;
+                $ins_pemateri[$x]['id_pembicara']=$a;
+                $x++;
+            }
+            $this->db->insert_batch('pemateri',$ins_pemateri);
+        }
+       
+        if(count($materi['arr_pendamping'])>0){
+            //insert pendamping
+            $ins_pendamping=array();
+            $x=0;
+            foreach($materi['arr_pendamping'] as $a){
+                $ins_pendamping[$x]['id_schedule']=$id;
+                $ins_pendamping[$x]['nama']=$a;
+                $x++;
+            }
+            $this->db->insert_batch('pendamping',$ins_pendamping);
+        }
+
+        return true;
     }
 }
