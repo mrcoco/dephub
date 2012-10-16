@@ -52,6 +52,13 @@ class Template {
         $data['_content'] = $this->_ci->load->view($template, $data, true);
         $this->_ci->load->view('/template/main.php', $data);
     }
+    function display_pub($template, $data = null) {
+        $data['_title'] = "Manajemen Diklat";
+        $data['_sidebar'] = $this->_ci->load->view('simdik/sidebar_pub', $data, true);            
+        $data['_header'] = $this->_ci->load->view('template/header', $data, true);
+        $data['_content'] = $this->_ci->load->view($template, $data, true);
+        $this->_ci->load->view('/template/main.php', $data);
+    }
     
     function display_lib($template, $data = null) {
 	//if($data['user']=='masuk'){

@@ -43,6 +43,8 @@ class Upload extends CI_Controller {
 			$datainsert['location']='./assets/elibrary/uploads/'.$data['upload_data']['orig_name'];
 			$datainsert['keterangan']=$this->input->post('keterangan');
 			$this->elib->insert_bibliography($datainsert);
+                        $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diupload'));
+//                        redirect(base_url().'elibrary/daftar');
 			$this->template->display_lib('main/elibrary/upload_success', $data);
 		}
 	}

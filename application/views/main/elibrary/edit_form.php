@@ -19,7 +19,7 @@
 
 			<br /><br />
 
-			<input type="submit" value="Kirim" />
+			<input type="submit" value="Kirim"  class="btn btn-primary"/>
 
 			</form>
         

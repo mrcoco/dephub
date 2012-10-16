@@ -19,7 +19,7 @@
 
 			<br /><br />
 
-			<input type="submit" value="upload" />
+			<input type="submit" value="Upload" class="btn btn-primary" />
 
 			</form>
         
