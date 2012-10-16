@@ -430,7 +430,7 @@
     });
 </script>
 
-JADWAL TENTATIVE <?php echo strtoupper($program['name']) ?>
+<?php echo strtoupper($program['name']) ?>
 <br/>
 KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
 <br/>

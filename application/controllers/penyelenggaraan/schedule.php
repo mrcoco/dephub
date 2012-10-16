@@ -56,8 +56,10 @@ class Schedule extends Penyelenggaraan_Controller {
         }else{
             $data['id_max'] = 1;
         }
+        $data['id']=$id;
+        $data['sub_title']='Jadwal Tentative';
         $data['data_json'] = $json_array;
-        $this->template->display('simdik/penyelenggaraan/schedule_diklat', $data);
+        $this->template->display_dik('simdik/penyelenggaraan/schedule_diklat', $data);
     }
 
     function print_schedule($id) {
