@@ -1,0 +1,63 @@
+Software yang digunakan sebagai browser , kecuali {
+~Firefox
+~Internet Explorer
+~Chrome
+=Android
+}
+
+Berikut adalah aplikasi opensource {~Windows ~Mindjet =AIM3 ~MP3 ~FLV}
+
+Jakarta adalah Ibukota RI {true#Benar #Salah}
+
+Bandung letaknya di Jawa Tengah {false#Benar #Salah}
+
+Borobudur adalah peninggalan sejarah Hindu {false#Benar  
+#Salah}
+
+Matahari  adalah bintang {true#Benar #Salah}
+
+Planet terbesar di tatasurya  adalah Saturnus {true#Benar  
+#Salah}
+
+Berikut adalah binatang dengan cirinya masing-masing {
+	=gajah -> belalai
+	=harimau -> belang
+	=macan -> taring
+}
+
+Anggota tubuh dengan indranya : {
+	=hidung -> mencium
+	=mata -> melihat
+	=telinga -> mendengar
+	=lidah -> mengecap
+}
+
+Bendera dengan negaranya : {
+	=Indonesia -> merah putih
+	=Belanda -> merah putih biru
+	=Perancis -> biru merah putih
+	=Brunei -> kuning
+}
+
+Mata uang dengan negaranya : {
+	=Indonesia -> rupiah
+	=Jepang -> yen
+	=Inggris -> poundsterling
+	=Malaysia -> ringgit
+}
+
+100/2={
+	#45..55#
+}
+Akar 25={
+	 #5# 
+}
+Sisi miring segitiga dengan tinggi dan lebar masing-masing 3cm dan 4cmd={
+	 #5#
+}
+Akar  pangkat tiga dari 8={
+	 #2#
+}
+5^3 = {
+	#125# 
+}
