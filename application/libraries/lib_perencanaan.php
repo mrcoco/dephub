@@ -24,7 +24,7 @@ class Lib_perencanaan {
         }
     }
     function overview($array,$id,$field){
-        if($array){
+        if(count($array)>0){
             foreach($array as $data){
                 if($data['id']==$id){
                     return $data[$field];
