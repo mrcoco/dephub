@@ -17,4 +17,11 @@ jQuery(function($) {
   $('a').tooltip();
   $('input[type=submit]').addClass('btn btn-success');
   $('input[type=button]').addClass('btn btn-info');
+  $('select[name=jump]').addClass('input-medium');
+  $('#switchcategory_jump').removeClass('input-medium');
+  $('.popupform').addClass('form-inline');
+  $('.form-input').addClass('form-inline');
+  $('#coursesearch').addClass('form-inline');
+  $('#coursesearch2').addClass('form-inline');
+  $('#coursesearchnavbar').addClass('form-inline');
 });

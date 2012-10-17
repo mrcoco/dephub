@@ -249,6 +249,16 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get('schedule')->row_array();
     }
     
+    function get_data_schedule_by_id($id){
+        $str_qry='SELECT * FROM (tb_pemateri JOIN tb_pembicara ON tb_pemateri.id_pembicara = tb_pembicara.id) 
+                    LEFT JOIN tb_pegawai ON ( id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+                    LEFT JOIN tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))
+                    JOIN tb_schedule ON ( id_schedule = tb_schedule.id
+                    AND id_program ='.$id.')';
+        
+        return $this->db->query($str_qry)->result_array();
+    }
+    
     function get_pemateri($id){
         $this->db->join('pembicara','pembicara.id=pemateri.id_pembicara');
         $pemateri=$this->db->get_where('pemateri',array('id_schedule'=>$id))->result_array();

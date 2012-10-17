@@ -25,6 +25,7 @@ class Dashboard extends Administrator_Controller{
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
         $data['kategori']=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
+        
         foreach($data['kategori'] as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }

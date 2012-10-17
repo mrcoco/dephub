@@ -3,15 +3,14 @@
      
     
         			
-			<h3>File telah berhasil di-upload</h3>
-				<ul>
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>        			
+                        <h3>File telah diupload</h3>
 				<a href="<?php echo './assets/elibrary/uploads/'.$upload_data['orig_name']; ?>"><?php echo $upload_data['raw_name'];?></a>
 				<br /><br />
-				<ul>
-
-				</ul>
 				<?php echo form_open_multipart('elibrary/upload/upload_again');?>
-				<input type="submit" value="Upload lagi" />
+				<input type="submit" value="Upload lagi" class="btn btn-primary"/>
 				</form>
 				
 

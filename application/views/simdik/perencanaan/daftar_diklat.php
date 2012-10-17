@@ -104,6 +104,7 @@
                 </div>
             </div>
             <a href="perencanaan/diklat/buat_diklat" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
+            <a href="perencanaan/diklat/cetak_jadwal/<?php echo $thn?>" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Cetak Jadwal</a>
         </div>
     </div>
     <div class="span4">
@@ -112,11 +113,11 @@
                 <li class="nav-header">Overview</li>
                 <li><?php echo $program['0']['name'] ?></li>
                 <li class="nav-header">Tahun</li>
-                <li><?php echo $this->lib_perencanaan->overview($program,1,'tahun_program') ?></li>
+                <li><?php echo $this->lib_perencanaan->overview($program,16,'tahun_program') ?></li>
                 <li class="nav-header">Kategori</li>
-                <li><?php echo $pil_kategori[$this->lib_perencanaan->overview($program,1,'parent')] ?></li>
+                <li><?php echo $pil_kategori[$this->lib_perencanaan->overview($program,16,'parent')] ?></li>
                 <li class="nav-header">Deskripsi</li>
-                <li><?php echo $this->lib_perencanaan->overview($program,1,'deskripsi') ?></li>
+                <li><?php echo $this->lib_perencanaan->overview($program,16,'deskripsi') ?></li>
             </ul>
         </div>
     </div>

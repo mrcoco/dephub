@@ -429,12 +429,10 @@
         $(this).parent().parent().remove();
     });
 </script>
-
-<?php echo strtoupper($program['name']) ?>
-<br/>
-KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
-<br/>
-<br/>
+<p align="center" class="lead">
+    <?php echo strtoupper($program['name']) ?><br />
+    KEMENTERIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?><br />
+</p>
 <div id='calendar'></div>
 <?php $pil = array(-1 => '-- Pilih --', 1 => 'non widyaiswara', 2 => 'widyaiswara', 3 => 'dosen tamu') ?>
 
@@ -494,4 +492,6 @@ KEMENTRIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?>
     </form>
 </div>
 <div id="event_edit_container"></div>
-<a class="btn btn-primary" href="<?php echo base_url()?>penyelenggaraan/schedule/print_schedule/<?php echo $program['id']?>">Cetak Jadwal</a>
+<div class="form-actions">
+    <a class="btn btn-primary" href="<?php echo base_url()?>penyelenggaraan/schedule/print_schedule/<?php echo $program['id']?>">Cetak Jadwal</a>  
+</div>

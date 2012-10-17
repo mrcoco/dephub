@@ -1,13 +1,6 @@
 <div id="yw0" class="subnav">
     <ul class="nav nav-pills">
         <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='dashboard'){echo 'active';};?>"><a href="<?php echo $this->session->userdata('link');?>">Dashboard</a></li>
-        <li class="dropdown <?php if($this->uri->segment(1)=='administrator' && ($this->uri->segment(2)=='profiles' || $this->uri->segment(2)=='config' || $this->uri->segment(2)=='info')){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Pengaturan<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='profiles'){echo 'active';};?>"><a href="administrator/profiles">Profiles</a></li>
-                <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='config'){echo 'active';};?>"><a href="administrator/config">Site Configuration</a></li>
-                <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='info'){echo 'active';};?>"><a href="administrator/info">Simdik Info</a></li>
-            </ul>
-        </li>
         <li class="dropdown <?php if($this->uri->segment(1)=='perencanaan' && ($this->uri->segment(2)=='diklat' || $this->uri->segment(2)=='schedule')){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Diklat<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat' && $this->uri->segment(3)=='daftar_diklat'){echo 'active';};?>"><a href="perencanaan/diklat/daftar_diklat">Daftar Diklat</a></li>
@@ -46,7 +39,14 @@
             </ul>
         </li>
         <li class="pull-right">
-            <a href="login/logout">Logout</a>
+            <a href="login/logout"><i class="icon-off"></i> Logout</a>
+        </li>
+        <li class="pull-right dropdown <?php if($this->uri->segment(1)=='administrator' && ($this->uri->segment(2)=='profiles' || $this->uri->segment(2)=='config' || $this->uri->segment(2)=='info')){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Settings <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='profiles'){echo 'active';};?>"><a href="administrator/profiles">Profiles</a></li>
+                <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='config'){echo 'active';};?>"><a href="administrator/config">Site Config</a></li>
+                <li class="<?php if($this->uri->segment(1)=='administrator' && $this->uri->segment(2)=='info'){echo 'active';};?>"><a href="administrator/info">Simdik Info</a></li>
+            </ul>
         </li>
     </ul>
 </div>
