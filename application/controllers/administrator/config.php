@@ -229,4 +229,29 @@ class Config extends Administrator_Controller {
 	redirect('sarpras/dashboard/#scs');
     }
 
+    
+    function generate_kelas($var)
+    {
+        $this->load->model('mdl_sarpras');
+	// generator
+	for($i=0;$i<14;$i++)
+	{
+	    for($j=0;$j<12;$j++)
+	    {
+		for($k=0;$k<4;$k++)
+		{
+		    $data_check_list=array(
+			'id_kelas'=>$i,
+			'bulan'=>$j+1,
+			'minggu'=>$k+1,
+			'tahun'=>$var
+		    );
+		    $this->mdl_sarpras->insert_check_list_kelas($data_check_list);
+		}
+	    }
+	}
+
+	$this->session->set_flashdata('msg',$this->editor->alert_ok('Insert OK!'));
+	redirect('sarpras/dashboard/#scs');
+    }
 }

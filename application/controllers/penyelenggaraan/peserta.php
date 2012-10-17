@@ -15,16 +15,17 @@ class Peserta extends Penyelenggaraan_Controller{
         $this->list_peserta();
     }
     
-    function list_peserta($id_program=-1){
+    function list_peserta($id=-1){
         $data['sub_title']='List Peserta Diklat';
-        $data['list']=$this->slng->getall_peserta($id_program);
+        $data['list']=$this->slng->getall_peserta($id);
         $list_program = $this->rnc->get_program($this->thn);
-        $data['id_program']=$id_program;
+        $data['id']=$id;
+        $data['id_program']=$id;
         $data['pil_program']=array(-1=>'Semua Program');
         foreach($list_program as $program){
             $data['pil_program'][$program['id']]=$program['name'];
         }
-        $this->template->display('simdik/penyelenggaraan/list_peserta',$data);
+        $this->template->display_dik('simdik/penyelenggaraan/list_peserta',$data);
     }
     
     function registrasi(){

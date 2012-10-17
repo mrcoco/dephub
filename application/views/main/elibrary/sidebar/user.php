@@ -1,3 +1,6 @@
+<?php
+$t=$this->uri->segment(4);
+?>
 <div class="well sidemenu">
     <ul class="nav nav-list">
         <li><?php echo 'admin'; ?></li>
@@ -16,10 +19,13 @@
         <li><a href="#">Riwayat</a></li>
         <li><a href="#">Favorit</a></li>
         <li class="nav-header">Kategori file</li>
-        <li ><a href="<?php echo site_url("elibrary/type/index/dokumen"); ?>"><i class="icon-file icon-white"></i>Kategori Dokumen</a></li>
-        <li><a href="<?php echo site_url("elibrary/type/index/video"); ?>"><i class="icon-film"></i>Kategori video</a></li>
-        <li><a href="<?php echo site_url("elibrary/type/index/presentasi"); ?>"><i class="icon-picture"></i>Kategori Presentasi</a></li>
-        <li><a href="<?php echo site_url("elibrary/type/index/lain"); ?>"><i class="icon-book"></i>Kategori Lain-Lain</a></li>
+
+        <li <?php if($t=='') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/type/index/"); ?>"><i class="icon-book <?php if($t=='') echo 'icon-white'; ?>"></i>Semua</a></li>
+        <li <?php if($t=='dokumen') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/type/index/dokumen"); ?>"><i class="icon-file <?php if($t=='dokumen') echo 'icon-white'; ?>"></i>Dokumen</a></li>
+        <li <?php if($t=='video') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/type/index/video"); ?>"><i class="icon-film <?php if($t=='video') echo 'icon-white'; ?>"></i>video</a></li>
+        <li <?php if($t=='presentasi') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/type/index/presentasi"); ?>"><i class="icon-picture <?php if($t=='presentasi') echo 'icon-white'; ?>"></i>Presentasi</a></li>
+        <li <?php if($t=='lain') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/type/index/lain"); ?>"><i class="icon-book <?php if($t=='lain') echo 'icon-white'; ?>"></i>Lain-Lain</a></li>
+
         <li class="divider"></li>
         <li><a href="#">Peraturan</a></li>
         <li><a href="#">Tentang E-library</a></li>

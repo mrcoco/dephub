@@ -10,7 +10,7 @@ class Type extends CI_Controller {
                 $this->load->helper('file');
 	}
 
-	function index($tipe)
+	function index($tipe='')
 	{
                 if($tipe=='')
                     $data = array('bibliography' => $this->elib->getall_bibliography());
@@ -27,7 +27,6 @@ class Type extends CI_Controller {
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
 
-	
         function delete_bibliography($id){
             $data = array('bibliography' => $this->elib->get_bibliography_by_id($id));
             $data['sub_title']='Kategori File';
@@ -35,9 +34,11 @@ class Type extends CI_Controller {
             if($data['bibliography']){
                 //unlink($data['bibliography']['location']); 
                 $this->elib->delete_bibliography($id);
-                $this->template->display_lib('main/elibrary/type-view', $data);
+                $this->session->set_flashdata('msg',$this->editor->alert_error('File telah dihapus'));
+                redirect(base_url().'elibrary/type');                    
             }else{
-                $this->template->display_lib('main/elibrary/type-view', $data);
+                $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
+                redirect(base_url().'elibrary/type');                    
             }
             
         }

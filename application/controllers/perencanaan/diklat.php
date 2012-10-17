@@ -39,6 +39,7 @@ class Diklat extends Perencanaan_Controller{
     }
 
     function detail_diklat($id){
+        $data['id']=$id;
         $data['program']=$this->rnc->get_program_by_id($id);
         $data['feedback'] = $this->rnc->get_feedback_sarpras_program($id);
 	$data['sub_title']='Detail Diklat';
@@ -49,7 +50,7 @@ class Diklat extends Perencanaan_Controller{
             $data['pil_kategori'][$k['id']]=$k['name'];
         }
         if($data['program']){
-            $this->template->display('simdik/perencanaan/detail_diklat',$data);
+            $this->template->display_dik('simdik/perencanaan/detail_diklat',$data);
         }else{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'perencanaan/diklat');                    

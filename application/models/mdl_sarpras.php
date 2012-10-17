@@ -144,6 +144,16 @@ class Mdl_sarpras extends CI_Model {
 
     // Check List Kelas
     //-----------------
+    
+    function get_check_list_kelas($limit=20,$offset=0,$tahun=2012,$bulan=12,$minggu=1) {
+	$this->db->where('tahun', $tahun);
+	$this->db->where('bulan', $bulan);
+	$this->db->where('minggu', $minggu);
+	$this->db->group_by('id_kelas');
+	return $this->db->get($this->table_check_list_kelas,$limit,$offset);
+    }
+    
+    /*
     function get_check_list_kelas($var=NULL) {
 	if ($var == NULL) {
 	    return $this->db->get($this->table_check_list_kelas);
@@ -152,6 +162,8 @@ class Mdl_sarpras extends CI_Model {
 	    return $this->db->get($this->table_check_list_kelas);
 	}
     }
+     * 
+     */
 
     function update_check_list_kelas($var, $data) {
 	$this->db->where('id', $var);

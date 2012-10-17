@@ -45,8 +45,9 @@ Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program
             <th width="5%">No</th>
             <th width="25%">Nama</th>
             <th width="25%">NIP</th>
-            <th width="25%">Status</th>
-            <th width="20%">Aksi</th>
+<!--            <th width="25%">Status</th>-->
+<!--            <th width="20%">Aksi</th>-->
+            <th width="45%">Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -56,14 +57,14 @@ Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program
             <td class="nama"><?php echo $list[$i]['nama'] ?>
             </td>
             <td class="nip"><?php echo $list[$i]['nip'] ?></td>
-            <td class="status">
+<!--            <td class="status">
                 <span id="status<?php echo $list[$i]['id'] ?>" class="badge <?php if($list[$i]['status']!='accept'){echo 'badge-info';}else{echo 'badge-success';} ?>">
                     <?php echo $list[$i]['status']; ?>
                 </span>
-            </td>
+            </td>-->
             <td class="aksi">
                 <div class="btn-group" data-toggle="buttons-radio">
-                    <button class="btn <?php if($list[$i]['status']!='accept') echo 'active'; ?>" onclick="cancel(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>)">Daftar</button>
+                    <button class="btn <?php if($list[$i]['status']!='accept') echo 'active'; ?>" onclick="cancel(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>)">Abaikan</button>
                     <button class="btn <?php if($list[$i]['status']=='accept') echo 'active'; ?>" onclick="accept(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>)">Terima</button>
                 </div>
             </td>
