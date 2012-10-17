@@ -34,6 +34,7 @@
 <div class="row">
     <div class="span12">
         <h3>Daftar Diklat</h3>
+        <?php if($program){?>
         <table width="100%" class="table table-striped table-condensed">
             <thead>
                 <tr>
@@ -54,7 +55,11 @@
                                 <a class="btn btn-mini" href="perencanaan/feedback/form_feedback_sarpras/<?php echo $data['id'] ?>">Feedback</a>
                         </td>
                     <?php } ?>
+
             </tbody>
         </table>
+        <?php } else {?>
+        Belum ada program yang dibuat
+        <?php } ?>
     </div>
 </div>

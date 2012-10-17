@@ -67,7 +67,9 @@ class Schedule extends Penyelenggaraan_Controller {
         $this->load->library('excel');
 
         $data['program'] = $this->rnc->get_program_by_id($id);
-
+        
+        $data_schedule = $this->slng->get_data_schedule_by_id($id);
+                
         if (!$data['program']) {
             $this->session->set_flashdata('msg', $this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url() . 'penyelenggaraan/schedule/daftar_diklat');
@@ -125,23 +127,23 @@ class Schedule extends Penyelenggaraan_Controller {
         $judul = strtoupper('Jadwal Tentative ' . $data['program']['name']);
         $sheet->setCellValueByColumnAndRow($col, $row, $judul);
         $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-        $sheet->getStyleByColumnAndRow($col, $row, $col + 7, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyleByColumnAndRow($col, $row, $col + 7, $row)->getFont()->setSize(12)->setBold();
+        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
 
 
         $row = 3;
         $judul = strtoupper('Kementrian Perhubungan ' . $data['program']['tahun_program']);
         $sheet->setCellValueByColumnAndRow($col, $row, $judul);
         $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-        $sheet->getStyleByColumnAndRow($col, $row, $col + 7, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyleByColumnAndRow($col, $row, $col + 7, $row)->getFont()->setSize(12)->setBold();
+        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
 
         $row = 5;
         $judul = $this->date->konversi5($data['program']['tanggal_mulai']) . ' S/D ' . $this->date->konversi5($data['program']['tanggal_akhir']);
         $sheet->setCellValueByColumnAndRow($col, $row, $judul);
         $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-        $sheet->getStyleByColumnAndRow($col, $row, $col + 7, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-        $sheet->getStyleByColumnAndRow($col, $row, $col + 7, $row)->getFont()->setSize(12)->setBold();
+        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
 
 
         //print per week
@@ -168,11 +170,8 @@ class Schedule extends Penyelenggaraan_Controller {
             $row+=2;
         }
 
-        //insert schedule ke excel
-        $data['schedule'] = $this->slng->get_schedule_pemateri($id);
-        
 
-        $filename = 'jadwal pelatihan.xlsx'; //save our workbook as this file name
+        $filename = 'schedule diklat.xlsx'; //save our workbook as this file name
         header('Content-Type: application/vnd.ms-excel'); //mime type
         header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name
         header('Cache-Control: max-age=0'); //no cache
