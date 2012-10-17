@@ -3,7 +3,7 @@
 	    <h4>LOGIN</h4>
 	    <p>
 		<?php echo form_open('login/auth'); ?>
-                <input type="text" name="user" placeholder="Administrator" class="input-medium" disabled/>
+                <input type="text" name="user" placeholder="administrator" class="input-medium" disabled/>
 		<input type="hidden" name="username" value="4"/>
 		<input type="password" name="password" placeholder="password" class="input-medium"/>
 		<input type="submit" class="btn btn-primary" name="submit" value="Login" />

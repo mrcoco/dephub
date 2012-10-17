@@ -36,7 +36,11 @@ class Template {
 	} else {
 	    $menu = 'template/menu/dashboard';
 	}
-        $data['_title'] = $this->_ci->session->userdata('detail');
+        if(isset($data['title'])){
+            $data['_title']=$data['title'];
+        }else{
+            $data['_title'] = $this->_ci->session->userdata('detail');
+        }
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
         $data['_menu'] = $this->_ci->load->view($menu, $data, true);
         $data['_content'] = $this->_ci->load->view($template, $data, true);
@@ -44,7 +48,11 @@ class Template {
     }
     
     function display_dik($template, $data = null) {
-        $data['_title'] = $this->_ci->session->userdata('detail');
+        if(isset($data['title'])){
+            $data['_title']=$data['title'];
+        }else{
+            $data['_title'] = $this->_ci->session->userdata('detail');
+        }
         $data['_sidebar'] = $this->_ci->load->view('simdik/sidebar_dik', $data, true);            
         $menu = 'template/menu/administrator';
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
@@ -53,7 +61,11 @@ class Template {
         $this->_ci->load->view('/template/main.php', $data);
     }
     function display_pub($template, $data = null) {
-        $data['_title'] = "Manajemen Diklat";
+        if(isset($data['title'])){
+            $data['_title']=$data['title'];
+        }else{
+            $data['_title'] = "Manajemen Diklat";
+        }
         $data['_sidebar'] = $this->_ci->load->view('simdik/sidebar_pub', $data, true);            
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
         $data['_content'] = $this->_ci->load->view($template, $data, true);
@@ -66,7 +78,11 @@ class Template {
         //} else {
 	//    $data['_sidebar'] = $this->_ci->load->view('main/elibrary/sidebar/public', $data, true);
 	//}
-        $data['_title'] = 'E-library';
+        if(isset($data['title'])){
+            $data['_title']=$data['title'];
+        }else{
+            $data['_title'] = 'E-library';
+        }
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
         //$data['_menu'] = $this->_ci->load->view($menu, $data, true);
         $data['_content'] = $this->_ci->load->view($template, $data, true);

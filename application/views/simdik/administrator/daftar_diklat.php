@@ -46,7 +46,7 @@
                 <?php $i=1; foreach ($program as $data) { ?>
                     <tr>
                         <td><?php echo $i++; ?></td>
-                        <td><a href="perencanaan/diklat/detail_diklat/<?php echo $data['id'] ?>"><?php echo $data['name'] ?></a></td>
+                        <td><a class="tip" rel="tooltip" title="Klik untuk melihat detail diklat" href="perencanaan/diklat/detail_diklat/<?php echo $data['id'] ?>"><?php echo $data['name'] ?></a></td>
                         <td>
                                 <a class="btn btn-mini" href="perencanaan/diklat/edit_diklat/<?php echo $data['id'] ?>">Ubah diklat</a>
                                 <a class="btn btn-mini" href="penyelenggaraan/schedule/buat_schedule/<?php echo $data['id'] ?>">Edit Jadwal</a>

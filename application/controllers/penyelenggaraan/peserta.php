@@ -28,6 +28,12 @@ class Peserta extends Penyelenggaraan_Controller{
         $this->template->display_dik('simdik/penyelenggaraan/list_peserta',$data);
     }
     
+    function registrasi_dik($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['sub_title']='Registrasi Diklat';
+        $this->template->display_dik('simdik/penyelenggaraan/registrasi_dik',$data);
+    }
     function registrasi(){
         $data['sub_title']='Registrasi Diklat';
         $list_program = $this->rnc->get_program($this->thn);
@@ -49,7 +55,7 @@ class Peserta extends Penyelenggaraan_Controller{
             $this->slng->insert_registrasi($reg);
         }
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Peserta telah ditambahkan'));
-        redirect(base_url().'penyelenggaraan/peserta/list_peserta');
+        redirect(base_url().'penyelenggaraan/peserta/list_peserta/'.$id_program);
     }
     
     function toggle_status($status){

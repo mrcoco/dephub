@@ -36,9 +36,9 @@
     }
 </script>
 <div class="row">
-    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+    <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-Filter program : <?php echo  form_dropdown('id_program',$pil_program,$id_program,'id="program"')?>
+Diklat &nbsp;: <?php echo  form_dropdown('id_program',$pil_program,$id_program,'id="program"')?>
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>

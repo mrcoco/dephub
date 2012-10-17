@@ -9,9 +9,6 @@
 		<li class="<?php if ($this->uri->segment('3') == 'update_maintenance') {
     echo 'active';
 } ?>"><a href="administrator/config/update_maintenance"><i class="icon icon-edit"></i> Maintenance</a></li>
-		<li class="<?php if ($this->uri->segment('3') == 'update_other') {
-    echo 'active';
-} ?>"><a href="administrator/config/update_other"><i class="icon icon-edit"></i> Lain-Lain</a></li>
 	    </ul>
 	</div>
     </div>
