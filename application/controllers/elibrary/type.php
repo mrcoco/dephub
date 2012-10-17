@@ -10,25 +10,24 @@ class Type extends CI_Controller {
                 $this->load->helper('file');
 	}
 
-	function index()
+	function index($tipe)
 	{
-		$data = array('bibliography' => $this->elib->getall_bibliography());
+                if($tipe=='')
+                    $data = array('bibliography' => $this->elib->getall_bibliography());
+                else if($tipe=='lain')
+                    $data = array('bibliography' => $this->elib->get_bibliography_by_type(0));
+                else if($tipe=='dokumen')
+                    $data = array('bibliography' => $this->elib->get_bibliography_by_type(1));
+                else if($tipe=='video')
+                    $data = array('bibliography' => $this->elib->get_bibliography_by_type(2));
+                else if($tipe=='presentasi')
+                    $data = array('bibliography' => $this->elib->get_bibliography_by_type(3));
+                
 		$this->template->display_lib('main/elibrary/type-view', $data);
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
 
-	function text(){
-		$data = array('bibliography' => $this->elib->get_bibliography_by_type(1));
-		$this->template->display_lib('main/elibrary/type-view', $data);
-	}
-	function lain(){
-		$data = array('bibliography' => $this->elib->get_bibliography_by_type(0));
-		$this->template->display_lib('main/elibrary/type-view', $data);
-	}
-	function semua(){
-		$data = array('bibliography' => $this->elib->getall_bibliography());
-		$this->template->display_lib('main/elibrary/type-view', $data);
-	}
+	
         function delete_bibliography($id){
             $data = array('bibliography' => $this->elib->get_bibliography_by_id($id));
             $data['sub_title']='Kategori File';
