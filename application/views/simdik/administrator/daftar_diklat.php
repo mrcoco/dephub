@@ -25,6 +25,12 @@
 		</a>
 		<strong>Registrasi Peserta</strong>
 	    </div>
+	    <div class="well span1" align="center">
+		<a href="penyelenggaraan/pegawai/tambah_pegawai" rel="tooltip" title="Klik untuk tambah pegawai" class="tip">
+		    <img src="assets/img/menu-icons/users.png" />
+		</a>
+		<strong>Tambah Pegawai</strong>
+	    </div>
 	    <!-- Profile -->
     </div>
 </div>
