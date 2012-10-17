@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<manifest xmlns="http://www.imsglobal.org/xsd/imscp_v1p1" xmlns:imsmd="http://www.imsglobal.org/xsd/imsmd_v1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3" xmlns:imsss="http://www.imsglobal.org/xsd/imsss" xmlns:adlseq="http://www.adlnet.org/xsd/adlseq_v1p3" xmlns:adlnav="http://www.adlnet.org/xsd/adlnav_v1p3" identifier="MANIFEST-AECEF15E-06B8-1FAB-5289-73A0B058E2DD" xsi:schemaLocation="http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p1.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 imsmd_v1p2p2.xsd http://www.adlnet.org/xsd/adlcp_v1p3 adlcp_v1p3.xsd http://www.imsglobal.org/xsd/imsss imsss_v1p0.xsd http://www.adlnet.org/xsd/adlseq_v1p3 adlseq_v1p3.xsd http://www.adlnet.org/xsd/adlnav_v1p3 adlnav_v1p3.xsd" version="1.3">
+	<metadata>
+		<schema>ADL SCORM</schema>
+		<schemaversion>CAM 1.3</schemaversion>
+	</metadata>
+	<organizations default="SC">
+		<organization identifier="SC">
+			<title>hurricanes</title>
+			<item identifier="SC-Lesson" identifierref="L1">
+				<title>hurricanes</title>
+			</item>
+			<imsss:sequencing>
+				<imsss:controlMode choice="true" choiceExit="true" flow="true" />
+				<imsss:sequencingRules>
+					<imsss:exitConditionRule>
+						<imsss:ruleConditions conditionCombination="all">
+							<imsss:ruleCondition operator="noOp" condition="satisfied" />
+						</imsss:ruleConditions>
+						<imsss:ruleAction action="exit" />
+					</imsss:exitConditionRule>
+				</imsss:sequencingRules>
+			</imsss:sequencing>
+		</organization>
+	</organizations>
+	<resources>
+		<resource identifier="L1" type="webcontent" href="index.html" adlcp:scormType="sco">
+			<file href="activityApplets.js" />
+			<file href="activityApplets_inline.js" />
+			<file href="activityWindow.js" />
+			<file href="activity_info.js" />
+			<file href="ada-activity.gif" />
+			<file href="ada-annotation.gif" />
+			<file href="ada-equation.gif" />
+			<file href="ada-media.gif" />
+			<file href="banner_custom.jpg" />
+			<file href="check.gif" />
+			<file href="close_custom.gif" />
+			<file href="close_feedback.gif" />
+			<file href="close_float.gif" />
+			<file href="correct.mp3" />
+			<file href="csshover.htc" />
+			<file href="dropmenu_custom.gif" />
+			<file href="emerging.js" />
+			<file href="hotspot.swf" />
+			<file href="hotspot6.xml" />
+			<file href="hurriane_direction.gif" />
+			<file href="hurricanes.css" />
+			<file href="hurricanes.html" />
+			<file href="hurricanes.js" />
+			<file href="hurricanes.orm" />
+			<file href="hurricanes.tiv" />
+			<file href="hurricanes2.html" />
+			<file href="hurricanes3.html" />
+			<file href="hurricanes4.html" />
+			<file href="hurricanes5.html" />
+			<file href="hurricanes6.html" />
+			<file href="hurricanes7.html" />
+			<file href="hurricanes_dummy.html" />
+			<file href="hurricanes_print.css" />
+			<file href="hurricanes_toc.html" />
+			<file href="hurricane_elena_from_sattelite.gif" />
+			<file href="jwin.js" />
+			<file href="learnmore_custom.gif" />
+			<file href="q_functions.js" />
+			<file href="right_side_hurricane.gif" />
+			<file href="right_side_hurricane2.gif" />
+			<file href="scoring_window.js" />
+			<file href="selfcheck_custom.gif" />
+			<file href="smitty_erratic_track1.wav" />
+			<file href="spacer.gif" />
+			<file href="submenu_custom.gif" />
+			<file href="tpclose_custom.gif" />
+			<file href="volume24.gif" />
+			<file href="wrong.gif" />
+			<file href="wrong.mp3" />
+			<file href="adlcp_v1p3.xsd" />
+			<file href="adlnav_v1p3.xsd" />
+			<file href="adlseq_v1p3.xsd" />
+			<file href="datatypes.dtd" />
+			<file href="hurricanes8.html" />
+			<file href="hurricanes_sco.xml" />
+			<file href="imscp_rootv1p1p2.xsd" />
+			<file href="imscp_v1p1.xsd" />
+			<file href="imsmd_v1p2p2.xsd" />
+			<file href="imsss_v1p0.xsd" />
+			<file href="imsss_v1p0auxresource.xsd" />
+			<file href="imsss_v1p0control.xsd" />
+			<file href="imsss_v1p0delivery.xsd" />
+			<file href="imsss_v1p0limit.xsd" />
+			<file href="imsss_v1p0objective.xsd" />
+			<file href="imsss_v1p0random.xsd" />
+			<file href="imsss_v1p0rollup.xsd" />
+			<file href="imsss_v1p0seqrule.xsd" />
+			<file href="imsss_v1p0util.xsd" />
+			<file href="ims_xml.xsd" />
+			<file href="index.html" />
+			<file href="scorm_2004.js" />
+			<file href="xml.xsd" />
+			<file href="XMLSchema.dtd" />
+			<file href="lessonimages/hotspotImage6.jpg" />
+			<file href="ada_files/ada_activity6.html" />
+			<file href="ada_files/ada_annotation1.html" />
+			<file href="ada_files/ada_annotation2.html" />
+			<file href="ada_files/ada_annotation3.html" />
+			<file href="ada_files/ada_annotation4.html" />
+			<file href="ada_files/ada_annotation5.html" />
+			<file href="ada_files/ada_annotation6.html" />
+			<file href="ada_files/ada_annotation7.html" />
+			<file href="ada_files/ada_media1.html" />
+		</resource>
+	</resources>
+</manifest>
