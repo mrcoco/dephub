@@ -30,6 +30,7 @@
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
 </div>
+<p align="center" class="lead"><?php echo $program['name'] ?></p>
 <form id="form1" method="post" action="perencanaan/diklat/update_diklat" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id" value="<?php echo $program['id'] ?>"/>

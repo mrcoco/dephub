@@ -1,13 +1,7 @@
 <div class="row">
-    <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 <h2><?php echo $program['name'] ?></h2>
-<div class="well-small">
-    <a href="perencanaan/diklat/edit_diklat/<?php echo $program['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
-    <a href="perencanaan/diklat/delete_diklat/<?php echo $program['id'] ?>" class="btn btn-danger"
-       onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $program['name'] ?>?')">
-        <i class="icon-trash"></i> Hapus</a>
-</div>
 <table class="table table-striped">
     <tbody>
         <tr>
@@ -58,7 +52,6 @@
         <tr>
             <td>Feedback Sarana Prasarana</td>
             <td>
-                <a href="perencanaan/feedback/form_feedback_sarpras/<?php echo $program['id'] ?>"><i class="icon-plus-sign"></i> Tambah</a>
                 <ul class="unstyled">
                 <?php $this->lib_perencanaan->print_child_feedback($feedback, $program['id'], '<li>', '</li>', '')
                 ?>

@@ -57,7 +57,7 @@
 	<div class="well">
 	    <h4>REGISTRASI</h4>
 	    <hr />
-	    <p>Untuk melakukan registrasi silakan klik tombol berikut <br /><a href="elearning/" class="btn btn-success">Registrasi</a></p>
+	    <p>Untuk melakukan registrasi silakan klik tombol berikut <br /><a href="site/dashboard/registrasi/" class="btn btn-success">Registrasi</a></p>
 	</div>
 	<div class="well program">
 	    <h4>PROGRAM DIKLAT</h4>

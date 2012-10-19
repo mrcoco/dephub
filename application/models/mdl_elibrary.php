@@ -9,9 +9,18 @@ class Mdl_elibrary extends CI_Model{
      * CRUD elibrary
      */
     function get_category() {
-	
+        $this->db->order_by("categoryname", "asc");
+	$category= $this->db->get('elib_category');
+        return $category->result_array();
 	}
+     function get_id_category_by_name($nama){
+         $this->db->select('idcategory');
+         $category= $this->db->get_where('elib_category',array('categoryname'=>$nama));
+         $row=$category->row();
+         return $row->idcategory;
+     }
     function insert_category(){
+        
 	}
     function update_category(){
 	}
@@ -19,7 +28,12 @@ class Mdl_elibrary extends CI_Model{
 	}
 	
         function get_bibliography_by_id($id) {
-            $bibliography = $this->db->get_where('elib_bibliography',array('id'=>$id)); 
+            $this->db->select('*');
+            $this->db->from('elib_bibliography');
+            $this->db->join('elib_category', 'elib_category.idcategory = elib_bibliography.idcategory','left');  
+            $this->db->join('elib_author', 'elib_author.idauthor = elib_bibliography.idauthor','left');
+            $this->db->where(array('elib_bibliography.id'=>$id)); 
+            $bibliography = $this->db->get(); 
             
                 return $bibliography->result_array();
             
@@ -60,7 +74,9 @@ class Mdl_elibrary extends CI_Model{
 	}
 	function update_bibliography($data) {
             $this->db->where('id',$data['id']);
-            $this->db->update('elib_bibliography',$data);
+            if($this->db->update('elib_bibliography',$data))
+                    return true;
+            else return false;
             
             
 	}
@@ -97,6 +113,18 @@ class Mdl_elibrary extends CI_Model{
 	function update_userrole(){
 	}
 	function delete_userrole(){
+	}
+        //author
+        function get_id_author_by_name($nama){
+         $this->db->select('idauthor');
+         $author= $this->db->get_where('elib_author',array('authorname'=>$nama));
+         $row=$author->row();
+         return $row->idauthor;
+        }
+        function get_author() {
+        $this->db->order_by("authorname", "asc");
+	$author= $this->db->get('elib_author');
+        return $author->result_array();
 	}
 }
 

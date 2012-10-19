@@ -17,7 +17,11 @@ $().ready(function() {
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
 </div>
-<p align="center" class="lead">Saran/Evaluasi Peserta <?php echo strtoupper($program['name']) ?></p>
+<p align="center" class="lead">Saran/Evaluasi Peserta
+    <a href="perencanaan/diklat/detail_diklat/<?php echo $program['id']?>" class="tip" rel="tooltip" title="Klik untuk melihat detail diklat">
+        <?php echo strtoupper($program['name']) ?>
+    </a>
+</p>
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#kurikulum" data-toggle="tab">Kurikulum Diklat</a></li>
     <li><a href="#sarpras" data-toggle="tab">Sarana & Prasarana Diklat</a></li>

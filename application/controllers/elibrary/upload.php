@@ -11,7 +11,11 @@ class Upload extends CI_Controller {
 
 	function index()
 	{
-		$this->template->display_lib('main/elibrary/upload_form', array('error' => ' ' ));
+                $data = array(
+                'category'=>$this->elib->get_category(),
+                'author'=>$this->elib->get_author()
+                );
+		$this->template->display_lib('main/elibrary/upload_form', $data);
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
 
@@ -32,22 +36,38 @@ class Upload extends CI_Controller {
 		else
 		{
 			 
-			$data = array('upload_data' => $this->upload->data());
-			$datainsert['title']=$data['upload_data']['orig_name'];
+			$data = array('upload_data' => $this->upload->data(),
+                            'category'=>$this->elib->get_category(),
+                            'author'=>$this->elib->get_author()
+                            );
+			$datainsert['title']=$data['upload_data']['raw_name'];
 			//$datainsert['category']=$this->input->post('category');
-			if($data['upload_data']['file_ext']=='.pdf') $datainsert['type']=1;
-			else if ($data['upload_data']['file_ext']=='.mp4') $datainsert['type']=2;
-			else if ($data['upload_data']['file_ext']=='.pptx') $datainsert['type']=3;
-			else if ($data['upload_data']['file_ext']=='.docx') $datainsert['type']=4;
-			$datainsert['imageurl']=$this->input->post('imageurl');
+                        $temp=$data['upload_data']['file_ext'];
+			if($temp=='.pdf'||$temp='.doc'||$temp='.docx'||$temp='.txt'||$temp='.xls'||$temp='.xlsx') $datainsert['type']=1; //dokumen
+			else if ($temp=='.mp4'||$temp='.mp3'||$temp='.wmv'||$temp='.flv'||$temp='.3gp'||$temp='.mkv'||$temp='.avi') $datainsert['type']=2;//video
+			else if ($temp=='.pptx'||$temp='.ppt') $datainsert['type']=3; //presentasi
+			else  $datainsert['type']=0; //lain2
+			
 			$datainsert['location']='./assets/elibrary/uploads/'.$data['upload_data']['orig_name'];
 			$datainsert['keterangan']=$this->input->post('keterangan');
+                        $datainsert['tags']=$this->input->post('tags');
+                        
+                        $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
+                        $datainsert['idcategory']=$category['idcategory'];
+                        $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
+                        $datainsert['idauthor']=$author['idauthor'];
+                        
 			$this->elib->insert_bibliography($datainsert);
+                        $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diupload'));
+//                        redirect(base_url().'elibrary/daftar');
 			$this->template->display_lib('main/elibrary/upload_success', $data);
 		}
 	}
 	function upload_again(){
-		$this->template->display_lib('main/elibrary/upload_form');
+                $data = array(
+                            'category'=>$this->elib->get_category(),
+                            'author'=>$this->elib->get_author());
+		$this->template->display_lib('main/elibrary/upload_form',$data);
 	}
 }
 ?>
