@@ -69,18 +69,20 @@ class Schedule extends Penyelenggaraan_Controller {
         $data['program'] = $this->rnc->get_program_by_id($id);
         
         $data_schedule = $this->slng->get_data_schedule_by_id($id);
-                
+        
         if (!$data['program']) {
             $this->session->set_flashdata('msg', $this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url() . 'penyelenggaraan/schedule/daftar_diklat');
         }
 
         //set date range
+        
         $waktu = strtotime($data['program']['tanggal_mulai']);
         if (date('w', $waktu) > 0) {
             $waktu = strtotime("-" . date('w', $waktu) . " day", $waktu);
         }
 
+        
         $tgl_end = strtotime($data['program']['tanggal_akhir']);
         if (date('w', $tgl_end) < 6) {
             $selisih = 7 - date('w', $tgl_end);
@@ -90,7 +92,7 @@ class Schedule extends Penyelenggaraan_Controller {
         $array_tanggal = array();
         $array_idx_tanggal=array();
         $idx = 0;
-        while ($waktu < $tgl_end) {
+        while ($waktu <= $tgl_end) {
             $array_tanggal[$idx]['tanggal'] = date('d', $waktu) . ' ' . $this->date->get_month_name(date('m', $waktu)) . ' ' . date('Y', $waktu);
             $array_tanggal[$idx]['hari'] = $this->date->get_day_name(date('N', $waktu));
             $array_idx_tanggal[$array_tanggal[$idx]['tanggal']]=$idx;
@@ -98,11 +100,12 @@ class Schedule extends Penyelenggaraan_Controller {
             $idx++;
         }
 
-
+        
+        
         //set jam
         $array_jam = array();
-        $jam = strtotime('00:00');
-        $batas_jam = strtotime('23.45');
+        $jam = strtotime('05:00');
+        $batas_jam = strtotime('21.45');
         while ($jam <= $batas_jam) {
             $nxt = strtotime('+15 minute', $jam);
             $array_jam[] = date('H.i', $jam) . '-' . date('H.i', $nxt);
@@ -153,24 +156,48 @@ class Schedule extends Penyelenggaraan_Controller {
             $idx_maxweek = 7 * $week + 7;
 
             $col = 1;
+            $arr_col_tgl=array();
             for ($idx_perweek; $idx_perweek <= $idx_maxweek; $idx_perweek++) {
                 $sheet->setCellValueByColumnAndRow($col, $row, $array_tanggal[$idx_perweek - 1]['tanggal']);
                 $sheet->setCellValueByColumnAndRow($col, $row + 1, $array_tanggal[$idx_perweek - 1]['hari']);
-                $sheet->getColumnDimensionByColumn($col)->setAutoSize(true);
+                $sheet->getColumnDimensionByColumn($col)->setWidth(23);
+                $arr_col_tgl[$array_tanggal[$idx_perweek - 1]['tanggal']]=$col;
                 $col++;
             }
-
+            
             $row+=2;
             $col_jam = 0;
+            $arr_row_jam=array();
             $sheet->getColumnDimensionByColumn($col_jam)->setAutoSize(true);
             foreach ($array_jam as $j) {
                 $sheet->setCellValueByColumnAndRow(0, $row, $j);
+                $arr_row_jam[$j]=$row;
                 $row++;
+            }
+            
+            foreach($data_schedule as $ds){
+                if(array_key_exists($ds['tanggal'], $arr_col_tgl)&&array_key_exists($ds['jam_mulai'], $arr_row_jam)&&array_key_exists($ds['jam_selesai'], $arr_row_jam)){
+                    $kol_print=$arr_col_tgl[$ds['tanggal']];
+                    $row_mulai = $arr_row_jam[$ds['jam_mulai']];
+                    $row_selesai = $arr_row_jam[$ds['jam_selesai']];
+                    $sheet->mergeCellsByColumnAndRow($kol_print, $row_mulai, $kol_print, $row_selesai);
+                    $isi = $ds['materi']."\n";
+                    if($ds['jenis']=='materi'){
+                        $no=1;
+                        foreach($ds['pembicara'] as $p){
+                            $isi.=$no++.'. '.$p."\n";
+                        }
+                        foreach($ds['pendamping'] as $p){
+                            $isi.=$p."(Pend)\n";
+                        }
+                    }
+                    $sheet->setCellValueByColumnAndRow($kol_print, $row_mulai, $isi);
+                }
+                
             }
             $row+=2;
         }
-
-
+        
         $filename = 'schedule diklat.xlsx'; //save our workbook as this file name
         header('Content-Type: application/vnd.ms-excel'); //mime type
         header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name

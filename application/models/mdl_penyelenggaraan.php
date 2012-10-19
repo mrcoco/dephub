@@ -147,18 +147,25 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function ajax_pembicara($jenis){
         if($jenis!=3){
-            $str_query='select nama, tb_p.id as id_pembicara, jenis from tb_pegawai inner join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel where jenis='.$jenis;
+            $str_query='select nama, nip, tb_p.id as id_pembicara, jenis from tb_pegawai inner join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel where jenis='.$jenis;
             $res=$this->db->query($str_query)->result_array();
+            $array1=array();
+            $array2=array();
+            foreach($res as $r){
+                $array1[$r['nip'].'-'.$r['nama']]=$r['id_pembicara'];
+                $array2[]=$r['nip'].'-'.$r['nama'];
+            }
         }else{
             $str_query='select nama, tb_p.id as id_pembicara, jenis from tb_dosen_tamu inner join (select * from tb_pembicara where jenis=3) as tb_p on tb_dosen_tamu.id=tb_p.id_tabel';
             $res=$this->db->query($str_query)->result_array();
+            $array1=array();
+            $array2=array();
+            foreach($res as $r){
+                $array1[$r['nama']]=$r['id_pembicara'];
+                $array2[]=$r['nama'];
+            }
         }
-        $array1=array();
-        $array2=array();
-        foreach($res as $r){
-            $array1[$r['nama']]=$r['id_pembicara'];
-            $array2[]=$r['nama'];
-        }
+        
         $retval=array(1=>$array1,2=>$array2);
         return $retval;
 	}
@@ -250,13 +257,61 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_data_schedule_by_id($id){
-        $str_qry='SELECT * FROM (tb_pemateri JOIN tb_pembicara ON tb_pemateri.id_pembicara = tb_pembicara.id) 
-                    LEFT JOIN tb_pegawai ON ( id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
-                    LEFT JOIN tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))
-                    JOIN tb_schedule ON ( id_schedule = tb_schedule.id
-                    AND id_program ='.$id.')';
+        //query data dari tb_schedule
+        //masing2 data di cek jenisnya
+        //klo jenisnya materi, query nama pematerinya
         
-        return $this->db->query($str_qry)->result_array();
+        
+        $str_qry_pembicara='SELECT materi, tb_pembicara.jenis as jenis_dosen, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam FROM 
+                    tb_schedule LEFT JOIN ((tb_pemateri JOIN tb_pembicara ON tb_pemateri.id_pembicara = tb_pembicara.id) 
+                    LEFT JOIN tb_pegawai ON ( id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+                    LEFT JOIN tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))) ON ( id_schedule = tb_schedule.id)
+                    WHERE id_program ='.$id;
+        $arr_pembicara = $this->db->query($str_qry_pembicara)->result_array();
+        
+        $str_qry_acara='SELECT DISTINCT tb_schedule.jenis as jenis, materi,tanggal, jam_mulai, jam_selesai FROM 
+                    tb_schedule LEFT JOIN ((tb_pemateri JOIN tb_pembicara ON tb_pemateri.id_pembicara = tb_pembicara.id) 
+                    LEFT JOIN tb_pegawai ON ( id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+                    LEFT JOIN tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))) ON ( id_schedule = tb_schedule.id)
+                    WHERE id_program ='.$id;
+        $arr_res = $this->db->query($str_qry_acara)->result_array();
+        
+        $str_qry_pendamping='SELECT nama FROM 
+                    tb_schedule LEFT JOIN tb_pendamping on tb_schedule.id=tb_pendamping.id_schedule
+                    WHERE id_program ='.$id;
+        $arr_pendamping = $this->db->query($str_qry_pendamping)->result_array();
+        
+        for($i=0;$i<count($arr_res);$i++){
+            $jam_mulai = strtotime($arr_res[$i]['jam_mulai']);
+            $jam_mulai_next = strtotime('+15 minute', $jam_mulai);
+            $arr_res[$i]['jam_mulai']=date('H.i', $jam_mulai) . '-' . date('H.i', $jam_mulai_next);
+            
+            $jam_selesai = strtotime($arr_res[$i]['jam_selesai']);
+            $jam_selesai_next = strtotime('-15 minute', $jam_selesai);
+            $arr_res[$i]['jam_selesai']=date('H.i', $jam_selesai_next) . '-' . date('H.i', $jam_selesai);
+            
+            $tgl = strtotime($arr_res[$i]['tanggal']);
+            $arr_res[$i]['tanggal']=date('d', $tgl) . ' ' . $this->date->get_month_name(date('m', $tgl)) . ' ' . date('Y', $tgl);
+            
+            if($arr_res[$i]['jenis']=='materi'){
+                $arr_res[$i]['pembicara']=array();
+                foreach($arr_pembicara as $ap){
+                    if($ap['materi']==$arr_res[$i]['materi']){
+                        if($ap['nama_peg']!=''){
+                            $arr_res[$i]['pembicara'][]=$ap['nama_peg'];
+                        }else{
+                            $arr_res[$i]['pembicara'][]=$ap['nama_dostam'];
+                        }
+                    }
+                }
+                $arr_res[$i]['pendamping']=array();
+                foreach($arr_pendamping as $ap){
+                    $arr_res[$i]['pendamping'][]=$ap['nama'];
+                }
+            }
+            
+        }
+        return $arr_res;
     }
     
     function get_pemateri($id){
@@ -265,10 +320,14 @@ class Mdl_penyelenggaraan extends CI_Model{
         for($i=0;$i<count($pemateri);$i++){
             if($pemateri[$i]['jenis']!=3){
                 $tb='pegawai';
+                $data=$this->db->get_where($tb,array('id'=>$pemateri[$i]['id_tabel']))->row_array();
+                $pemateri[$i]['nama']=$data['nip'].'-'.$data['nama'];
             }else{
                 $tb='dosen_tamu';
+                $data=$this->db->get_where($tb,array('id'=>$pemateri[$i]['id_tabel']))->row_array();
+                $pemateri[$i]['nama']=$data['nama'];
             }
-            $pemateri[$i]['nama']=$this->db->get_where($tb,array('id'=>$pemateri[$i]['id_tabel']))->row()->nama;
+            
         }
         return $pemateri;
     }
