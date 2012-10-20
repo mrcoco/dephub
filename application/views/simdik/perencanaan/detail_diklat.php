@@ -44,7 +44,33 @@
             <td width="20%">Jumlah Peserta</td><td><?php echo $program['jumlah_peserta'] ?></td>
         </tr>
         <tr>
-            <td>Persyaratan</td><td><?php echo $program['persyaratan'] ?></td>
+            <?php if($program['syarat_usia']==-1){
+                $program['syarat_usia']='tidak ada';
+            }?>
+            <td>Syarat Usia</td><td><?php echo $program['syarat_usia'] ?></td>
+        </tr>
+        <tr>
+            <?php if($program['syarat_masa_kerja']==-1){
+                $program['syarat_masa_kerja']='tidak ada';
+            }?>
+            <td>Syarat Masa Kerja</td><td><?php echo $program['syarat_masa_kerja'] ?></td>
+        </tr>
+        <tr>
+            <?php if($program['syarat_pendidikan']==''){
+                $program['syarat_pendidikan']='tidak ada';
+            }?>
+            <td>Syarat Pendidikan</td><td><?php echo $program['syarat_pendidikan'] ?></td>
+        </tr>
+        <tr>
+            <?php $pil_pangkat=array(
+                            ''=>'tidak ada',
+                            'I/a'=>'Juru Muda - I/a','I/b'=>'Juru Muda Tkt. 1 - I/b','I/c'=>'Juru - I/c','I/d'=>'Juru Tkt. 1 - I/d',
+                            'II/a'=>'Pengatur Muda - II/a','II/b'=>'Pengatur Muda Tkt. 1 - II/b','II/c'=>'Pengatur - II/c','II/d'=>'Pengatur Tkt. 1 - II/d',
+                            'III/a'=>'Penata Muda - III/a', 'III/b'=>'Penata Muda Tkt. 1 - III/b', 'III/c'=>'Penata - III/c','III/d'=>'Penata - III/d',
+                            'IV/a'=>'Pembina - IV/a','IV/b'=>'Pembina Tkt. 1 - IV/b','IV/c'=>'Pembina Utama Muda - IV/c','IV/d'=>'Pembina Utama Madya - IV/d','IV/e'=>'Pembina Utama - IV/e'
+                            );
+                        ?>
+            <td>Syarat Pangkat/Gol</td><td><?php echo $pil_pangkat[$program['syarat_pangkat_gol']] ?></td>
         </tr>
         <tr>
             <td width="20%">Pelaksana Penanggung Jawab Kegiatan</td><td><?php echo $program['pelaksana'] ?></td>

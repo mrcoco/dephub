@@ -80,14 +80,17 @@ class Diklat extends Perencanaan_Controller{
         $data['pelaksanaan']=$this->input->post('pelaksanaan');
         $data['lama_pendidikan']=$this->input->post('lama_pendidikan');
         $data['deskripsi']=$this->input->post('deskripsi');
-        $data['persyaratan']=$this->input->post('persyaratan');
         $data['materi']=$this->input->post('materi');
         $data['pelaksana']=$this->input->post('pelaksana');
         $data['fasilitator']=$this->input->post('fasilitator');
         $data['jumlah_peserta']=$this->input->post('jumlah_peserta');
         $data['tempat']=$this->input->post('tempat');
         $data['tahun_program']=$this->input->post('tahun_program');
-
+        $data['syarat_usia']=$this->input->post('syarat_usia');
+        $data['syarat_masa_kerja']=$this->input->post('syarat_masa_kerja');
+        $data['syarat_pendidikan']=$this->input->post('syarat_pendidikan');
+        $data['syarat_pangkat_gol']=$this->input->post('syarat_pangkat_gol');
+        
         $this->rnc->insert_diklat($data);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah ditambahkan'));
 	redirect(base_url().'administrator/dashboard');
@@ -124,14 +127,17 @@ class Diklat extends Perencanaan_Controller{
         $data['pelaksanaan']=$this->input->post('pelaksanaan');
         $data['lama_pendidikan']=$this->input->post('lama_pendidikan');
         $data['deskripsi']=$this->input->post('deskripsi');
-        $data['persyaratan']=$this->input->post('persyaratan');
         $data['materi']=$this->input->post('materi');
         $data['pelaksana']=$this->input->post('pelaksana');
         $data['fasilitator']=$this->input->post('fasilitator');
         $data['jumlah_peserta']=$this->input->post('jumlah_peserta');
         $data['tempat']=$this->input->post('tempat');
         $data['tahun_program']=$this->input->post('tahun_program');
-
+        $data['syarat_usia']=$this->input->post('syarat_usia');
+        $data['syarat_masa_kerja']=$this->input->post('syarat_masa_kerja');
+        $data['syarat_pendidikan']=$this->input->post('syarat_pendidikan');
+        $data['syarat_pangkat_gol']=$this->input->post('syarat_pangkat_gol');
+        
         $this->rnc->update_diklat($clause,$data);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah diubah'));
 	redirect(base_url().'perencanaan/diklat/detail_diklat/'.$clause);

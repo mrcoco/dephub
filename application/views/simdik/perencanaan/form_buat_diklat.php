@@ -123,9 +123,50 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label">Pesyaratan</label>
+                    <label class="control-label">Syarat usia</label>
                     <div class="controls">
-                        <?php echo $this->editor->textarea('pesyaratan') ?>
+                        <input type="text" name="syarat_usia"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Syarat masa kerja</label>
+                    <div class="controls">
+                        <input type="text" name="syarat_masa_kerja"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Syarat pendidikan</label>
+                    <div class="controls">
+                        <?php $pil_pendidikan=array(
+                            ''=>'--pilih--',
+                            'SR/SD'=>'SR/SD',
+                            'SLTP'=>'SLTP',
+                            'SLTA'=>'SLTA',
+                            'D-1'=>'D-1',
+                            'D-2'=>'D-2',
+                            'D-3/SARMUD'=>'D-3/SARMUD',
+                            'D-4'=>'D-4',
+                            'S-1'=>'S-1',
+                            'PASCASARJANA'=>'PASCASARJANA',
+                            'DOKTOR'=>'DOKTOR',
+                            'SPESIALIS'=>'SPESIALIS'
+                            )
+                        ?>
+                        <?php echo form_dropdown('syarat_pendidikan',$pil_pendidikan) ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Syarat pangkat/gol</label>
+                    <div class="controls">
+                        <?php $pil_pangkat=array(
+                            ''=>'--pilih--',
+                            'Gol. 1'=>array('I/a'=>'Juru Muda - I/a','I/b'=>'Juru Muda Tkt. 1 - I/b','I/c'=>'Juru - I/c','I/d'=>'Juru Tkt. 1 - I/d'),
+                            'Gol. 2'=>array('II/a'=>'Pengatur Muda - II/a','II/b'=>'Pengatur Muda Tkt. 1 - II/b','II/c'=>'Pengatur - II/c','II/d'=>'Pengatur Tkt. 1 - II/d'),
+                            'Gol. 3'=>array('III/a'=>'Penata Muda - III/a', 'III/b'=>'Penata Muda Tkt. 1 - III/b', 'III/c'=>'Penata - III/c','III/d'=>'Penata - III/d'),
+                            'Gol. 4'=>array('IV/a'=>'Pembina - IV/a','IV/b'=>'Pembina Tkt. 1 - IV/b','IV/c'=>'Pembina Utama Muda - IV/c','IV/d'=>'Pembina Utama Madya - IV/d','IV/e'=>'Pembina Utama - IV/e')
+                            );
+                        ?>
+                        <?php echo form_dropdown('syarat_pangkat_gol',$pil_pangkat) ?>
                     </div>
                 </div>
             </div>

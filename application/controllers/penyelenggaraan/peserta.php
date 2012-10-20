@@ -32,6 +32,25 @@ class Peserta extends Penyelenggaraan_Controller{
         $data['id']=$id;
         $data['program']=$this->rnc->get_program_by_id($id);
         $data['sub_title']='Registrasi Diklat';
+        $data['arr_pendidikan']=array(
+                            'SR/SD'=>1,
+                            'SLTP'=>2,
+                            'SLTA'=>3,
+                            'D-1'=>4,
+                            'D-2'=>5,
+                            'D-3/SARMUD'=>6,
+                            'D-4'=>7,
+                            'S-1'=>8,
+                            'PASCASARJANA'=>9,
+                            'DOKTOR'=>10,
+                            'SPESIALIS'=>'SPESIALIS'
+                            );
+        $data['pangkat']=array(
+                            'I/a'=>0,'I/b'=>1,'I/c'=>2,'I/d'=>3,
+                            'II/a'=>4,'II/b'=>5,'II/c'=>6,'II/d'=>7,
+                            'III/a'=>8, 'III/b'=>9, 'III/c'=>10,'III/d'=>11,
+                            'IV/a'=>12,'IV/b'=>13,'IV/c'=>14,'IV/d'=>15,'IV/e'=>16
+                            );
         $this->template->display_dik('simdik/penyelenggaraan/registrasi_dik',$data);
     }
     function registrasi(){
@@ -98,6 +117,10 @@ class Peserta extends Penyelenggaraan_Controller{
     
     function get_data_peserta($nip){
         $data_peserta=$this->slng->get_data_peserta($nip);
+        $tmtpns = date_create_from_format('Y-m-d', $data_peserta['tmtpns']);
+        $tgl_lhr = date_create_from_format('Y-m-d', $data_peserta['tanggal_lahir']);
+        $data_peserta['masa_kerja']=date('Y')-date_format($tmtpns,'Y');
+        $data_peserta['usia']=date('Y')-date_format($tgl_lhr,'Y');
         echo json_encode($data_peserta);
     }
     
