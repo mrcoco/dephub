@@ -36,7 +36,7 @@ class Upload extends CI_Controller {
 		else
 		{
 			 
-			$data = array('upload_data' => $this->upload->data(),
+			$data = array('item' => $this->upload->data(),
                             'category'=>$this->elib->get_category(),
                             'author'=>$this->elib->get_author()
                             );

@@ -106,6 +106,16 @@ class Mdl_elibrary extends CI_Model{
 	function delete_anggota(){
 	}
 	
+        function get_books(){
+	}
+	function insert_books($data){
+            $this->db->insert('elib_books',$data);
+	}
+	function update_books(){
+	}
+	function delete_books(){
+	}
+        
 	function get_userrole(){
 	}
 	function insert_userrole(){
