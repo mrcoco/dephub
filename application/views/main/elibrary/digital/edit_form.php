@@ -1,10 +1,10 @@
 
 
-        			<h2><?php echo $status ?></h2>
+        			<h2><?php echo $status; //edit bibliography digital ?></h2>
 
                         <h3>Edit File</h3>
 
-			<?php echo form_open_multipart('elibrary/edit/edit_bibliography');?>
+			<?php echo form_open_multipart('elibrary/digital/do_edit_bibliography');?>
 
 			<table>
 

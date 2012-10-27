@@ -9,7 +9,7 @@
                          
 			<?php foreach ($bibliography as $number => $n):?>
 			
-                            <li><a href="<?php echo $bibliography[$number]['location'];?>"><?php echo $bibliography[$number]['title'];?></a><a href="<?php echo site_url("elibrary/type/delete_bibliography")."/".$bibliography[$number]['id']?>"> Delete</a></li> 
+                            <li><a href="<?php echo $bibliography[$number]['location'];?>"><?php echo $bibliography[$number]['title'];?></a><a href="<?php echo site_url("elibrary/digital/delete_bibliography")."/".$bibliography[$number]['id']?>"> Delete</a></li> 
 			
 			<br />
 			<?php endforeach; ?>

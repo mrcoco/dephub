@@ -1,5 +1,5 @@
 <div class="input-append">
-    <?php echo form_open_multipart('elibrary/search/');?>
+    <?php echo form_open_multipart('elibrary/digital/search/');?>
         <input type="text" name="search" placeholder="Cari file" class="input-xlarge"/><button class="btn" type="submit">Search</button>
     </form>                
     <h1>Selamat Datang</h1>

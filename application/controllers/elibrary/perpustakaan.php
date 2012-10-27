@@ -1,6 +1,6 @@
 <?php
-// edit biblio
-class Edit extends CI_Controller {
+//indexing buku
+class Perpustakaan extends CI_Controller {
 
 	function __construct()
 	{
@@ -8,16 +8,20 @@ class Edit extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('mdl_elibrary','elib');
 	}
-
-	function index()
+        function search()
 	{
-		$this->template->display_lib('main/elibrary/edit_page');
+                $string=$this->input->post('search');
+                $data = array('bibliography' => $this->elib->search_books_by_title_or_author($string));
+                
+		$this->template->display_lib('main/elibrary/search-result', $data);
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+                
 	}
+        
+        
+        function edit_books($id) {
 
-	function bibliography($id) {
-
-            $data = array('bibliography' => $this->elib->get_bibliography_by_id($id),
+            $data = array('bibliography' => $this->elib->get_books_by_id($id),
                 'category'=>$this->elib->get_category(),
                 'author'=>$this->elib->get_author(),
                 'status'=>' '
@@ -26,13 +30,13 @@ class Edit extends CI_Controller {
                 $this->template->display_lib('main/elibrary/edit_form', $data);
             }else{
                 $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
-                redirect(base_url().'elibrary/type');                    
+                redirect(base_url().'elibrary/perpustakaan/category');                    
             }
             
 //>>>>>>> f95c095cb0ce5bf053a6af135ea10b40ef7bd6b9
         }
         
-        function edit_bibliography() {
+        function do_edit_books() {
             $update['id']=$this->input->post('id');
             $update['title']=$this->input->post('title');
             $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
@@ -60,10 +64,33 @@ class Edit extends CI_Controller {
 //=======
             $this->elib->update_bibliography($update);           
             $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diubah'));
-            redirect(base_url().'elibrary/type');
-//            $data = array('bibliography' => $this->elib->get_bibliography_by_id($update['id']));
-//            $this->template->display_lib('main/elibrary/type', $data);
-//>>>>>>> f95c095cb0ce5bf053a6af135ea10b40ef7bd6b9
+            redirect(base_url().'elibrary/perpustakaan/category');
+
         }
+        
+        function category($category='')
+	{
+                
+                
+		$this->template->display_lib('main/elibrary/type-view', $data);
+		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+	}
+
+        function delete_books($id){
+            $data = array('bibliography' => $this->elib->get_bibliography_by_id($id));
+            $data['sub_title']='Kategori File';
+            
+            if($data['bibliography']){
+                //unlink($data['bibliography']['location']); 
+                $this->elib->delete_bibliography($id);
+                $this->session->set_flashdata('msg',$this->editor->alert_error('File telah dihapus'));
+                redirect(base_url().'elibrary/type');                    
+            }else{
+                $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
+                redirect(base_url().'elibrary/type');                    
+            }
+            
+        }
+        
 }
 ?>

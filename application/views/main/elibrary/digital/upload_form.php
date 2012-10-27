@@ -1,6 +1,6 @@
 
         		<h3>Upload File</h3>	
-			<?php echo form_open_multipart('elibrary/upload/do_upload');?>
+			<?php echo form_open_multipart('elibrary/digital/do_upload');?>
 			<table class="table table-hover">
 				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
 
