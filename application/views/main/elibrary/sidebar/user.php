@@ -11,6 +11,7 @@ else $t='bukan kategori';
         <li><a href="#">Edit Profil</a></li>
         <li ><a href="<?php echo site_url("elibrary/digital/upload"); ?>">Upload</a></li>
         <li ><a href="<?php echo site_url("elibrary/admin"); ?>">Admin</a></li>
+        <li ><a href="<?php echo site_url("elibrary/perpustakaan"); ?>">Perpustakaan</a></li>
         <li><a href="site/dashboard/library/">Logout</a></li>
         
     </ul>

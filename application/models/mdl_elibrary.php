@@ -93,6 +93,14 @@ class Mdl_elibrary extends CI_Model{
             return $bibliography->result_array();
             
         }
+        
+        function search_books_by_title_or_author($string){
+            $this->db->like('title', $string); 
+            //$this->db->or_like('author', $string);
+            $books= $this->db->get('elib_books');
+            return $books->result_array();
+            
+        }
         function search_bibliography_by_author(){
             
             
@@ -108,12 +116,43 @@ class Mdl_elibrary extends CI_Model{
 	
         function get_books(){
 	}
+        function get_books_by_id($id) {
+            $this->db->select('*');
+            $this->db->from('elib_books');
+            $this->db->join('elib_category', 'elib_category.idcategory = elib_books.category','left');  
+            $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
+            $this->db->where(array('elib_books.id'=>$id)); 
+            $books = $this->db->get(); 
+            
+                return $books->result_array();
+            
+	}
+        function get_books_by_category($category) {
+            $this->db->select('*');
+            $this->db->from('elib_books');
+            $this->db->join('elib_category', 'elib_category.idcategory = elib_books.idcategory','left');  
+            $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
+            $this->db->where(array('elib_books.idcategory'=>$category)); 
+            $books = $this->db->get(); 
+            
+                return $books->result_array();
+            
+	}
 	function insert_books($data){
             $this->db->insert('elib_books',$data);
+            
 	}
-	function update_books(){
+	function update_books($data){
+            $this->db->where('id',$data['id']);
+            if($this->db->update('elib_books',$data))
+                    return true;
+            else return false;
+            
 	}
 	function delete_books(){
+            $this->db->where('id',$id);
+            
+            $this->db->delete('elib_books');
 	}
         
 	function get_userrole(){
