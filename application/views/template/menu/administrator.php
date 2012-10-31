@@ -33,8 +33,10 @@
         </li>
         <li class="dropdown <?php if($this->uri->segment(1)=='sarpras'){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Sarpras<b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li class="<?php if($this->uri->segment(1)=='sarpras' && $this->uri->segment(2)=='asrama'){echo 'active';};?>"><a href="sarpras/asrama">Asrama</a></li>
-                <li class="<?php if($this->uri->segment(1)=='sarpras' && $this->uri->segment(2)=='kelas'){echo 'active';};?>"><a href="sarpras/kelas">Kelas</a></li>
+                <li class="<?php if($this->uri->segment(1)=='sarpras' && $this->uri->segment(2)=='gedung'){echo 'active';};?>"><a href="sarpras/gedung">Gedung Asrama</a></li>
+                <li class="<?php if($this->uri->segment(1)=='sarpras' && $this->uri->segment(2)=='kamar'){echo 'active';};?>"><a href="sarpras/kamar">Kamar Asrama</a></li>
+                <li class="<?php if($this->uri->segment(1)=='sarpras' && $this->uri->segment(2)=='asrama'){echo 'active';};?>"><a href="sarpras/asrama">CheckList Asrama</a></li>
+                <li class="<?php if($this->uri->segment(1)=='sarpras' && $this->uri->segment(2)=='kelas'){echo 'active';};?>"><a href="sarpras/kelas">CheckList Kelas</a></li>
                 <li class="<?php if($this->uri->segment(1)=='sarpras' && $this->uri->segment(2)=='keluhan'){echo 'active';};?>"><a href="sarpras/keluhan">Laporan</a></li>
             </ul>
         </li>

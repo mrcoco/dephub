@@ -12,6 +12,11 @@ class Kelas extends Sarpras_Controller{
 	//$this->template->display('simdik/sarpras/kelas',$data);
 	redirect('sarpras/kelas/list_kelas/0/'.date('Y').'/'.date('m').'/1/A');
     }
+    
+    function __construct() {
+        parent::__construct();
+        $this->load->model('mdl_sarpras','spr');
+    }
 
     function pemakaian()
     {

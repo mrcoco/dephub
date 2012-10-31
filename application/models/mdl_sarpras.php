@@ -4,6 +4,8 @@ class Mdl_sarpras extends CI_Model {
     private $table_program = 'program';
     private $table_asrama = 'sarpras_kamar';
     private $table_kelas = 'sarpras_kelas';
+    private $table_gedung = 'sarpras_gedung';
+    private $table_kamar = 'sarpras_kamar';
     private $table_pemakaian_asrama = 'sarpras_pemakaian_kamar';
     private $table_pemakaian_kelas = 'sarpras_pemakaian_kelas';
     private $table_check_list_asrama = 'sarpras_checklist_kamar';
@@ -114,6 +116,122 @@ class Mdl_sarpras extends CI_Model {
 	return $this->db->delete($this->table_pemakaian_asrama);
     }
 
+    /**********
+     * Gedung *
+     **********/
+    
+    function get_gedung($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_gedung);
+	} else {
+	    $this->db->where('id', $var);
+	    return $this->db->get($this->table_gedung);
+	}
+    }
+
+    function insert_gedung($data) {
+	$this->db->insert($this->table_gedung, $data);
+	return $this->db->insert_id();
+    }
+
+    function update_gedung($var, $data) {
+	$this->db->where('id', $var);
+	return $this->db->update($this->table_gedung, $data);
+    }
+
+    function delete_gedung($var) {
+	$this->db->where('id', $var);
+	return $this->db->delete($this->table_gedung);
+    }
+    
+    function count_gedung($filter){
+        $str_query='select count(tb_sarpras_gedung.id) as num FROM tb_sarpras_gedung';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%")';
+        }
+        return $this->db->query($str_query)->row()->num;
+    }
+    
+    /**********
+     * Kamar *
+     **********/
+    
+    function get_kamar($var=NULL) {
+        
+	if ($var == NULL) {
+            $this->db->select(
+            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.id as gedung'
+            );
+            $this->db->from($this->table_kamar);
+            $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+            
+            //var_dump($this->db->get()->result_array());
+	    return $this->db->get();
+	} else {
+            $this->db->select(
+            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.id as gedung'
+            );
+            $this->db->from($this->table_kamar);
+	    $this->db->where($this->table_kamar.'.id', $var);
+            $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+	    return $this->db->get();
+	}
+    }
+
+    function insert_kamar($data) {
+        $ins['id']=$data['id'];
+        $ins['asrama']=$data['asrama'];
+        $ins['lantai']=$data['lantai'];
+        $ins['sayap']=$data['sayap'];
+        $ins['nomor']=$data['nomor'];
+        $ins['bed']=$data['bed'];
+	$this->db->insert($this->table_kamar, $ins);
+	return $this->db->insert_id();
+    }
+
+    function update_kamar($var, $data) {        
+        $ins['id']=$data['id'];
+        $ins['asrama']=$data['asrama'];
+        $ins['lantai']=$data['lantai'];
+        $ins['sayap']=$data['sayap'];
+        $ins['nomor']=$data['nomor'];
+        $ins['bed']=$data['bed'];
+	$this->db->where('id', $var);
+	return $this->db->update($this->table_kamar, $ins);
+    }
+
+    function delete_kamar($var) {
+	$this->db->where('id', $var);
+	return $this->db->delete($this->table_kamar);
+    }
+    
+    function count_kamar($filter){
+        $str_query='select count(tb_sarpras_kamar.id) as num FROM tb_sarpras_kamar';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%")';
+        }
+        return $this->db->query($str_query)->row()->num;
+    }
+    
+    function generate_checklist_kamar($id,$var)
+    {
+        $this->load->model('mdl_sarpras');
+	// generator
+        for($j=0;$j<12;$j++)
+        {
+            for($k=0;$k<4;$k++)
+            {
+                $data_check_list=array(
+                    'id_kamar'=>$id,
+                    'bulan'=>$j+1,
+                    'minggu'=>$k+1,
+                    'tahun'=>$var
+                );
+                $this->mdl_sarpras->insert_check_list_kelas($data_check_list);
+            }
+        }
+    }
+    
     /*********
      * Kelas *
      *********/

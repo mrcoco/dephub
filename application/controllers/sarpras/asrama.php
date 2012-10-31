@@ -6,12 +6,18 @@
  */
 class Asrama extends Sarpras_Controller {
     private $limit=200;
+    
+    function __construct() {
+        parent::__construct();
+        $this->load->model('mdl_sarpras','spr');
+    }
+    
     public function index($offset=0)
     {
-	redirect('sarpras/asrama/list_asrama/0/'.date('Y').'/'.date('m').'/1/A');
+	redirect('sarpras/asrama/list_asrama/0/'.date('Y').'/'.date('m').'/1/1');
     }
 
-    function list_asrama($offset=0,$tahun=2012,$bulan=1,$minggu=1,$asrama='A')
+    function list_asrama($offset=0,$tahun=2012,$bulan=1,$minggu=1,$asrama='1')
     {
 	if(empty ($offset)) $offset=0;
 	$data['sub_title']='Asrama';
