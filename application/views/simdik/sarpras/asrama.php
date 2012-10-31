@@ -5,8 +5,18 @@
 	<div class="span2">
 	    <label>Asrama </label>
 	    <select name="asrama" class="input-small">
-		<option value="A" <?php echo $this->editor->a_selected('A');?> >A</option>
-		<option value="B" <?php echo $this->editor->a_selected('B');?> >B</option>
+                <?php
+                
+                $var = $this->mdl_sarpras->get_gedung()->result_array();
+                
+                
+                
+                foreach ($var as $row)
+                {
+                    echo"<option value=".$row['id']." ".$this->editor->a_selected($row['id'])." >".$row['nama']."</option>";
+                }
+                ?>
+            
 	    </select>
 	</div>
 	<div class="span2">
