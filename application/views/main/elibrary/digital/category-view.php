@@ -2,6 +2,11 @@
                         <div class="row-fluid">
                             <?php echo $this->session->flashdata('msg'); ?>
                         </div>        			
+    <?php echo form_open_multipart('elibrary/digital/search/');?>
+    <div class="input-append">
+        <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="button">Search</button>
+    </div>
+    </form>
 			<h3>Daftar Buku <?php echo $category;?></h3>
 			<?php if(count($bibliography)<1){?>
 			Data kosong

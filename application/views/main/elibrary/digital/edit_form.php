@@ -23,10 +23,9 @@
                                                 <?php endforeach; ?>
                                              </select></td></tr>
                                 <tr><td>Keterangan</td><td> : <textarea name="keterangan" cols="40" rows="6"/><?php echo $bibliography[0]['keterangan'];?> </textarea> </td></tr>
-                                <tr><td>Tags</td><td> : <textarea name="tags" cols="40" rows="6"/><?php echo $bibliography[0]['tags'];?> </textarea> </td></tr>
+                                <tr><td>Tags/keywords</td><td> : <textarea name="tags" cols="40" rows="6"/><?php echo $bibliography[0]['tags'];?> </textarea> </td></tr>
 
 				<input name="id" type="hidden" value="<?php echo $bibliography[0]['id'];?>">
-                                <tr><td>Tags adalah keyword dari file tersebut</td></tr>
 			</table>
                          
 			<br /><br />

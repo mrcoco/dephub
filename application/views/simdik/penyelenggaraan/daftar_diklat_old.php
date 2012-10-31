@@ -21,11 +21,11 @@
                             <h4>Diklat Kepemimpinan</h4>
                         </a>
                     </div>
-                    <div id="collapse1a" class="accordion-body">
+                    <div id="collapse1a" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <ul>
+                            <ol>
                                 <?php $this->lib_perencanaan->print_child_schedule($program, 4, '<li>', '</li>', '') ?>
-                            </ul>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -35,35 +35,35 @@
                             <h4>Diklat Fungsional</h4>
                         </a>
                     </div>
-                    <div id="collapse1b" class="accordion-body">
+                    <div id="collapse1b" class="accordion-body collapse">
 
                         <div class="accordion-inner">
                             <div class="accordion" id="accordion2b">
-                                <div class="">
-                                    <div class="">
+                                <div class="accordion-group">
+                                    <div class="accordion-heading">
                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2b" href="#collapseOneb">
                                             Diklat Fungsional Keahlian
                                         </a>
                                     </div>
-                                    <div id="collapseOneb" class="accordion-body">
-                                        <div class="">
-                                            <ul>
+                                    <div id="collapseOneb" class="accordion-body collapse">
+                                        <div class="accordion-inner">
+                                            <ol>
                                                 <?php $this->lib_perencanaan->print_child_schedule($program, 8, '<li>', '</li>', '') ?>
-                                            </ul>
+                                            </ol>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="">
-                                    <div class="">
+                                <div class="accordion-group">
+                                    <div class="accordion-heading">
                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2b" href="#collapseTwob">
                                             Diklat Tehnis Fungsional
                                         </a>
                                     </div>
-                                    <div id="collapseTwob" class="accordion-body">
-                                        <div class="">
-                                            <ul>
+                                    <div id="collapseTwob" class="accordion-body collapse">
+                                        <div class="accordion-inner">
+                                            <ol>
                                                 <?php $this->lib_perencanaan->print_child_schedule($program, 9, '<li>', '</li>', '') ?>
-                                            </ul>
+                                            </ol>
                                         </div>
                                     </div>
                                 </div>
@@ -80,11 +80,11 @@
                             <h4>Diklat Teknis Umum</h4>
                         </a>
                     </div>
-                    <div id="collapse3a" class="accordion-body">
+                    <div id="collapse3a" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <ul>
+                            <ol>
                                 <?php $this->lib_perencanaan->print_child_schedule($program, 6, '<li>', '</li>', '') ?>
-                            </ul>
+                            </ol>
                         </div>
                     </div>
                 </div>
@@ -94,28 +94,28 @@
                             <h4>Diklat Teknis Manajemen</h4>
                         </a>
                     </div>
-                    <div id="collapse3b" class="accordion-body">
+                    <div id="collapse3b" class="accordion-body collapse">
                         <div class="accordion-inner">
-                            <ul>
+                            <ol>
                                 <?php $this->lib_perencanaan->print_child_schedule($program, 7, '<li>', '</li>', '') ?>
-                            </ul>
+                            </ol>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="span4 hide">
+    <div class="span4">
         <div class="well" style="padding: 8px 0;">
             <ul class="nav-list nav">
                 <li class="nav-header">Overview</li>
                 <li><?php echo $program['0']['name'] ?></li>
                 <li class="nav-header">Tahun</li>
-                <li><?php echo $this->lib_perencanaan->overview($program,16,'tahun_program') ?></li>
+                <li><?php echo $this->lib_perencanaan->overview($program,1,'tahun_program') ?></li>
                 <li class="nav-header">Kategori</li>
-                <li><?php echo $pil_kategori[$this->lib_perencanaan->overview($program,16,'parent')] ?></li>
+                <li><?php echo $pil_kategori[$this->lib_perencanaan->overview($program,1,'parent')] ?></li>
                 <li class="nav-header">Deskripsi</li>
-                <li><?php echo $this->lib_perencanaan->overview($program,16,'deskripsi') ?></li>
+                <li><?php echo $this->lib_perencanaan->overview($program,1,'deskripsi') ?></li>
             </ul>
         </div>
     </div>

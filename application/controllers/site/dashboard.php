@@ -4,18 +4,32 @@ if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller {
+    protected $thn_default;
 
     function __construct() {
 	parent::__construct();
+        $this->thn_default = date('Y');
         $this->thn = date('Y');
 	$this->load->model('mdl_dashboard');
         $this->load->model('mdl_penyelenggaraan','slng');
         $this->load->model('mdl_perencanaan','rnc');
     }
 
-    public function index() {
+    public function index($thn='') {
 	$data['title'] = 'Selamat Datang';
-	$this->template->display('main/uc', $data);
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $data['thn']=$thn;
+        $this->load->library('lib_perencanaan');
+	$data['sub_title']='Daftar Diklat Tahun '.$thn;
+        $data['kategori']=$this->rnc->get_kategori();
+        $data['pil_kategori']=array();
+        foreach($data['kategori'] as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $data['program']=$this->rnc->get_program($thn);
+	$this->template->display_pub('main/dashboard/daftar_diklat', $data);
     }
 
     function email() {
