@@ -40,10 +40,10 @@
             format: 'yyyy-mm-dd'
         });
         $('#list').dataTable();
-        $('#list_length, #list_info').addClass('pull-right');
+//        $('#list_length, #list_info').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');
         $('#list_filter input').attr('placeholder','Masukkan nama/NIP');
-        $('#list_paginate').addClass('pager');
+//        $('#list_paginate').addClass('pager');
 //        $('#list_previous, #list_next').addClass('btn');
     } );
 </script>
