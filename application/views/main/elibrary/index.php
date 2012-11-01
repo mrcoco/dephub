@@ -1,11 +1,11 @@
-<div class="input-append">
+<div class="well">
+    <h2>Pencarian</h2>
     <?php echo form_open_multipart('elibrary/digital/search/');?>
-        <input type="text" name="search" placeholder="Cari file" class="input-xlarge"/><button class="btn" type="submit">Search</button>
-    </form>                
-    <h1>Selamat Datang</h1>
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean egestas magna non turpis laoreet sed blandit velit accumsan. Nulla posuere tortor eu est egestas iaculis. Curabitur semper, urna sed elementum rutrum, lacus justo scelerisque mi, quis sodales risus est id enim. Aenean molestie augue id tortor elementum auctor. Sed eleifend erat porta justo gravida convallis. Maecenas ut ipsum sit amet tellus lacinia mattis. Vivamus sit amet sapien tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </p>
+    <div class="input-append">
+        <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="button">Search</button>
+    </div>
+    </form>
+</div>
     <div class="row">
         <div class="span4">
             <h2>File Terbaru</h2>
@@ -35,4 +35,3 @@
             </p>
         </div>
     </div>
-</div>

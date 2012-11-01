@@ -21,11 +21,11 @@
                             <h4>Diklat Kepemimpinan</h4>
                         </a>
                     </div>
-                    <div id="collapse1a" class="accordion-body collapse">
+                    <div id="collapse1a" class="accordion-body">
                         <div class="accordion-inner">
-                            <ol>
+                            <ul>
                                 <?php $this->lib_perencanaan->print_child($program, 4, '<li>', '</li>', '') ?>
-                            </ol>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -35,35 +35,35 @@
                             <h4>Diklat Fungsional</h4>
                         </a>
                     </div>
-                    <div id="collapse1b" class="accordion-body collapse">
+                    <div id="collapse1b" class="accordion-body">
 
                         <div class="accordion-inner">
                             <div class="accordion" id="accordion2b">
-                                <div class="accordion-group">
-                                    <div class="accordion-heading">
+                                <div class="">
+                                    <div class="">
                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2b" href="#collapseOneb">
                                             Diklat Fungsional Keahlian
                                         </a>
                                     </div>
-                                    <div id="collapseOneb" class="accordion-body collapse">
-                                        <div class="accordion-inner">
-                                            <ol>
+                                    <div id="collapseOneb" class="accordion-body">
+                                        <div class="">
+                                            <ul>
                                                 <?php $this->lib_perencanaan->print_child($program, 8, '<li>', '</li>', '') ?>
-                                            </ol>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-group">
-                                    <div class="accordion-heading">
+                                <div class="">
+                                    <div class="">
                                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2b" href="#collapseTwob">
                                             Diklat Tehnis Fungsional
                                         </a>
                                     </div>
-                                    <div id="collapseTwob" class="accordion-body collapse">
-                                        <div class="accordion-inner">
-                                            <ol>
+                                    <div id="collapseTwob" class="accordion-body">
+                                        <div class="">
+                                            <ul>
                                                 <?php $this->lib_perencanaan->print_child($program, 9, '<li>', '</li>', '') ?>
-                                            </ol>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -80,11 +80,11 @@
                             <h4>Diklat Teknis Umum</h4>
                         </a>
                     </div>
-                    <div id="collapse3a" class="accordion-body collapse">
+                    <div id="collapse3a" class="accordion-body">
                         <div class="accordion-inner">
-                            <ol>
+                            <ul>
                                 <?php $this->lib_perencanaan->print_child($program, 6, '<li>', '</li>', '') ?>
-                            </ol>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -94,11 +94,11 @@
                             <h4>Diklat Teknis Manajemen</h4>
                         </a>
                     </div>
-                    <div id="collapse3b" class="accordion-body collapse">
+                    <div id="collapse3b" class="accordion-body">
                         <div class="accordion-inner">
-                            <ol>
+                            <ul>
                                 <?php $this->lib_perencanaan->print_child($program, 7, '<li>', '</li>', '') ?>
-                            </ol>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -107,7 +107,7 @@
             <a href="perencanaan/diklat/cetak_jadwal/<?php echo $thn?>" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Cetak Jadwal</a>
         </div>
     </div>
-    <div class="span4">
+    <div class="span4 hide">
         <div class="well" style="padding: 8px 0;">
             <ul class="nav-list nav">
                 <li class="nav-header">Overview</li>

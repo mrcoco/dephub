@@ -7,10 +7,10 @@
             <h3>DIKLAT PRAJABATAN</h3>
             <div class="accordion">
                 <?php
-                $kiri = '<div class="accordion-group"><div class="accordion-heading"><h4>';
-                $kanan = '</h4></div></div>';
+                $kiri = '<div class="accordion-group"><div class="accordion-heading"><h4><a class="accordion-toggle">';
+                $kanan = '</a></h4></div></div>';
                 $kelas = 'accordion-toggle';
-                $this->lib_perencanaan->print_child_schedule($program, 1, $kiri, $kanan, $kelas)
+                $this->lib_perencanaan->print_child_pub($program, 1, $kiri, $kanan, $kelas)
                 ?>
             </div>
             <h3>DIKLAT DALAM JABATAN</h3>
@@ -24,7 +24,7 @@
                     <div id="collapse1a" class="accordion-body">
                         <div class="accordion-inner">
                             <ul>
-                                <?php $this->lib_perencanaan->print_child_schedule($program, 4, '<li>', '</li>', '') ?>
+                                <?php $this->lib_perencanaan->print_child_pub($program, 4, '<li>', '</li>', '') ?>
                             </ul>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                                     <div id="collapseOneb" class="accordion-body">
                                         <div class="">
                                             <ul>
-                                                <?php $this->lib_perencanaan->print_child_schedule($program, 8, '<li>', '</li>', '') ?>
+                                                <?php $this->lib_perencanaan->print_child_pub($program, 8, '<li>', '</li>', '') ?>
                                             </ul>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                     <div id="collapseTwob" class="accordion-body">
                                         <div class="">
                                             <ul>
-                                                <?php $this->lib_perencanaan->print_child_schedule($program, 9, '<li>', '</li>', '') ?>
+                                                <?php $this->lib_perencanaan->print_child_pub($program, 9, '<li>', '</li>', '') ?>
                                             </ul>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                     <div id="collapse3a" class="accordion-body">
                         <div class="accordion-inner">
                             <ul>
-                                <?php $this->lib_perencanaan->print_child_schedule($program, 6, '<li>', '</li>', '') ?>
+                                <?php $this->lib_perencanaan->print_child_pub($program, 6, '<li>', '</li>', '') ?>
                             </ul>
                         </div>
                     </div>
@@ -97,26 +97,12 @@
                     <div id="collapse3b" class="accordion-body">
                         <div class="accordion-inner">
                             <ul>
-                                <?php $this->lib_perencanaan->print_child_schedule($program, 7, '<li>', '</li>', '') ?>
+                                <?php $this->lib_perencanaan->print_child_pub($program, 7, '<li>', '</li>', '') ?>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="span4 hide">
-        <div class="well" style="padding: 8px 0;">
-            <ul class="nav-list nav">
-                <li class="nav-header">Overview</li>
-                <li><?php echo $program['0']['name'] ?></li>
-                <li class="nav-header">Tahun</li>
-                <li><?php echo $this->lib_perencanaan->overview($program,16,'tahun_program') ?></li>
-                <li class="nav-header">Kategori</li>
-                <li><?php echo $pil_kategori[$this->lib_perencanaan->overview($program,16,'parent')] ?></li>
-                <li class="nav-header">Deskripsi</li>
-                <li><?php echo $this->lib_perencanaan->overview($program,16,'deskripsi') ?></li>
-            </ul>
         </div>
     </div>
 </div>

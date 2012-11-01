@@ -1,6 +1,6 @@
 <form method="GET" action="">
     <div class="input-append">
-        <input type="text" name="search" placeholder="Cari file" class="input-xlarge"/><button class="btn" type="button">Search</button>
+        <input type="text" name="search" placeholder="Cari file" style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn" type="button">Search</button>
     </div>
 </form>   
 

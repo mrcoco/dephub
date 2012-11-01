@@ -17,9 +17,8 @@
                                                 <?php endforeach; ?>
                                              </select></td></tr>
                                 <tr><td>Keterangan</td><td> : <textarea name="keterangan" cols="40" rows="6"/></textarea> </td></tr>
-                                <tr><td>Tags</td><td> : <textarea name="tags" cols="40" rows="6"/> </textarea> </td></tr>
+                                <tr><td>Tags/keywords</td><td> : <textarea name="tags" cols="40" rows="6"/> </textarea> </td></tr>
 				
-                                <tr><td>Tags adalah keyword dari file tersebut</td></tr>
 				
 				
 

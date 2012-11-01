@@ -52,5 +52,17 @@ class Lib_perencanaan {
             }
         }
     }
+    function print_child_pub($array,$parent,$kiri,$kanan,$kelas){
+        if($array){
+            foreach($array as $data){
+                if($data['parent']==$parent){
+                    echo $kiri.'
+                            '.$data['name'].'
+                        '.$kanan.'
+                        ';
+                }
+            }
+        }
+    }
 }
 
