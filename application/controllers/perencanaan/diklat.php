@@ -23,6 +23,39 @@ class Diklat extends Perencanaan_Controller{
 
     }
 
+    function daftar_kategori(){
+        $this->load->library('lib_perencanaan');
+        $data['kategori']=$this->rnc->get_kategori();
+        $this->template->display('simdik/perencanaan/daftar_kategori',$data);
+    }
+    
+    function buat_kategori(){
+        $kategori=$this->rnc->get_kategori();
+        $data['pil_kategori']=array(0=>'-');
+        foreach($kategori as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $this->template->display('simdik/perencanaan/form_buat_kategori',$data);
+    }
+    
+    function edit_kategori($id){
+        $data['edit_kategori']=$this->rnc->get_kategori_id($id);
+        $kategori=$this->rnc->get_kategori();
+        $data['pil_kategori']=array(0=>'-');
+        foreach($kategori as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $this->template->display('simdik/perencanaan/form_edit_kategori',$data);
+    }
+    
+    function insert_kategori(){
+        $data['parent']=$this->input->post('parent');
+        $data['name']=$this->input->post('nama');
+        $data['tahun_program']='0000';
+        $this->rnc->insert_kategori($data);
+        redirect(base_url().'perencanaan/diklat/daftar_kategori');
+    }
+    
     function daftar_diklat($thn=''){
         if($thn==''){
             $thn=$this->thn_default;
@@ -30,12 +63,7 @@ class Diklat extends Perencanaan_Controller{
         $data['thn']=$thn;
         $this->load->library('lib_perencanaan');
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
-        $data['kategori']=$this->rnc->get_kategori();
-        $data['pil_kategori']=array();
-        foreach($data['kategori'] as $k){
-            $data['pil_kategori'][$k['id']]=$k['name'];
-        }
-        $data['program']=$this->rnc->get_program($thn);
+        $data['program']=$this->rnc->get_all_program($thn);
 	$this->template->display('simdik/perencanaan/daftar_diklat',$data);
     }
 
@@ -58,11 +86,12 @@ class Diklat extends Perencanaan_Controller{
         }
     }
 
-    function buat_diklat(){
+    function buat_diklat($pil_kat=-1){
         $this->load->library('editor');
 	$data['sub_title']='Buat Diklat Baru';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
+        $data['pil_kat']=$pil_kat;
         foreach($kategori as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }
@@ -254,200 +283,200 @@ class Diklat extends Perencanaan_Controller{
         }
         
         //mencetak data per diklat
-        $absolute=true;
-        $row=8;
-        $col=0;
-        $arr_program=$this->rnc->get_program($thn);
-        
-        //kategori diklat prajabatan, id nya 1
-        $parent=1;
-        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
-        $sheet->setCellValueByColumnAndRow($col, $row,'DIKLAT PRAJABATAN');
-        $sheet->getStyleByColumnAndRow($col, $row)
-                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-            $sheet->getStyleByColumnAndRow($col, $row)
-                    ->getFont()->setBold(true);
-        
-        //cetak program dibawah kategori prajab
-        $no=0;
-        foreach($arr_program as $data){
-            if($data['parent']==$parent){
-                $no++;
-                $row++;
-                $sheet->setCellValueByColumnAndRow($col, $row,$no);
-                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
-                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
-                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
-                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
-                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
-                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
-                $hari = date_diff($date1, $date2, $absolute)->format('%d');
-                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
-                //cetak ke samping
-                $idx_hari_mulai = date_format($date1,'z');
-                $idx_hari_selesai = date_format($date2,'z');
-                
-                //ngijoin cell, rumusnya kolom=$idx_hari+6
-                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
-                    $style_aktif = array( 
-                        'fill' => array( 
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-                            'color' => array('rgb'=>'00FF00')
-                            )
-                        );
-                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
-                }
-            }
-        }    
-        
-        //cetak header kategori diklat dalam jabatan
-        
-        $row++;
-        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
-        $sheet->setCellValueByColumnAndRow($col, $row,'DIKLAT DALAM JABATAN');
-        $sheet->getStyleByColumnAndRow($col, $row)
-                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-            $sheet->getStyleByColumnAndRow($col, $row)
-                    ->getFont()->setBold(true);
-            
-        //cetak header kategori diklat dalam kepemimpinan, id = 4
-        $parent=4;    
-        $row++;
-        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
-        $sheet->setCellValueByColumnAndRow($col, $row,'KEPEMIMPINAN');
-            $sheet->getStyleByColumnAndRow($col, $row)
-                    ->getFont()->setBold(true);
-        
-        //cetak program dibawah kategori kepemimpinan
-        $no=0;
-        foreach($arr_program as $data){
-            if($data['parent']==$parent){
-                $no++;
-                $row++;
-                $sheet->setCellValueByColumnAndRow($col, $row,$no);
-                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
-                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
-                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
-                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
-                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
-                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
-                $hari = date_diff($date1, $date2, $absolute)->format('%d');
-                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
-                //cetak ke samping
-                $idx_hari_mulai = date_format($date1,'z');
-                $idx_hari_selesai = date_format($date2,'z');
-                
-                //ngijoin cell, rumusnya kolom=$idx_hari+6
-                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
-                    $style_aktif = array( 
-                        'fill' => array( 
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-                            'color' => array('rgb'=>'00FF00')
-                            )
-                        );
-                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
-                }
-            }
-        }    
-            
-        //cetak header kategori diklat dalam fungsional, parent keahlian 8, parent teknis 9
-        $parent1=8;
-        $parent2=9;
-        $row++;
-        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
-        $sheet->setCellValueByColumnAndRow($col, $row,'FUNGSIONAL');
-            $sheet->getStyleByColumnAndRow($col, $row)
-                    ->getFont()->setBold(true);
-        
-        //cetak program dibawah kategori fungsional, terdiri dari keahlian dan teknis
-        $no=0;
-        foreach($arr_program as $data){
-            if($data['parent']==$parent1||$data['parent']==$parent2){
-                $no++;
-                $row++;
-                $sheet->setCellValueByColumnAndRow($col, $row,$no);
-                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
-                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
-                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
-                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
-                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
-                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
-                $hari = date_diff($date1, $date2, $absolute)->format('%d');
-                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
-                //cetak ke samping
-                $idx_hari_mulai = date_format($date1,'z');
-                $idx_hari_selesai = date_format($date2,'z');
-                
-                //ngijoin cell, rumusnya kolom=$idx_hari+6
-                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
-                    $style_aktif = array( 
-                        'fill' => array( 
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-                            'color' => array('rgb'=>'00FF00')
-                            )
-                        );
-                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
-                }
-            }
-        }
-        
-        //cetak header kategori diklat dalam teknis, parent teknis umum 6, parent teknis manajemen 7
-        $parent1=6;
-        $parent2=7;
-        $row++;
-        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
-        $sheet->setCellValueByColumnAndRow($col, $row,'TEKNIS');
-            $sheet->getStyleByColumnAndRow($col, $row)
-                    ->getFont()->setBold(true);
-        
-        //cetak program dibawah kategori fungsional, terdiri dari keahlian dan teknis
-        $no=0;
-        foreach($arr_program as $data){
-            if($data['parent']==$parent1||$data['parent']==$parent2){
-                $no++;
-                $row++;
-                $sheet->setCellValueByColumnAndRow($col, $row,$no);
-                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
-                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
-                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
-                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
-                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
-                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
-                $hari = date_diff($date1, $date2, $absolute)->format('%d');
-                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
-                $idx_hari_mulai = date_format($date1,'z');
-                $idx_hari_selesai = date_format($date2,'z');
-                //cetak ke samping
-                $idx_hari_mulai = date_format($date1,'z');
-                $idx_hari_selesai = date_format($date2,'z');
-                
-                //ngijoin cell, rumusnya kolom=$idx_hari+6
-                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
-                    $style_aktif = array( 
-                        'fill' => array( 
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-                            'color' => array('rgb'=>'00FF00')
-                            )
-                        );
-                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
-                }
-            }
-        }
-        
-        //ngewarnain yg hari minggu
-        $row_min=8;
-        $row_max=$row;
-        foreach($arr_minggu as $col){
-            $style_minggu = array( 
-                        'fill' => array( 
-                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-                            'color' => array('rgb'=>'FF0000')
-                            )
-                        );
-            for($xx=$row_min;$xx<=$row_max;$xx++){
-                $sheet->getStyleByColumnAndRow($col, $xx)->applyFromArray($style_minggu);
-            }
-        }
+//        $absolute=true;
+//        $row=8;
+//        $col=0;
+//        $arr_program=$this->rnc->get_program($thn);
+//        
+//        //kategori diklat prajabatan, id nya 1
+//        $parent=1;
+//        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
+//        $sheet->setCellValueByColumnAndRow($col, $row,'DIKLAT PRAJABATAN');
+//        $sheet->getStyleByColumnAndRow($col, $row)
+//                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//            $sheet->getStyleByColumnAndRow($col, $row)
+//                    ->getFont()->setBold(true);
+//        
+//        //cetak program dibawah kategori prajab
+//        $no=0;
+//        foreach($arr_program as $data){
+//            if($data['parent']==$parent){
+//                $no++;
+//                $row++;
+//                $sheet->setCellValueByColumnAndRow($col, $row,$no);
+//                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
+//                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
+//                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
+//                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
+//                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
+//                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
+//                $hari = date_diff($date1, $date2, $absolute)->format('%d');
+//                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
+//                //cetak ke samping
+//                $idx_hari_mulai = date_format($date1,'z');
+//                $idx_hari_selesai = date_format($date2,'z');
+//                
+//                //ngijoin cell, rumusnya kolom=$idx_hari+6
+//                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
+//                    $style_aktif = array( 
+//                        'fill' => array( 
+//                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+//                            'color' => array('rgb'=>'00FF00')
+//                            )
+//                        );
+//                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
+//                }
+//            }
+//        }    
+//        
+//        //cetak header kategori diklat dalam jabatan
+//        
+//        $row++;
+//        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
+//        $sheet->setCellValueByColumnAndRow($col, $row,'DIKLAT DALAM JABATAN');
+//        $sheet->getStyleByColumnAndRow($col, $row)
+//                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+//            $sheet->getStyleByColumnAndRow($col, $row)
+//                    ->getFont()->setBold(true);
+//            
+//        //cetak header kategori diklat dalam kepemimpinan, id = 4
+//        $parent=4;    
+//        $row++;
+//        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
+//        $sheet->setCellValueByColumnAndRow($col, $row,'KEPEMIMPINAN');
+//            $sheet->getStyleByColumnAndRow($col, $row)
+//                    ->getFont()->setBold(true);
+//        
+//        //cetak program dibawah kategori kepemimpinan
+//        $no=0;
+//        foreach($arr_program as $data){
+//            if($data['parent']==$parent){
+//                $no++;
+//                $row++;
+//                $sheet->setCellValueByColumnAndRow($col, $row,$no);
+//                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
+//                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
+//                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
+//                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
+//                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
+//                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
+//                $hari = date_diff($date1, $date2, $absolute)->format('%d');
+//                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
+//                //cetak ke samping
+//                $idx_hari_mulai = date_format($date1,'z');
+//                $idx_hari_selesai = date_format($date2,'z');
+//                
+//                //ngijoin cell, rumusnya kolom=$idx_hari+6
+//                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
+//                    $style_aktif = array( 
+//                        'fill' => array( 
+//                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+//                            'color' => array('rgb'=>'00FF00')
+//                            )
+//                        );
+//                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
+//                }
+//            }
+//        }    
+//            
+//        //cetak header kategori diklat dalam fungsional, parent keahlian 8, parent teknis 9
+//        $parent1=8;
+//        $parent2=9;
+//        $row++;
+//        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
+//        $sheet->setCellValueByColumnAndRow($col, $row,'FUNGSIONAL');
+//            $sheet->getStyleByColumnAndRow($col, $row)
+//                    ->getFont()->setBold(true);
+//        
+//        //cetak program dibawah kategori fungsional, terdiri dari keahlian dan teknis
+//        $no=0;
+//        foreach($arr_program as $data){
+//            if($data['parent']==$parent1||$data['parent']==$parent2){
+//                $no++;
+//                $row++;
+//                $sheet->setCellValueByColumnAndRow($col, $row,$no);
+//                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
+//                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
+//                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
+//                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
+//                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
+//                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
+//                $hari = date_diff($date1, $date2, $absolute)->format('%d');
+//                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
+//                //cetak ke samping
+//                $idx_hari_mulai = date_format($date1,'z');
+//                $idx_hari_selesai = date_format($date2,'z');
+//                
+//                //ngijoin cell, rumusnya kolom=$idx_hari+6
+//                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
+//                    $style_aktif = array( 
+//                        'fill' => array( 
+//                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+//                            'color' => array('rgb'=>'00FF00')
+//                            )
+//                        );
+//                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
+//                }
+//            }
+//        }
+//        
+//        //cetak header kategori diklat dalam teknis, parent teknis umum 6, parent teknis manajemen 7
+//        $parent1=6;
+//        $parent2=7;
+//        $row++;
+//        $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
+//        $sheet->setCellValueByColumnAndRow($col, $row,'TEKNIS');
+//            $sheet->getStyleByColumnAndRow($col, $row)
+//                    ->getFont()->setBold(true);
+//        
+//        //cetak program dibawah kategori fungsional, terdiri dari keahlian dan teknis
+//        $no=0;
+//        foreach($arr_program as $data){
+//            if($data['parent']==$parent1||$data['parent']==$parent2){
+//                $no++;
+//                $row++;
+//                $sheet->setCellValueByColumnAndRow($col, $row,$no);
+//                $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
+//                $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
+//                $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
+//                $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
+//                $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
+//                $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
+//                $hari = date_diff($date1, $date2, $absolute)->format('%d');
+//                $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
+//                $idx_hari_mulai = date_format($date1,'z');
+//                $idx_hari_selesai = date_format($date2,'z');
+//                //cetak ke samping
+//                $idx_hari_mulai = date_format($date1,'z');
+//                $idx_hari_selesai = date_format($date2,'z');
+//                
+//                //ngijoin cell, rumusnya kolom=$idx_hari+6
+//                for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
+//                    $style_aktif = array( 
+//                        'fill' => array( 
+//                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+//                            'color' => array('rgb'=>'00FF00')
+//                            )
+//                        );
+//                    $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
+//                }
+//            }
+//        }
+//        
+//        //ngewarnain yg hari minggu
+//        $row_min=8;
+//        $row_max=$row;
+//        foreach($arr_minggu as $col){
+//            $style_minggu = array( 
+//                        'fill' => array( 
+//                            'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+//                            'color' => array('rgb'=>'FF0000')
+//                            )
+//                        );
+//            for($xx=$row_min;$xx<=$row_max;$xx++){
+//                $sheet->getStyleByColumnAndRow($col, $xx)->applyFromArray($style_minggu);
+//            }
+//        }
         
         $filename = 'jadwal pelatihan.xlsx'; //save our workbook as this file name
         header('Content-Type: application/vnd.ms-excel'); //mime type
