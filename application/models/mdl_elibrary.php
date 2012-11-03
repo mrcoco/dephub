@@ -33,6 +33,12 @@ class Mdl_elibrary extends CI_Model{
          $row=$category->row();
          return $row->idcategory;
      }
+     function get_name_category_by_id($id){
+         $this->db->select('categoryname');
+         $category= $this->db->get_where('elib_category',array('idcategory'=>$id));
+         $row=$category->row();
+         return $row->categoryname;
+     }
     function insert_category($data){
         $this->db->insert('elib_category',$data);
 	}

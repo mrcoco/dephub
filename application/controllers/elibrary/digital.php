@@ -165,9 +165,9 @@ class Digital extends CI_Controller {
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
         
-        function category()
+        function category($idcategory='')
 	{
-                if(!$this->input->post('category')){
+                if($idcategory==''){
                     $data = array(
                 'category'=>$this->elib->get_category(),
                 'author'=>$this->elib->get_author()
@@ -176,16 +176,16 @@ class Digital extends CI_Controller {
                 }
                 else{
                 $config=array();
-                $category=$this->elib->get_id_category_by_name($this->input->post('category'));
                 
-                $config["total_rows"]=$this->elib->count_bibliography_by_category($category);
+                
+                $config["total_rows"]=$this->elib->count_bibliography_by_category($idcategory);
                 $config["per_page"]=20;
                 $config["uri_segment"] = 5;
                 $this->pagination->initialize($config);                
                 $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
                            
-                $data=array('bibliography'=>$this->elib->get_bibliography_by_category($category,$config["per_page"],$page),
-                            'category'=> $this->input->post('category')
+                $data=array('bibliography'=>$this->elib->get_bibliography_by_category($idcategory,$config["per_page"],$page),
+                            'category'=> $this->elib->get_name_category_by_id($idcategory)
                         );
                 $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('main/elibrary/digital/category-view', $data);
