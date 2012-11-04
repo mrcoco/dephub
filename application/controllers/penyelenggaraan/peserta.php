@@ -25,7 +25,8 @@ class Peserta extends Penyelenggaraan_Controller{
         foreach($list_program as $program){
             $data['pil_program'][$program['id']]=$program['name'];
         }
-        $this->template->display_dik('simdik/penyelenggaraan/list_peserta',$data);
+        if($data['id']==-1){$gen=TRUE;}else{$gen=FALSE;}
+        $this->template->display_dik('simdik/penyelenggaraan/list_peserta',$data,$gen);
     }
     
     function registrasi_dik($id){
@@ -60,7 +61,7 @@ class Peserta extends Penyelenggaraan_Controller{
         foreach($list_program as $program){
             $data['pil_program'][$program['id']]=$program['name'];
         }
-        $this->template->display('simdik/penyelenggaraan/registrasi',$data);
+        $this->template->display_dik('simdik/penyelenggaraan/registrasi',$data,TRUE);
     }
     
     function registrasi_proses(){

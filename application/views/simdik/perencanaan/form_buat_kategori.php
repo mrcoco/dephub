@@ -9,7 +9,7 @@
             <td><input type="text" name="nama"/></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Buat kategori"/></td>
+            <td colspan="2"><input class="btn btn-primary" type="submit" value="Buat kategori"/></td>
         </tr>
     </table>
 </form>
