@@ -62,7 +62,7 @@ class Admin extends CI_Controller {
 //                $data = array(
 //                
 //                );
-		$this->template->display_lib('main/elibrary/admin-page');
+		$this->template->display_lib('main/elibrary/short_form');
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
         
@@ -105,7 +105,7 @@ class Admin extends CI_Controller {
 //                $data = array(
 //                
 //                );
-		$this->template->display_lib('main/elibrary/admin-page');
+		$this->template->display_lib('main/elibrary/short_form');
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
         

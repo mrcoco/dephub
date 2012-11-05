@@ -44,7 +44,7 @@ class Digital extends CI_Controller {
 	{
 		$config['upload_path'] = './assets/elibrary/uploads/'; 
 		$config['allowed_types'] = 'gif|jpg|png|doc|docx|ppt|pptx|xls|xlsx|pdf|jpeg|pdf|';
-		$config['max_size']	= '10000';
+		$config['max_size']	= '100000';
                 $config['overwrite']    = TRUE;
 		
 		$this->load->library('upload', $config);
@@ -56,32 +56,43 @@ class Digital extends CI_Controller {
 		}
 		else
 		{
+                        $stringauthor=$this->input->post('authorname');
 			 
+                        if(!$this->elib->check_author($stringauthor)){ //Apabila author-nya ga ada
+                        //masukin pengarang baru
+                            $authorinsert['authorname']=$stringauthor;
+                            $this->elib->insert_author($authorinsert);
+                        }
 			$data = array('item' => $this->upload->data(),
                             'category'=>$this->elib->get_category(),
                             'author'=>$this->elib->get_author()
                             );
-			$datainsert['title']=$data['item']['raw_name'];
-			//$datainsert['category']=$this->input->post('category');
-                        $temp=$data['item']['file_ext'];
-			if($temp=='.pdf'||$temp='.doc'||$temp='.docx'||$temp='.txt'||$temp='.xls'||$temp='.xlsx') $datainsert['type']=1; //dokumen
-			else if ($temp=='.mp4'||$temp='.mp3'||$temp='.wmv'||$temp='.flv'||$temp='.3gp'||$temp='.mkv'||$temp='.avi') $datainsert['type']=2;//video
-			else if ($temp=='.pptx'||$temp='.ppt') $datainsert['type']=3; //presentasi
-			else  $datainsert['type']=0; //lain2
+                        
+			$data['insert']['title']=$data['item']['raw_name'];
 			
-			$datainsert['location']='./assets/elibrary/uploads/'.$data['item']['orig_name'];
-			$datainsert['keterangan']=$this->input->post('keterangan');
-                        $datainsert['tags']=$this->input->post('tags');
+                        $temp=$data['item']['file_ext'];
+			if($temp=='.pdf'||$temp='.doc'||$temp='.docx'||$temp='.txt'||$temp='.xls'||$temp='.xlsx') $data['insert']['type']=1; //dokumen
+			else if ($temp=='.mp4'||$temp='.mp3'||$temp='.wmv'||$temp='.flv'||$temp='.3gp'||$temp='.mkv'||$temp='.avi') $data['insert']['type']=2;//video
+			else if ($temp=='.pptx'||$temp='.ppt') $data['insert']['type']=3; //presentasi
+			else  $data['insert']['type']=0; //lain2
+			
+			$data['insert']['location']='./assets/elibrary/uploads/'.$data['item']['orig_name'];
+			$data['insert']['keterangan']=$this->input->post('keterangan');
+                        $data['insert']['tags']=$this->input->post('tags');
                         
                         $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-                        $datainsert['idcategory']=$category['idcategory'];
-                        $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
-                        $datainsert['idauthor']=$author['idauthor'];
+                        $data['insert']['idcategory']=$category['idcategory'];
+                        $author=$this->elib->get_id_author_by_name($stringauthor);
+                        $data['insert']['idauthor']=$author['idauthor'];
                         
-			$this->elib->insert_bibliography($datainsert);
+			$this->elib->insert_bibliography($data['insert']);
                         $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diupload'));
-//                        redirect(base_url().'elibrary/daftar');
 			$this->template->display_lib('main/elibrary/digital/upload_success', $data);
+                        
+                        
+                            
+                            
+                        
 		}
 	}
         

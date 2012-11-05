@@ -44,8 +44,28 @@ class Mdl_elibrary extends CI_Model{
 	}
     function update_category(){
 	}
-    function delete_category(){
-	}
+    function count_bibliography_by_idcategory($id){
+        $this->db->where("idcategory",$id);
+        return $this->db->count_all_results("elib_bibliography");
+        
+    }
+    function count_books_by_idcategory($id){
+        $this->db->where("idcategory",$id);
+        return $this->db->count_all_results("elib_books");
+        
+    }
+    function delete_category($id){
+        if (count_books_by_idcategory($id)>0 ||count_bibliography_by_idcategory($id)>0){
+            //Category tidak bisa di delete karena masih ada buku yang terkoneksi
+            return FALSE;
+        }
+        else {
+            $this->db->delete('elib_category', array('id' => $id)); 
+            return TRUE;
+            //category bisa didelete karena tidak ada buku yang terkoneksi
+        }
+        
+    }
 	
         function get_bibliography_by_id($id) {
             $this->db->select('*');
@@ -234,6 +254,16 @@ class Mdl_elibrary extends CI_Model{
         $this->db->insert('elib_author',$data);
 	}
         
+        function check_author($string){
+            $this->db->where('authorname',$string); 
+            $data=$this->db->get('elib_author');
+            if ($data->num_rows() > 0) {
+            return true;
+            } 
+            else return false;
+
+            
+        }
 }
 
 /* End of file mdl_elibrary.php */
