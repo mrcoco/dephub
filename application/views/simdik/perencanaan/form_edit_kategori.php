@@ -9,7 +9,7 @@
             <td><input type="text" name="nama" value="<?php echo $edit_kategori['name']?>"/></td>
         </tr>
         <tr>
-            <td colspan="2"><input type="submit" value="Simpan kategori"/></td>
+            <td colspan="2"><input class="btn btn-primary" type="submit" value="Simpan kategori"/></td>
         </tr>
     </table>
 </form>

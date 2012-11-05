@@ -23,13 +23,8 @@ class Dashboard extends CI_Controller {
         $data['thn']=$thn;
         $this->load->library('lib_perencanaan');
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
-        $data['kategori']=$this->rnc->get_kategori();
-        $data['pil_kategori']=array();
-        foreach($data['kategori'] as $k){
-            $data['pil_kategori'][$k['id']]=$k['name'];
-        }
-        $data['program']=$this->rnc->get_program($thn);
-	$this->template->display_pub('main/dashboard/daftar_diklat', $data);
+        $data['program']=$this->rnc->get_all_program($thn);
+	$this->template->display_pub('main/dashboard/index', $data);
     }
 
     function email() {

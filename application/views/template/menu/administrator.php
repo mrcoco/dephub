@@ -5,7 +5,8 @@
             <ul class="dropdown-menu">
                 <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat' && $this->uri->segment(3)=='daftar_diklat'){echo 'active';};?>"><a href="perencanaan/diklat/daftar_diklat">Daftar Diklat</a></li>
                 <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat' && $this->uri->segment(3)=='buat_diklat'){echo 'active';};?>"><a href="perencanaan/diklat/buat_diklat">Tambah Diklat</a></li>
-                <li class="<?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='schedule' && $this->uri->segment(3)==''){echo 'active';};?>"><a href="penyelenggaraan/schedule">Jadwal Diklat</a></li>
+                <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat' && $this->uri->segment(3)=='daftar_kategori'){echo 'active';};?>"><a href="perencanaan/diklat/daftar_kategori">Daftar Kategori</a></li>
+                <li class="<?php if($this->uri->segment(1)=='perencanaan' && $this->uri->segment(2)=='diklat' && $this->uri->segment(3)=='buat_kategori'){echo 'active';};?>"><a href="perencanaan/diklat/buat_kategori">Tambah Kategori</a></li>
             </ul>
         </li>
         <li class="dropdown <?php if($this->uri->segment(1)=='penyelenggaraan' && $this->uri->segment(2)=='pegawai' && $this->uri->segment(3)==''){echo 'active';};?>"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Pegawai<b class="caret"></b></a>

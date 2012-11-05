@@ -47,13 +47,17 @@ class Template {
         $this->_ci->load->view('/template/main.php', $data);
     }
     
-    function display_dik($template, $data = null) {
+    function display_dik($template, $data = null, $gen=FALSE) {
         if(isset($data['title'])){
             $data['_title']=$data['title'];
         }else{
             $data['_title'] = $this->_ci->session->userdata('detail');
         }
-        $data['_sidebar'] = $this->_ci->load->view('simdik/sidebar_dik', $data, true);            
+        if($gen){
+            $data['_sidebar'] = $this->_ci->load->view('simdik/sidebar_gen', $data, true);
+        }else{
+            $data['_sidebar'] = $this->_ci->load->view('simdik/sidebar_dik', $data, true);
+        }          
         $menu = 'template/menu/administrator';
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
         $data['_menu'] = $this->_ci->load->view($menu, $data, true);
