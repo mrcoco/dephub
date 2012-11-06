@@ -11,7 +11,8 @@
             <th width="10%">Sayap</th>
             <th width="5%">Nomor</th>
             <th width="5%">Bed</th>
-            <th width="50%">Aksi</th>
+            <th width="25%">Status</th>
+            <th width="25%">Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
             <td class="sayap"><?php echo $list[$i]['sayap'] ?></td>
             <td class="nomor"><?php echo $list[$i]['nomor'] ?></td>
             <td class="bed"><?php echo $list[$i]['bed'] ?></td>
+			<td class="status"><?php echo $list[$i]['status'] ?></td>
             <td class="aksi">
                 <div class="btn-group" data-toggle="buttons-radio">
                     <a href='sarpras/kamar/edit_kamar/<?php echo $list[$i]['id']?>' class='btn'>Edit</a>

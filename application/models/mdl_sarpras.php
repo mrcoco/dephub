@@ -6,6 +6,7 @@ class Mdl_sarpras extends CI_Model {
     private $table_kelas = 'sarpras_kelas';
     private $table_gedung = 'sarpras_gedung';
     private $table_kamar = 'sarpras_kamar';
+    private $table_kamar_status = 'sarpras_kamar_status';
     private $table_pemakaian_asrama = 'sarpras_pemakaian_kamar';
     private $table_pemakaian_kelas = 'sarpras_pemakaian_kelas';
     private $table_check_list_asrama = 'sarpras_checklist_kamar';
@@ -157,25 +158,38 @@ class Mdl_sarpras extends CI_Model {
      **********/
     
     function get_kamar($var=NULL) {
-        
 	if ($var == NULL) {
             $this->db->select(
-            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.id as gedung'
+            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
             );
             $this->db->from($this->table_kamar);
             $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+            $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
             
             //var_dump($this->db->get()->result_array());
 	    return $this->db->get();
 	} else {
             $this->db->select(
-            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.id as gedung'
+            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
             );
             $this->db->from($this->table_kamar);
 	    $this->db->where($this->table_kamar.'.id', $var);
             $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+            $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
 	    return $this->db->get();
 	}
+    }
+	
+	
+    function get_kamar_gedung($var) {
+            $this->db->select(
+            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
+            );
+            $this->db->from($this->table_kamar);
+	    $this->db->where($this->table_kamar.'.asrama', $var);
+            $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+            $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
+	    return $this->db->get();
     }
 
     function insert_kamar($data) {
@@ -185,6 +199,7 @@ class Mdl_sarpras extends CI_Model {
         $ins['sayap']=$data['sayap'];
         $ins['nomor']=$data['nomor'];
         $ins['bed']=$data['bed'];
+        $ins['status']=$data['status'];
 	$this->db->insert($this->table_kamar, $ins);
 	return $this->db->insert_id();
     }
@@ -196,6 +211,7 @@ class Mdl_sarpras extends CI_Model {
         $ins['sayap']=$data['sayap'];
         $ins['nomor']=$data['nomor'];
         $ins['bed']=$data['bed'];
+        $ins['status']=$data['status'];
 	$this->db->where('id', $var);
 	return $this->db->update($this->table_kamar, $ins);
     }
@@ -230,6 +246,16 @@ class Mdl_sarpras extends CI_Model {
                 $this->mdl_sarpras->insert_check_list_kelas($data_check_list);
             }
         }
+    }
+	
+	//status kamar
+    function get_kamar_status($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_kamar_status);
+	} else {
+	    $this->db->where('id', $var);
+	    return $this->db->get($this->table_kamar_status);
+	}
     }
     
     /*********

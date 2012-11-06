@@ -20,7 +20,7 @@
                 <div class="btn-group" data-toggle="buttons-radio">
                     <a href='sarpras/gedung/edit_gedung/<?php echo $i+1?>' class='btn'>Edit</a>
                     <a href='sarpras/gedung/delete_gedung/<?php echo $i+1?>' class='btn' onclick="return confirm('Apakah anda yakin ingin menghapus?');">Delete</a>
-                    <a href='sarpras/kamar/add_kamar/<?php echo $i+1?>' class='btn'>Tambah Kamar</a>
+                    <a href='sarpras/kamar/list_kamar_gedung/<?php echo $i+1?>' class='btn'>Lihat Kamar</a>
                 </div>
             </td>
         <?php }?>
