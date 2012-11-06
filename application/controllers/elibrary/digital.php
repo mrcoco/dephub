@@ -10,8 +10,13 @@ class Digital extends CI_Controller {
                 $this->load->library('pagination');
 	}
         function index(){
-            redirect(base_url().'elibrary/digital/type');
+            $data = array(
+                'category'=>$this->elib->get_category(),
+                'author'=>$this->elib->get_author()
+                );
+            $this->template->display_lib('main/elibrary/digital/index_digital', $data);
         }
+        
 	function search()
 	{
                 $string=$this->input->post('search');

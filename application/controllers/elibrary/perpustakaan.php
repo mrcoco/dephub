@@ -137,14 +137,34 @@ class Perpustakaan extends CI_Controller {
 
         }
         
-        function category()
+        function category($idcategory='')
 	{
-                $category=$this->elib->get_id_category_by_name($this->input->post('category'));
+                if($idcategory==''){
+                    $data = array(
+                'category'=>$this->elib->get_category(),
+                'author'=>$this->elib->get_author()
+                );
+                    $this->template->display_lib('main/elibrary/perpustakaan/index_perpustakaan', $data);
+                }
+                else{
+                $config=array();
+                
+                
+                $config["total_rows"]=$this->elib->count_books_by_category($idcategory);
+                $config["per_page"]=20;
+                $config["uri_segment"] = 5;
+                $this->pagination->initialize($config);                
+                $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
                            
-                $data=array('books'=>$this->elib->get_books_by_category($category),'category'=> $this->input->post('category'));
+                $data=array('books'=>$this->elib->get_books_by_category($idcategory,$config["per_page"],$page),
+                            'category'=> $this->elib->get_name_category_by_id($idcategory)
+                        );
+                $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('main/elibrary/perpustakaan/category-view', $data);
-		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+                }
 	}
+        
+        
 
         function delete_books($id){
             $data = array('books' => $this->elib->get_books_by_id($id));

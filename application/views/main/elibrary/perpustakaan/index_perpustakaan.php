@@ -1,10 +1,12 @@
-<h3>Kategori Buku</h3>
+<h3>Perpustakaan Fisik</h3>
+
 <table class="table table-condensed table-striped">
     <th width="65%">Kategori</th>
     <th width="35%">Aksi</th>
-<?php echo form_open_multipart('elibrary/perpustakaan/category');?>    
+
 <?php foreach ($category as $number => $n):?>
-    <tr><td><?php echo $category[$number]['categoryname'];?></td> <td><input type="submit" name="category" value="<?php echo $category[$number]['categoryname'];?>"> </td></tr>
+    <tr><td><?php echo $category[$number]['categoryname'];?></td> <td><a class="btn" href="<?php echo base_url()."elibrary/perpustakaan/category/".$category[$number]['idcategory']?>">Telusuri</a> </td></tr>
                             <?php endforeach; ?>
-                                </form>
+                                
 </table>
+
