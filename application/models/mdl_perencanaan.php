@@ -9,17 +9,30 @@ class Mdl_perencanaan extends CI_Model{
      * CRUD Course
      */
     
-    function get_program($thn){
-        $program = $this->db->get_where('program',array('tahun_program'=>$thn)); 
+    function get_all_program($thn){
+        $this->db->where('tahun_program',$thn);
+        $this->db->or_where('tahun_program','0000');
+        $program = $this->db->get('program'); 
         if($program->num_rows()>0){
             return $program->result_array();
         }else{
-            return FALSE;
+            return array();
+        }
+    }
+    
+    function get_program($thn){
+        $this->db->where('tahun_program',$thn);
+        $this->db->or_where('tahun_program !=','0000');
+        $program = $this->db->get('program'); 
+        if($program->num_rows()>0){
+            return $program->result_array();
+        }else{
+            return array();
         }
     }
     
     function get_program_by_id($id){
-        $program = $this->db->get_where('program',array('id'=>$id));
+        $program = $this->db->get_where('program',array('id'=>$id,'tahun_program !='=>'0000'));
         if($program->num_rows()==1){
             return $program->row_array();
         }else{
@@ -28,12 +41,28 @@ class Mdl_perencanaan extends CI_Model{
     }
     
     function get_kategori(){
-        $kategori = $this->db->get('kategori');
-        if($kategori->num_rows()>0){
-            return $kategori->result_array();
+        $this->db->where('tahun_program','0000');
+        $hasil=$this->db->get('program');
+        if($hasil->num_rows()>0){
+            return $hasil->result_array();
         }else{
-            return FALSE;
+            return array();
         }
+    }
+    
+    function get_kategori_id($id){
+        $this->db->where('id',$id);
+        $this->db->where('tahun_program','0000');
+        $hasil=$this->db->get('program');
+        if($hasil->num_rows()>0){
+            return $hasil->row_array();
+        }else{
+            return array();
+        }
+    }
+    
+    function insert_kategori($data){
+        $this->db->insert('program',$data);
     }
     
     function insert_diklat($data){

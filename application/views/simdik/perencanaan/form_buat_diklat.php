@@ -57,7 +57,7 @@
                 <div class="control-group">
                     <label class="control-label" for="kategori">Kategori Program</label>
                     <div class="controls">
-                        <?php echo form_dropdown('kategori', $pil_kategori) ?>
+                        <?php echo form_dropdown('kategori', $pil_kategori,$pil_kat) ?>
                     </div>
                 </div>
                 <div class="control-group">

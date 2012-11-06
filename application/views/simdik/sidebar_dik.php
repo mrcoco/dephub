@@ -1,6 +1,5 @@
 <?php
 $t=$this->uri->segment(3);
-if($id!=-1){
 ?>
 <div class="well sidemenu">
     <ul class="nav nav-list">
@@ -15,4 +14,3 @@ if($id!=-1){
         <li><a href="perencanaan/feedback/form_feedback_sarpras/<?php echo $id ?>"><i class="icon icon-chevron-right"></i> Feedback</a></li>
     </ul>
 </div>
-<?php } ?>
