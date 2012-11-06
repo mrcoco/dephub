@@ -29,10 +29,10 @@
             <td width="20%">Cara Pelaksanaan Kegiatan</td><td><?php echo $program['pelaksanaan'] ?></td>
         </tr>
         <tr>
-            <td>Tanggal Mulai</td><td><?php echo $program['tanggal_mulai'] ?></td>
+            <td>Tanggal Mulai</td><td><?php echo $this->date->konversi5($program['tanggal_mulai']) ?></td>
         </tr>
         <tr>
-            <td>Tanggal Selesai</td><td><?php echo $program['tanggal_akhir'] ?></td>
+            <td>Tanggal Selesai</td><td><?php echo $this->date->konversi5($program['tanggal_akhir']) ?></td>
         </tr>
         <tr>
             <td>Lama Pendidikan</td><td><?php echo $program['lama_pendidikan'] ?></td>
