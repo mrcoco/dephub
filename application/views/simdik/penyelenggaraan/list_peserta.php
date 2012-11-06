@@ -6,31 +6,17 @@
         });
     } );
     
-    function accept(id_peserta,id_program){
+    function toggle(id_peserta,id_program,status){
         data = {
             'id_peserta' : id_peserta,
             'id_program' : id_program
         }
         $.post(
-            "<?php echo base_url() ?>penyelenggaraan/peserta/toggle_status/accept",
+            "<?php echo base_url() ?>penyelenggaraan/peserta/toggle_status/"+status,
             data,
             function(){
                 $('#status'+id_peserta).attr('class','badge badge-success');           
                 $('#status'+id_peserta).html("accept");           
-            }
-        );
-    }
-    function cancel(id_peserta,id_program){
-        data = {
-            'id_peserta' : id_peserta,
-            'id_program' : id_program
-        }
-        $.post(
-            "<?php echo base_url() ?>penyelenggaraan/peserta/toggle_status/cancel",
-            data,
-            function(){
-                $('#status'+id_peserta).attr('class','badge badge-info');           
-                $('#status'+id_peserta).html("daftar");           
             }
         );
     }
@@ -64,8 +50,9 @@ Diklat &nbsp;: <?php echo  form_dropdown('id_program',$pil_program,$id_program,'
             </td>-->
             <td class="aksi">
                 <div class="btn-group" data-toggle="buttons-radio">
-                    <button class="btn <?php if($list[$i]['status']!='accept') echo 'active'; ?>" onclick="cancel(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>)">Abaikan</button>
-                    <button class="btn <?php if($list[$i]['status']=='accept') echo 'active'; ?>" onclick="accept(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>)">Terima</button>
+                    <button class="btn <?php if($list[$i]['status']!='accept'&&$list[$i]['status']!='waiting') echo 'active'; ?>" onclick="toggle(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>,0)">Abaikan</button>
+                    <button class="btn <?php if($list[$i]['status']=='accept') echo 'active'; ?>" onclick="toggle(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>,1)">Terima</button>
+                    <button class="btn <?php if($list[$i]['status']=='waiting') echo 'active'; ?>" onclick="toggle(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>,2)">Waiting</button>
                 </div>
             </td>
         <?php }?>

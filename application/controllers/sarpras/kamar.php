@@ -33,11 +33,21 @@ class kamar extends Sarpras_Controller{
 	if(empty ($offset)) $offset=0;
 	$data['sub_title']='Kamar';
 
-	$var = $this->mdl_sarpras->get_kamar()->result_array();
+	$var = $this->mdl_sarpras->get_kamar($offset)->result_array();
         $data['list']=$var;
 	$this->template->display('simdik/sarpras/kamar',$data);
     }
 
+	function list_kamar_gedung($offset=0)
+    {
+	if(empty ($offset)) $offset=0;
+	$data['sub_title']='Kamar';
+
+	$var = $this->mdl_sarpras->get_kamar_gedung($offset)->result_array();
+        $data['list']=$var;
+	$this->template->display('simdik/sarpras/kamar',$data);
+    }
+	
     function add_kamar($id)
     {
         //menampilkan form untuk memasukkan data kamar yg belum ada di database
