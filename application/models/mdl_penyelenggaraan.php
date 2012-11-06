@@ -206,6 +206,16 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->insert('pegawai',$data_reg);
         return TRUE;
     }
+	
+    function update_pegawai($var, $data) {
+		$this->db->where('id', $var);
+		return $this->db->update('tb_pegawai', $data);
+    }
+	
+    function delete_pegawai($var) {
+		$this->db->where('id', $var);
+		return $this->db->delete('tb_pegawai');
+    }
     
     function get_schedule($id){
         return $this->db->get_where('schedule',array('id_program'=>$id))->result_array();

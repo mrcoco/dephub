@@ -25,8 +25,13 @@ class Diklat extends Perencanaan_Controller{
 
     function daftar_kategori(){
         $this->load->library('lib_perencanaan');
+	$data['sub_title']='Daftar Kategori Diklat';
         $data['kategori']=$this->rnc->get_kategori();
-        $this->template->display('simdik/perencanaan/daftar_kategori',$data);
+        $data['pil_kategori']=array(0=>'-');
+        foreach($data['kategori'] as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $this->template->display_dik('simdik/perencanaan/daftar_kategori',$data,TRUE);
     }
     
     function buat_kategori(){
@@ -35,7 +40,7 @@ class Diklat extends Perencanaan_Controller{
         foreach($kategori as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }
-        $this->template->display('simdik/perencanaan/form_buat_kategori',$data);
+        $this->template->display_dik('simdik/perencanaan/form_buat_kategori',$data,TRUE);
     }
     
     function edit_kategori($id){
@@ -45,7 +50,7 @@ class Diklat extends Perencanaan_Controller{
         foreach($kategori as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }
-        $this->template->display('simdik/perencanaan/form_edit_kategori',$data);
+        $this->template->display_dik('simdik/perencanaan/form_edit_kategori',$data,TRUE);
     }
     
     function insert_kategori(){
@@ -53,6 +58,7 @@ class Diklat extends Perencanaan_Controller{
         $data['name']=$this->input->post('nama');
         $data['tahun_program']='0000';
         $this->rnc->insert_kategori($data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Kategori telah ditambahkan'));
         redirect(base_url().'perencanaan/diklat/daftar_kategori');
     }
     
@@ -64,7 +70,7 @@ class Diklat extends Perencanaan_Controller{
         $this->load->library('lib_perencanaan');
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
         $data['program']=$this->rnc->get_all_program($thn);
-	$this->template->display('simdik/perencanaan/daftar_diklat',$data);
+	$this->template->display_dik('simdik/perencanaan/daftar_diklat',$data,TRUE);
     }
 
     function detail_diklat($id){

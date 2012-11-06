@@ -10,17 +10,37 @@ class Mdl_elibrary extends CI_Model{
      */
     function get_category() {
         $this->db->order_by("categoryname", "asc");
+        
 	$category= $this->db->get('elib_category');
         return $category->result_array();
 	}
+     
+        public function count_category() {
+
+        return $this->db->count_all("elib_category");
+
+        }
+        
+     function get_category_pagination($limit,$start) {
+            $this->db->order_by("categoryname", "asc");
+            $data = $this->db->get('elib_category',$limit,$start); 
+            return $data->result_array();
+	}
+        
      function get_id_category_by_name($nama){
          $this->db->select('idcategory');
          $category= $this->db->get_where('elib_category',array('categoryname'=>$nama));
          $row=$category->row();
          return $row->idcategory;
      }
-    function insert_category(){
-        
+     function get_name_category_by_id($id){
+         $this->db->select('categoryname');
+         $category= $this->db->get_where('elib_category',array('idcategory'=>$id));
+         $row=$category->row();
+         return $row->categoryname;
+     }
+    function insert_category($data){
+        $this->db->insert('elib_category',$data);
 	}
     function update_category(){
 	}
@@ -46,16 +66,34 @@ class Mdl_elibrary extends CI_Model{
             
 		
 	}
-	function get_bibliography_by_category($category) {
-		$bibliography = $this->db->get_where('elib_bibliography','category','$category'); 
+	
+	
+        function count_bibliography_by_type ($type){
+            $this->db->where('type',$type);
+            return $this->db->count_all("elib_bibliography");
+            
+        }
+        function count_bibliography_by_category ($category){
+            $this->db->where('category',$category);
+            return $this->db->count_all("elib_bibliography");
+            
+        }
+        function get_bibliography_by_category($category,$limit,$start) {
+            $this->db->select('*');
+            $this->db->from('elib_bibliography');
+            $this->db->join('elib_category', 'elib_category.idcategory = elib_bibliography.idcategory','left');  
+            $this->db->join('elib_author', 'elib_author.idauthor = elib_bibliography.idauthor','left');
+            $this->db->where(array('elib_bibliography.idcategory'=>$category)); 
+            $this->db->limit($limit,$start);
+            $bibliography = $this->db->get(); 
             
                 return $bibliography->result_array();
             
-        }
-	
-	function get_bibliography_by_type($type) {
+	}
+	function get_bibliography_by_type($type,$limit,$start) {
           
 		$this->db->where('type',$type);
+                $this->db->limit($limit,$start);
                 $bibliography = $this->db->get_where('elib_bibliography'); 
 
                     return $bibliography->result_array();
@@ -105,21 +143,13 @@ class Mdl_elibrary extends CI_Model{
             
             
         }
-	function get_anggota(){
-	}
-	function insert_anggota(){
-	}
-	function update_anggota(){
-	}
-	function delete_anggota(){
-	}
 	
         function get_books(){
 	}
         function get_books_by_id($id) {
             $this->db->select('*');
             $this->db->from('elib_books');
-            $this->db->join('elib_category', 'elib_category.idcategory = elib_books.category','left');  
+            $this->db->join('elib_category', 'elib_category.idcategory = elib_books.idcategory','left');  
             $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
             $this->db->where(array('elib_books.id'=>$id)); 
             $books = $this->db->get(); 
@@ -154,6 +184,18 @@ class Mdl_elibrary extends CI_Model{
             
             $this->db->delete('elib_books');
 	}
+        public function count_user() {
+
+        return $this->db->count_all("pegawai");
+
+        }
+
+        function get_user($limit,$start){
+//            $this->db->order_by("nama", "asc");
+            $user = $this->db->get('pegawai',$limit,$start); 
+            return $user->result_array();
+	}
+	
         
 	function get_userrole(){
 	}
@@ -170,11 +212,28 @@ class Mdl_elibrary extends CI_Model{
          $row=$author->row();
          return $row->idauthor;
         }
+        public function count_author() {
+
+        return $this->db->count_all("elib_author");
+
+        }
         function get_author() {
         $this->db->order_by("authorname", "asc");
+        
 	$author= $this->db->get('elib_author');
         return $author->result_array();
 	}
+        
+        function get_author_pagination($limit,$start) {
+            $this->db->order_by("authorname", "asc");
+            $data = $this->db->get('elib_author',$limit,$start); 
+            return $data->result_array();
+	}
+        
+        function insert_author($data){
+        $this->db->insert('elib_author',$data);
+	}
+        
 }
 
 /* End of file mdl_elibrary.php */

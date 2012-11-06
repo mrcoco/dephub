@@ -7,6 +7,7 @@ class Perpustakaan extends CI_Controller {
 		parent::__construct();
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('mdl_elibrary','elib');
+                $this->load->library('pagination');
 	}
         function index(){
             $data = array(
@@ -19,7 +20,7 @@ class Perpustakaan extends CI_Controller {
 	{
                 
                 $data = array('books' => $this->elib->get_books_by_id($id));
-                
+      
 		$this->template->display_lib('main/elibrary/perpustakaan/single_view', $data);
 		
                 

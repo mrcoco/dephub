@@ -24,7 +24,8 @@ class Dashboard extends CI_Controller {
         $this->load->library('lib_perencanaan');
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
         $data['program']=$this->rnc->get_all_program($thn);
-	$this->template->display_pub('main/dashboard/daftar_diklat', $data);
+
+	$this->template->display_pub('main/dashboard/index', $data);
     }
 
     function email() {
