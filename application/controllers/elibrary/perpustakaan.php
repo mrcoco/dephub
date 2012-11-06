@@ -34,29 +34,34 @@ class Perpustakaan extends CI_Controller {
             
         }
         function do_input(){
+            if(!$this->elib->check_author($stringauthor)){ //Apabila author-nya baru
+                        //masukin pengarang baru
+                            $authorinsert['authorname']=$stringauthor;
+                            $this->elib->insert_author($authorinsert);
+                        }
             $data = array(
-                            'category'=>$this->elib->get_category(),
-                            'author'=>$this->elib->get_author()
-                            );
-			$data['insert']['title']=$this->input->post('title');
-			$data['insert']['keterangan']=$this->input->post('keterangan');
-                        $data['insert']['tags']=$this->input->post('tags');
-                        $data['insert']['edition']=$this->input->post('edition');
-                        $data['insert']['frequency']=$this->input->post('frequency');
-                        $data['insert']['issnisbn']=$this->input->post('issnisbn');
-                        $data['insert']['publisher']=$this->input->post('publisher');
-                        $data['insert']['publisherplace']=$this->input->post('publisherplace');
-                        $data['insert']['stock']=$this->input->post('stock');
-                        $data['insert']['digital']=$this->input->post('digital');
-                        
-                        $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-                        $data['insert']['idcategory']=$category['idcategory'];
-                        $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
-                        $data['insert']['idauthor']=$author['idauthor'];
-                        
-			$this->elib->insert_books($data['insert']);
-                        $this->session->set_flashdata('msg',$this->editor->alert_ok('Buku telah ditambah'+$data['insert']['title']));
-                        redirect(base_url().'elibrary/digital/type');
+                'category'=>$this->elib->get_category(),
+                'author'=>$this->elib->get_author()
+                );
+            $data['insert']['title']=$this->input->post('title');
+            $data['insert']['keterangan']=$this->input->post('keterangan');
+            $data['insert']['tags']=$this->input->post('tags');
+            $data['insert']['edition']=$this->input->post('edition');
+            $data['insert']['frequency']=$this->input->post('frequency');
+            $data['insert']['issnisbn']=$this->input->post('issnisbn');
+            $data['insert']['publisher']=$this->input->post('publisher');
+            $data['insert']['publisherplace']=$this->input->post('publisherplace');
+            $data['insert']['stock']=$this->input->post('stock');
+            $data['insert']['digital']=$this->input->post('digital');
+
+            $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
+            $data['insert']['idcategory']=$category['idcategory'];
+            $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
+            $data['insert']['idauthor']=$author['idauthor'];
+
+            $this->elib->insert_books($data['insert']);
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Buku telah ditambah'+$data['insert']['title']));
+            redirect(base_url().'elibrary/digital/type');
 //			$this->template->display_lib('main/elibrary/upload_success', $data);
         }
         
@@ -132,14 +137,34 @@ class Perpustakaan extends CI_Controller {
 
         }
         
-        function category()
+        function category($idcategory='')
 	{
-                $category=$this->elib->get_id_category_by_name($this->input->post('category'));
+                if($idcategory==''){
+                    $data = array(
+                'category'=>$this->elib->get_category(),
+                'author'=>$this->elib->get_author()
+                );
+                    $this->template->display_lib('main/elibrary/perpustakaan/index_perpustakaan', $data);
+                }
+                else{
+                $config=array();
+                
+                
+                $config["total_rows"]=$this->elib->count_books_by_category($idcategory);
+                $config["per_page"]=20;
+                $config["uri_segment"] = 5;
+                $this->pagination->initialize($config);                
+                $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
                            
-                $data=array('books'=>$this->elib->get_books_by_category($category),'category'=> $this->input->post('category'));
+                $data=array('books'=>$this->elib->get_books_by_category($idcategory,$config["per_page"],$page),
+                            'category'=> $this->elib->get_name_category_by_id($idcategory)
+                        );
+                $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('main/elibrary/perpustakaan/category-view', $data);
-		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+                }
 	}
+        
+        
 
         function delete_books($id){
             $data = array('books' => $this->elib->get_books_by_id($id));

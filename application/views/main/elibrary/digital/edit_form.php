@@ -9,12 +9,7 @@
 			<table>
 
 				<tr><td>Judul</td><td> : <input type="text" name="title" size="20" value="<?php echo $bibliography[0]['title'];?>"/> </td></tr>
-				<tr><td>Pengarang</td><td> : <select name="authorname" > 
-                                            <option value="<?php echo $bibliography[0]['authorname'];?>"> <?php echo $bibliography[0]['authorname'];?></option>
-                                                <?php foreach ($author as $number =>$n):?>
-                                                <option value="<?php echo $author[$number]['authorname'];?>"><?php echo $author[$number]['authorname'];?></option>
-                                                <?php endforeach; ?>
-                                                </select>
+				<tr><td>Pengarang</td><td> : <input type="text" name="authorname" value="<?php echo $bibliography[0]['authorname'];?>"/>
                                         </td></tr>
                                 <tr><td>Kategori</td><td> : <select name="categoryname" > 
                                             <option value="<?php echo $bibliography[0]['categoryname'];?>"><?php echo $bibliography[0]['categoryname'];?> </option>
