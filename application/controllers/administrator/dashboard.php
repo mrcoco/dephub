@@ -23,12 +23,6 @@ class Dashboard extends Administrator_Controller{
             $thn=$this->thn_default;
         }
 	$data['sub_title']='Daftar Diklat Tahun '.$thn;
-        $data['kategori']=$this->rnc->get_kategori();
-        $data['pil_kategori']=array();
-        
-        foreach($data['kategori'] as $k){
-            $data['pil_kategori'][$k['id']]=$k['name'];
-        }
         $data['program']=$this->rnc->get_program($thn);
 	$this->template->display('simdik/administrator/daftar_diklat',$data);
     }
