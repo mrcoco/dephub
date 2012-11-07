@@ -55,7 +55,7 @@ $books[0]['pinjam']=1;
                                 <tr><td>Tags adalah keyword dari file tersebut</td><td></td></tr>
                                 
 			</table>
-                         <a class="btn" href="#">Pinjam</a>
+                         <a class="btn" href="#">Pesan</a>
 			
 
 			

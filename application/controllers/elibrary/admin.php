@@ -286,6 +286,8 @@ class Admin extends CI_Controller {
             
         }
         function pinjam(){
+            $data='';
+            $this->template->display_lib('main/elibrary/perpustakaan/form_pinjam', $data);
             //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
             
         }

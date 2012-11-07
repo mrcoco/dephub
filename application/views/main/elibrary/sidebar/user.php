@@ -8,7 +8,7 @@ else $t='bukan kategori';
     <ul class="nav nav-list">
         <li><?php echo 'Administrator'; ?></li>
         <li class="divider"></li>
-        <li ><a href="<?php echo site_url("elibrary/digital/upload"); ?>"><i class="icon-upload"></i> Upload</a></li>
+        <li ><a href="<?php echo site_url("elibrary/admin/upload"); ?>"><i class="icon-upload"></i> Upload</a></li>
         <li ><a href="<?php echo site_url("elibrary/admin"); ?>">Admin</a></li>
         
         
