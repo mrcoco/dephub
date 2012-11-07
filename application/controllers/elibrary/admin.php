@@ -68,7 +68,7 @@ class Admin extends CI_Controller {
 	{
                 $data['update']['categoryname']=  $this->input->post('categoryname');
                 $data['update']['idcategory']=  $this->input->post('idcategory');
-                $this->elib->update_author($data['update']);
+                $this->elib->update_category($data['update']);
                         $this->session->set_flashdata('msg',$this->editor->alert_ok('Kategori telah diubah : '+$data['update']['categoryname']));
                         redirect(base_url().'elibrary/admin/list_category');
 		
