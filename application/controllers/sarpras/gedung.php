@@ -77,9 +77,23 @@ class gedung extends Sarpras_Controller{
     }
     
     function delete_gedung($id){
+        
+		$var = $this->spr->get_kamar_gedung($id)->result_array();
+		//delete checklist kelas
+			//print_r($var);
+		foreach ($var as $row)
+		{
+			$this->spr->delete_check_list_asrama($row['id']);
+		}
+		
         //process menghapus gedung
         $this->spr->delete_gedung($id);
+		
+		//delete kelas
+		$this->spr->delete_kamar_gedung($id);
         
+		
+		
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Gedung telah dihapus'));
         redirect(base_url().'sarpras/gedung/list_gedung');
     }    

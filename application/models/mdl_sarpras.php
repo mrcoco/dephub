@@ -60,19 +60,23 @@ class Mdl_sarpras extends CI_Model {
 
     // Check List Asrama
     //------------------
-    function count_check($tahun,$bulan)
+    function count_check()
     {
-	$this->db->where('tahun', $tahun);
-	$this->db->where('bulan', $bulan);
-	$this->db->group_by('id_kamar');
 	return $this->db->get($this->table_check_list_asrama)->num_rows();
     }
-    function get_check_list_asrama($limit=20,$offset=0,$tahun=2012,$bulan=12,$minggu=1) {
-	$this->db->where('tahun', $tahun);
-	$this->db->where('bulan', $bulan);
-	$this->db->where('minggu', $minggu);
-	$this->db->group_by('id_kamar');
-	return $this->db->get($this->table_check_list_asrama,$limit,$offset);
+	
+    // function get_check_list_asrama($limit=20,$offset=0) {
+	// $this->db->group_by('id_kamar');
+	// return $this->db->get($this->table_check_list_asrama,$limit,$offset);
+	// }
+    
+    function get_check_list_asrama($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_check_list_asrama);
+	} else {
+	    $this->db->where('id', $var);
+	    return $this->db->get($this->table_check_list_asrama);
+	}
     }
 
     function update_check_list_asrama($var, $data) {
@@ -83,6 +87,11 @@ class Mdl_sarpras extends CI_Model {
     function insert_check_list_asrama($data) {
 	$this->db->insert($this->table_check_list_asrama, $data);
 	return $this->db->insert_id();
+    }
+	
+    function delete_check_list_asrama($var) {
+	$this->db->where('id_kamar', $var);
+	return $this->db->delete($this->table_check_list_asrama);
     }
 
     function get_tahun()
@@ -173,7 +182,7 @@ class Mdl_sarpras extends CI_Model {
             $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
             );
             $this->db->from($this->table_kamar);
-	    $this->db->where($this->table_kamar.'.id', $var);
+			$this->db->where($this->table_kamar.'.id', $var);
             $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
             $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
 	    return $this->db->get();
@@ -182,13 +191,13 @@ class Mdl_sarpras extends CI_Model {
 	
 	
     function get_kamar_gedung($var) {
-            $this->db->select(
-            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
-            );
-            $this->db->from($this->table_kamar);
-	    $this->db->where($this->table_kamar.'.asrama', $var);
-            $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
-            $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
+		$this->db->select(
+		$this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
+		);
+		$this->db->from($this->table_kamar);
+		$this->db->where($this->table_kamar.'.asrama', $var);
+		$this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+		$this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
 	    return $this->db->get();
     }
 
@@ -220,6 +229,11 @@ class Mdl_sarpras extends CI_Model {
 	$this->db->where('id', $var);
 	return $this->db->delete($this->table_kamar);
     }
+	
+    function delete_kamar_gedung($var) {
+	$this->db->where('asrama', $var);
+	return $this->db->delete($this->table_kamar);
+    }
     
     function count_kamar($filter){
         $str_query='select count(tb_sarpras_kamar.id) as num FROM tb_sarpras_kamar';
@@ -238,10 +252,7 @@ class Mdl_sarpras extends CI_Model {
             for($k=0;$k<4;$k++)
             {
                 $data_check_list=array(
-                    'id_kamar'=>$id,
-                    'bulan'=>$j+1,
-                    'minggu'=>$k+1,
-                    'tahun'=>$var
+                    'id_kamar'=>$id
                 );
                 $this->mdl_sarpras->insert_check_list_kelas($data_check_list);
             }
@@ -289,14 +300,31 @@ class Mdl_sarpras extends CI_Model {
     // Check List Kelas
     //-----------------
     
-    function get_check_list_kelas($limit=20,$offset=0,$tahun=2012,$bulan=12,$minggu=1) {
-	$this->db->where('tahun', $tahun);
-	$this->db->where('bulan', $bulan);
-	$this->db->where('minggu', $minggu);
-	$this->db->group_by('id_kelas');
-	return $this->db->get($this->table_check_list_kelas,$limit,$offset);
-    }
+    // function get_check_list_kelas($limit=20,$offset=0) {
+	// $this->db->group_by('id_kelas');
+	// return $this->db->get($this->table_check_list_kelas,$limit,$offset);
+    // }
     
+    function get_check_list_kelas($var=NULL) {
+	if ($var == NULL) {
+		$this->db->select(
+		$this->table_check_list_kelas.'.id,id_kelas,l1,l2,l3,l4,s1,s2,m1,m2,m3,k1,k2,k3,wb,pb,fc,'.$this->table_kelas.'.nama as nama'
+		);
+		$this->db->from($this->table_check_list_kelas);
+		$this->db->join($this->table_kelas, $this->table_check_list_kelas.'.id_kelas = '.$this->table_kelas.'.id');
+		
+	    return $this->db->get();
+	} else {$this->db->select(
+		$this->table_check_list_kelas.'.id,id_kelas,l1,l2,l3,l4,s1,s2,m1,m2,m3,k1,k2,k3,wb,pb,fc,'.$this->table_kelas.'.nama as nama'
+		);
+		$this->db->from($this->table_check_list_kelas);
+		
+	    $this->db->where('id', $var);
+	    $this->db->join($this->table_kelas, $this->table_check_list_kelas.'.id_kelas = '.$this->table_kelas.'.id');
+		
+	    return $this->db->get();
+	}
+    }
     /*
     function get_check_list_kelas($var=NULL) {
 	if ($var == NULL) {
