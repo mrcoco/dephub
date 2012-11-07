@@ -60,9 +60,9 @@ class Perpustakaan extends CI_Controller {
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
                 
 	}
-        function antri_pinjam(){
+        function pesan(){
             $data="";
-        $this->template->display_lib('main/elibrary/perpustakaan/antri_pinjam_view', $data);
+        $this->template->display_lib('main/elibrary/perpustakaan/pesan_view', $data);
         }
         
 }

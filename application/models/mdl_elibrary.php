@@ -48,7 +48,7 @@ class Mdl_elibrary extends CI_Model{
     function insert_category($data){
         $this->db->insert('elib_category',$data);
 	}
-    function update_category(){
+    function update_category($data){
         
             $this->db->where('idcategory',$data['idcategory']);
             if($this->db->update('elib_category',$data))

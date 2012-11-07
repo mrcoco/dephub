@@ -68,7 +68,7 @@ class Admin extends CI_Controller {
 	{
                 $data['update']['categoryname']=  $this->input->post('categoryname');
                 $data['update']['idcategory']=  $this->input->post('idcategory');
-                $this->elib->update_author($data['update']);
+                $this->elib->update_category($data['update']);
                         $this->session->set_flashdata('msg',$this->editor->alert_ok('Kategori telah diubah : '+$data['update']['categoryname']));
                         redirect(base_url().'elibrary/admin/list_category');
 		
@@ -286,6 +286,8 @@ class Admin extends CI_Controller {
             
         }
         function pinjam(){
+            $data='';
+            $this->template->display_lib('main/elibrary/perpustakaan/form_pinjam', $data);
             //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
             
         }
