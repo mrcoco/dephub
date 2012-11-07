@@ -20,8 +20,8 @@
                                     <td><?php echo $books[$number]['title'];?></td>
                                     <td>
                                         <a href="<?php echo site_url("elibrary/perpustakaan/view")."/".$books[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Lihat</a>
-                                        <a href="<?php echo site_url("elibrary/perpustakaan/edit_books")."/".$books[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
-                                        <a href="<?php echo site_url("elibrary/perpustakaan/delete_books")."/".$books[$number]['id']?>" class="btn btn-danger btn-mini" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">
+                                        <a href="<?php echo site_url("elibrary/admin/edit_books")."/".$books[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+                                        <a href="<?php echo site_url("elibrary/admin/delete_books")."/".$books[$number]['id']?>" class="btn btn-danger btn-mini" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">
                                                 <i class="icon-trash"></i> Hapus
                                         </a>
                                     </td>

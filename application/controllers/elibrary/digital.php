@@ -35,120 +35,6 @@ class Digital extends CI_Controller {
 		
                 
 	}
-        
-        function upload()
-	{
-                $data = array(
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author()
-                );
-		$this->template->display_lib('main/elibrary/digital/upload_form', $data);
-		
-	}
-        function do_upload()
-	{
-		$config['upload_path'] = './assets/elibrary/uploads/'; 
-		$config['allowed_types'] = 'gif|jpg|png|doc|docx|ppt|pptx|xls|xlsx|pdf|jpeg|pdf|';
-		$config['max_size']	= '100000';
-                $config['overwrite']    = TRUE;
-		
-		$this->load->library('upload', $config);
-
-		if ( ! $this->upload->do_upload())
-		{
-			$error = array('error' => $this->upload->display_errors());
-                        $this->template->display_lib('main/elibrary/digital/upload_form', $error);
-		}
-		else
-		{
-                        $stringauthor=$this->input->post('authorname');
-			 
-                        if(!$this->elib->check_author($stringauthor)){ //Apabila author-nya ga ada
-                        //masukin pengarang baru
-                            $authorinsert['authorname']=$stringauthor;
-                            $this->elib->insert_author($authorinsert);
-                        }
-			$data = array('item' => $this->upload->data(),
-                            'category'=>$this->elib->get_category(),
-                            'author'=>$this->elib->get_author()
-                            );
-                        
-			$data['insert']['title']=$data['item']['raw_name'];
-			
-                        $temp=$data['item']['file_ext'];
-			if($temp=='.pdf'||$temp='.doc'||$temp='.docx'||$temp='.txt'||$temp='.xls'||$temp='.xlsx') $data['insert']['type']=1; //dokumen
-			else if ($temp=='.mp4'||$temp='.mp3'||$temp='.wmv'||$temp='.flv'||$temp='.3gp'||$temp='.mkv'||$temp='.avi') $data['insert']['type']=2;//video
-			else if ($temp=='.pptx'||$temp='.ppt') $data['insert']['type']=3; //presentasi
-			else  $data['insert']['type']=0; //lain2
-			
-			$data['insert']['location']='./assets/elibrary/uploads/'.$data['item']['orig_name'];
-			$data['insert']['keterangan']=$this->input->post('keterangan');
-                        $data['insert']['tags']=$this->input->post('tags');
-                        
-                        $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-                        $data['insert']['idcategory']=$category['idcategory'];
-                        $author=$this->elib->get_id_author_by_name($stringauthor);
-                        $data['insert']['idauthor']=$author['idauthor'];
-                        
-			$this->elib->insert_bibliography($data['insert']);
-                        $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diupload'));
-			$this->template->display_lib('main/elibrary/digital/upload_success', $data);
-                        
-                        
-                            
-                            
-                        
-		}
-	}
-        
-        function edit_bibliography($id) {
-
-            $data = array('bibliography' => $this->elib->get_bibliography_by_id($id),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
-                'status'=>' '
-                );
-            if($data['bibliography']){
-                $this->template->display_lib('main/elibrary/digital/edit_form', $data);
-            }else{
-                $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
-                redirect(base_url().'elibrary/digital/type');                    
-            }
-
-        }
-        
-        function do_edit_bibliography() {
-            $update['id']=$this->input->post('id');
-            $update['title']=$this->input->post('title');
-            $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-            $update['idcategory']=$category['idcategory'];
-            $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
-            $update['idauthor']=$author['idauthor'];
-            $update['keterangan']=$this->input->post('keterangan');
-
-            $update['tags']=$this->input->post('tags');
-            if($this->elib->update_bibliography($update))
-            {
-            $data = array('bibliography' => $this->elib->get_bibliography_by_id($update['id']),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
-                'status'=>'Data berhasil diubah'
-                 );
-                          
-                $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diubah'));
-                redirect(base_url().'elibrary/digital/type');
-            }
-            else {
-                $data = array('bibliography' => $this->elib->get_bibliography_by_id($update['id']),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
-                'status'=>'Data tidak berhasil diubah');
-                $this->session->set_flashdata('msg',$this->editor->alert_ok('File gagal diubah'));
-                redirect(base_url().'elibrary/digital/type');
-            }
-            
-        }
-        
         function type($tipe='')
 	{
                 $config=array();
@@ -207,21 +93,7 @@ class Digital extends CI_Controller {
 		$this->template->display_lib('main/elibrary/digital/category-view', $data);
                 }
 	}
-
-        function delete_bibliography($id){
-            $data = array('bibliography' => $this->elib->get_bibliography_by_id($id));
-            $data['sub_title']='Kategori File';
-            
-            if($data['bibliography']){
-                //unlink($data['bibliography']['location']); 
-                $this->elib->delete_bibliography($id);
-                $this->session->set_flashdata('msg',$this->editor->alert_error('File telah dihapus'));
-                redirect(base_url().'elibrary/digital/type');                    
-            }else{
-                $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
-                redirect(base_url().'elibrary/digital/type');                    
-            }
-            
-        }
+        
+        
 }
 ?>

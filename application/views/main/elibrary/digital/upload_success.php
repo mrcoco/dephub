@@ -19,7 +19,7 @@
 			</table>
                          
 			
-				<?php echo form_open_multipart('elibrary/digital/upload/');?>
+				<?php echo form_open_multipart('elibrary/admin/upload/');?>
 				<br /><input type="submit" value="Upload lagi" class="btn btn-primary"/>
 				</form>
 				

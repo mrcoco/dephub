@@ -1,6 +1,6 @@
 
         		<h3>Edit Buku</h3>	
-			<?php echo form_open_multipart('elibrary/perpustakaan/do_edit_books');?>
+			<?php echo form_open_multipart('elibrary/admin/do_edit_books');?>
 			<table class="table table-hover">
 				<tr><td>Judul Buku</td><td> : <input type="text" name="title" size="20" value="<?php echo $books[0]['title'];?>"/> </td></tr>
 

@@ -4,7 +4,7 @@
 
                         <h3>Edit File</h3>
 
-			<?php echo form_open_multipart('elibrary/digital/do_edit_bibliography');?>
+			<?php echo form_open_multipart('elibrary/admin/do_edit_bibliography');?>
 
 			<table>
 
