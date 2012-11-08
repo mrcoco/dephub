@@ -303,6 +303,37 @@ class Mdl_elibrary extends CI_Model{
     function delete_author($id){
          $this->db->delete('elib_author', array('idauthor' => $id)); 
     }
+    /*--------------peminjaman elib_loan ------------------*/
+    function count_loan(){
+        return $this->db->count_all("elib_loan");
+    }
+    function get_loan($limit,$start){
+        
+        
+	$data= $this->db->get('elib_loan',$limit,$start);
+        return $data->result_array();
+    }
+    function get_loan_by($data,$limit,$start){
+        $this->db->where($data);
+        
+        
+            
+	$data= $this->db->get('elib_loan',$limit,$start);
+        return $data->result_array();
+    }
+    function insert_loan($data){
+        $this->db->insert('elib_loan',$data);
+    }
+    /*--------------antrian peminjaman elib_queue-----------*/
+    function count_queue(){
+        return $this->db->count_all("elib_queue");
+    }
+    function get_queue($limit,$start){
+        
+        
+	$data= $this->db->get('elib_queue',$limit,$start);
+        return $data->result_array();
+    }
 }
 
 /* End of file mdl_elibrary.php */

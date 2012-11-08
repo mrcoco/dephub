@@ -36,8 +36,7 @@ class Perpustakaan extends CI_Controller {
                 }
                 else{
                 $config=array();
-                
-                
+                $config["base_url"]= base_url()."elibrary/perpustakaan/category/".$idcategory."/";
                 $config["total_rows"]=$this->elib->count_books_by_category($idcategory);
                 $config["per_page"]=20;
                 $config["uri_segment"] = 5;

@@ -165,7 +165,7 @@ class Admin extends CI_Controller {
 		$this->template->display_lib('main/elibrary/admin-page');
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
 	}
-/*--------------Administrasi Perpustakaan Mulai----------------------*/
+/*--------------Administrasi Perpustakaan fisik Mulai----------------------*/
         function input_books(){
             $data = array(
                 'category'=>$this->elib->get_category(),
@@ -291,14 +291,59 @@ class Admin extends CI_Controller {
             //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
             
         }
+        function do_pinjam(){
+            $data=array('insert'=>$this->input->post());
+            $this->elib->insert_loan($data['insert']);
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Pinjaman telah dimasukkan'));
+            redirect(base_url().'elibrary/admin/list_pinjam/'); 
+            //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
+            
+        }
         function list_pinjam(){
+            
+            $config=array();
+                $config["base_url"]= base_url()."elibrary/admin/list_pinjam/";
+                $config["total_rows"]=$this->elib->count_loan();
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                           
+                
+                
+		 $data = array('loan' => $this->elib->get_loan($config["per_page"],$page));
+                 $data["links"] = $this->pagination->create_links();
+                $this->template->display_lib('main/elibrary/perpustakaan/list_pinjam', $data);
+           
+            
             //menampilkan daftar peminjaman, bisa berdasarkan NIP, tanggal peminjaman, tanggal seharusnya kembali, buku
         }
         function kembali($id){
+            $data='';
+            $this->template->display_lib('main/elibrary/perpustakaan/form_kembali', $data);
+            //setelah menekan tombol kembali di list pinjam
+            //
+        }
+        function do_kembali(){
+            $data=array('update'=>$this->input->post());
+            $this->template->display_lib('main/elibrary/perpustakaan/form_kembali', $data);
             //setelah menekan tombol kembali di list pinjam
             //
         }
         function list_antrian(){
+            $config=array();
+                $config["base_url"]= base_url()."elibrary/admin/list_antrian/";
+                $config["total_rows"]=$this->elib->count_queue();
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                           
+                
+                
+		 $data = array('queue' => $this->elib->get_queue($config["per_page"],$page));
+                 $data["links"] = $this->pagination->create_links();
+                $this->template->display_lib('main/elibrary/perpustakaan/list_antrian', $data);
             
         }
         

@@ -28,16 +28,19 @@
         break;
 }
 $books[0]['pinjam']=1;
+
 ?>
 
         			
 
                         <h3>Form Peminjaman</h3>
-                        <?php echo form_open_multipart('elibrary/admin/#');?>
+                        <?php echo form_open_multipart('elibrary/admin/do_pinjam');?>
 			<table class="table table-hover">
                             <tr><td>Tanggal pinjam</td><td> : <input type="date" name="loandate"  /> </td></tr>
                             <tr><td>Tanggal Pengembalian</td><td> : <input type="date" name="duedate"  /> </td></tr>
                             <tr><td>Banyaknya</td><td> : <input type="number" name="amount" value="1"/> </td></tr>
+                            <input type="hidden" name="booksid" value="<?php echo "1"?>" />
+                            <input type="hidden" name="idpegawai" value="<?php echo "1"?>" />
                         </table>
                         <input type="submit" value="Kirim">
                      </form>

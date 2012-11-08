@@ -10,8 +10,7 @@ else $t='bukan kategori';
         <li class="divider"></li>
         <li ><a href="<?php echo site_url("elibrary/admin/upload"); ?>"><i class="icon-upload"></i> Upload</a></li>
         <li ><a href="<?php echo site_url("elibrary/admin"); ?>">Admin</a></li>
-        
-        
+
     </ul>
 </div>
 <div class="well sidemenu">
