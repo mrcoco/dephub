@@ -1,15 +1,10 @@
 
         		<h3>Upload File</h3>	
-			<?php echo form_open_multipart('elibrary/digital/do_upload');?>
+			<?php echo form_open_multipart('elibrary/admin/do_upload');?>
 			<table class="table table-hover">
 				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
 
-				<tr><td>Pengarang</td><td>:<select name="authorname" > 
-                                            
-                                                <?php foreach ($author as $number =>$n):?>
-                                                <option value="<?php echo $author[$number]['authorname'];?>"><?php echo $author[$number]['authorname'];?></option>
-                                                <?php endforeach; ?>
-                                                </select></td></tr>
+				<tr><td>Pengarang</td><td>: <input type="text" name="authorname"/></td></tr>
                                 <tr><td>Kategori</td><td> : <select name="categoryname" > 
                                             
                                                 <?php foreach ($category as $number =>$n):?>

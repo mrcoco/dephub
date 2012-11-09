@@ -33,12 +33,22 @@ class kamar extends Sarpras_Controller{
 	if(empty ($offset)) $offset=0;
 	$data['sub_title']='Kamar';
 
-	$var = $this->mdl_sarpras->get_kamar()->result_array();
+	$var = $this->mdl_sarpras->get_kamar($offset)->result_array();
         $data['list']=$var;
 	$this->template->display('simdik/sarpras/kamar',$data);
     }
 
-    function add_kamar($id)
+	function list_kamar_gedung($offset=0)
+    {
+	if(empty ($offset)) $offset=0;
+	$data['sub_title']='Kamar';
+
+	$var = $this->mdl_sarpras->get_kamar_gedung($offset)->result_array();
+        $data['list']=$var;
+	$this->template->display('simdik/sarpras/kamar',$data);
+    }
+	
+    function add_kamar()
     {
         //menampilkan form untuk memasukkan data kamar yg belum ada di database
 	if(empty ($id)) $id='';
@@ -49,6 +59,7 @@ class kamar extends Sarpras_Controller{
         $var['sayap']='';
         $var['nomor']='';
         $var['bed']='';
+        $var['status']='';
         $var['gedung']=$id;
         $data['kamar']=$var;
         $this->template->display('simdik/sarpras/form_kamar',$data);
@@ -59,10 +70,17 @@ class kamar extends Sarpras_Controller{
     {
         //process penambahan kamar
         
-        $reg=$_POST;
-        $reg['id']=$this->spr->count_kamar('')+1;
+        //$reg=$_POST;
+        //$reg['id']=$this->spr->count_kamar('')+1;
         $this->spr->insert_kamar($_POST);
-            
+        
+		//masukkan checklist
+		$data=array('id_kamar'=>$_POST['id']);
+		$this->spr->insert_check_list_asrama($data);
+        
+
+
+		
         $this->session->set_flashdata('msg',$this->editor->alert_ok('kamar telah ditambahkan'));
         redirect(base_url().'sarpras/kamar/list_kamar');
     
@@ -89,6 +107,8 @@ class kamar extends Sarpras_Controller{
         //process menghapus kamar
         $this->spr->delete_kamar($id);
         
+		$this->spr->delete_check_list_asrama($id);
+		
         $this->session->set_flashdata('msg',$this->editor->alert_ok('kamar telah dihapus'));
         redirect(base_url().'sarpras/kamar/list_kamar');
     }    

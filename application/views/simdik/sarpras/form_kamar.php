@@ -53,7 +53,7 @@
                 foreach ($var as $row)
                 {
                     echo "<option value=".$row['id']." ";
-                    if($row['id']==$kamar['gedung'])
+                    if($row['nama']==$kamar['gedung'])
                         echo " selected";
                     echo " >".$row['nama']."</option>";
                 }
@@ -92,6 +92,24 @@
             <td>Bed</td>
             <td><input class="bed" type="text" name="bed" placeholder="Bed" value="<?php echo $kamar['bed'];?>"/></td>
             </tr>
+            <tr>
+            <td>Status</td>
+            <td>
+			<?php
+                $var = $this->mdl_sarpras->get_kamar_status()->result_array();
+                //var_dump($kamar);
+                echo "<select name=\"status\">";
+                foreach ($var as $row)
+                {
+                    echo "<option value=".$row['id']." ";
+                    if($row['status']==$kamar['status'])
+                        echo " selected";
+                    echo " >".$row['status']."</option>";
+                }
+                echo "</select>";
+            ?>
+            </td>
+			</tr>
             
             
         </tr>

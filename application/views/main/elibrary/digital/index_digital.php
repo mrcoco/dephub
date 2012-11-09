@@ -1,4 +1,4 @@
-<h3>Kategori Buku</h3>
+<h3>Perpustakaan Digital</h3>
 <table class="table table-condensed table-striped">
     <th width="65%">Kategori</th>
     <th width="35%">Aksi</th>

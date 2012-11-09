@@ -66,24 +66,22 @@ class Config extends Administrator_Controller {
 
     function generate_asrama($var)
     {
+        $this->load->model('mdl_sarpras');
 	// #A1
 	for($i=0;$i<17;$i++)
 	{
 	    $nomor = 101 + $i;
 	    $id=1000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>$var
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	// #A2
@@ -91,19 +89,16 @@ class Config extends Administrator_Controller {
 	{
 	    $nomor = 118 + $i;
 	    $id=1000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>'2012'
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	// #A3
@@ -111,19 +106,16 @@ class Config extends Administrator_Controller {
 	{
 	    $nomor = 201 + $i;
 	    $id=1000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>'2012'
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	// #A4
@@ -131,19 +123,16 @@ class Config extends Administrator_Controller {
 	{
 	    $nomor = 218 + $i;
 	    $id=1000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>'2012'
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	// #B1
@@ -151,19 +140,16 @@ class Config extends Administrator_Controller {
 	{
 	    $nomor = 101 + $i;
 	    $id=2000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>'2012'
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	// #B2
@@ -171,19 +157,16 @@ class Config extends Administrator_Controller {
 	{
 	    $nomor = 121 + $i;
 	    $id=2000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>'2012'
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	// #B3
@@ -191,19 +174,16 @@ class Config extends Administrator_Controller {
 	{
 	    $nomor = 201 + $i;
 	    $id=2000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>'2012'
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	// #B4
@@ -211,19 +191,16 @@ class Config extends Administrator_Controller {
 	{
 	    $nomor = 221 + $i;
 	    $id=2000 + $nomor;
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kamar'=>$id,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>'2012'
+			'id_kamar'=>$id
 		    );
 		    $this->mdl_sarpras->insert_check_list_asrama($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 	$this->session->set_flashdata('msg',$this->editor->alert_ok('Insert OK!'));
 	redirect('sarpras/dashboard/#scs');
@@ -236,19 +213,16 @@ class Config extends Administrator_Controller {
 	// generator
 	for($i=0;$i<14;$i++)
 	{
-	    for($j=0;$j<12;$j++)
-	    {
-		for($k=0;$k<4;$k++)
-		{
+//	    for($j=0;$j<12;$j++)
+//	    {
+//		for($k=0;$k<4;$k++)
+//		{
 		    $data_check_list=array(
-			'id_kelas'=>$i,
-			'bulan'=>$j+1,
-			'minggu'=>$k+1,
-			'tahun'=>$var
+			'id_kelas'=>$i
 		    );
 		    $this->mdl_sarpras->insert_check_list_kelas($data_check_list);
-		}
-	    }
+//		}
+//	    }
 	}
 
 	$this->session->set_flashdata('msg',$this->editor->alert_ok('Insert OK!'));

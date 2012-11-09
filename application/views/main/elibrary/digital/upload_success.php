@@ -1,16 +1,26 @@
+    <?php echo form_open_multipart('elibrary/digital/search/');?>
+    <div class="input-append">
+        <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="button">Search</button>
+    </div>
+    </form>
 
-    
-     
-    
+
         			
-                        <div class="row-fluid">
-                            <h3><?php echo $this->session->flashdata('msg'); ?></h3>
-                        </div>        			
-                        
-				<a href="<?php echo './assets/elibrary/uploads/'.$item['orig_name']; ?>"><?php echo $item['raw_name'];?></a>
-				<br /><br />
-				<?php echo form_open_multipart('elibrary/digital/upload/');?>
-				<input type="submit" value="Upload lagi" class="btn btn-primary"/>
+
+                        <h3>File</h3>
+
+			
+
+			<table class="table table-condensed table-striped">
+
+				<tr><td width="20%">Judul</td><td> : <?php echo $insert['title'];?> </td><td><a class="btn" href="<?php echo $insert['location'];?>"><i class="icon-download-alt"></i> Buka File</a> </td></tr>
+				
+                                
+			</table>
+                         
+			
+				<?php echo form_open_multipart('elibrary/admin/upload/');?>
+				<br /><input type="submit" value="Upload lagi" class="btn btn-primary"/>
 				</form>
 				
 

@@ -1,63 +1,146 @@
-<div class="row">
-    <div class="span12">
+
 	<h4>Check List Prasarana Kamar Asrama</h4>
-	<?php echo form_open('sarpras/asrama/filter');?>
-	<div class="span2">
-	    <label>Asrama </label>
-	    <select name="asrama" class="input-small">
-                <?php
-                
-                $var = $this->mdl_sarpras->get_gedung()->result_array();
-                
-                
-                
-                foreach ($var as $row)
-                {
-                    echo"<option value=".$row['id']." ".$this->editor->a_selected($row['id'])." >".$row['nama']."</option>";
-                }
-                ?>
-            
-	    </select>
-	</div>
-	<div class="span2">
-	    <label>Tahun </label>
-	    <select name="tahun" class="input-small">
-		<?php echo $option_tahun;?>
-	    </select>
-	</div>
-	<div class="span2">
-	    <label>Bulan </label>
-	    <select name="bulan" class="input-small"">
-		<option value="1" <?php echo $this->editor->m_selected(1)?>>Januari</option>
-		<option value="2" <?php echo $this->editor->m_selected(2)?>>Februari</option>
-		<option value="3" <?php echo $this->editor->m_selected(3)?>>Maret</option>
-		<option value="4" <?php echo $this->editor->m_selected(4)?>>April</option>
-		<option value="5" <?php echo $this->editor->m_selected(5)?>>Mei</option>
-		<option value="6" <?php echo $this->editor->m_selected(6)?>>Juni</option>
-		<option value="7" <?php echo $this->editor->m_selected(7)?>>Juli</option>
-		<option value="8" <?php echo $this->editor->m_selected(8)?>>Agustus</option>
-		<option value="9" <?php echo $this->editor->m_selected(9)?>>September</option>
-		<option value="10" <?php echo $this->editor->m_selected(10)?>>Oktober</option>
-		<option value="11" <?php echo $this->editor->m_selected(11)?>>November</option>
-		<option value="12" <?php echo $this->editor->m_selected(12)?>>Desember</option>
-	    </select>
-	</div>
-	<div class="span2">
-	    <label>Minggu </label>
-	    <select name="minggu" class="input-small">
-		<option value="1" <?php echo $this->editor->w_selected(1)?>>1</option>
-		<option value="2" <?php echo $this->editor->w_selected(2)?>>2</option>
-		<option value="3" <?php echo $this->editor->w_selected(3)?>>3</option>
-		<option value="4" <?php echo $this->editor->w_selected(4)?>>4</option>
-	    </select>
-	</div>
-	<div class="span2">
-	    <label>&nbsp;</label>
-	    <input type="submit" value="Filter" name="submit" class="btn btn-primary" />
-	</div>
-	<?php echo form_close();?>
-	<?php echo $table_asrama;?>
-	<div align="center"><?php echo $pagination;?></div>
-    </div>
-</div>
-<?php echo $modal_kamar;?>
+	
+	
+	
+	
+<table width="100%" class="table table-striped table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th width="5%" rowspan='2'>No</th>
+            <th width="10%" rowspan='2'>ID Kamar</th>
+            <th width="25%" colspan='5'><div align="center">Lampu</div></th>
+            <th width="25%" colspan='5'><div align="center">Toilet</div></th>
+            <th width="10%" colspan='2'><div align="center">AC</div></th>
+            <th width="10%" rowspan='2'><div align="center">Fasilitas Lain</div></th>
+            <th width="5%" rowspan='2'><div align="center">Kebersihan</div></th>
+        </tr>
+        <tr>
+            <th>TL-E 22W</th>
+            <th>TL-D 18W</th>
+            <th>PL-C 14W</th>
+            <th>PL-C 13W</th>
+            <th>LP Bel</th>
+            <th>SHO</th>
+            <th>CLO</th>
+            <th>JE-S</th>
+            <th>WAS</th>
+            <th>EX-F</th>
+            <th>REM</th>
+            <th>BAT</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php for($i=0;$i<count($list);$i++) {?>
+        <tr class="gedung<?php echo $list[$i]['id'] ?>">
+            <td class="no"><?php echo ($i+1) ?></td>
+            <td class="id_kamar">
+			<?php 
+				if($list[$i]['id_kamar']==0)
+					echo "ok";
+				else
+					echo $list[$i]['id_kamar']; 
+			?>
+			</td>
+            <td class="lampu1">
+			<?php 
+				if($list[$i]['lampu1']==0)
+					echo "ok";
+				else
+					echo $list[$i]['lampu1']; 
+			?>
+			</td>
+            <td class="lampu2">
+			<?php 
+				if($list[$i]['lampu2']==0)
+					echo "ok";
+				else
+					echo $list[$i]['lampu2']; 
+			?>
+			</td>
+            <td class="lampu3">
+			<?php 
+				if($list[$i]['lampu3']==0)
+					echo "ok";
+				else
+					echo $list[$i]['lampu3']; 
+			?>
+			</td>
+            <td class="lampu4">
+			<?php 
+				if($list[$i]['lampu4']==0)
+					echo "ok";
+				else
+					echo $list[$i]['lampu4']; 
+			?>
+			</td>
+            <td class="lampu5">
+			<?php 
+				if($list[$i]['lampu5']==0)
+					echo "ok";
+				else
+					echo $list[$i]['lampu5']; 
+			?>
+			</td>
+            <td class="toilet1">
+			<?php 
+				if($list[$i]['toilet1']==0)
+					echo "ok";
+				else
+					echo $list[$i]['toilet1']; 
+			?>
+			</td>
+            <td class="toilet2">
+			<?php 
+				if($list[$i]['toilet2']==0)
+					echo "ok";
+				else
+					echo $list[$i]['toilet2']; 
+			?>
+			</td>
+            <td class="toilet3">
+			<?php 
+				if($list[$i]['toilet3']==0)
+					echo "ok";
+				else
+					echo $list[$i]['toilet3']; 
+			?>
+			</td>
+            <td class="toilet4">
+			<?php 
+				if($list[$i]['toilet4']==0)
+					echo "ok";
+				else
+					echo $list[$i]['toilet4']; 
+			?>
+			</td>
+            <td class="toilet5">
+			<?php 
+				if($list[$i]['toilet5']==0)
+					echo "ok";
+				else
+					echo $list[$i]['toilet5']; 
+			?>
+			</td>
+            <td class="ac1">
+			<?php 
+				if($list[$i]['ac1']==0)
+					echo "ok";
+				else
+					echo $list[$i]['ac1']; 
+			?>
+			</td>
+            <td class="ac2">
+			<?php 
+				if($list[$i]['ac2']==0)
+					echo "ok";
+				else
+					echo $list[$i]['ac2']; 
+			?>
+			</td>
+            <td class="lain_lain"><?php echo $list[$i]['lain_lain'] ?></td>
+            <td class="kebersihan"><?php echo $list[$i]['kebersihan'] ?></td>
+        <?php }?>
+    </tbody>
+</table>
+	

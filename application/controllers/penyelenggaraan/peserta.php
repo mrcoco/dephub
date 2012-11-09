@@ -79,9 +79,11 @@ class Peserta extends Penyelenggaraan_Controller{
     }
     
     function toggle_status($status){
-        if($status=='accept'){
+        if($status==1){
             $data['status']='accept';
-        }else{
+        }if($status==2){
+            $data['status']='waiting';
+        }else if($status==0){
             $data['status']='daftar';
         }
         $clause['id_peserta']=$this->input->post('id_peserta');

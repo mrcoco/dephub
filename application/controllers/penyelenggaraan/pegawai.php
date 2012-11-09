@@ -105,14 +105,26 @@ class Pegawai extends Penyelenggaraan_Controller{
     
     function edit_pegawai($id){
         //menampilkan form untuk edit data pegawai
-    }
+		$data['sub_title']='Edit Pegawai';
+        $var=$this->slng->get_data_pegawai_id($id)->result_array();
+        $data['pegawai']=$var[0];
+        $this->template->display('penyelenggaraan/pegawai/edit_pegawai',$data);
+	}
     
     function edit_pegawai_process(){
         //process penyimpanan data pegawai
+		$this->slng->update_pegawai($_POST['id'],$_POST);
+            
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah diedit'));
+        redirect(base_url().'penyelenggaraan/pegawai/list_pegawai');
     }
     
     function delete_process($id){
         //process menghapus 
+		$this->slng->delete_pegawai($id);
+        
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah dihapus'));
+        redirect(base_url().'penyelenggaraan/pegawai/list_pegawai');
     }    
     
 }

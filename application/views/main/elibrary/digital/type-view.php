@@ -25,8 +25,8 @@
                                     <td><?php echo $bibliography[$number]['title'];?></td>
                                     <td>
                                         <a class="btn btn-mini" href="<?php echo site_url("elibrary/digital/view")."/".$bibliography[$number]['id']?>">Buka</a>
-                                        <a href="<?php echo site_url("elibrary/digital/edit_bibliography")."/".$bibliography[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
-                                        <a href="<?php echo site_url("elibrary/digital/delete_bibliography")."/".$bibliography[$number]['id']?>" class="btn btn-danger btn-mini" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">
+                                        <a href="<?php echo site_url("elibrary/admin/edit_bibliography")."/".$bibliography[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+                                        <a href="<?php echo site_url("elibrary/admin/delete_bibliography")."/".$bibliography[$number]['id']?>" class="btn btn-danger btn-mini" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">
                                                 <i class="icon-trash"></i> Hapus
                                         </a>
                                     </td>

@@ -1,15 +1,10 @@
 
         		<h3>Tambah Buku</h3>	
-			<?php echo form_open_multipart('elibrary/perpustakaan/do_input');?>
+			<?php echo form_open_multipart('elibrary/admin/do_input_books');?>
 			<table class="table table-hover">
 				<tr><td>Judul Buku</td><td> : <input type="text" name="title" size="20" /> </td></tr>
 
-				<tr><td>Pengarang</td><td> : <select name="authorname" > 
-                                            
-                                                <?php foreach ($author as $number =>$n):?>
-                                                <option value="<?php echo $author[$number]['authorname'];?>"><?php echo $author[$number]['authorname'];?></option>
-                                                <?php endforeach; ?>
-                                                </select></td></tr>
+				<tr><td>Pengarang</td><td> : <input type="text" name="authorname"/>/td></tr>
                                 <tr><td>Kategori</td><td> : <select name="categoryname" > 
                                             
                                                 <?php foreach ($category as $number =>$n):?>
