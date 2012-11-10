@@ -282,11 +282,25 @@ class Mdl_sarpras extends CI_Model {
 	}
     }
 
+    function get_kelas_by_size($size){
+        $this->db->where('kapasitas >=', $size);
+        return $this->db->get($this->table_kelas);
+    }
+    
     function insert_kelas($data) {
 	$this->db->insert($this->table_kelas, $data);
 	return $this->db->insert_id();
     }
 
+    function insert_penggunaan_kelas_batch($batch){
+        $this->db->insert_batch('penggunaan_kelas',$batch);
+    }
+    
+    function delete_penggunaan_kelas($clause){
+        $this->db->where('id_program',$clause);
+        $this->db->delete('penggunaan_kelas');
+    }
+    
     function update_kelas($var, $data) {
 	$this->db->where('id', $var);
 	return $this->db->update($this->table_kelas, $data);

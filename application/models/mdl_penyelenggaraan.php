@@ -266,6 +266,13 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get('schedule')->row_array();
     }
     
+    function get_all_pembicara(){
+        $str_qry_pembicara='SELECT tb_pembicara.id, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam from tb_pembicara 
+            left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+            left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))';
+        return $this->db->query($str_qry_pembicara)->result_array();
+    }
+    
     function get_data_schedule_by_id($id){
         //query data dari tb_schedule
         //masing2 data di cek jenisnya

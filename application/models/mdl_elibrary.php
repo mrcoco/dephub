@@ -4,7 +4,6 @@ class Mdl_elibrary extends CI_Model{
     function __construct() {
 	parent::__construct();
         $this->load->helper('file');
-        
     }
     /**
      * CRUD elibrary
@@ -40,39 +39,13 @@ class Mdl_elibrary extends CI_Model{
          $row=$category->row();
          return $row->categoryname;
      }
-     function get_category_by_id($id){
-         $this->db->select('*');
-         $category= $this->db->get_where('elib_category',array('idcategory'=>$id));
-         return $category->result_array();
-     }
     function insert_category($data){
         $this->db->insert('elib_category',$data);
 	}
-    function update_category($data){
-        
-            $this->db->where('idcategory',$data['idcategory']);
-            if($this->db->update('elib_category',$data))
-                    return true;
-            else return false;
-        
+    function update_category(){
 	}
-    function count_bibliography_by_idcategory($id){
-        $this->db->where("idcategory",$id);
-        return $this->db->count_all_results("elib_bibliography");
-        
-    }
-    function count_books_by_idcategory($id){
-        $this->db->where("idcategory",$id);
-        return $this->db->count_all_results("elib_books");
-        
-    }
-    function delete_category($id){
-        
-        
-            $this->db->delete('elib_category', array('idcategory' => $id)); 
-        
-        
-    }
+    function delete_category(){
+	}
 	
         function get_bibliography_by_id($id) {
             $this->db->select('*');
@@ -184,24 +157,17 @@ class Mdl_elibrary extends CI_Model{
                 return $books->result_array();
             
 	}
-        function get_books_by_category($category,$limit,$start) {
+        function get_books_by_category($category) {
             $this->db->select('*');
             $this->db->from('elib_books');
             $this->db->join('elib_category', 'elib_category.idcategory = elib_books.idcategory','left');  
             $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
             $this->db->where(array('elib_books.idcategory'=>$category)); 
-            $this->db->limit($limit,$start);
             $books = $this->db->get(); 
             
                 return $books->result_array();
             
 	}
-        function count_books_by_category($category){
-            
-            $this->db->where('category',$category);
-            return $this->db->count_all("elib_books");
-
-        }
 	function insert_books($data){
             $this->db->insert('elib_books',$data);
             
@@ -263,77 +229,11 @@ class Mdl_elibrary extends CI_Model{
             $data = $this->db->get('elib_author',$limit,$start); 
             return $data->result_array();
 	}
-        function get_author_by_id($id) {
-        $this->db->select('*');
-            $this->db->from('elib_author');
-            $this->db->where(array('idauthor'=>$id)); 
-            $author = $this->db->get(); 
-            return $author->result_array();
-	}
         
-        function insert_author($data){ // tidak terpakai
+        function insert_author($data){
         $this->db->insert('elib_author',$data);
 	}
-        function update_author($data){
-            $this->db->where('idauthor',$data['idauthor']);
-            if($this->db->update('elib_author',$data))
-                    return true;
-            else return false;
-        }
         
-        function check_author($string){
-            $this->db->where('authorname',$string); 
-            $data=$this->db->get('elib_author');
-            if ($data->num_rows() > 0) {
-            return true;
-            } 
-            else return false;
-
-        }
-        function count_bibliography_by_idauthor($id){
-        $this->db->where("idauthor",$id);
-        return $this->db->count_all_results("elib_bibliography");
-        
-    }
-    function count_books_by_idauthor($id){
-        $this->db->where("idauthor",$id);
-        return $this->db->count_all_results("elib_books");
-        
-    }
-    function delete_author($id){
-         $this->db->delete('elib_author', array('idauthor' => $id)); 
-    }
-    /*--------------peminjaman elib_loan ------------------*/
-    function count_loan(){
-        return $this->db->count_all("elib_loan");
-    }
-    function get_loan($limit,$start){
-        
-        
-	$data= $this->db->get('elib_loan',$limit,$start);
-        return $data->result_array();
-    }
-    function get_loan_by($data,$limit,$start){
-        $this->db->where($data);
-        
-        
-            
-	$data= $this->db->get('elib_loan',$limit,$start);
-        return $data->result_array();
-    }
-    function insert_loan($data){
-        $this->db->insert('elib_loan',$data);
-    }
-    /*--------------antrian peminjaman elib_queue-----------*/
-    function count_queue(){
-        return $this->db->count_all("elib_queue");
-    }
-    function get_queue($limit,$start){
-        
-        
-	$data= $this->db->get('elib_queue',$limit,$start);
-        return $data->result_array();
-    }
 }
 
 /* End of file mdl_elibrary.php */

@@ -8,9 +8,17 @@ class User extends CI_Model {
 	parent::__construct();
     }
 
-    function get_login_info($username){
-	$this->db->where('id',$username);
-	return $this->db->get($this->table_user);
+    function login($usr,$pwd){
+	$where=array('username'=>$usr,'password'=>$pwd);
+        
+        $this->db->join('role','pegawai.id=role.id_pegawai');
+        $res=$this->db->get_where('pegawai',$where);
+        
+        if($res->num_rows()>0){
+            return $res->row_array();
+        }else{
+            return false;
+        }
     }
 }
 
