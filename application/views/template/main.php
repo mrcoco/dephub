@@ -14,7 +14,8 @@
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.print.css' media='print' />
     <link rel='stylesheet' type='text/css' href='assets/css/custom-theme/jquery-ui-1.8.16.custom.css' media='print' />
-    <link type="text/css" href="assets/css/datepicker.css" rel="stylesheet" />
+    <link rel='stylesheet' type='text/css' href='assets/css/jquery/jquery-ui.css' />
+<!--    <link type="text/css" href="assets/css/datepicker.css" rel="stylesheet" />-->
     
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -29,7 +30,7 @@
     <script type="text/javascript" src="assets/js/tm/jquery.tinymce.js"></script>
 <!--    <script type="text/javascript" src="assets/js/bootstrap_new.min.js"></script>-->
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
+<!--    <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>-->
     <script type="text/javascript" src="assets/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-tooltip.js"></script>

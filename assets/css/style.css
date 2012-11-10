@@ -236,3 +236,13 @@ ul.tree li {
 ul.tree li:last-child {
     background: #fff url('../img/lastnode.png') no-repeat;
 }
+.listControl a, li.klik {
+    text-decoration: none;
+    cursor: pointer;
+}
+li.klik{
+    font-weight: bold;
+}
+li.klik a{
+    font-weight: normal;
+}

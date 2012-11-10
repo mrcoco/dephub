@@ -30,16 +30,36 @@ class Lib_perencanaan {
         return $count;
     }
     function print_tree_all($array_kat,$parent=0){
-        echo '<ul class="tree">'."\n";
+        echo '<ul';
+        if($parent==0){echo ' id="expList"';}else{echo ' class="tree"';}
+        echo '>'."\n";
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
                 if($diklat['tahun_program']!='0000'){
                     echo '<li><a href="'.base_url().'perencanaan/diklat/detail_diklat/'.$diklat['id'].'">'.$diklat['name'].'</a>';
                 }else{
-                    echo '<li><strong>'.$diklat['name'].'</strong> ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    echo '<li class="klik">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
                 }
                 if($this->count_diklat($array_kat,$diklat['id'])>0){
                 $this->print_tree_all($array_kat,$diklat['id']);}
+                echo "</li>\n";
+            }
+        }
+        echo "</ul>\n";
+    }
+    function print_tree_pub($array_kat,$parent=0){
+        echo '<ul';
+        if($parent==0){echo ' id="expList"';}else{echo ' class="tree"';}
+        echo '>'."\n";
+        foreach($array_kat as $diklat){
+            if($diklat['parent']==$parent){
+                if($diklat['tahun_program']!='0000'){
+                    echo '<li><a href="'.base_url().'site/dashboard/info_diklat/'.$diklat['id'].'">'.$diklat['name'].'</a>';
+                }else{
+                    echo '<li class="klik">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                }
+                if($this->count_diklat($array_kat,$diklat['id'])>0){
+                $this->print_tree_pub($array_kat,$diklat['id']);}
                 echo "</li>\n";
             }
         }

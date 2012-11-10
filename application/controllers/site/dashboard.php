@@ -50,6 +50,7 @@ class Dashboard extends CI_Controller {
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
         $this->load->library('lib_perencanaan');
+        $this->load->library('date');
         foreach($kategori as $k){
             $data['pil_kategori'][$k['id']]=$k['name'];
         }

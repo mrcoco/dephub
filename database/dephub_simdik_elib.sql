@@ -24,7 +24,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Table structure for table `tb_elib_author`
 --
-DROP TABLE `tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_loan`, `tb_elib_queue`;
+DROP TABLE IF EXISTS `tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_loan`, `tb_elib_queue`;
 CREATE TABLE IF NOT EXISTS `tb_elib_author` (
   `idauthor` int(10) NOT NULL AUTO_INCREMENT,
   `authorname` varchar(50) NOT NULL,

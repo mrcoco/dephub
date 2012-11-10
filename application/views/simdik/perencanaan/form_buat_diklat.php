@@ -20,7 +20,9 @@
     });
     $(function(){
         $('#tgl_mulai').datepicker({
-            format: 'yyyy-mm-dd'
+            dateFormat: 'd MM, yy',
+            changeMonth: true,
+            changeYear: true
         });
         $('#tgl_akhir').datepicker({
             format: 'yyyy-mm-dd'
