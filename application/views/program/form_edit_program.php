@@ -38,6 +38,7 @@
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
             <li><a href="#pelaksanaan" data-toggle="tab">Pelaksanaan</a></li>
             <li><a href="#pelaksana" data-toggle="tab">Pelaksana dan Fasilitator</a></li>
+            <li><a href="#sarpras" data-toggle="tab">Sarana dan Prasarana</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="overview">
@@ -97,6 +98,20 @@
                     <label class="control-label">Fasilitator</label>
                     <div class="controls">
                         <?php echo $this->editor->textarea('fasilitator',$program['faslilitator']) ?>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="sarpras">
+                <div class="control-group">
+                    <label class="control-label">Ruang kelas</label>
+                    <div class="controls">
+                        <?php echo form_dropdown('kelas',$kelas,$program['kelas'])?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Asrama</label>
+                    <div class="controls">
+                        
                     </div>
                 </div>
             </div>

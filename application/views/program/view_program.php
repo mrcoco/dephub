@@ -40,7 +40,7 @@
             <td>Tempat Pelaksanaan</td><td><?php echo $program['tempat'] ?></td>
         </tr>
         <tr>
-            <td width="20%">Jumlah Peserta</td><td><?php echo $program['jumlah_peserta'] ?></td>
+            <td width="20%">Jumlah Peserta</td><td><?php echo $diklat['jumlah_peserta'] ?></td>
         </tr>
         <tr>
             <?php if($diklat['syarat_usia']==-1||$diklat['syarat_usia']==0){
@@ -65,6 +65,9 @@
         </tr>
         <tr>
             <td>Fasilitator</td><td><?php echo $program['fasilitator'] ?></td>
+        </tr>
+        <tr>
+            <td>Kelas</td><td><?php echo $kelas[$program['kelas']] ?></td>
         </tr>
         <tr>
             <td>Materi</td>

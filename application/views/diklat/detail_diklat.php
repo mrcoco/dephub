@@ -30,6 +30,9 @@
             <td>Lama Pendidikan</td><td><?php echo $program['lama_pendidikan'] ?></td>
         </tr>
         <tr>
+            <td>Jumlah peserta</td><td><?php echo $program['jumlah_peserta'] ?></td>
+        </tr>
+        <tr>
             <?php if($program['syarat_usia']==-1||$program['syarat_usia']==0){
                 $program['syarat_usia']='-';
             }?>

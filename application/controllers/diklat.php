@@ -114,7 +114,7 @@ class Diklat extends CI_Controller{
         }
         $this->rnc->insert_materi_diklat($batch);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah ditambahkan'));
-        redirect(base_url().'diklat');
+        redirect(base_url().'diklat/view_diklat/'.$id);
     }
     
     function edit_diklat($id){
@@ -180,7 +180,7 @@ class Diklat extends CI_Controller{
         }
         $this->rnc->insert_materi_diklat($batch);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah diubah'));
-	redirect(base_url().'diklat');
+	redirect(base_url().'diklat/view_diklat/'.$clause);
     }
     
     function delete_diklat($id){
