@@ -5,8 +5,12 @@
     <div class="span12">
         <div id="listContainer">
             <div class="listControl">
-                <a id="expandList" class="klik"><i class="icon-plus"></i> Lihat semua</a>
-                <a id="collapseList" class="klik"><i class="icon-minus"></i> Sembunyi semua</a>
+                <p class="lead">Kategori Diklat
+                    <small>
+                        <a id="expandList" class="klik"><i class="icon-plus"></i> Lihat semua</a>
+                        <a id="collapseList" class="klik"><i class="icon-minus"></i> Sembunyi semua</a>                        
+                    </small>
+                </p>
             </div>
                 <?php $this->lib_perencanaan->print_tree_pub($program)?>
         </div>

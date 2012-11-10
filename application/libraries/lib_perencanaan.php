@@ -31,7 +31,7 @@ class Lib_perencanaan {
     }
     function print_tree_all($array_kat,$parent=0){
         echo '<ul';
-        if($parent==0){echo ' id="expList"';}else{echo ' class="tree"';}
+        if($parent==0){echo ' class="tree" id="expList"';}else{echo ' class="tree"';}
         echo '>'."\n";
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
@@ -49,7 +49,7 @@ class Lib_perencanaan {
     }
     function print_tree_pub($array_kat,$parent=0){
         echo '<ul';
-        if($parent==0){echo ' id="expList"';}else{echo ' class="tree"';}
+        if($parent==0){echo ' class="tree" id="expList"';}else{echo ' class="tree"';}
         echo '>'."\n";
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
