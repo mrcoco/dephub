@@ -94,7 +94,13 @@
             </div>
             <div class="tab-pane" id="peserta">
                 <div class="control-group">
-                    <label class="control-label">Syarat usia</label>
+                    <label class="control-label">Jumlah peserta</label>
+                    <div class="controls">
+                        <input type="text" name="jumlah_peserta"/>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Syarat max usia</label>
                     <div class="controls">
                         <input type="text" name="syarat_usia"/>
                     </div>

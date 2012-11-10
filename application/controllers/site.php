@@ -37,6 +37,11 @@ class Site extends CI_Controller{
 	$this->template->display('site/email', $data);
     }
     
+    function error(){
+        $data['msg']='Halaman tidak ditemukan';
+        $this->template->display('site/error', $data);
+    }
+    
     function logout(){
         $this->load->library('access');
         $login_result=$this->access->logout();

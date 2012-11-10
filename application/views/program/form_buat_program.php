@@ -36,7 +36,6 @@
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
             <li><a href="#pelaksanaan" data-toggle="tab">Pelaksanaan</a></li>
-            <li><a href="#peserta" data-toggle="tab">Peserta</a></li>
             <li><a href="#pelaksana" data-toggle="tab">Pelaksana dan Fasilitator</a></li>
         </ul>
         <div class="tab-content">
@@ -83,16 +82,6 @@
                     <label class="control-label">Tempat Pelaksanaan</label>
                     <div class="controls">
                         <?php echo $this->editor->textarea('tempat') ?>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane" id="peserta">
-                <div class="control-group">
-                    <label class="control-label" for="jml_pes">Jumlah Peserta</label>
-                    <div class="controls">
-                        <div class="input-append">
-                            <input type="text" class="input-mini" id="jml_pes" name="jumlah_peserta"><span class="add-on">orang</span>
-                        </div>
                     </div>
                 </div>
             </div>

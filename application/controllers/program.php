@@ -46,7 +46,6 @@ class Program extends CI_Controller{
         $data['lama_pendidikan']=$this->input->post('lama_pendidikan');
         $data['pelaksanaan']=$this->input->post('pelaksanaan');
         $data['tempat']=$this->input->post('tempat');
-        $data['jumlah_peserta']=$this->input->post('jumlah_peserta');
         $data['pelaksana']=$this->input->post('pelaksana');
         $data['fasilitator']=$this->input->post('fasilitator');
         
@@ -80,7 +79,6 @@ class Program extends CI_Controller{
         $data['lama_pendidikan']=$this->input->post('lama_pendidikan');
         $data['pelaksanaan']=$this->input->post('pelaksanaan');
         $data['tempat']=$this->input->post('tempat');
-        $data['jumlah_peserta']=$this->input->post('jumlah_peserta');
         $data['pelaksana']=$this->input->post('pelaksana');
         $data['fasilitator']=$this->input->post('fasilitator');
         

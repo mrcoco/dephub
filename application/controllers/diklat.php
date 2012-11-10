@@ -93,6 +93,7 @@ class Diklat extends CI_Controller{
         $data['indikator']=$this->input->post('indikator');
         $data['deskripsi']=$this->input->post('deskripsi');
         $data['tahun_program']='0000';
+        $data['jumlah_peserta']=$this->input->post('jumlah_peserta');
         $data['syarat_usia']=$this->input->post('syarat_usia');
         $data['syarat_masa_kerja']=$this->input->post('syarat_masa_kerja');
         $data['syarat_pendidikan']=$this->input->post('syarat_pendidikan');
@@ -157,6 +158,7 @@ class Diklat extends CI_Controller{
         $data['indikator']=$this->input->post('indikator');
         $data['deskripsi']=$this->input->post('deskripsi');
         $data['tahun_program']='0000';
+        $data['jumlah_peserta']=$this->input->post('jumlah_peserta');
         $data['syarat_usia']=$this->input->post('syarat_usia');
         $data['syarat_masa_kerja']=$this->input->post('syarat_masa_kerja');
         $data['syarat_pendidikan']=$this->input->post('syarat_pendidikan');

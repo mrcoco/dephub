@@ -40,7 +40,7 @@
 
 $route['default_controller'] = 'site';
 $route['elibrary'] = 'elibrary/home';
-$route['404_override'] = '';
+$route['404_override'] = 'site/error';
 
 
 /* End of file routes.php */
