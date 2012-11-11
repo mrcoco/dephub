@@ -125,4 +125,68 @@ class Pegawai extends CI_Controller{
     
     function delete_process($id){
     }
+    
+    function json_list_pegawai($kodekantor){
+        $list_peserta=$this->slng->get_peserta($kodekantor);
+        $array_list=array();
+        $n=0;
+        foreach($list_peserta as $l){
+            $array_list[$n]=$l['nip'];
+            $n++;
+        }
+        echo json_encode($array_list);
+    }
+    
+    function json_data_pegawai($nip){
+        $data_peserta=$this->slng->get_data_peserta($nip);
+        $tmtpns = date_create_from_format('Y-m-d', $data_peserta['tmtpns']);
+        $tgl_lhr = date_create_from_format('Y-m-d', $data_peserta['tanggal_lahir']);
+        $data_peserta['masa_kerja']=date('Y')-date_format($tmtpns,'Y');
+        $data_peserta['usia']=date('Y')-date_format($tgl_lhr,'Y');
+        echo json_encode($data_peserta);
+    }
+    
+    function ajax_detail_peserta($id){
+        $this->load->library('date');
+        $data_peserta=$this->slng->get_data_peserta_id($id);
+        $data['header']='Detail data '.$data_peserta['nama'];
+        foreach($data_peserta as $key=>$item){
+            if($key!='foto'){
+                if($item==''){
+                    $item='-';
+                }
+            }else{
+                if($item==''){
+                    $item=base_url().'assets/public/foto/nopic.jpg';
+                }
+            }
+            $data['peserta'][$key]=$item;
+        }
+        $this->load->view('pegawai/ajax_detail_peserta',$data);
+    }
+    
+    function ajax_history_pelatihan($id){
+        $history=$this->slng->get_history($id);
+        $data_peserta=$this->slng->get_data_peserta_id($id);
+        
+        $header='History pelatihan '.$data_peserta['nama'];
+        
+        if(count($history)==0){
+            $data='Tidak ada data history pelatihan';
+        }else{
+            $data='<ul>';
+            foreach($history as $h){
+                $data.='<li>'.$h['tahun'].' : '.$h['nama_pelatihan'].'</li>';
+            }
+            $data.='</ul>';
+        }
+        $text = '<div class="modal-header">
+                    <h3>'.$header.'</h3>
+                </div>
+                <div class="modal-body">'.$data.'</div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal">Close</a>
+                </div>';
+        echo $text;
+    }
 }

@@ -10,6 +10,7 @@ class Diklat extends CI_Controller{
         }
         $this->thn_default=date('Y');
         $this->load->model('mdl_perencanaan','rnc');
+        $this->load->model('mdl_penyelenggaraan','slng');
     }
     function index(){
         $this->daftar_diklat();
@@ -199,12 +200,50 @@ class Diklat extends CI_Controller{
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
+        $data['id_diklat']=$id;
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        $data['sub_title']='Registrasi Diklat '.$data['program']['name'];
+        $this->template->display_with_sidebar('diklat/registrasi','diklat',$data);
+        
+    }
+    
+    function registrasi_proses(){
+        $id_diklat=$this->input->post('id_diklat');
+        $id=$this->input->post('id');
+        
+        $reg_batch=array();
+        for($i=0;$i<count($id);$i++){
+            $reg['id_peserta']=$id[$i];
+            $reg['id_diklat']=$id_diklat;
+            $reg['status']='daftar';
+            $reg_batch[]=$reg;
+        }
+        $this->slng->insert_registrasi_batch($reg_batch);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Peserta telah ditambahkan'));
+        redirect(base_url().'diklat/alokasi_peserta/'.$id_diklat);
     }
     
     function alokasi_peserta($id){
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        $data['sub_title']='List Pendaftar Diklat '.$data['program']['name'];
+        $data['list']=$this->slng->getall_peserta($id);
+        $this->template->display_with_sidebar('diklat/list_peserta','diklat',$data);
+    }
+    
+    function ajax_toggle_status($status){
+        if($status==1){
+            $data['status']='accept';
+        }if($status==2){
+            $data['status']='waiting';
+        }else if($status==0){
+            $data['status']='daftar';
+        }
+        $clause['id_peserta']=$this->input->post('id_peserta');
+        $clause['id_program']=$this->input->post('id_program');
+        $this->slng->toggle_status($clause,$data);
     }
     
     function delete_diklat($id){
