@@ -3,6 +3,7 @@ class Mdl_sarpras extends CI_Model {
 
     private $table_program = 'program';
     private $table_asrama = 'sarpras_kamar';
+    private $table_alokasi_asrama = 'sarpras_alokasi_asrama';
     private $table_kelas = 'sarpras_kelas';
     private $table_gedung = 'sarpras_gedung';
     private $table_kamar = 'sarpras_kamar';
@@ -129,6 +130,20 @@ class Mdl_sarpras extends CI_Model {
     /**********
      * Gedung *
      **********/
+    
+    function get_alocated_gedung($id_program){
+        $this->db->where('id_program', $id_program);
+        return $this->db->get($this->table_alokasi_asrama)->result_array();
+    }
+    
+    function insert_alokasi_asrama_batch($batch){
+        $this->db->insert_batch($this->table_alokasi_asrama,$batch);
+    }
+    
+    function delete_alokasi_asrama($id_program){
+        $this->db->where('id_program',$id_program);
+        $this->db->delete($this->table_alokasi_asrama);
+    }
     
     function get_gedung($var=NULL) {
 	if ($var == NULL) {
@@ -291,15 +306,6 @@ class Mdl_sarpras extends CI_Model {
 	$this->db->insert($this->table_kelas, $data);
 	return $this->db->insert_id();
     }
-
-    function insert_penggunaan_kelas_batch($batch){
-        $this->db->insert_batch('penggunaan_kelas',$batch);
-    }
-    
-    function delete_penggunaan_kelas($clause){
-        $this->db->where('id_program',$clause);
-        $this->db->delete('penggunaan_kelas');
-    }
     
     function update_kelas($var, $data) {
 	$this->db->where('id', $var);
@@ -378,42 +384,52 @@ class Mdl_sarpras extends CI_Model {
     }
 
     // Pemakaian Kelas
+
+    function insert_penggunaan_kelas_batch($batch){
+        $this->db->insert_batch($this->table_pemakaian_kelas,$batch);
+    }
+    
+    function delete_penggunaan_kelas($clause){
+        $this->db->where('id_program',$clause);
+        $this->db->delete($this->table_pemakaian_kelas);
+    }
+    
     //----------------
-    function get_pemakaian_kelas($var=NULL) {
-	if ($var == NULL) {
-	    return $this->db->get($this->table_pemakaian_kelas);
-	} else {
-	    $this->db->where('id', $var);
-	    return $this->db->get($this->table_pemakaian_kelas);
-	}
-    }
-
-    function insert_pemakaian_kelas($data) {
-	$this->db->insert($this->table_pemakaian_kelas, $data);
-	return $this->db->insert_id();
-    }
-
-    function update_pemakaian_kelas($var, $data) {
-	$this->db->where('id', $var);
-	return $this->db->update($this->table_pemakaian_kelas, $data);
-    }
-
-    function delete_pemakaian_kelas($var) {
-	$this->db->where('id', $var);
-	return $this->db->delete($this->table_pemakaian_kelas);
-    }
-
-    function clear() {
-	$this->db->query('TRUNCATE TABLE  `tb_sarpras_kamar`');
-	$this->db->query('TRUNCATE TABLE  `tb_sarpras_checklist_kamar`');
-	$this->db->query('SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0');
-	$this->db->query('SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0');
-	$this->db->query('SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=\'TRADITIONAL\'');
-	$this->db->query('SET SQL_MODE=@OLD_SQL_MODE');
-	$this->db->query('SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS');
-	$this->db->query('SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS');
-	return TRUE;
-    }
+//    function get_pemakaian_kelas($var=NULL) {
+//	if ($var == NULL) {
+//	    return $this->db->get($this->table_pemakaian_kelas);
+//	} else {
+//	    $this->db->where('id', $var);
+//	    return $this->db->get($this->table_pemakaian_kelas);
+//	}
+//    }
+//
+//    function insert_pemakaian_kelas($data) {
+//	$this->db->insert($this->table_pemakaian_kelas, $data);
+//	return $this->db->insert_id();
+//    }
+//
+//    function update_pemakaian_kelas($var, $data) {
+//	$this->db->where('id', $var);
+//	return $this->db->update($this->table_pemakaian_kelas, $data);
+//    }
+//
+//    function delete_pemakaian_kelas($var) {
+//	$this->db->where('id', $var);
+//	return $this->db->delete($this->table_pemakaian_kelas);
+//    }
+//
+//    function clear() {
+//	$this->db->query('TRUNCATE TABLE  `tb_sarpras_kamar`');
+//	$this->db->query('TRUNCATE TABLE  `tb_sarpras_checklist_kamar`');
+//	$this->db->query('SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0');
+//	$this->db->query('SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0');
+//	$this->db->query('SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE=\'TRADITIONAL\'');
+//	$this->db->query('SET SQL_MODE=@OLD_SQL_MODE');
+//	$this->db->query('SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS');
+//	$this->db->query('SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS');
+//	return TRUE;
+//    }
 
 }
 

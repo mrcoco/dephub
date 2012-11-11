@@ -110,7 +110,9 @@
                 <div class="control-group">
                     <label class="control-label">Asrama</label>
                     <div class="controls">
-                        
+                        <?php foreach($asrama as $a){?>
+                        <input type="checkbox" name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?> <br/>
+                        <?php }?>
                     </div>
                 </div>
             </div>

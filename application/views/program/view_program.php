@@ -70,6 +70,16 @@
             <td>Kelas</td><td><?php echo $kelas[$program['kelas']] ?></td>
         </tr>
         <tr>
+            <td>Alokasi asrama</td>
+            <td>
+                <ul>
+                <?php foreach($pil_asrama as $as){?>
+                <li><?php echo $as?></li>
+                <?php }?>
+                </ul>
+            </td>
+        </tr>
+        <tr>
             <td>Materi</td>
             <td>
                 <ul>

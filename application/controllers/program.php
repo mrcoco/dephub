@@ -22,6 +22,17 @@ class Program extends CI_Controller{
         foreach($pil_kelas as $k){
             $data['kelas'][$k['id']]=$k['nama'];
         }
+        $pil_gedung=$this->spr->get_gedung()->result_array();
+        
+        foreach($pil_gedung as $g){
+            $data['asrama'][$g['id']]='Asrama '.$g['nama'];
+        }
+        $alokasi_asrama = $this->spr->get_alocated_gedung($id);
+        $data['pil_asrama']=array();
+        foreach($alokasi_asrama as $as){
+            $data['pil_asrama'][]=$data['asrama'][$as['id_asrama']];
+        }
+        
         $this->template->display_with_sidebar('program/view_program','program',$data);
     }
     
@@ -32,15 +43,24 @@ class Program extends CI_Controller{
         
         $this->load->library('editor');
 	
-        $data['pil_diklat']=$this->rnc->get_diklat_by_id($parent);
+        $data['program']=$data['pil_diklat']=$this->rnc->get_diklat_by_id($parent);
+        
         $pil_kelas=$this->spr->get_kelas_by_size($data['pil_diklat']['jumlah_peserta'])->result_array();
+        
         $data['kelas']=array(-1=>'-- Pilih Kelas --');
         foreach($pil_kelas as $k){
             $data['kelas'][$k['id']]=$k['nama'];
         }
         
+        $pil_gedung=$this->spr->get_gedung()->result_array();
+        
+        foreach($pil_gedung as $g){
+            $data['asrama'][]=array('id'=>$g['id'],'nama'=>'Asrama '.$g['nama']);
+        }
+        
+        
         $data['sub_title']='Buat Program Baru di Diklat '.$data['pil_diklat']['name'];
-        $this->template->display('program/form_buat_program',$data);
+        $this->template->display_with_sidebar('program/form_buat_program','diklat',$data);
     }
     
     function insert_program(){
@@ -72,6 +92,14 @@ class Program extends CI_Controller{
         }
         $this->spr->insert_penggunaan_kelas_batch($batch);
         
+        //insert alokasi asrama
+        $asrama_pil = $this->input->post('asrama');
+        $batch = array();
+        foreach($asrama_pil as $a){
+            $batch[]=array('id_program'=>$id,'id_asrama'=>$a);
+        }
+        $this->spr->insert_alokasi_asrama_batch($batch);
+        
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Program telah ditambahkan'));
         redirect(base_url().'program/view_program/'.$id);
     }
@@ -87,6 +115,18 @@ class Program extends CI_Controller{
         foreach($pil_kelas as $k){
             $data['kelas'][$k['id']]=$k['nama'];
         }
+        $pil_gedung=$this->spr->get_gedung()->result_array();
+        
+        foreach($pil_gedung as $g){
+            $data['asrama'][]=array('id'=>$g['id'],'nama'=>'Asrama '.$g['nama']);
+        }
+        $alokasi_asrama = $this->spr->get_alocated_gedung($id);
+        $data['pil_asrama']=array();
+        foreach($alokasi_asrama as $as){
+            $data['pil_asrama'][$as['id_asrama']]=true;
+        }
+        
+        
         $data['sub_title']='Edit Program '.$data['pil_diklat']['name'].' Angkatan '.$data['program']['angkatan'];
         $this->template->display_with_sidebar('program/form_edit_program','program',$data);
     }
@@ -120,6 +160,15 @@ class Program extends CI_Controller{
         }
         $this->spr->insert_penggunaan_kelas_batch($batch);
         
+        
+        //insert alokasi asrama
+        $asrama_pil = $this->input->post('asrama');
+        $batch = array();
+        foreach($asrama_pil as $a){
+            $batch[]=array('id_program'=>$clause,'id_asrama'=>$a);
+        }
+        $this->spr->delete_alokasi_asrama($clause);
+        $this->spr->insert_alokasi_asrama_batch($batch);
         
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Data program telah diperbaharui'));
         redirect(base_url().'program/view_program/'.$clause);

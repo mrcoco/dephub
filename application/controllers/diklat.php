@@ -48,7 +48,19 @@ class Diklat extends CI_Controller{
         $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
         $data['materi']=$this->rnc->get_materi_diklat($id);
-        $this->template->display('diklat/detail_diklat',$data);
+        $this->template->display_with_sidebar('diklat/detail_diklat','diklat',$data);
+    }
+    
+    function view_list_program($id,$thn=''){
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        $list_program=$this->rnc->get_program_by_parent($id,$thn);
+        foreach($list_program as $p){
+            $data['list_program'][$p['id']]=$data['program']['name'].' Angkatan '.$p['angkatan'].' '.$p['tahun_program'];
+        }
+        $this->template->display_with_sidebar('diklat/view_list_program','diklat',$data);
     }
     
     function buat_diklat($pil_kat){
@@ -140,7 +152,7 @@ class Diklat extends CI_Controller{
         $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
         $data['materi']=$this->rnc->get_materi_diklat($id);
-        $this->template->display('diklat/form_edit_diklat',$data);
+        $this->template->display_with_sidebar('diklat/form_edit_diklat','diklat',$data);
     }
     
     function update_diklat(){
@@ -181,6 +193,18 @@ class Diklat extends CI_Controller{
         $this->rnc->insert_materi_diklat($batch);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah diubah'));
 	redirect(base_url().'diklat/view_diklat/'.$clause);
+    }
+    
+    function registrasi($id){
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
+    }
+    
+    function alokasi_peserta($id){
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
     }
     
     function delete_diklat($id){

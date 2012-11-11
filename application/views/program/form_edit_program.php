@@ -111,7 +111,15 @@
                 <div class="control-group">
                     <label class="control-label">Asrama</label>
                     <div class="controls">
-                        
+                        <?php foreach($asrama as $a){?>
+                        <?php 
+                            $checked='';
+                            if(array_key_exists($a['id'], $pil_asrama)){
+                                $checked=' checked="checked"';
+                            }
+                        ?>
+                        <input type="checkbox"<?php echo $checked?> name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?> <br/>
+                        <?php }?>
                     </div>
                 </div>
             </div>
