@@ -47,21 +47,21 @@ class Digital extends CI_Controller {
                     return 0;
                     }
                 else if($tipe=='lain')
-                {$typenumber=0;$config["base_url"]= base_url()."elibrary/digital/type/lain/";}
+                {$jenis=0;$config["base_url"]= base_url()."elibrary/digital/type/lain/";}
                 else if($tipe=='dokumen')
-                {$typenumber=1;$config["base_url"]= base_url()."elibrary/digital/type/dokumen/";}
+                {$jenis=1;$config["base_url"]= base_url()."elibrary/digital/type/dokumen/";}
                 else if($tipe=='video')
-                {$typenumber=2;$config["base_url"]= base_url()."elibrary/digital/type/video/";}
+                {$jenis=2;$config["base_url"]= base_url()."elibrary/digital/type/video/";}
                 else if($tipe=='presentasi')
-                {$typenumber=3;$config["base_url"]= base_url()."elibrary/digital/type/presentasi/";}
+                {$jenis=3;$config["base_url"]= base_url()."elibrary/digital/type/presentasi/";}
                 
-                $config["total_rows"]=$this->elib->count_bibliography_by_type($typenumber);
+                $config["total_rows"]=$this->elib->count_bibliography_by_type($jenis);
                 $config["per_page"]=20;
                 $config["uri_segment"] = 5;
                 $this->pagination->initialize($config);                
                 $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
                 
-                $data = array('bibliography' => $this->elib->get_bibliography_by_type($typenumber,$config["per_page"],$page));
+                $data = array('bibliography' => $this->elib->get_bibliography_by_type($jenis,$config["per_page"],$page));
                 $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('main/elibrary/digital/type-view', $data);
 		//$this->load->view('main/elibrary/user', array('error' => ' ' ));

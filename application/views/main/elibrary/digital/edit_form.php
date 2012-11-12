@@ -1,4 +1,7 @@
 
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
 
         			<h2><?php echo $status; //edit bibliography digital ?></h2>
 

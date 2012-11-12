@@ -4,7 +4,10 @@
         <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="button">Search</button>
     </div>
     </form>
-        			
+        		
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   	
 			<h3>Hasil Pencarian</h3>
 			<?php if(count($bibliography)<1){?>
 			Tidak ada file yang sesuai.

@@ -5,7 +5,10 @@
     </form>
 
 
-        			
+        		
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   	
 
                         <h3>File</h3>
 
@@ -15,6 +18,8 @@
 
 				<tr><td width="20%">Judul</td><td> : <?php echo $bibliography[0]['title'];?> </td></tr>
 				<tr><td>Pengarang</td><td> : <?php echo $bibliography[0]['authorname']; ?>          </td></tr>
+                                <tr><td>Pengupload</td><td> : <?php echo $bibliography[0]['nama']; ?>          </td></tr>
+                                <tr><td>Di-upload tanggal</td><td> : <?php echo $bibliography[0]['uploaddate'];?> </td></tr>
                                 <tr><td>Kategori</td><td> : <?php echo $bibliography[0]['categoryname'];?></td></tr>
                                 <tr><td>Keterangan</td><td> : <?php echo $bibliography[0]['keterangan'];?> </td></tr>
                                 <tr><td>Tags/keywords</td><td> : <?php echo $bibliography[0]['tags'];?>  </td></tr>

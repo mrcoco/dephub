@@ -1,4 +1,7 @@
 
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
         		<h3>Tambah Buku</h3>	
 			<?php echo form_open_multipart('elibrary/admin/do_input_books');?>
 			<table class="table table-hover">

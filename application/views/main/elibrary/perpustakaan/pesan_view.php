@@ -1,10 +1,7 @@
-<?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
 <h3>Form Pemesanan peminjaman </h3>
 <form>
     <table class="table table-condensed table-striped">

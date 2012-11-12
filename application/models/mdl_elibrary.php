@@ -9,6 +9,7 @@ class Mdl_elibrary extends CI_Model{
     /**
      * CRUD elibrary
      */
+    /*---------- Elib_Category------------*/
     function get_category() {
         $this->db->order_by("categoryname", "asc");
         
@@ -56,6 +57,9 @@ class Mdl_elibrary extends CI_Model{
             else return false;
         
 	}
+        
+
+        
     function count_bibliography_by_idcategory($id){
         $this->db->where("idcategory",$id);
         return $this->db->count_all_results("elib_bibliography");
@@ -73,13 +77,17 @@ class Mdl_elibrary extends CI_Model{
         
         
     }
-	
+
+    /*---------- Elib_Bibliography------------*/        
+    
         function get_bibliography_by_id($id) {
-            $this->db->select('*');
-            $this->db->from('elib_bibliography');
-            $this->db->join('elib_category', 'elib_category.idcategory = elib_bibliography.idcategory','left');  
-            $this->db->join('elib_author', 'elib_author.idauthor = elib_bibliography.idauthor','left');
-            $this->db->where(array('elib_bibliography.id'=>$id)); 
+            $this->db->select('t1.id,t1.uploaddate,t5.nama,t5.nip,t1.title,t3.authorname, t2.categoryname,t4.jenis,t4.filetypename,t1.location,t1.keterangan,t1.tags');
+            $this->db->from('elib_bibliography AS t1');
+            $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','inner');  
+            $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','inner');
+            $this->db->join('elib_filetype AS t4', 't4.id = t1.type','inner');
+            $this->db->join('pegawai AS t5', 't5.id = t1.iduploader','inner');
+            $this->db->where(array('t1.id'=>$id)); 
             $bibliography = $this->db->get(); 
             
                 return $bibliography->result_array();
@@ -87,7 +95,14 @@ class Mdl_elibrary extends CI_Model{
 	}
         
 	function get_bibliography_by_title($title) {
-            $bibliography = $this->db->get_where('elib_bibliography',array('title'=>$title)); 
+            $this->db->select('t1.id,t1.uploaddate,t5.nama,t5.nip,t1.title,t3.authorname, t2.categoryname,t4.jenis,t4.filetypename,t1.location,t1.keterangan,t1.tags');
+            $this->db->from('elib_bibliography AS t1');
+            $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','inner');  
+            $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','inner');
+            $this->db->join('elib_filetype AS t4', 't4.id = t1.type','inner');
+            $this->db->join('pegawai AS t5', 't5.id = t1.iduploader','inner');
+            $this->db->where(array('title'=>$title));
+            $bibliography = $this->db->get(); 
             
                 return $bibliography->result_array();
             
@@ -96,20 +111,28 @@ class Mdl_elibrary extends CI_Model{
 	
 	
         function count_bibliography_by_type ($type){
-            $this->db->where('type',$type);
-            return $this->db->count_all("elib_bibliography");
+            $this->db->select('t1.id');
+            $this->db->from('elib_bibliography AS t1');
+            $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','inner');  
+            $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','inner');
+            $this->db->join('elib_filetype AS t4', 't4.id = t1.type','inner');
+            $this->db->join('pegawai AS t5', 't5.id = t1.iduploader','inner');
+            $this->db->where('t4.jenis',$type);
+            return $this->db->count_all_results();
             
         }
         function count_bibliography_by_category ($category){
             $this->db->where('category',$category);
-            return $this->db->count_all("elib_bibliography");
+            return $this->db->count_all_results("elib_bibliography");
             
         }
         function get_bibliography_by_category($category,$limit,$start) {
-            $this->db->select('*');
-            $this->db->from('elib_bibliography');
-            $this->db->join('elib_category', 'elib_category.idcategory = elib_bibliography.idcategory','left');  
-            $this->db->join('elib_author', 'elib_author.idauthor = elib_bibliography.idauthor','left');
+            $this->db->select('t1.id,t1.uploaddate,t5.nama,t5.nip,t1.title,t3.authorname, t2.categoryname,t4.jenis,t4.filetypename,t1.location,t1.keterangan,t1.tags');
+            $this->db->from('elib_bibliography AS t1');
+            $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','inner');  
+            $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','inner');
+            $this->db->join('elib_filetype AS t4', 't4.id = t1.type','inner');
+            $this->db->join('pegawai AS t5', 't5.id = t1.iduploader','inner');
             $this->db->where(array('elib_bibliography.idcategory'=>$category)); 
             $this->db->limit($limit,$start);
             $bibliography = $this->db->get(); 
@@ -117,19 +140,29 @@ class Mdl_elibrary extends CI_Model{
                 return $bibliography->result_array();
             
 	}
-	function get_bibliography_by_type($type,$limit,$start) {
-          
-		$this->db->where('type',$type);
+	function get_bibliography_by_type($jenis,$limit,$start) {
+                $this->db->select('t1.id,t1.uploaddate,t5.nama,t5.nip,t1.title,t3.authorname, t2.categoryname,t4.jenis,t4.filetypename,t1.location,t1.keterangan,t1.tags');
+                $this->db->from('elib_bibliography AS t1');
+                $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','inner');  
+                $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','inner');
+                $this->db->join('elib_filetype AS t4', 't4.id = t1.type','inner');
+                $this->db->join('pegawai AS t5', 't5.id = t1.iduploader','inner');
+		$this->db->where('t4.jenis',$jenis);
                 $this->db->limit($limit,$start);
-                $bibliography = $this->db->get_where('elib_bibliography'); 
+                $bibliography = $this->db->get(); 
 
                     return $bibliography->result_array();
 
                 }
 	
 	function getall_bibliography() {
-		
-		$bibliography = $this->db->get('elib_bibliography'); 
+		$this->db->select('t1.id,t1.uploaddate,t5.nama,t5.nip,t1.title,t3.authorname, t2.categoryname,t4.jenis,t4.filetypename,t1.location,t1.keterangan,t1.tags');
+                $this->db->from('elib_bibliography AS t1');
+                $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','inner');  
+                $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','inner');
+                $this->db->join('elib_filetype AS t4', 't4.id = t1.type','inner');
+                $this->db->join('pegawai AS t5', 't5.id = t1.iduploader','inner');
+		$bibliography = $this->db->get(); 
                 return $bibliography->result_array();
                 
 	}
@@ -158,6 +191,11 @@ class Mdl_elibrary extends CI_Model{
             return $bibliography->result_array();
             
         }
+        function search_bibliography_by_author(){
+            
+            
+        }
+        /*---------- Elib_Books------------*/        
         
         function search_books_by_title_or_author($string){
             $this->db->like('title', $string); 
@@ -166,19 +204,16 @@ class Mdl_elibrary extends CI_Model{
             return $books->result_array();
             
         }
-        function search_bibliography_by_author(){
-            
-            
-        }
+        
 	
         function get_books(){
 	}
         function get_books_by_id($id) {
             $this->db->select('*');
-            $this->db->from('elib_books');
-            $this->db->join('elib_category', 'elib_category.idcategory = elib_books.idcategory','left');  
-            $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
-            $this->db->where(array('elib_books.id'=>$id)); 
+            $this->db->from('elib_books AS t1');
+            $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','left');  
+            $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','left');
+            $this->db->where(array('t1.id'=>$id)); 
             $books = $this->db->get(); 
             
                 return $books->result_array();
@@ -186,9 +221,9 @@ class Mdl_elibrary extends CI_Model{
 	}
         function get_books_by_category($category,$limit,$start) {
             $this->db->select('*');
-            $this->db->from('elib_books');
-            $this->db->join('elib_category', 'elib_category.idcategory = elib_books.idcategory','left');  
-            $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
+            $this->db->from('elib_books AS t1');
+            $this->db->join('elib_category AS t2', 't2.idcategory = t1.idcategory','left');  
+            $this->db->join('elib_author AS t3', 't3.idauthor = t1.idauthor','left');
             $this->db->where(array('elib_books.idcategory'=>$category)); 
             $this->db->limit($limit,$start);
             $books = $this->db->get(); 
@@ -199,7 +234,7 @@ class Mdl_elibrary extends CI_Model{
         function count_books_by_category($category){
             
             $this->db->where('category',$category);
-            return $this->db->count_all("elib_books");
+            return $this->db->count_all_results("elib_books");
 
         }
 	function insert_books($data){
@@ -218,6 +253,7 @@ class Mdl_elibrary extends CI_Model{
             
             $this->db->delete('elib_books');
 	}
+        /*---------- User (tb_pegawai dan Elib_user)------------*/        
         public function count_user() {
 
         return $this->db->count_all("pegawai");
@@ -225,8 +261,12 @@ class Mdl_elibrary extends CI_Model{
         }
 
         function get_user($limit,$start){
+            $this->db->select('t1.id, t1.nama, t2.userrole'); //t2.userrole : 0 =biasa, 1=admin, 2=uploader(cuma bisa upload)
+            $this->db->from('pegawai AS t1');
 //            $this->db->order_by("nama", "asc");
-            $user = $this->db->get('pegawai',$limit,$start); 
+            $this->db->join('elib_userrole AS t2', 't1.id = t2.id','inner');
+            $this->db->limit($limit,$start);
+            $user = $this->db->get();
             return $user->result_array();
 	}
 	
@@ -239,7 +279,7 @@ class Mdl_elibrary extends CI_Model{
 	}
 	function delete_userrole(){
 	}
-        //author
+        /*----------------- Elib_author-----------------*/
         function get_id_author_by_name($nama){
          $this->db->select('idauthor');
          $author= $this->db->get_where('elib_author',array('authorname'=>$nama));
@@ -334,6 +374,26 @@ class Mdl_elibrary extends CI_Model{
 	$data= $this->db->get('elib_queue',$limit,$start);
         return $data->result_array();
     }
+    
+    /*---- Elib_filetype-----*/
+function get_idfile_by_filetype($string){
+
+         $this->db->select('id');
+         $file= $this->db->get_where('elib_filetype',array('filetypename'=>$string));
+         $row=$file->row();
+         if($row)
+         return $row->id;
+         else return 0;
+     }
+function get_jenisfile_by_filetype($string){
+
+         $this->db->select('jenis');
+         $file= $this->db->get_where('elib_filetype',array('filetypename'=>$string));
+         $row=$file->row();
+         if($row>0)
+         return $row->jenis;
+         else return 0;
+     }     
 }
 
 /* End of file mdl_elibrary.php */

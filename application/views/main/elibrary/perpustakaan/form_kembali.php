@@ -1,6 +1,7 @@
-<?php
 
-?>
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
 <h3>Form Pengembalian </h3>
 <form>
     <table class="table table-condensed table-striped">

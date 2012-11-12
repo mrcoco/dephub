@@ -1,4 +1,7 @@
 
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
         		<h3>Upload File</h3>	
 			<?php echo form_open_multipart('elibrary/admin/do_upload');?>
 			<table class="table table-hover">
