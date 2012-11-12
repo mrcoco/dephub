@@ -35,6 +35,16 @@ class Digital extends CI_Controller {
 		
                 
 	}
+        function viewer() //buat nampilin satuan
+	{
+                $id=$this->input->post('id');
+                $data = array('bibliography' => $this->elib->get_bibliography_by_id($id));
+                
+                
+		$this->template->display_lib('main/elibrary/digital/single_view', $data);
+		
+                
+	}
         function type($tipe='')
 	{
                 $config=array();
