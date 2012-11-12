@@ -222,17 +222,30 @@ ul.tree, ul.tree ul {
     padding: 0;
 }
    
-ul.tree ul {
+ul.tree ul{
     margin-left: 10px;
     margin-bottom: 10px;
 }
-ul.tree li {
+ul.tree li{
     margin: 0;
     padding: 0 12px;
     line-height: 20px;
     background: url('../img/node.png') no-repeat;
 }
-
+ul.pohon li{
+    margin-bottom: 10px;
+    line-height: 20px;
+}
 ul.tree li:last-child {
     background: #fff url('../img/lastnode.png') no-repeat;
+}
+.listControl a, li.klik {
+    text-decoration: none;
+    cursor: pointer;
+}
+li.klik{
+    font-weight: bold;
+}
+li.klik a{
+    font-weight: normal;
 }
