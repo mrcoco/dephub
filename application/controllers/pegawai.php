@@ -162,6 +162,8 @@ class Pegawai extends CI_Controller{
             }
             $data['peserta'][$key]=$item;
         }
+        $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
+        $data['pangkat']=$this->rnc->get_pangkat_gol();
         $this->load->view('pegawai/ajax_detail_peserta',$data);
     }
     

@@ -18,13 +18,12 @@
             <td><?php echo $peserta['tempat_lahir']?>, <?php echo $this->date->konversi2($peserta['tanggal_lahir'])?></td>
         </tr>
         <tr>
-            <th>Pangkat</th>
-            <td><?php echo $peserta['pangkat']?></td>
+            <th>Gol/Pangkat</th>
+            <td><?php echo $pangkat[$peserta['kode_gol']] ?></td>
         </tr>
         <tr>
-            <th>Golongan</th>
-            <td><?php echo $peserta['golongan']?></td>
-            <td></td>
+            <th>Pendidikan terakhir</th>
+            <td><?php echo $arr_pendidikan[$peserta['kode_pendidikan']] ?></td>
         </tr>
         <tr>
             <th>Jabatan</th>

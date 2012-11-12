@@ -1,17 +1,24 @@
 <script>
-    function toggle(id_peserta,id_program,status){
-        data = {
-            'id_peserta' : id_peserta,
-            'id_program' : id_program
-        }
+    function toggle(item,id_peserta,id_diklat,status){
+        data = {'id_peserta' : id_peserta, 'id_diklat' : id_diklat}
         $.post(
             "<?php echo base_url() ?>diklat/ajax_toggle_status/"+status,
             data,
             function(){
                 $('#status'+id_peserta).attr('class','badge badge-success');           
-                $('#status'+id_peserta).html("accept");           
+                $('#status'+id_peserta).html("accept");
+                if(status==1){
+                    $(item).siblings('#dropdown').removeClass('hide');
+                }else{
+                    $(item).siblings('#dropdown').addClass('hide');
+                }
             }
         );
+    }
+    
+    function update_angkatan(item,id_peserta,id_diklat,status){
+        data = {'id_peserta' : id_peserta, 'id_diklat' : id_diklat, 'id_program' : $(item).val()}
+        $.post("<?php echo base_url() ?>diklat/ajax_update_angkatan",data);
     }
 </script>
 <div class="row">
@@ -35,14 +42,22 @@
             <td class="nip"><?php echo $list[$i]['nip'] ?></td>
             <td class="aksi">
                 <div class="btn-group" data-toggle="buttons-radio">
-                    <button class="btn <?php if($list[$i]['status']!='accept'&&$list[$i]['status']!='waiting') echo 'active'; ?>" onclick="toggle(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>,0)">Abaikan</button>
-                    <button class="btn <?php if($list[$i]['status']=='accept') echo 'active'; ?>" onclick="toggle(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>,1)">Terima</button>
-                    <button class="btn <?php if($list[$i]['status']=='waiting') echo 'active'; ?>" onclick="toggle(<?php echo $list[$i]['id'].','.$list[$i]['id_program'] ?>,2)">Waiting</button>
+                    <button class="btn <?php if($list[$i]['status']!='accept'&&$list[$i]['status']!='waiting') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,0)">Abaikan</button>
+                    <button class="btn <?php if($list[$i]['status']=='accept') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,1)">Terima</button>
+                    <button class="btn <?php if($list[$i]['status']=='waiting') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,2)">Waiting</button>
+                    
+                    <?php 
+                    if($list[$i]['status']=='accept'){
+                        $class='class=""';
+                    } else{
+                        $class='class="hide"';
+                    }
+                    ?>
+                    <span id="dropdown" <?php echo $class?>>    
+                        <?php echo form_dropdown('angkatan',$pil_angkatan,$list[$i]['id_program'],'id="angkatan" onchange="update_angkatan(this,'.$list[$i]['id'].','.$list[$i]['id_diklat'].')"')?>
+                    </span>
                 </div>
             </td>
         <?php }?>
     </tbody>
 </table>
-<div class="form-actions">
-    <a href="penyelenggaraan/peserta/registrasi" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
-</div>

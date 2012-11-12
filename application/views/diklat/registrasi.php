@@ -1,7 +1,10 @@
 <script>
     var num=0;
     var option;
-    var kode_kantor
+    var kode_kantor;
+    var syarat=<?php echo json_encode($program)?>;
+    var pendidikan=<?php echo json_encode($arr_pendidikan)?>;
+    var pangkat=<?php echo json_encode($pangkat)?>;
     $(document).ready(function(){        
         $('#example').hide();
         append_table();
@@ -34,14 +37,69 @@
     
     function tes2(num){
         nip=$('#nip'+num).val();
+        message='';
         $.getJSON('<?php echo base_url() ?>pegawai/json_data_pegawai/'+nip,function(result){
-            $('#table'+num+' .id').val(result['id']);
-            $('#table'+num+' .nama').val(result['nama']);
-            $('#table'+num+' .pangkat').val(result['pangkat']);
-            $('#table'+num+' .gol').val(result['golongan']);
-            $('#table'+num+' .jabatan').text(result['jabatan']);
-            $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
-            $('#table'+num+' .view_detail').attr('onclick','view_detail('+result['id']+')');
+            if(syarat['syarat_usia']!=-1){
+                    if(result['usia']<=syarat['syarat_usia']){
+                        syarat_usia=true;
+                    }else{
+                        syarat_usia=false;
+                        message+='Syarat usia; '
+                    }
+                }else{
+                    syarat_usia=true;
+                }
+                if(syarat['syarat_masa_kerja']!=-1){
+                    if(result['masa_kerja']>=syarat['syarat_masa_kerja']){
+                        syarat_masa_kerja=true;
+                    }else{
+                        syarat_masa_kerja=false;
+                        message+='Syarat masa kerja; '
+                    }
+                }else{
+                    syarat_masa_kerja=true;
+                }
+                if(syarat['syarat_pangkat_gol']!=''){
+                    idx_pangkat=pangkat[result['golongan']];
+                    idx_syarat_pangkat=pangkat[syarat['syarat_pangkat_gol']];
+                    if(idx_pangkat>=idx_syarat_pangkat){
+                        syarat_pangkat_gol=true;
+                    }else{
+                        syarat_pangkat_gol=false;
+                        message+='Syarat pangkat/golongan; '
+                    }
+                }else{
+                    syarat_pangkat_gol=true;
+                }
+                if(syarat['syarat_pendidikan']!=''){
+                    idx_pendidikan=pendidikan[result['pendidikan_terakhir']];
+                    idx_syarat_pendidikan=pendidikan[syarat['syarat_pendidikan']];
+                    if(idx_pendidikan>=idx_syarat_pendidikan){
+                        syarat_pendidikan=true;
+                    }else{
+                        syarat_pendidikan=false;
+                        message+='Syarat pendidikan; '
+                    }
+                }else{
+                    syarat_pendidikan=true;
+                }
+                if(syarat_usia&&syarat_masa_kerja&&syarat_pangkat_gol&&syarat_pendidikan){
+                    $('#table'+num+' .id').val(result['id']);
+                    $('#table'+num+' .nama').val(result['nama']);
+                    $('#table'+num+' .pangkat').val(result['pangkat']);
+                    $('#table'+num+' .gol').val(result['golongan']);
+                    $('#table'+num+' .jabatan').text(result['jabatan']);
+                    $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
+                    $('#table'+num+' .view_detail').attr('onclick','view_detail('+result['id']+')');
+                }else{
+                    alert('Ada syarat yang tidak terpenuhi '+message);
+                    $('#table'+num+' .nip').val('');
+                    $('#table'+num+' .nip').focus();
+                }
+                console.log(syarat_usia);
+                console.log(syarat_masa_kerja);
+                console.log(syarat_pangkat_gol);
+                console.log(syarat_pendidikan);
         });
     }
     

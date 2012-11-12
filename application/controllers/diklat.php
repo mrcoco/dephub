@@ -202,6 +202,8 @@ class Diklat extends CI_Controller{
         }
         $data['id_diklat']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
+        $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
+        $data['pangkat']=$this->rnc->get_pangkat_gol();
         $data['sub_title']='Registrasi Diklat '.$data['program']['name'];
         $this->template->display_with_sidebar('diklat/registrasi','diklat',$data);
         
@@ -230,6 +232,11 @@ class Diklat extends CI_Controller{
         $data['program']=$this->rnc->get_diklat_by_id($id);
         $data['sub_title']='List Pendaftar Diklat '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id);
+        $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
+        $data['pil_angkatan']['']='-- Pilih Angkatan --';
+        foreach($pil_angkatan as $p){
+            $data['pil_angkatan'][$p['id']]='Angkatan '.$p['angkatan'];
+        }
         $this->template->display_with_sidebar('diklat/list_peserta','diklat',$data);
     }
     
@@ -238,11 +245,21 @@ class Diklat extends CI_Controller{
             $data['status']='accept';
         }if($status==2){
             $data['status']='waiting';
+            $data['id_program']='';
         }else if($status==0){
             $data['status']='daftar';
+            $data['id_program']='';
         }
         $clause['id_peserta']=$this->input->post('id_peserta');
-        $clause['id_program']=$this->input->post('id_program');
+        $clause['id_diklat']=$this->input->post('id_diklat');
+        $this->slng->toggle_status($clause,$data);
+    }
+    
+    function ajax_update_angkatan(){
+        $data['id_program']=$this->input->post('id_program');
+        $clause['id_peserta']=$this->input->post('id_peserta');
+        $clause['id_diklat']=$this->input->post('id_diklat');
+        
         $this->slng->toggle_status($clause,$data);
     }
     
