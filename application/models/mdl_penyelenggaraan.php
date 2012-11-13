@@ -408,4 +408,9 @@ class Mdl_penyelenggaraan extends CI_Model{
 
         return true;
     }
+    
+    function hitung_peserta($id_program){
+        $this->db->where('id_program',$id_program);
+        return $this->db->count_all_results('registrasi');
+    }
 }

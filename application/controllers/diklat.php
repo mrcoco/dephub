@@ -233,9 +233,9 @@ class Diklat extends CI_Controller{
         $data['sub_title']='List Pendaftar Diklat '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id);
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
-        $data['pil_angkatan']['']='-- Pilih Angkatan --';
+        $data['pil_angkatan']['']='---';
         foreach($pil_angkatan as $p){
-            $data['pil_angkatan'][$p['id']]='Angkatan '.$p['angkatan'];
+            $data['pil_angkatan'][$p['id']]='Angkt. '.$p['angkatan'];
         }
         $this->template->display_with_sidebar('diklat/list_peserta','diklat',$data);
     }
@@ -256,11 +256,20 @@ class Diklat extends CI_Controller{
     }
     
     function ajax_update_angkatan(){
+        
+        $max_peserta = $this->input->post('max_peserta');
         $data['id_program']=$this->input->post('id_program');
         $clause['id_peserta']=$this->input->post('id_peserta');
         $clause['id_diklat']=$this->input->post('id_diklat');
         
-        $this->slng->toggle_status($clause,$data);
+        //pengecekan jumlah pendaftar di angkatan yg dipilih
+        $num_pendaftar = $this->slng->hitung_peserta($data['id_program']);
+        if($num_pendaftar<$max_peserta){
+            $this->slng->toggle_status($clause,$data);
+            echo true;
+        }else{
+            echo false;
+        }
     }
     
     function delete_diklat($id){

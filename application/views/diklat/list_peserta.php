@@ -4,7 +4,7 @@
         $.post(
             "<?php echo base_url() ?>diklat/ajax_toggle_status/"+status,
             data,
-            function(){
+            function(data){
                 $('#status'+id_peserta).attr('class','badge badge-success');           
                 $('#status'+id_peserta).html("accept");
                 if(status==1){
@@ -17,8 +17,13 @@
     }
     
     function update_angkatan(item,id_peserta,id_diklat,status){
-        data = {'id_peserta' : id_peserta, 'id_diklat' : id_diklat, 'id_program' : $(item).val()}
-        $.post("<?php echo base_url() ?>diklat/ajax_update_angkatan",data);
+        data = {'max_peserta' : <?php echo $program['jumlah_peserta'] ?>,'id_peserta' : id_peserta, 'id_diklat' : id_diklat, 'id_program' : $(item).val()}
+        $.post("<?php echo base_url() ?>diklat/ajax_update_angkatan",data,function(res){
+            if(! res){
+                $(item).val(-1);
+                alert('Program sudah penuh');
+            }
+        });
     }
 </script>
 <div class="row">
@@ -54,7 +59,7 @@
                     }
                     ?>
                     <span id="dropdown" <?php echo $class?>>    
-                        <?php echo form_dropdown('angkatan',$pil_angkatan,$list[$i]['id_program'],'id="angkatan" onchange="update_angkatan(this,'.$list[$i]['id'].','.$list[$i]['id_diklat'].')"')?>
+                        <?php echo form_dropdown('angkatan',$pil_angkatan,$list[$i]['id_program'],'style="width: 90px" id="angkatan" onchange="update_angkatan(this,'.$list[$i]['id'].','.$list[$i]['id_diklat'].')"')?>
                     </span>
                 </div>
             </td>
