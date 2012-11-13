@@ -16,12 +16,12 @@ else $t='bukan kategori';
 <div class="well sidemenu">
     <ul class="nav nav-list">
         <li class="nav-header">Menu</li>
-        <li ><a href="site/dashboard/library">Home</a></li><!--
+        <li ><a href="elibrary">Home</a></li><!--
         <li><a href="#">Riwayat</a></li>
         <li><a href="#">Favorit</a></li>-->
         <li class="nav-header">Perpustakaan Digital</li>
         
-        <li <?php if($t=='') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/"); ?>"><i class="icon-book <?php if($t=='') echo 'icon-white'; ?>"></i>Semua File</a></li>
+        <li <?php if($t=='semua') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/semua"); ?>"><i class="icon-book <?php if($t=='') echo 'icon-white'; ?>"></i>Semua File</a></li>
         <li <?php if($t=='dokumen') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/dokumen"); ?>"><i class="icon-file <?php if($t=='dokumen') echo 'icon-white'; ?>"></i>File Dokumen</a></li>
         <li <?php if($t=='video') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/video"); ?>"><i class="icon-film <?php if($t=='video') echo 'icon-white'; ?>"></i>File Video</a></li>
         <li <?php if($t=='presentasi') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/presentasi"); ?>"><i class="icon-picture <?php if($t=='presentasi') echo 'icon-white'; ?>"></i>File Presentasi</a></li>

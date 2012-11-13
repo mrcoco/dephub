@@ -1,4 +1,22 @@
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$(function() {
+		$( "#autocomplete" ).autocomplete({
+			source: function(request, response) {
+				$.ajax({ url: "<?php echo site_url('elibrary/admin/autocomplete'); ?>",
+				data: { term: $("#autocomplete").val()},
+				dataType: "json",
+				type: "POST",
+				success: function(data){
+					response(data);
+				}
+			});
+		},
+		minLength: 2
+		});
+	});
+});
+</script>
                         <div class="row-fluid">
                             <?php echo $this->session->flashdata('msg'); ?>
                         </div>   
@@ -7,7 +25,7 @@
 			<table class="table table-hover">
 				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
 
-				<tr><td>Pengarang</td><td>: <input type="text" name="authorname"/></td></tr>
+				<tr><td>Pengarang</td><td>: <input type="text" name="authorname" id="autocomplete"/></td></tr>
                                 <tr><td>Kategori</td><td> : <select name="categoryname" > 
                                             
                                                 <?php foreach ($category as $number =>$n):?>

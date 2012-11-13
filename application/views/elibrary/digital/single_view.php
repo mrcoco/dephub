@@ -1,6 +1,6 @@
     <?php echo form_open_multipart('elibrary/digital/search/');?>
     <div class="input-append">
-        <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="button">Search</button>
+        <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="submit">Search</button>
     </div>
     </form>
 
@@ -25,16 +25,12 @@
                                 <tr><td>Tags/keywords</td><td> : <?php echo $bibliography[0]['tags'];?>  </td></tr>
                                 
 			</table>
+                         
+                         <?php echo form_open_multipart('elibrary/digital/viewer');?>
+                        
+                         <button class="btn btn-info" type="submit" /> <i class="icon-zoom-in icon-white"> </i> Lihat</button>
                          <a class="btn" href="<?php echo $bibliography[0]['location'];?>"><i class="icon-download-alt"></i> Download File</a>
-                         <?php echo form_open_multipart('elibrary/perpustakaan/viewer');?>
-                         <input type="submit" value="Lihat" />
-                         <input type="hidden" value="<?php echo $bibliography[0]['id'];?>" />
+
+                         <input name="id" type="hidden" value="<?php echo $bibliography[0]['id'];?>" />
                          </form>
 			
-
-			
-
-			
-        
-     
-   
