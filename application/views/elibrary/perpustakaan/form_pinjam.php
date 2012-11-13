@@ -31,8 +31,9 @@ $books[0]['pinjam']=1;
 
 ?>
 
-        			
-
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
                         <h3>Form Peminjaman</h3>
                         <?php echo form_open_multipart('elibrary/admin/do_pinjam');?>
 			<table class="table table-hover">

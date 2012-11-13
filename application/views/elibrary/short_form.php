@@ -1,4 +1,8 @@
-<?php if($this->uri->segment(3)=='add_category'){
+
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
+                            <?php if($this->uri->segment(3)=='add_category'){
     $item="categoryname";
     $label="Kategori";
     $fungsi='add_c';

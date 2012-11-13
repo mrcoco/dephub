@@ -18,7 +18,7 @@ class Perpustakaan extends CI_Controller {
         $this->template->display_lib('elibrary/perpustakaan/index_perpustakaan', $data);
     }
 
-    function view($id) { //buat nampilin satuan
+    function view($id) { //untuk menampilkan keterangan satuan.
 
         $data = array('books' => $this->elib->get_books_by_id($id));
 
@@ -54,7 +54,7 @@ class Perpustakaan extends CI_Controller {
         $data = array('books' => $this->elib->search_books_by_title_or_author($string));
 
         $this->template->display_lib('elibrary/perpustakaan/search-result', $data);
-        //$this->load->view('main/elibrary/user', array('error' => ' ' ));
+        //$this->load->view('elibrary/user', array('error' => ' ' ));
     }
 
     function pesan() {

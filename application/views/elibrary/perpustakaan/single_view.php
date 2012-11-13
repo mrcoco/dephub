@@ -32,6 +32,9 @@ $books[0]['pinjam']=1;
 
         			
 
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
                         <h3>File</h3>
 
 			

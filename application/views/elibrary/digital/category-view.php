@@ -15,14 +15,18 @@
                         <table class="table table-condensed table-striped">
                             <thead>
                                 <tr>
-                                    <th width="65%">Nama Buku</th>
-                                    <th width="35%">Aksi</th>
+                                    <th width="40%">Nama file</th>
+                                    <th>Pengarang</th>
+                                    <th width="25%">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php foreach ($bibliography as $number => $n):?>
                                 <tr>
                                     <td><?php echo $bibliography[$number]['title'];?></td>
+                                    <td>
+					<?php echo $bibliography[$number]['authorname'];?>
+                                    </td>
                                     <td>
                                         <a href="<?php echo site_url("elibrary/digital/view")."/".$bibliography[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Lihat</a>
                                         <a href="<?php echo site_url("elibrary/admin/edit_bibliography")."/".$bibliography[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>

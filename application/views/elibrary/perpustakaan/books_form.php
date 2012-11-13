@@ -1,10 +1,31 @@
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$(function() {
+		$( "#autocomplete" ).autocomplete({
+			source: function(request, response) {
+				$.ajax({ url: "<?php echo site_url('elibrary/admin/autocomplete'); ?>",
+				data: { term: $("#autocomplete").val()},
+				dataType: "json",
+				type: "POST",
+				success: function(data){
+					response(data);
+				}
+			});
+		},
+		minLength: 3
+		});
+	});
+});
+</script>
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
         		<h3>Tambah Buku</h3>	
 			<?php echo form_open_multipart('elibrary/admin/do_input_books');?>
 			<table class="table table-hover">
 				<tr><td>Judul Buku</td><td> : <input type="text" name="title" size="20" /> </td></tr>
 
-				<tr><td>Pengarang</td><td> : <input type="text" name="authorname"/>/td></tr>
+				<tr><td>Pengarang</td><td> : <input type="text" name="authorname" id="autocomplete"/></td></tr>
                                 <tr><td>Kategori</td><td> : <select name="categoryname" > 
                                             
                                                 <?php foreach ($category as $number =>$n):?>

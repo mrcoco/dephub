@@ -1,10 +1,31 @@
-
+<script type="text/javascript">
+$(document).ready(function() {
+	$(function() {
+		$( "#autocomplete" ).autocomplete({
+			source: function(request, response) {
+				$.ajax({ url: "<?php echo site_url('elibrary/admin/autocomplete'); ?>",
+				data: { term: $("#autocomplete").val()},
+				dataType: "json",
+				type: "POST",
+				success: function(data){
+					response(data);
+				}
+			});
+		},
+		minLength: 3
+		});
+	});
+});
+</script>
+                        <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>   
         		<h3>Edit Buku</h3>	
 			<?php echo form_open_multipart('elibrary/admin/do_edit_books');?>
 			<table class="table table-hover">
 				<tr><td>Judul Buku</td><td> : <input type="text" name="title" size="20" value="<?php echo $books[0]['title'];?>"/> </td></tr>
 
-				<tr><td>Pengarang</td><td> : <input type="text" name="authorname" value="<?php echo $books[0]['authorname'];?>"></td></tr>
+				<tr><td>Pengarang</td><td> : <input type="text" name="authorname" id="autocomplete" value="<?php echo $books[0]['authorname'];?>"></td></tr>
                                 <tr><td>Kategori</td><td> : <select name="categoryname" > 
                                                 <option value="<?php echo $books[0]['categoryname'];?>"><?php echo $bibliography[0]['categoryname'];?> </option>
                                                 <?php foreach ($category as $number =>$n):?>
