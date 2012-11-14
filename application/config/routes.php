@@ -38,8 +38,9 @@
 |
 */
 
-$route['default_controller'] = "site/dashboard";
-$route['404_override'] = 'missing';
+$route['default_controller'] = 'site';
+$route['elibrary'] = 'elibrary/home';
+$route['404_override'] = 'site/error';
 
 
 /* End of file routes.php */

@@ -1,6 +1,7 @@
-<?php
 
-?>
+                       <div class="row-fluid">
+                            <?php echo $this->session->flashdata('msg'); ?>
+                        </div>    
                 <div class="well span1" align="center">
 		<a href="<?php echo site_url("elibrary/admin/input_books");?>" rel="tooltip" title="Klik untuk menambah buku" class="tip">
 		    <img src="assets/img/menu-icons/tambah-buku.png" />

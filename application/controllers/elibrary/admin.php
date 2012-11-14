@@ -11,6 +11,7 @@ class Admin extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('mdl_elibrary','elib');
                 $this->load->library('pagination');
+                
 	}
         
 
@@ -19,16 +20,18 @@ class Admin extends CI_Controller {
 //                $data = array(
 //                
 //                );
-		$this->template->display_lib('main/elibrary/admin-page');
-		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+                $nama=ucwords(strtolower($this->session->userdata('nama')));
+                $this->session->set_flashdata('msg', $this->editor->alert_ok('Selamat datang '.$nama));
+		$this->template->display_lib('elibrary/admin-page');
+		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         function add_category()
 	{
 //                $data = array(
 //                
 //                );
-		$this->template->display_lib('main/elibrary/short_form');
-		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+		$this->template->display_lib('elibrary/short_form');
+		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         function do_add_category()
 	{
@@ -53,7 +56,7 @@ class Admin extends CI_Controller {
                 $data = array('list'=>$this->elib->get_category_pagination($config["per_page"], $page)
                 );
                 $data["links"] = $this->pagination->create_links();
-		$this->template->display_lib('main/elibrary/list',$data);
+		$this->template->display_lib('elibrary/list',$data);
                 
                 
 	}
@@ -61,7 +64,7 @@ class Admin extends CI_Controller {
 	{       
                 $data = array( 'data'=>$this->elib->get_category_by_id($id)
                        );
-		$this->template->display_lib('main/elibrary/short_form',$data);
+		$this->template->display_lib('elibrary/short_form',$data);
 
 	}
         function do_edit_category()
@@ -87,7 +90,7 @@ class Admin extends CI_Controller {
                    redirect(base_url().'elibrary/admin/list_category');
                }
                
-		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         
         function list_author()
@@ -104,7 +107,7 @@ class Admin extends CI_Controller {
                 $data = array('list'=>$this->elib->get_author_pagination($config["per_page"], $page)
                 );
                 $data["links"] = $this->pagination->create_links();
-		$this->template->display_lib('main/elibrary/list',$data);
+		$this->template->display_lib('elibrary/list',$data);
                 
                 
 	}
@@ -112,7 +115,7 @@ class Admin extends CI_Controller {
 	{       
                 $data = array( 'data'=>$this->elib->get_author_by_id($id)
                        );
-		$this->template->display_lib('main/elibrary/short_form',$data);
+		$this->template->display_lib('elibrary/short_form',$data);
 
 	}
         function do_edit_author()
@@ -137,7 +140,7 @@ class Admin extends CI_Controller {
                    redirect(base_url().'elibrary/admin/list_author');
                }
                
-		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         
         function list_user()
@@ -151,10 +154,11 @@ class Admin extends CI_Controller {
                 $this->pagination->initialize($config);                
                 $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
                 
-                $data = array('list'=>$this->elib->get_user($config["per_page"], $page)
+                $data = array('list'=>$this->elib->get_user($config["per_page"], $page),
+                    'userrole'=>$this->elib->get_userrole()
                 );
                 $data["links"] = $this->pagination->create_links();
-		$this->template->display_lib('main/elibrary/list',$data);   
+		$this->template->display_lib('elibrary/list',$data);   
 		
 	}
         function edit_user()
@@ -162,16 +166,16 @@ class Admin extends CI_Controller {
 //                $data = array(
 //                
 //                );
-		$this->template->display_lib('main/elibrary/admin-page');
-		//$this->load->view('main/elibrary/user', array('error' => ' ' ));
+		$this->template->display_lib('elibrary/admin-page');
+		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
-/*--------------Administrasi Perpustakaan Mulai----------------------*/
+/*--------------Administrasi Perpustakaan fisik Mulai----------------------*/
         function input_books(){
             $data = array(
                 'category'=>$this->elib->get_category(),
                 'author'=>$this->elib->get_author()
                 );
-            $this->template->display_lib('main/elibrary/perpustakaan/books_form', $data);
+            $this->template->display_lib('elibrary/perpustakaan/books_form', $data);
             
         }
         function do_input_books(){
@@ -203,7 +207,7 @@ class Admin extends CI_Controller {
             $this->elib->insert_books($data['insert']);
             $this->session->set_flashdata('msg',$this->editor->alert_ok('Buku telah ditambah'+$data['insert']['title']));
             redirect(base_url().'elibrary/digital/type');
-//			$this->template->display_lib('main/elibrary/upload_success', $data);
+//			$this->template->display_lib('elibrary/upload_success', $data);
         }
         
         
@@ -217,7 +221,7 @@ class Admin extends CI_Controller {
                 'status'=>' '
                 );
             if($data['books']){
-                $this->template->display_lib('main/elibrary/perpustakaan/edit_form', $data);
+                $this->template->display_lib('elibrary/perpustakaan/edit_form', $data);
             }else{
                 $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
                 redirect(base_url().'elibrary/perpustakaan/category');                    
@@ -287,18 +291,63 @@ class Admin extends CI_Controller {
         }
         function pinjam(){
             $data='';
-            $this->template->display_lib('main/elibrary/perpustakaan/form_pinjam', $data);
+            $this->template->display_lib('elibrary/perpustakaan/form_pinjam', $data);
+            //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
+            
+        }
+        function do_pinjam(){
+            $data=array('insert'=>$this->input->post());
+            $this->elib->insert_loan($data['insert']);
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Pinjaman telah dimasukkan'));
+            redirect(base_url().'elibrary/admin/list_pinjam/'); 
             //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
             
         }
         function list_pinjam(){
+            
+            $config=array();
+                $config["base_url"]= base_url()."elibrary/admin/list_pinjam/";
+                $config["total_rows"]=$this->elib->count_loan();
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                           
+                
+                
+		 $data = array('loan' => $this->elib->get_loan($config["per_page"],$page));
+                 $data["links"] = $this->pagination->create_links();
+                $this->template->display_lib('elibrary/perpustakaan/list_pinjam', $data);
+           
+            
             //menampilkan daftar peminjaman, bisa berdasarkan NIP, tanggal peminjaman, tanggal seharusnya kembali, buku
         }
         function kembali($id){
+            $data='';
+            $this->template->display_lib('elibrary/perpustakaan/form_kembali', $data);
+            //setelah menekan tombol kembali di list pinjam
+            //
+        }
+        function do_kembali(){
+            $data=array('update'=>$this->input->post());
+            $this->template->display_lib('elibrary/perpustakaan/form_kembali', $data);
             //setelah menekan tombol kembali di list pinjam
             //
         }
         function list_antrian(){
+            $config=array();
+                $config["base_url"]= base_url()."elibrary/admin/list_antrian/";
+                $config["total_rows"]=$this->elib->count_queue();
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                           
+                
+                
+		 $data = array('queue' => $this->elib->get_queue($config["per_page"],$page));
+                 $data["links"] = $this->pagination->create_links();
+                $this->template->display_lib('elibrary/perpustakaan/list_antrian', $data);
             
         }
         
@@ -311,13 +360,13 @@ class Admin extends CI_Controller {
                 'category'=>$this->elib->get_category(),
                 'author'=>$this->elib->get_author()
                 );
-		$this->template->display_lib('main/elibrary/digital/upload_form', $data);
+		$this->template->display_lib('elibrary/digital/upload_form', $data);
 		
 	}
         function do_upload()
 	{
 		$config['upload_path'] = './assets/elibrary/uploads/'; 
-		$config['allowed_types'] = 'gif|jpg|png|doc|docx|ppt|pptx|xls|xlsx|pdf|jpeg|pdf|';
+		$config['allowed_types'] = 'mp4|gif|jpg|png|doc|docx|ppt|pptx|xls|xlsx|pdf|jpeg|pdf|mp3|wmv';
 		$config['max_size']	= '100000';
                 $config['overwrite']    = TRUE;
 		
@@ -325,8 +374,10 @@ class Admin extends CI_Controller {
 
 		if ( ! $this->upload->do_upload())
 		{
-			$error = array('error' => $this->upload->display_errors());
-                        $this->template->display_lib('main/elibrary/digital/upload_form', $error);
+			$error = $this->upload->display_errors();
+                        $this->session->set_flashdata('msg',$this->editor->alert_error($error));
+                        redirect(base_url().'elibrary/digital/type'); 
+                        
 		}
 		else
 		{
@@ -345,14 +396,14 @@ class Admin extends CI_Controller {
 			$data['insert']['title']=$data['item']['raw_name'];
 			
                         $temp=$data['item']['file_ext'];
-			if($temp=='.pdf'||$temp='.doc'||$temp='.docx'||$temp='.txt'||$temp='.xls'||$temp='.xlsx') $data['insert']['type']=1; //dokumen
-			else if ($temp=='.mp4'||$temp='.mp3'||$temp='.wmv'||$temp='.flv'||$temp='.3gp'||$temp='.mkv'||$temp='.avi') $data['insert']['type']=2;//video
-			else if ($temp=='.pptx'||$temp='.ppt') $data['insert']['type']=3; //presentasi
-			else  $data['insert']['type']=0; //lain2
+			$data['insert']['type']=$this->elib->get_idfile_by_filetype($temp); //lain2
 			
 			$data['insert']['location']='./assets/elibrary/uploads/'.$data['item']['orig_name'];
 			$data['insert']['keterangan']=$this->input->post('keterangan');
                         $data['insert']['tags']=$this->input->post('tags');
+                        $dateTime = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+                        $dt= $dateTime->format("Y-m-d");//for India;
+                        $data['insert']['uploaddate']=$dt;
                         
                         $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
                         $data['insert']['idcategory']=$category['idcategory'];
@@ -361,7 +412,7 @@ class Admin extends CI_Controller {
                         
 			$this->elib->insert_bibliography($data['insert']);
                         $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diupload'));
-			$this->template->display_lib('main/elibrary/digital/upload_success', $data);
+			$this->template->display_lib('elibrary/digital/upload_success', $data);
                         
                         
                             
@@ -378,7 +429,7 @@ class Admin extends CI_Controller {
                 'status'=>' '
                 );
             if($data['bibliography']){
-                $this->template->display_lib('main/elibrary/digital/edit_form', $data);
+                $this->template->display_lib('elibrary/digital/edit_form', $data);
             }else{
                 $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
                 redirect(base_url().'elibrary/digital/type');                    
@@ -434,6 +485,21 @@ class Admin extends CI_Controller {
                 redirect(base_url().'elibrary/digital/type');                    
             }
             
+        }
+        /* ---------- autocomplete---------------*/
+        function autocomplete(){
+	
+            $term = $this->input->post('term',TRUE);
+
+            if (strlen($term) < 3) return 0;
+
+            $rows = $this->elib->get_autocomplete_author(array('keyword' => $term));
+
+            $json_array = array();
+            foreach ($rows as $row)
+                     array_push($json_array, $row->authorname);
+
+            echo json_encode($json_array);
         }
 }       
 ?>

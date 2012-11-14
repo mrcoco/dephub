@@ -6,20 +6,11 @@
  */
 class Lib_perencanaan {
     
-    function print_tree_kategori($array_kat,$parent=0){
-        echo '<ul class="tree">'."\n";
-        foreach($array_kat as $kat){
-            if($kat['parent']==$parent){
-                echo '<li>'.$kat['name'];
-                echo ' <a class="tip" rel="tooltip" title="Edit" href="'.base_url().'perencanaan/diklat/edit_kategori/'.$kat['id'].'"><i class="icon-edit"></i></a>';
-                echo ' <a class="tip" rel="tooltip" title="Buat program" href="'.base_url().'perencanaan/diklat/buat_diklat/'.$kat['id'].'"><i class="icon-plus"></i></a>';
-                if($this->count_diklat($array_kat,$kat['id'])>0){
-                  $this->print_tree_kategori($array_kat,$kat['id']);}
-                echo '</li>';
-            }
-        }
-        echo '</ul>';
+    function __construct() {
+	$CI = & get_instance();
+        $this->session = $CI->session;
     }
+    
     function count_diklat($array,$parent){
         $count=0;
         foreach($array as $var){
@@ -29,14 +20,37 @@ class Lib_perencanaan {
         }
         return $count;
     }
+    
     function print_tree_all($array_kat,$parent=0){
-        echo '<ul class="tree">'."\n";
+        echo '<ul';
+        if($parent==0){echo ' class="tree" id="expList"';}else{echo ' class="tree"';}
+        echo '>'."\n";
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
-                if($diklat['tahun_program']!='0000'){
-                    echo '<li><a href="'.base_url().'perencanaan/diklat/detail_diklat/'.$diklat['id'].'">'.$diklat['name'].'</a>';
-                }else{
-                    echo '<li><strong>'.$diklat['name'].'</strong> ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                if($diklat['tipe']==1){
+                    echo '<li><h3>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
+                        echo ' <a class="tip" rel="tooltip" title="Edit Kategori" href="javascript:edit_kat(\''.$diklat['name'].'\','.$diklat['parent'].','.$diklat['id'].')"><i class="icon-edit"></i></a>';
+                        echo ' <a class="tip" rel="tooltip" title="Hapus Kategori" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_kategori/'.$diklat['id'].'"><i class="icon-remove"></i></a>';
+                        echo ' <a class="tip" rel="tooltip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>';
+                        echo ' <a class="tip" rel="tooltip" title="Buat diklat di kategori ini" href="'.base_url().'diklat/buat_diklat/'.$diklat['id'].'"><i class="icon-plus"></i></a>';
+                        echo '</h3>';
+                    }
+                }else if($diklat['tipe']==2){
+                    echo '<li><h4>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    echo ' <a class="tip" rel="tooltip" title="Lihat diklat ini" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'"><i class="icon-eye-open"></i></a>';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
+                        echo ' <a class="tip" rel="tooltip" title="Edit diklat ini" href="'.base_url().'diklat/edit_diklat/'.$diklat['id'].'"><i class="icon-edit"></i></a>';
+                        echo ' <a class="tip" rel="tooltip" title="Hapus diklat ini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_diklat/'.$diklat['id'].'"><i class="icon-remove"></i></a>';
+                        echo ' <a class="tip" rel="tooltip" title="Buka program di diklat ini" href="'.base_url().'program/buat_program/'.$diklat['id'].'"><i class="icon-plus"></i></a></h4>';
+                    }
+                }else if($diklat['tipe']==3){
+                    echo '<li><h5> Angkatan '.$diklat['angkatan'];
+                    echo ' <a class="tip" rel="tooltip" title="Lihat program ini" href="'.base_url().'program/view_program/'.$diklat['id'].'"><i class="icon-eye-open"></i></a>';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
+                        echo ' <a class="tip" rel="tooltip" title="Edit program ini" href="'.base_url().'program/edit_program/'.$diklat['id'].'"><i class="icon-edit"></i></a>';
+                        echo ' <a class="tip" rel="tooltip" title="Hapus program ini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'program/delete_diklat/'.$diklat['id'].'"><i class="icon-remove"></i></a></h5>';
+                    }
                 }
                 if($this->count_diklat($array_kat,$diklat['id'])>0){
                 $this->print_tree_all($array_kat,$diklat['id']);}
@@ -45,15 +59,33 @@ class Lib_perencanaan {
         }
         echo "</ul>\n";
     }
+    function print_tree_pub($array_kat,$parent=0){
+        echo '<ul';
+        if($parent==0){echo ' class="tree" id="expList"';}else{echo ' class="tree"';}
+        echo '>'."\n";
+        foreach($array_kat as $diklat){
+            if($diklat['parent']==$parent){
+                if($diklat['tahun_program']!='0000'){
+                    echo '<li><a href="'.base_url().'site/dashboard/info_diklat/'.$diklat['id'].'">'.$diklat['name'].'</a>';
+                }else{
+                    echo '<li class="klik">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                }
+                if($this->count_diklat($array_kat,$diklat['id'])>0){
+                $this->print_tree_pub($array_kat,$diklat['id']);}
+                echo "</li>\n";
+            }
+        }
+        echo "</ul>\n";
+    }
     
-    function cetak_excel(&$row,$col,$sheet,$array_kat,$parent=0){
+    function cetak_excel(&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent=''){
         $no=1;
         for($i=0;$i<count($array_kat);$i++){
             if($array_kat[$i]['parent']==$parent){
-                if($array_kat[$i]['tahun_program']!='0000'){
+                if($array_kat[$i]['tipe']==3){
                     $data=$array_kat[$i];
                     $sheet->setCellValueByColumnAndRow($col, $row,$no++);
-                    $sheet->setCellValueByColumnAndRow($col+1, $row,$data['name']);
+                    $sheet->setCellValueByColumnAndRow($col+1, $row,$nama_parent.' angkatan '.$data['angkatan']);
                     $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
                     if($data['tanggal_mulai']!=''&&$data['tanggal_akhir']!=''){
                         $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
@@ -86,7 +118,7 @@ class Lib_perencanaan {
                             ->getFont()->setBold(true);
                 }
                 $row++;
-                $this->cetak_excel($row, $col, $sheet, $array_kat,$array_kat[$i]['id']);
+                $this->cetak_excel($row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name']);
             }
         }
     }
