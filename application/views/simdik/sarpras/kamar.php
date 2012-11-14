@@ -8,11 +8,11 @@
     <thead>
         <tr>
             <th width="5%">No</th>
-            <th width="5%">ID</th>
-            <th width="15%">Asrama</th>
+            <th width="15%">Nomor Kamar</th>
+			<!--
             <th width="5%">Lantai</th>
             <th width="10%">Sayap</th>
-            <th width="5%">Nomor</th>
+			-->
             <th width="5%">Bed</th>
             <th width="25%">Status</th>
             <th width="25%">Aksi</th>
@@ -22,11 +22,11 @@
         <?php for($i=0;$i<count($list);$i++) {?>
         <tr class="gedung<?php echo $list[$i]['id'] ?>">
             <td class="no"><?php echo ($i+1) ?></td>
-            <td class="id"><?php echo $list[$i]['id'] ?></td>
-            <td class="asrama"><?php echo $list[$i]['nama'] ?></td>
-            <td class="lantai"><?php echo $list[$i]['lantai'] ?></td>
-            <td class="sayap"><?php echo $list[$i]['sayap'] ?></td>
-            <td class="nomor"><?php echo $list[$i]['nomor'] ?></td>
+            <td class="nomor"><?php echo $list[$i]['nama'].$list[$i]['nomor'] ?></td>
+			<!--
+            <td class="lantai"><?php //echo $list[$i]['lantai'] ?></td>
+            <td class="sayap"><?php //echo $list[$i]['sayap'] ?></td>
+			-->
             <td class="bed"><?php echo $list[$i]['bed'] ?></td>
 			<td class="status"><?php echo $list[$i]['status'] ?></td>
             <td class="aksi">

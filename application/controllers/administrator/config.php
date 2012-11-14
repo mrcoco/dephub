@@ -63,6 +63,8 @@ class Config extends Administrator_Controller {
 	$this->load->library('form_validation');
 	$this->form_validation->set_rules('set','Set','required|trim');
     }
+	
+	
 
     function generate_asrama($var)
     {

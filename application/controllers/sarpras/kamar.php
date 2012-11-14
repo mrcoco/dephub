@@ -54,6 +54,7 @@ class kamar extends Sarpras_Controller{
 	if(empty ($id)) $id='';
         $data['sub_title']='Tambah Kamar';
         $var['id']='';
+        $var['nama_kamar']='';
         $var['nama']='';
         $var['lantai']='';
         $var['sayap']='';
