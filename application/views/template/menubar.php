@@ -1,7 +1,7 @@
 <div id="yw0" class="subnav">
     <ul class="nav nav-pills">
         <?php if($this->session->userdata('id_role')==1){?>
-        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Home</a></li>
         <?php } ?>
         <li><a href="<?php echo base_url().'diklat'?>">Diklat</a></li>
         <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){?>

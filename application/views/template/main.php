@@ -42,7 +42,7 @@
         $('#list').dataTable();
         $('#list_length').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');
-        $('#list_filter input').attr('placeholder','Masukkan nama/NIP');
+        $('#list_filter input').attr('placeholder','Masukkan kata yang dicari');
 //        $('#list_paginate').addClass('pager');
         $('#list_previous, #list_next').addClass('btn');
         $('.alert').delay(2 * 1000).fadeOut()
@@ -63,7 +63,7 @@
                     <li><a href="<?php echo base_url()?>site/email">E-Mail</a></li>
                     <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>
 		    <li><a href="<?php echo base_url()?>elibrary">Library</a></li>
-		    <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Tentang PPSDMAP<b class="caret"></b></a>
+		    <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Profil<b class="caret"></b></a>
 			<ul class="dropdown-menu">
                             <li><a href="<?php echo base_url()?>about">Pusbang SDM</a></li>
 			    <li><a href="<?php echo base_url()?>about/visi_misi">Visi & Misi</a></li>
