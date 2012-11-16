@@ -189,11 +189,20 @@ class Program extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         $data['program']=$this->rnc->get_program_by_id($id);
+       
         $pil_materi=$this->rnc->get_materi_diklat($data['program']['parent']);
         $data['pil_materi'][-1]='-- Pilih Materi --';
         foreach($pil_materi as $p){
             $data['pil_materi'][$p['id_materi']]=$p['judul'];
         }
+        
+        $pil_kelas=$this->spr->get_kelas_by_size($data['program']['jumlah_peserta'])->result_array();
+        
+        $data['kelas']=array(-1=>'-- Pilih Kelas --');
+        foreach($pil_kelas as $k){
+            $data['kelas'][$k['id']]=$k['nama'];
+        }
+        
         $data['schedule'] = $this->slng->get_schedule($id);
 
         $json_array = array();
@@ -205,7 +214,7 @@ class Program extends CI_Controller{
                 $isi['id'] = $i;
                 $isi['start'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_mulai']);
                 $isi['end'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_selesai']);
-                if($item['jenis']=='libur')
+                if($item['jenis']=='non materi')
                     $isi['title'] = $item['nama_kegiatan'];
                 else
                     $isi['title'] = $data['pil_materi'][$item['id_materi']];
@@ -232,12 +241,16 @@ class Program extends CI_Controller{
         $data_ins['jam_selesai'] = $this->input->post('jam_selesai');
         $data_ins['tanggal'] = $this->date->konversi3($this->input->post('tanggal'));
         $data_ins['jenis'] = $this->input->post('jenis');
-        if($data_ins['jenis']=='libur'){
+        $data_ins['jenis_tempat'] = $this->input->post('jenis_tempat');
+        $data_ins['id_ruangan'] = $this->input->post('id_ruangan');
+        $data_ins['lokasi'] = $this->input->post('lokasi');
+        if($data_ins['jenis']=='non materi'){
             $data_ins['nama_kegiatan'] = $this->input->post('materi');
         }else if($data_ins['jenis']=='materi'){
             $data_ins['id_materi'] = $this->input->post('materi');
         }
-        $data_materi=array();
+        $data_materi['arr_pembicara']=array();
+        $data_materi['arr_pendamping']=array();
         if($data_ins['jenis']=='materi'){
             $data_materi['arr_pembicara'] = $this->input->post('id_pembicara');
             $data_materi['arr_pendamping'] = $this->input->post('pendamping');
@@ -288,12 +301,16 @@ class Program extends CI_Controller{
         $data_ins['jam_selesai'] = $this->input->post('jam_selesai');
         $data_ins['tanggal'] = $this->date->konversi3($this->input->post('tanggal'));
         $data_ins['jenis'] = $this->input->post('jenis');
-        if($data_ins['jenis']=='libur'){
+        $data_ins['jenis_tempat'] = $this->input->post('jenis_tempat');
+        $data_ins['id_ruangan'] = $this->input->post('id_ruangan');
+        $data_ins['lokasi'] = $this->input->post('lokasi');
+        if($data_ins['jenis']=='non materi'){
             $data_ins['nama_kegiatan'] = $this->input->post('materi');
         }else if($data_ins['jenis']=='materi'){
             $data_ins['id_materi'] = $this->input->post('materi');
         }
-        $data_materi=array();
+        $data_materi['arr_pembicara']=array();
+        $data_materi['arr_pendamping']=array();
         if($data_ins['jenis']=='materi'){
             $data_materi['arr_pembicara'] = $this->input->post('id_pembicara');
             $data_materi['arr_pendamping'] = $this->input->post('pendamping');

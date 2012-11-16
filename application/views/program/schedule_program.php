@@ -28,7 +28,7 @@
         var mindate = new Date('<?php echo $program['tanggal_mulai'] ?>');
         var maxdate = new Date('<?php echo $program['tanggal_akhir'] ?>');
         var $calendar = $('#calendar');
-        var id = <?php echo $id_max ?>; //id adalah count jadwal dari program ini
+        var id = (<?php echo $id_max ?>+1); //id adalah count jadwal dari program ini
         
         $calendar.weekCalendar({
             dateFormat: 'd M Y',
@@ -72,6 +72,9 @@
                 var startField = $dialogContent.find("select[name='mulai']").val(calEvent.start);
                 var endField = $dialogContent.find("select[name='selesai']").val(calEvent.end);
                 var titleField;
+                var jenisTempat;
+                var id_ruangan;
+                var lokasi;
                 var kegiatan = $dialogContent.find("select[name='jenis']");
 
                 $dialogContent.dialog({
@@ -86,6 +89,7 @@
                     },
                     buttons: {
                         save : function() {
+                            console.log(id);
                             calEvent.id = id;
                             id++;
                             calEvent.start = new Date(startField.val());
@@ -96,7 +100,13 @@
                             if(pil_jenis=='materi'){
                                 titleField=$dialogContent.find("select[name='nama']");
                                 calEvent.title = titleField.find('option:selected').text();
-                            }else if(pil_jenis=='libur'){
+                                jenis_tempat = $dialogContent.find("select[name='jenis_tempat']").val();
+                                if(jenis_tempat=='kelas'){
+                                    id_ruangan = $dialogContent.find("select[name='id_ruangan']").val();
+                                }else if(jenis_tempat=='luar kelas'){
+                                    lokasi = $dialogContent.find("input[name='lokasi']").val();
+                                }
+                            }else if(pil_jenis=='non materi'){
                                 titleField=$dialogContent.find("input[name='nama']");
                                 calEvent.title = titleField.val();
                             }
@@ -110,6 +120,15 @@
                             }
                             
                             if(kegiatan.val()=='materi'){
+                                data_post.jenis_tempat=jenis_tempat;
+                                if(jenis_tempat=='kelas'){
+                                    data_post.id_ruangan=id_ruangan;
+                                    data_post.lokasi='';
+                                }else if(jenis_tempat=='luar kelas'){
+                                    data_post.id_ruangan=0;
+                                    lokasi = $dialogContent.find("input[name='lokasi']").val();
+                                }
+                                
                                 arr_pmbcr = [];
                                 arr_pndmpng = [];
                                 $dialogContent.find("input[name^='id_pmbcr']").each(function(index){
@@ -201,6 +220,20 @@
                         row_nama.parent().parent().removeClass('hide');
                         row_nama.val(json['id_materi']);
                         
+                        row_tempat=$dialogContent.find("select[name='jenis_tempat']");
+                        row_tempat.parent().parent().removeClass('hide');
+                        row_tempat.val(json['jenis_tempat']);
+                        
+                        if(json['jenis_tempat']=='kelas'){
+                            row_kelas=$dialogContent.find("select[name='id_ruangan']");
+                            row_kelas.parent().parent().removeClass('hide');
+                            row_kelas.val(json['id_ruangan']);
+                        }else if(json['jenis_tempat']=='luar kelas'){
+                            row_lokasi=$dialogContent.find("input[name='lokasi']");
+                            row_lokasi.parent().parent().removeClass('hide');
+                            row_lokasi.val(json['lokasi']);
+                        }
+                        
                         $.get("<?php echo base_url() ?>program/ajax_get_form_pemateri_pembimbing/"+json['id'],function(data){
                             $dialogContent.find('#form_event').append(data);
                             jum_col_pmbcr=$dialogContent.find('.nama_pmbcr').length+1;
@@ -225,7 +258,7 @@
                                 });
                         })
                         
-                    }else if(json['jenis']=='libur'){
+                    }else if(json['jenis']=='non materi'){
                         row_nama=$dialogContent.find("input[name='nama']");
                         row_nama.parent().parent().removeClass('hide');
                         row_nama.val(json['nama_kegiatan']);
@@ -254,7 +287,14 @@
                                 if(pil_jenis=='materi'){
                                     titleField=$dialogContent.find("select[name='nama']");
                                     calEvent.title = titleField.find('option:selected').text();
-                                }else if(pil_jenis=='libur'){
+                                    jenis_tempat = $dialogContent.find("select[name='jenis_tempat']").val();
+                                    if(jenis_tempat=='kelas'){
+                                        id_ruangan = $dialogContent.find("select[name='id_ruangan']").val();
+                                    }else if(jenis_tempat=='luar kelas'){
+                                        lokasi = $dialogContent.find("input[name='lokasi']").val();
+                                    }
+                                }else if(pil_jenis=='non materi'){
+                                    console.log('Masuk non materi');
                                     titleField=$dialogContent.find("input[name='nama']");
                                     calEvent.title = titleField.val();
                                 }
@@ -269,6 +309,15 @@
                                 }
 
                                 if(pil_jenis=='materi'){
+                                    data_post.jenis_tempat=jenis_tempat;
+                                    if(jenis_tempat=='kelas'){
+                                        data_post.id_ruangan=id_ruangan;
+                                        data_post.lokasi='';
+                                    }else if(jenis_tempat=='luar kelas'){
+                                        data_post.id_ruangan=0;
+                                        lokasi = $dialogContent.find("input[name='lokasi']").val();
+                                    }
+                                    
                                     arr_pmbcr = [];
                                     arr_pndmpng = [];
                                     $dialogContent.find("input[name^='id_pmbcr']").each(function(index){
@@ -314,8 +363,9 @@
         });
 
         function resetForm($dialogContent) {
+            $dialogContent.empty();
             form = $('#example').children().clone();
-            $dialogContent.html(form);
+            $dialogContent.append(form);
         }
 
         function getEventData() {
@@ -393,19 +443,21 @@
                         $('.wc-today').hide();
                     });
     
-                    $('#jenis').live('change',function(){
+                    $('#event_edit_container #jenis').live('change',function(){
                         if($(this).val()=='materi'){
-                            $('.pil_materi').removeClass('hide');
-                            $('.pil_libur').removeClass('hide');
-                            $('.pil_libur').addClass('hide');
+                            $('#event_edit_container .pil_materi').removeClass('hide');
+                            $('#event_edit_container .pil_libur').removeClass('hide');
+                            $('#event_edit_container .pil_tempat').removeClass('hide');
+                            $('#event_edit_container .pil_libur').addClass('hide');
                             jum_col_pmbcr=1;
                             jum_col_pndmpng=1;
                             append_pembicara(false,null,false);
                             append_pendamping();
                         }else{
-                            $('.pil_materi').removeClass('hide');
-                            $('.pil_libur').removeClass('hide');
-                            $('.pil_materi').addClass('hide');
+                            $('#event_edit_container .pil_materi').removeClass('hide');
+                            $('#event_edit_container .pil_libur').removeClass('hide');
+                            $('#event_edit_container .pil_materi').addClass('hide');
+                            $('#event_edit_container .pil_tempat').addClass('hide');
                             jum_col_pmbcr=0;
                             jum_col_pndmpng=0;
                             $('#event_edit_container #form_event .tr_widyaiswara').remove();
@@ -413,7 +465,7 @@
                     });
 
 
-                    $('#nama').live('change',function(){
+                    $('#event_edit_container #nama').live('change',function(){
                         
                         if(this.nodeName.toLowerCase()=='select'){
                             id=$(this).attr('id');
@@ -423,7 +475,7 @@
                                 data_json=data;
                                 console.log(data_json);
                             }).then(function(){
-                                $('.nama_pmbcr').autocomplete({
+                                $('#event_edit_container .nama_pmbcr').autocomplete({
                                     source: data_json[2],
                                     change: function(event, ui){
                                         if(ui.item){
@@ -438,6 +490,19 @@
                                     }
                                 });
                             });
+                        }
+                    });
+                    
+                    $('#event_edit_container #jenis_tempat').live('change',function(){
+                        console.log('Masuk '+$(this).val());
+                        if($(this).val()=='kelas'){
+                            $('#event_edit_container .pil_kelas').removeClass('hide');
+                            $('#event_edit_container .lokasi').removeClass('hide');
+                            $('#event_edit_container .lokasi').addClass('hide');
+                        }else if($(this).val()=='luar kelas'){
+                            $('#event_edit_container .pil_kelas').removeClass('hide');
+                            $('#event_edit_container .lokasi').removeClass('hide');
+                            $('#event_edit_container .pil_kelas').addClass('hide');
                         }
                     });
     
@@ -549,13 +614,31 @@
                     <select id="jenis" name="jenis">
                         <option value="">Pilih jenis acara</option>
                         <option value="materi">Materi</option>
-                        <option value="libur">Libur</option>
+                        <option value="non materi">Non Materi</option>
                     </select>
                 </td>
             </tr>
             <tr class="pil_materi hide">
                 <td>Nama acara</td>
                 <td>: <?php echo form_dropdown('nama',$pil_materi,'','id="nama"')?></td>
+            </tr>
+            <tr class="pil_tempat hide">
+                <td>Jenis tempat</td>
+                <td>: 
+                    <select id="jenis_tempat" name="jenis_tempat">
+                        <option value="">Pilih tempat</option>
+                        <option value="kelas">Kelas</option>
+                        <option value="luar kelas">Luar Kelas</option>
+                    </select>
+                </td>
+            </tr>
+            <tr class="pil_kelas hide">
+                <td>Nama ruangan</td>
+                <td>: <?php echo form_dropdown('id_ruangan',$kelas,$program['kelas'])?></td>
+            </tr>
+            <tr class="lokasi hide">
+                <td>Lokasi</td>
+                <td>: <input type="text" name="lokasi"/></td>
             </tr>
             <tr class="pil_libur hide">
                 <td>Nama kegiatan</td>
