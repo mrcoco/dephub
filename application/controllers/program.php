@@ -7,6 +7,7 @@ class Program extends CI_Controller{
         }
         $this->load->model('mdl_perencanaan','rnc');
         $this->load->model('mdl_sarpras','spr');
+        $this->load->model('mdl_penyelenggaraan','slng');
         $this->load->library('date');
     }
     
@@ -184,10 +185,138 @@ class Program extends CI_Controller{
     }
     
     function schedule_program($id){
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
+        $data['program']=$this->rnc->get_program_by_id($id);
+       
+        $pil_materi=$this->rnc->get_materi_diklat($data['program']['parent']);
+        $data['pil_materi'][-1]='-- Pilih Materi --';
+        foreach($pil_materi as $p){
+            $data['pil_materi'][$p['id_materi']]=$p['judul'];
+        }
         
+        $pil_kelas=$this->spr->get_kelas_by_size($data['program']['jumlah_peserta'])->result_array();
+        
+        $data['kelas']=array(-1=>'-- Pilih Kelas --');
+        foreach($pil_kelas as $k){
+            $data['kelas'][$k['id']]=$k['nama'];
+        }
+        
+        $data['schedule'] = $this->slng->get_schedule($id);
+
+        $json_array = array();
+        if (count($data['schedule']) != 0) {
+            //proses json
+            $i = 0;
+            foreach ($data['schedule'] as $item) {
+                $i++;
+                $isi['id'] = $i;
+                $isi['start'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_mulai']);
+                $isi['end'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_selesai']);
+                if($item['jenis']=='non materi')
+                    $isi['title'] = $item['nama_kegiatan'];
+                else
+                    $isi['title'] = $data['pil_materi'][$item['id_materi']];
+                $json_array[] = $isi;
+            }
+            $data['id_max'] = $i;
+        }else{
+            $data['id_max'] = 1;
+        }
+        $data['id']=$id;
+        $data['sub_title']='Jadwal Tentative';
+        $data['data_json'] = $json_array;
+        $this->template->display_with_sidebar('program/schedule_program','program',$data);
     }
     
-    function approve($id){
+    function ajax_pembicara($id_materi) {
+        echo json_encode($this->slng->ajax_pembicara_by_materi($id_materi));
+    }
+
+    function ajax_save() {
+        $this->load->library('date');
+        $data_ins['id_program'] = $this->input->post('id_program');
+        $data_ins['jam_mulai'] = $this->input->post('jam_mulai');
+        $data_ins['jam_selesai'] = $this->input->post('jam_selesai');
+        $data_ins['tanggal'] = $this->date->konversi3($this->input->post('tanggal'));
+        $data_ins['jenis'] = $this->input->post('jenis');
+        $data_ins['jenis_tempat'] = $this->input->post('jenis_tempat');
+        $data_ins['id_ruangan'] = $this->input->post('id_ruangan');
+        $data_ins['lokasi'] = $this->input->post('lokasi');
+        if($data_ins['jenis']=='non materi'){
+            $data_ins['nama_kegiatan'] = $this->input->post('materi');
+        }else if($data_ins['jenis']=='materi'){
+            $data_ins['id_materi'] = $this->input->post('materi');
+        }
+        $data_materi['arr_pembicara']=array();
+        $data_materi['arr_pendamping']=array();
+        if($data_ins['jenis']=='materi'){
+            $data_materi['arr_pembicara'] = $this->input->post('id_pembicara');
+            $data_materi['arr_pendamping'] = $this->input->post('pendamping');
+        }
+        echo $this->slng->insert_schedule($data_ins, $data_materi);
         
+    }
+
+    function ajax_update_waktu() {
+        $data_new['jam_mulai'] = $this->input->post('new_start');
+        $data_new['jam_selesai'] = $this->input->post('new_end');
+        $data_new['tanggal'] = $this->input->post('new_date');
+
+        $data_where['jam_mulai'] = $this->input->post('old_start');
+        $data_where['jam_selesai'] = $this->input->post('old_end');
+        $data_where['tanggal'] = $this->input->post('old_date');
+        $this->slng->update_waktu($data_new, $data_where);
+    }
+
+    function ajax_get_data_schedule() {
+        $where['jam_mulai'] = $this->input->post('where_start');
+        $where['jam_selesai'] = $this->input->post('where_end');
+        $where['tanggal'] = $this->input->post('where_date');
+        $where['id_program'] = $this->input->post('id_program');
+        $retval = $this->slng->get_item_schedule($where);
+        echo json_encode($retval);
+    }
+
+    function ajax_get_form_pemateri_pembimbing($id) {
+        //query nama, id, dan jenis pembicara & pendamping
+        $data['qry_pemateri'] = $this->slng->get_pemateri($id);
+        $data['qry_pendamping'] = $this->slng->get_pendamping($id);
+        echo $this->load->view('program/ajax_pemateri', $data, TRUE);
+    }
+
+    function ajax_delete_schedule($id) {
+        $this->slng->del_schedule($id);
+        echo 'Delete success';
+    }
+
+    function ajax_edit_all() {
+        $this->load->library('date');
+
+        $data_where['id'] = $this->input->post('idschedule');
+        
+        $data_ins['id_program'] = $this->input->post('id_program');
+        $data_ins['jam_mulai'] = $this->input->post('jam_mulai');
+        $data_ins['jam_selesai'] = $this->input->post('jam_selesai');
+        $data_ins['tanggal'] = $this->date->konversi3($this->input->post('tanggal'));
+        $data_ins['jenis'] = $this->input->post('jenis');
+        $data_ins['jenis_tempat'] = $this->input->post('jenis_tempat');
+        $data_ins['id_ruangan'] = $this->input->post('id_ruangan');
+        $data_ins['lokasi'] = $this->input->post('lokasi');
+        if($data_ins['jenis']=='non materi'){
+            $data_ins['nama_kegiatan'] = $this->input->post('materi');
+        }else if($data_ins['jenis']=='materi'){
+            $data_ins['id_materi'] = $this->input->post('materi');
+        }
+        $data_materi['arr_pembicara']=array();
+        $data_materi['arr_pendamping']=array();
+        if($data_ins['jenis']=='materi'){
+            $data_materi['arr_pembicara'] = $this->input->post('id_pembicara');
+            $data_materi['arr_pendamping'] = $this->input->post('pendamping');
+        }
+        
+        $this->slng->update_schedule($data_ins, $data_materi, $data_where);
+        echo json_encode($data_ins);
     }
 }
