@@ -15,7 +15,7 @@ else if ($this->uri->segment(3)=='list_author') {
 else if ($this->uri->segment(3)=='list_user') {
     $item='nama';
     $id='id';
-    $edit='#';
+    $edit='elibrary/admin/edit_user/';
     $delete='#';
     $label="Anggota";
 }

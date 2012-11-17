@@ -56,6 +56,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+	$data['sub_title']='Daftar Program Diklat Dibuka';
         $data['program']=$this->rnc->get_diklat_by_id($id);
         $list_program=$this->rnc->get_program_by_parent($id,$thn);
         foreach($list_program as $p){
@@ -138,7 +139,7 @@ class Diklat extends CI_Controller{
         $data['id']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         $this->load->library('editor');
-	$data['sub_title']='Edit Data Diklat';
+	$data['sub_title']='Ubah Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
         foreach($kategori as $k){

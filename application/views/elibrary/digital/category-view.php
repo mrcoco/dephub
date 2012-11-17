@@ -8,7 +8,7 @@
     </div>
     </form>
 			<h3>Daftar Buku <?php echo $category;?></h3>
-			<?php if(count($bibliography)<1){?>
+			<?php if(count($data)<1){?>
 			Data kosong
 			<?php }
 			else{?>
@@ -21,18 +21,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($bibliography as $number => $n):?>
+                            <?php foreach ($data as $number => $n):?>
                                 <tr>
-                                    <td><?php echo $bibliography[$number]['title'];?></td>
+                                    <td><?php echo $data[$number]['title'];?></td>
                                     <td>
-					<?php echo $bibliography[$number]['authorname'];?>
+					<?php echo $data[$number]['authorname'];?>
                                     </td>
                                     <td>
-                                        <a href="<?php echo site_url("elibrary/digital/view")."/".$bibliography[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Lihat</a>
-                                        <a href="<?php echo site_url("elibrary/admin/edit_bibliography")."/".$bibliography[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
-                                        <a href="<?php echo site_url("elibrary/admin/delete_bibliography")."/".$bibliography[$number]['id']?>" class="btn btn-danger btn-mini" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">
-                                                <i class="icon-trash"></i> Hapus
-                                        </a>
+                                        <a href="<?php echo site_url("elibrary/digital/view")."/".$data[$number]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Lihat</a>
+                                        
+                                                
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

@@ -15,9 +15,9 @@
                 <td><?php echo ($i + 1) ?></td>
                 <td><?php echo $list[$i]['judul'] ?></a></td>
                 <td>
-                    <a href="materi/assign/<?php echo $list[$i]['id'] ?>" class="btn"><i class="icon-edit"></i> Assign Dosen</a>
-                    <a href="materi/edit/<?php echo $list[$i]['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
-                    <a href="materi/delete/<?php echo $list[$i]['id'] ?>"  class="btn btn-danger"
+                    <a href="materi/assign/<?php echo $list[$i]['id'] ?>" class="btn btn-mini"><i class="icon-user"></i> Assign Dosen</a>
+                    <a href="materi/edit/<?php echo $list[$i]['id'] ?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+                    <a href="materi/delete/<?php echo $list[$i]['id'] ?>"  class="btn btn-mini btn-danger"
                     onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['judul'] ?>?')">
                         <i class="icon-trash"></i> Hapus</a>
                 </td>

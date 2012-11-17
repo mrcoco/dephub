@@ -33,3 +33,32 @@
     </a>
     <strong>List Anggota</strong>
 </div>
+<div class="well span1" align="center">
+    <a href ="<?php echo site_url("elibrary/admin/list_pinjam"); ?>">
+        <img src="assets/img/menu-icons/tambah-buku.png" />
+    </a>
+    <strong>List Pinjam</strong>
+</div>
+<div class="well span1" align="center">
+    <a href ="<?php echo site_url("elibrary/admin/histori_pinjam"); ?>">
+        <img src="assets/img/menu-icons/tambah-buku.png" />
+    </a>
+    <strong>Histori Pinjam</strong>
+</div>
+<div class="well span1" align="center">
+    <a href ="<?php echo site_url("elibrary/admin/list_pesan"); ?>">
+        <img src="assets/img/menu-icons/tambah-buku.png" />
+    </a>
+    <strong>List Pesanan</strong>
+</div>
+<div class="well span1" align="center">
+    <a href ="<?php echo site_url("elibrary/admin/histori_pesan"); ?>">
+        <img src="assets/img/menu-icons/tambah-buku.png" />
+    </a>
+    <strong>Histori Pesanan</strong>
+</div>
+
+
+
+
+<div class="clear"></div>

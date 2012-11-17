@@ -40,12 +40,9 @@ form label.required {
     font-weight: bold;
 }
 #header{
-    background: no-repeat center url('../img/header.jpg');
+    background: no-repeat bottom url('../img/header.jpg');
     width: 940px;
-    height: 220px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    height: 140px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -232,12 +229,24 @@ ul.tree li{
     line-height: 20px;
     background: url('../img/node.png') no-repeat;
 }
+ul.tree li:last-child {
+    background: #fff url('../img/lastnode.png') no-repeat;
+}
+ul.ind{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+li.lind{
+    margin: 0;
+    padding: 0 12px;
+    line-height: 20px;
+}
 ul.pohon li{
     margin-bottom: 10px;
     line-height: 20px;
-}
-ul.tree li:last-child {
-    background: #fff url('../img/lastnode.png') no-repeat;
 }
 .listControl a, li.klik {
     text-decoration: none;
