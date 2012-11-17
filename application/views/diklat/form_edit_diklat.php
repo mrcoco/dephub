@@ -10,12 +10,10 @@
             errorLabelContainer: container,
             errorContainer: $(container),
             rules: {
-                name: "required",
-                tahun_program: "required"
+                name: "required"
             },
             messages: {
-                name: "Nama wajib diisi!",
-                tahun_program: "Tahun program wajib diisi!"
+                name: "Nama wajib diisi!"
             }
 
         });
@@ -24,9 +22,9 @@
         });
         
         $('.add').live('click',function(){
-            $('.cont').append('<div class="item"><input type="text" class="materi" name="materi[]"/><span class="add"> Tambah</span></div>');
-            $(this).attr('class','del');
-            $(this).text(' Hapus');
+            $('.cont').append('<p><input type="text" class="materi" name="materi[]"/> <span class="btn btn-mini add"><i class="icon-plus"></i> Tambah</span></p>');
+            $(this).attr('class','del btn btn-mini btn-danger');
+            $(this).html('<i class="icon-remove"></i> Hapus');
             $('.materi').typeahead({
                 'source':pil_materi
             });
@@ -61,13 +59,13 @@
         <div class="tab-content">
             <div class="tab-pane active" id="overview">
                 <div class="control-group">
-                    <label class="control-label" for="input01">Nama Program</label>
+                    <label class="control-label" for="input01">Nama Diklat</label>
                     <div class="controls">
                         <input type="text" class="input-xlarge" id="input01" name="name" value="<?php echo $program['name'] ?>"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="kategori">Kategori Program</label>
+                    <label class="control-label" for="kategori">Kategori Diklat</label>
                     <div class="controls">
                         <?php echo form_dropdown('kategori', $pil_kategori, $program['parent']) ?>
                     </div>
@@ -97,43 +95,58 @@
                 <div class="control-group">
                     <label class="control-label">Jumlah peserta</label>
                     <div class="controls">
-                        <input type="text" name="jumlah_peserta" value="<?php echo $program['jumlah_peserta'] ?>"/>
+                        <div class="input-append">
+                            <input class="input-mini" name="jumlah_peserta" type="text" value="<?php echo $program['jumlah_peserta'] ?>"/><span class="add-on">orang</span>
+                        </div>
+                        <span class="help-inline">(maksimum)</span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Syarat max usia</label>
                     <div class="controls">
-                        <input type="text" name="syarat_usia" value="<?php echo $program['syarat_usia'] ?>"/>
+                        <div class="input-append">
+                            <input class="input-mini" name="syarat_usia" type="text" value="<?php echo $program['syarat_usia'] ?>"/><span class="add-on">tahun</span>
+                        </div>
+                        <span class="help-inline">(maksimum)</span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Syarat masa kerja</label>
                     <div class="controls">
-                        <input type="text" name="syarat_masa_kerja" value="<?php echo $program['syarat_masa_kerja'] ?>"/>
+                        <div class="input-append">
+                            <input class="input-mini" name="syarat_masa_kerja" type="text" value="<?php echo $program['syarat_masa_kerja'] ?>"/><span class="add-on">tahun</span>
+                        </div>
+                        <span class="help-inline">(maksimum)</span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Syarat pendidikan</label>
                     <div class="controls">
                         <?php echo form_dropdown('syarat_pendidikan',$pil_pendidikan,$program['syarat_pendidikan']) ?>
+                        <span class="help-inline">(minimum)</span>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Syarat pangkat/gol</label>
                     <div class="controls">
                         <?php echo form_dropdown('syarat_pangkat_gol',$pil_pangkat,$program['syarat_pangkat_gol']) ?>
+                        <span class="help-inline">(minimum)</span>
                     </div>
                 </div>
             </div>
             <div class="tab-pane" id="materi">
                 <div class="control-group">
-                    <label class="control-label">Materi DIklat</label>
+                    <label class="control-label">Materi Diklat</label>
                     <div class="controls">
                         <div class="cont">
                         <?php foreach($materi as $m){?>
-                            <div class="item"><input type="text" class="materi" name="materi[]" value="<?php echo $m['judul']?>"/><span class="del"> Hapus</span></div>
+                            <p><input type="text" class="materi" name="materi[]" value="<?php echo $m['judul']?>"/>
+                                <span class=" btn btn-mini btn-danger"><i class="icon-remove"></i> Hapus</span>
+                            </p>
                         <?php } ?>
-                            <div class="item"><input type="text" class="materi" name="materi[]"/><span class="add"> Tambah</span></div>
+                            <p><input type="text" class="materi" name="materi[]"/>
+                                <span class="btn btn-mini add"><i class="icon-plus"></i> Tambah</span>
+                            </p>
                         </div>
                     </div>
                 </div>

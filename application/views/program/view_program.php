@@ -4,8 +4,8 @@
 <h2><?php echo $diklat['name'] . ' Angkatan '.$program['angkatan'] ?></h2>
 <?php if($this->session->userdata('id_role')==1 || $this->session->userdata('id_role')==3){?>
 <div class="well-small">
-    <a href="<?php echo base_url()?>program/edit_program/<?php echo $program['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
-    <a href="<?php echo base_url()?>program/delete_program/<?php echo $program['id'] ?>" class="btn btn-danger"
+    <a href="<?php echo base_url()?>program/edit_program/<?php echo $program['id'] ?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+    <a href="<?php echo base_url()?>program/delete_program/<?php echo $program['id'] ?>" class="btn btn-mini btn-danger"
        onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $program['name'] ?>?')">
         <i class="icon-trash"></i> Hapus</a>
 </div>

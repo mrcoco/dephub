@@ -43,9 +43,10 @@
         $('#list_length').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');
         $('#list_filter input').attr('placeholder','Masukkan kata yang dicari');
-//        $('#list_paginate').addClass('pager');
-        $('#list_previous, #list_next').addClass('btn');
-        $('.alert').delay(2 * 1000).fadeOut()
+        $('#list_previous, #list_next').addClass('btn btn-small');
+        $('#list_previous, #list_next').live('click',function(){$('#list_previous, #list_next').addClass('btn btn-small');});
+        $('.alert').delay(2 * 1000).fadeOut();
+        $('.tip-right').tooltip({placement:'right'});
     } );
 </script>
 
@@ -59,7 +60,7 @@
 		<ul class="nav">
                     <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
 		    <li><a href="#">Halaman Utama</a></li>
-                    <li><a href="<?php echo base_url()?>elearning">E-Learning</a></li>
+                    <li><a href="<?php echo base_url()?>elearning" class="">E-Learning</a></li>
                     <li><a href="<?php echo base_url()?>site/email">E-Mail</a></li>
                     <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>
 		    <li><a href="<?php echo base_url()?>elibrary">Library</a></li>

@@ -20,10 +20,10 @@
     });
     $(function(){
         $('#tgl_mulai').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         });
         $('#tgl_akhir').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'dd-mm-yyyy'
         });
     });
 </script>
