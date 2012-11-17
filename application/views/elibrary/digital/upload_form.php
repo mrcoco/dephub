@@ -1,9 +1,10 @@
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$(function() {
 		$( "#autocomplete" ).autocomplete({
 			source: function(request, response) {
-				$.ajax({ url: "<?php echo site_url('elibrary/admin/autocomplete'); ?>",
+				$.ajax({ url: "<?php echo site_url('elibrary/digital/autocomplete'); ?>",
 				data: { term: $("#autocomplete").val()},
 				dataType: "json",
 				type: "POST",
@@ -21,7 +22,7 @@ $(document).ready(function() {
                             <?php echo $this->session->flashdata('msg'); ?>
                         </div>   
         		<h3>Upload File</h3>	
-			<?php echo form_open_multipart('elibrary/admin/do_upload');?>
+			<?php echo form_open_multipart('elibrary/digital/do_upload');?>
 			<table class="table table-hover">
 				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
 

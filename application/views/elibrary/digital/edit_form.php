@@ -1,9 +1,10 @@
+
 <script type="text/javascript">
 $(document).ready(function() {
 	$(function() {
 		$( "#autocomplete" ).autocomplete({
 			source: function(request, response) {
-				$.ajax({ url: "<?php echo site_url('elibrary/admin/autocomplete'); ?>",
+				$.ajax({ url: "<?php echo site_url('elibrary/digital/autocomplete'); ?>",
 				data: { term: $("#autocomplete").val()},
 				dataType: "json",
 				type: "POST",
@@ -29,19 +30,19 @@ $(document).ready(function() {
 
 			<table>
 
-				<tr><td>Judul</td><td> : <input type="text" name="title" size="20" value="<?php echo $bibliography[0]['title'];?>"/> </td></tr>
-				<tr><td>Pengarang</td><td> : <input type="text" name="authorname" id="autocomplete" value="<?php echo $bibliography[0]['authorname'];?>"/>
+				<tr><td>Judul</td><td> : <input type="text" name="title" size="20" value="<?php echo $data[0]['title'];?>"/> </td></tr>
+				<tr><td>Pengarang</td><td> : <input type="text" name="authorname" id="autocomplete" value="<?php echo $data[0]['authorname'];?>"/>
                                         </td></tr>
                                 <tr><td>Kategori</td><td> : <select name="categoryname" > 
-                                            <option value="<?php echo $bibliography[0]['categoryname'];?>"><?php echo $bibliography[0]['categoryname'];?> </option>
+                                            <option value="<?php echo $data[0]['categoryname'];?>"><?php echo $data[0]['categoryname'];?> </option>
                                                 <?php foreach ($category as $number =>$n):?>
                                                 <option value="<?php echo $category[$number]['categoryname'];?>"><?php echo $category[$number]['categoryname'];?></option>
                                                 <?php endforeach; ?>
                                              </select></td></tr>
-                                <tr><td>Keterangan</td><td> : <textarea name="keterangan" cols="40" rows="6"/><?php echo $bibliography[0]['keterangan'];?> </textarea> </td></tr>
-                                <tr><td>Tags/keywords</td><td> : <textarea name="tags" cols="40" rows="6"/><?php echo $bibliography[0]['tags'];?> </textarea> </td></tr>
+                                <tr><td>Keterangan</td><td> : <textarea name="keterangan" cols="40" rows="6"/><?php echo $data[0]['keterangan'];?> </textarea> </td></tr>
+                                <tr><td>Tags/keywords</td><td> : <textarea name="tags" cols="40" rows="6"/><?php echo $data[0]['tags'];?> </textarea> </td></tr>
 
-				<input name="id" type="hidden" value="<?php echo $bibliography[0]['id'];?>">
+				<input name="id" type="hidden" value="<?php echo $data[0]['id'];?>">
 			</table>
                          
 			<br /><br />

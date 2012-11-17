@@ -12,6 +12,12 @@ class Admin extends CI_Controller {
 		$this->load->model('mdl_elibrary','elib');
                 $this->load->library('pagination');
                 
+                $id=$this->session->userdata('id'); //mengambil id pegawai
+                $elib_userrole=$this->elib->get_userrole(array('id'=>$id)); //mengambil userrole di elib_userrole
+                if($elib_userrole) $this->session->set_userdata('elib_userrole', $elib_userrole[0]['userrole']);  //mengeset userrole ke session
+                if(!$this->session->userdata('is_login')||$this->session->userdata('elib_userrole')!=1){ //melarang apabila bukan admin
+                redirect(base_url().'elibrary');
+                }
 	}
         
 
@@ -20,8 +26,8 @@ class Admin extends CI_Controller {
 //                $data = array(
 //                
 //                );
-                $nama=ucwords(strtolower($this->session->userdata('nama')));
-                $this->session->set_flashdata('msg', $this->editor->alert_ok('Selamat datang '.$nama));
+                
+                
 		$this->template->display_lib('elibrary/admin-page');
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
@@ -53,7 +59,7 @@ class Admin extends CI_Controller {
                 $this->pagination->initialize($config);                
                 $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
                 
-                $data = array('list'=>$this->elib->get_category_pagination($config["per_page"], $page)
+                $data = array('list'=>$this->elib->get_category_by(array(),$config["per_page"], $page)
                 );
                 $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('elibrary/list',$data);
@@ -62,7 +68,7 @@ class Admin extends CI_Controller {
 	}
         function edit_category($id)
 	{       
-                $data = array( 'data'=>$this->elib->get_category_by_id($id)
+                $data = array( 'data'=>$this->elib->get_category_by(array('idcategory'=>$id))
                        );
 		$this->template->display_lib('elibrary/short_form',$data);
 
@@ -79,14 +85,14 @@ class Admin extends CI_Controller {
         
         function delete_category($id)
 	{
-                 if ($this->elib->count_books_by_idcategory($id)>0 ||$this->elib->count_bibliography_by_idcategory($id)>0){
+                 if ($this->elib->count_books_by(array('idcategory'=>$id))>0 ||$this->elib->count_bibliography_by(array('idcategory'=>$id))>0){
                    $this->session->set_flashdata('msg',$this->editor->alert_error('Kategori tidak berhasil dihapus karena ada buku/file yang terhubung'));
                    redirect(base_url().'elibrary/admin/list_category');
                  }
                else 
                {
                    $this->elib->delete_category($id);
-                   $this->session->set_flashdata('msg',$this->editor->alert_error('Pengarang berhasil dihapus'));
+                   $this->session->set_flashdata('msg',$this->editor->alert_ok('Pengarang berhasil dihapus'));
                    redirect(base_url().'elibrary/admin/list_category');
                }
                
@@ -97,14 +103,14 @@ class Admin extends CI_Controller {
 	{
                 $config=array();
                 $config["base_url"]= base_url()."elibrary/admin/list_author";
-                $config["total_rows"]=$this->elib->count_author();
+                $config["total_rows"]=$this->elib->count_author_by();
                 $config["per_page"]=20;
                 $config["uri_segment"] = 4;
 
                 $this->pagination->initialize($config);                
                 $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
                 
-                $data = array('list'=>$this->elib->get_author_pagination($config["per_page"], $page)
+                $data = array('list'=>$this->elib->get_author_by(array(),$config["per_page"], $page)
                 );
                 $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('elibrary/list',$data);
@@ -113,7 +119,7 @@ class Admin extends CI_Controller {
 	}
         function edit_author($id)
 	{       
-                $data = array( 'data'=>$this->elib->get_author_by_id($id)
+                $data = array( 'data'=>$this->elib->get_author_by(array('idauthor'=>$id))
                        );
 		$this->template->display_lib('elibrary/short_form',$data);
 
@@ -129,14 +135,14 @@ class Admin extends CI_Controller {
 	}
         function delete_author($id)
 	{
-                 if ($this->elib->count_books_by_idauthor($id)>0 ||$this->elib->count_bibliography_by_idauthor($id)>0){
+                 if ($this->elib->count_books_by(array('idauthor'=>$id))>0 ||$this->elib->count_bibliography_by(array('idauthor'=>$id))>0){
                    $this->session->set_flashdata('msg',$this->editor->alert_error('Pengarang tidak berhasil dihapus karena ada buku/file yang terhubung'));
                    redirect(base_url().'elibrary/admin/list_author');
                  }
                else 
                {
                    $this->elib->delete_author($id);
-                   $this->session->set_flashdata('msg',$this->editor->alert_error('Pengarang berhasil dihapus'));
+                   $this->session->set_flashdata('msg',$this->editor->alert_ok('Pengarang berhasil dihapus'));
                    redirect(base_url().'elibrary/admin/list_author');
                }
                
@@ -147,46 +153,43 @@ class Admin extends CI_Controller {
 	{
                 $config=array();
                 $config["base_url"]= base_url()."elibrary/admin/list_user";
-                $config["total_rows"]=$this->elib->count_user();
+                $config["total_rows"]=$this->elib->count_user_by();
                 $config["per_page"]=20;
                 $config["uri_segment"] = 4;
 
                 $this->pagination->initialize($config);                
                 $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
                 
-                $data = array('list'=>$this->elib->get_user($config["per_page"], $page),
+                $data = array('list'=>$this->elib->get_user_by(array(),$config["per_page"], $page),
                     'userrole'=>$this->elib->get_userrole()
                 );
                 $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('elibrary/list',$data);   
 		
 	}
-        function edit_user()
+        function edit_user($id)
 	{
-//                $data = array(
-//                
-//                );
-		$this->template->display_lib('elibrary/admin-page');
+            $data=array('data'=>$this->elib->get_user_by(array('t1.id'=>$id)));
+		$this->template->display_lib('elibrary/form_edit_user',$data);
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
 /*--------------Administrasi Perpustakaan fisik Mulai----------------------*/
         function input_books(){
             $data = array(
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author()
+                'category'=>$this->elib->get_category_by()
                 );
             $this->template->display_lib('elibrary/perpustakaan/books_form', $data);
             
         }
         function do_input_books(){
-            if(!$this->elib->check_author($stringauthor)){ //Apabila author-nya baru
+            $stringauthor=$this->input->post('authorname');
+            if(!$this->elib->check_author_by(array('authorname'=>$stringauthor))){ //Apabila author-nya baru
                         //masukin pengarang baru
                             $authorinsert['authorname']=$stringauthor;
                             $this->elib->insert_author($authorinsert);
                         }
             $data = array(
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author()
+                'category'=>$this->elib->get_category_by()
                 );
             $data['insert']['title']=$this->input->post('title');
             $data['insert']['keterangan']=$this->input->post('keterangan');
@@ -199,14 +202,14 @@ class Admin extends CI_Controller {
             $data['insert']['stock']=$this->input->post('stock');
             $data['insert']['digital']=$this->input->post('digital');
 
-            $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-            $data['insert']['idcategory']=$category['idcategory'];
-            $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
-            $data['insert']['idauthor']=$author['idauthor'];
+            $category=$this->elib->get_category_by(array('categoryname'=>$this->input->post('categoryname')));
+            $data['insert']['idcategory']=$category[0]['idcategory'];
+            $author=$this->elib->get_author_by(array('authoname'=>$this->input->post('authorname')));
+            $data['insert']['idauthor']=$author[0]['idauthor'];
 
             $this->elib->insert_books($data['insert']);
-            $this->session->set_flashdata('msg',$this->editor->alert_ok('Buku telah ditambah'+$data['insert']['title']));
-            redirect(base_url().'elibrary/digital/type');
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Buku telah ditambah '.$data['insert']['title']));
+            redirect(base_url().'elibrary/perpustakaan/category');
 //			$this->template->display_lib('elibrary/upload_success', $data);
         }
         
@@ -215,12 +218,11 @@ class Admin extends CI_Controller {
         
         function edit_books($id) {
 
-            $data = array('books' => $this->elib->get_books_by_id($id),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
+            $data = array('data' => $this->elib->get_books_by(array('t1.id'=>$id)),
+                'category'=>$this->elib->get_category_by(),
                 'status'=>' '
                 );
-            if($data['books']){
+            if($data['data']){
                 $this->template->display_lib('elibrary/perpustakaan/edit_form', $data);
             }else{
                 $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
@@ -243,16 +245,15 @@ class Admin extends CI_Controller {
                         $data['update']['digital']=$this->input->post('digital');
                         $data['update']['id']=$this->input->post('id');
                         
-                        $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-                        $data['update']['idcategory']=$category['idcategory'];
-                        $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
-                        $data['update']['idauthor']=$author['idauthor'];
+                        $category=$this->elib->get_category_by(array('categoryname'=>$this->input->post('categoryname')));
+                        $data['update']['idcategory']=$category[0]['idcategory'];
+                        $author=$this->elib->get_author_by(array('authorname'=>$this->input->post('authorname')));
+                        $data['update']['idauthor']=$author[0]['idauthor'];
                          
             if($this->elib->update_books($data['update']))
             {
-            $data = array('books' => $this->elib->get_books_by_id($update['id']),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
+            $data = array('books' => $this->elib->get_books_by(array('t1.id'=>$update['id'])),
+                'category'=>$this->elib->get_category_by(),
                 'status'=>'Data berhasil diubah'
                  );
             
@@ -260,9 +261,8 @@ class Admin extends CI_Controller {
                  redirect(base_url().'elibrary/perpustakaan/category');
             }
             else {
-                $data = array('books' => $this->elib->get_books_by_id($update['id']),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
+                $data = array('books' => $this->elib->get_books_by(array('t1.id'=>$update['id'])),
+                'category'=>$this->elib->get_category_by(),
                 'status'=>'Data tidak berhasil diubah');
                 $this->session->set_flashdata('msg',$this->editor->alert_ok('File gagal diubah'));
                 redirect(base_url().'elibrary/perpustakaan/category');
@@ -275,11 +275,10 @@ class Admin extends CI_Controller {
         }
 
         function delete_books($id){
-            $data = array('books' => $this->elib->get_books_by_id($id));
+            $data = array('data' => $this->elib->get_books_by(array('t1.id'=>$id)));
             $data['sub_title']='Kategori File';
             
-            if($data['books']){
-                //unlink($data['bibliography']['location']); 
+            if($data['data']){
                 $this->elib->delete_books($id);
                 $this->session->set_flashdata('msg',$this->editor->alert_error('File telah dihapus'));
                 redirect(base_url().'elibrary/type');                    
@@ -289,25 +288,34 @@ class Admin extends CI_Controller {
             }
             
         }
-        function pinjam(){
-            $data='';
+        function pinjam($id){ //hanya admin
+            $data = array('data' => $this->elib->get_books_by(array('t1.id'=>$id)),
+                            'loaned'=>$this->elib->count_loaned_books($id)
+                );
             $this->template->display_lib('elibrary/perpustakaan/form_pinjam', $data);
             //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
             
         }
         function do_pinjam(){
             $data=array('insert'=>$this->input->post());
-            $this->elib->insert_loan($data['insert']);
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Pinjaman telah dimasukkan'));
-            redirect(base_url().'elibrary/admin/list_pinjam/'); 
-            //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
+            $data['insert']['idpegawai']=  $this->elib->get_idpegawai(array('nip'=>$data['insert']['idpegawai']));
+            if($data['insert']['idpegawai']>0){
+                $this->elib->insert_loan($data['insert']);
+                $this->session->set_flashdata('msg',$this->editor->alert_error('Pinjaman telah dimasukkan'));
+                redirect(base_url().'elibrary/admin/list_pinjam/'); 
+                //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
+            }
+            else {
+                $this->session->set_flashdata('msg',$this->editor->alert_error('NIP tidak ditemukan'));
+                redirect(base_url().'elibrary/admin/pinjam/'.$data['insert']['booksid']); 
+            }
             
         }
         function list_pinjam(){
-            
-            $config=array();
+                $filter['1.returndate']='0000-00-00';//filter harus ditambahkan string angka. (misal 1.) karena query join di mdl
+                $config=array();
                 $config["base_url"]= base_url()."elibrary/admin/list_pinjam/";
-                $config["total_rows"]=$this->elib->count_loan();
+                $config["total_rows"]=$this->elib->count_loan($filter);
                 $config["per_page"]=20;
                 $config["uri_segment"] = 4;
                 $this->pagination->initialize($config);
@@ -315,7 +323,7 @@ class Admin extends CI_Controller {
                            
                 
                 
-		 $data = array('loan' => $this->elib->get_loan($config["per_page"],$page));
+		 $data = array('loan' => $this->elib->get_loan($filter,$config["per_page"],$page));
                  $data["links"] = $this->pagination->create_links();
                 $this->template->display_lib('elibrary/perpustakaan/list_pinjam', $data);
            
@@ -323,112 +331,119 @@ class Admin extends CI_Controller {
             //menampilkan daftar peminjaman, bisa berdasarkan NIP, tanggal peminjaman, tanggal seharusnya kembali, buku
         }
         function kembali($id){
-            $data='';
+            
+            
+            $data=array('data'=>$this->elib->get_loan(array('1.id'=>$id),1,0));
             $this->template->display_lib('elibrary/perpustakaan/form_kembali', $data);
             //setelah menekan tombol kembali di list pinjam
             //
         }
         function do_kembali(){
-            $data=array('update'=>$this->input->post());
-            $this->template->display_lib('elibrary/perpustakaan/form_kembali', $data);
-            //setelah menekan tombol kembali di list pinjam
-            //
+            //harus diurus tentang pesanan yang ada.cari queue yang berhubungan dengan booksidnya dan status-nya belum
+            $booksid=$this->input->post('booksid');          
+            $books=$this->elib->get_books_by(array('t1.id'=>$booksid));
+            $sisa=$books[0]['stock']-$this->elib->count_loaned_books($booksid);
+            if($sisa<=0){
+            $data['queue']=$this->elib->get_queue_for_kembali(array('booksid'=>$booksid,'status'=>0),1,0);
+            //urutkan berdasar tanggal.  ambil yang pertama, dan tandai available date-nya
+            $this->elib->update_queue(array('id'=>$data['queue'][0]['id'],'availabledate'=>date('Y-m-d'),'status'=>4)); 
+            $masuk='masuk';
+            }
+            $data['update']['id']=$this->input->post('id');
+            $data['update']['returndate']=$this->input->post('returndate');
+            $this->elib->update_loan($data['update']);
+            $pesan=$masuk.'peminjaman no '.$data['update']['id'].' telah dikembalikan.';
+            $this->session->set_flashdata('msg',$this->editor->alert_ok($pesan));
+            
+            redirect(base_url().'elibrary/admin/list_pinjam'); 
         }
-        function list_antrian(){
+        function histori_pinjam(){
+                 $filter['1.returndate !=']='0000-00-00';
+                 
+                //filter harus ditambahkan string angka. (misal 1.) karena query join di mdl
+                $config=array();
+                $config["base_url"]= base_url()."elibrary/admin/histori_kembali/";
+                $config["total_rows"]=$this->elib->count_loan($filter);
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+		 $data = array('loan' => $this->elib->get_loan($filter,$config["per_page"],$page));
+                 $data["links"] = $this->pagination->create_links();
+                $this->template->display_lib('elibrary/perpustakaan/histori_pinjam', $data);
+        }
+        function list_pesan(){
             $config=array();
-                $config["base_url"]= base_url()."elibrary/admin/list_antrian/";
+                $config["base_url"]= base_url()."elibrary/admin/list_pesan/";
                 $config["total_rows"]=$this->elib->count_queue();
                 $config["per_page"]=20;
                 $config["uri_segment"] = 4;
                 $this->pagination->initialize($config);
                 $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-                           
-                
-                
-		 $data = array('queue' => $this->elib->get_queue($config["per_page"],$page));
+                $filter=array('status <='=>1);
+		 $data = array('queue' => $this->elib->get_queue($filter,$config["per_page"],$page));
                  $data["links"] = $this->pagination->create_links();
-                $this->template->display_lib('elibrary/perpustakaan/list_antrian', $data);
+                $this->template->display_lib('elibrary/perpustakaan/list_pesan', $data);
+            
+        }
+        function histori_pesan(){
+            $config=array();
+                $config["base_url"]= base_url()."elibrary/admin/list_pesan/";
+                $config["total_rows"]=$this->elib->count_queue();
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                $filter=array('status >'=>1);
+		$data = array('queue' => $this->elib->get_queue($filter,$config["per_page"],$page));
+                $data["links"] = $this->pagination->create_links();
+                $this->template->display_lib('elibrary/perpustakaan/list_pesan', $data);
+            
+        }
+        function hapus_pesan($id){
+            $this->elib->delete_queue($id);
+            $pesan='pemesanan no '.$id.' telah dihapus.';
+            $this->session->set_flashdata('msg',$this->editor->alert_ok($pesan));
+            redirect(base_url().'elibrary/admin/list_pesan'); 
+        }
+        function pinjam_dari_pesan($id=''){
+            
+            $data['queue']=$this->elib->get_queue(array('1.id'=>$id),1,0);
+            $data['data']=$this->elib->get_books_by(array('t1.id'=>$data['queue'][0]['booksid']));
+            $data['data'][0]['pinjam']=$this->elib->count_loaned_books($booksid);
+            $this->template->display_lib('elibrary/perpustakaan/form_pinjam_dari_pesan', $data);
+            
+        }
+        function do_pinjam_dari_pesan(){
+            $data=array('insert'=>$this->input->post());
+            $data['insert']['idpegawai']=  $this->elib->get_idpegawai(array('nip'=>$data['insert']['idpegawai']));
+            if($data['insert']['idpegawai']>0){
+                $this->elib->insert_loan($data['insert']);
+                $queue['id']=$data['insert']['idqueue'];
+                $queue['status']=1; 
+                $this->elib->update_queue($queue);//mengupdate bahwa queue yang disini diubah jadi sudah.
+                $this->session->set_flashdata('msg',$this->editor->alert_error('Pinjaman telah dimasukkan'));
+                redirect(base_url().'elibrary/admin/list_pinjam/'); 
+                //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
+            }
+            else {
+                $this->session->set_flashdata('msg',$this->editor->alert_error('NIP tidak ditemukan'));
+                redirect(base_url().'elibrary/admin/pinjam/'.$data['insert']['booksid']); 
+            }
             
         }
         
-        
 /*--------------Administrasi Perpustakaan Berakhir----------------------*/
 /*--------------Administrasi Digital Mulai ----------------------*/
-        function upload()
-	{
-                $data = array(
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author()
-                );
-		$this->template->display_lib('elibrary/digital/upload_form', $data);
-		
-	}
-        function do_upload()
-	{
-		$config['upload_path'] = './assets/elibrary/uploads/'; 
-		$config['allowed_types'] = 'mp4|gif|jpg|png|doc|docx|ppt|pptx|xls|xlsx|pdf|jpeg|pdf|mp3|wmv';
-		$config['max_size']	= '100000';
-                $config['overwrite']    = TRUE;
-		
-		$this->load->library('upload', $config);
-
-		if ( ! $this->upload->do_upload())
-		{
-			$error = $this->upload->display_errors();
-                        $this->session->set_flashdata('msg',$this->editor->alert_error($error));
-                        redirect(base_url().'elibrary/digital/type'); 
-                        
-		}
-		else
-		{
-                        $stringauthor=$this->input->post('authorname');
-			 
-                        if(!$this->elib->check_author($stringauthor)){ //Apabila author-nya ga ada
-                        //masukin pengarang baru
-                            $authorinsert['authorname']=$stringauthor;
-                            $this->elib->insert_author($authorinsert);
-                        }
-			$data = array('item' => $this->upload->data(),
-                            'category'=>$this->elib->get_category(),
-                            'author'=>$this->elib->get_author()
-                            );
-                        
-			$data['insert']['title']=$data['item']['raw_name'];
-			
-                        $temp=$data['item']['file_ext'];
-			$data['insert']['type']=$this->elib->get_idfile_by_filetype($temp); //lain2
-			
-			$data['insert']['location']='./assets/elibrary/uploads/'.$data['item']['orig_name'];
-			$data['insert']['keterangan']=$this->input->post('keterangan');
-                        $data['insert']['tags']=$this->input->post('tags');
-                        $dateTime = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
-                        $dt= $dateTime->format("Y-m-d");//for India;
-                        $data['insert']['uploaddate']=$dt;
-                        
-                        $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-                        $data['insert']['idcategory']=$category['idcategory'];
-                        $author=$this->elib->get_id_author_by_name($stringauthor);
-                        $data['insert']['idauthor']=$author['idauthor'];
-                        
-			$this->elib->insert_bibliography($data['insert']);
-                        $this->session->set_flashdata('msg',$this->editor->alert_ok('File telah diupload'));
-			$this->template->display_lib('elibrary/digital/upload_success', $data);
-                        
-                        
-                            
-                            
-                        
-		}
-	}
+        
         
         function edit_bibliography($id) {
 
-            $data = array('bibliography' => $this->elib->get_bibliography_by_id($id),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
+            $data = array('data' => $this->elib->get_bibliography_by(array('t1.id'=>$id)),
+                'category'=>$this->elib->get_category_by(),
                 'status'=>' '
                 );
-            if($data['bibliography']){
+            if($data['data']){
                 $this->template->display_lib('elibrary/digital/edit_form', $data);
             }else{
                 $this->session->set_flashdata('msg',$this->editor->alert_error('File tidak ditemukan'));
@@ -440,18 +455,17 @@ class Admin extends CI_Controller {
         function do_edit_bibliography() {
             $update['id']=$this->input->post('id');
             $update['title']=$this->input->post('title');
-            $category=$this->elib->get_id_category_by_name($this->input->post('categoryname'));
-            $update['idcategory']=$category['idcategory'];
-            $author=$this->elib->get_id_author_by_name($this->input->post('authorname'));
-            $update['idauthor']=$author['idauthor'];
+            $category=$this->elib->get_category_by(array('categoryname'=>$this->input->post('categoryname')));
+            $update['idcategory']=$category[0]['idcategory'];
+            $author=$this->elib->get_author_by(array('authorname'=>$this->input->post('authorname')));
+            $update['idauthor']=$author[0]['idauthor'];
             $update['keterangan']=$this->input->post('keterangan');
 
             $update['tags']=$this->input->post('tags');
             if($this->elib->update_bibliography($update))
             {
-            $data = array('bibliography' => $this->elib->get_bibliography_by_id($update['id']),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
+            $data = array('bibliography' => $this->elib->get_bibliography_by(array('t1.id'=>$update['id'])),
+                'category'=>$this->elib->get_category_by(),
                 'status'=>'Data berhasil diubah'
                  );
                           
@@ -460,8 +474,7 @@ class Admin extends CI_Controller {
             }
             else {
                 $data = array('bibliography' => $this->elib->get_bibliography_by_id($update['id']),
-                'category'=>$this->elib->get_category(),
-                'author'=>$this->elib->get_author(),
+                'category'=>$this->elib->get_category_by(),
                 'status'=>'Data tidak berhasil diubah');
                 $this->session->set_flashdata('msg',$this->editor->alert_ok('File gagal diubah'));
                 redirect(base_url().'elibrary/digital/type');
@@ -472,10 +485,10 @@ class Admin extends CI_Controller {
         
 
         function delete_bibliography($id){
-            $data = array('bibliography' => $this->elib->get_bibliography_by_id($id));
+            $data = array('data' => $this->elib->get_bibliography_by_id($id));
             $data['sub_title']='Kategori File';
             
-            if($data['bibliography']){
+            if($data['data']){
                 //unlink($data['bibliography']['location']); 
                 $this->elib->delete_bibliography($id);
                 $this->session->set_flashdata('msg',$this->editor->alert_error('File telah dihapus'));
@@ -487,19 +500,6 @@ class Admin extends CI_Controller {
             
         }
         /* ---------- autocomplete---------------*/
-        function autocomplete(){
-	
-            $term = $this->input->post('term',TRUE);
-
-            if (strlen($term) < 3) return 0;
-
-            $rows = $this->elib->get_autocomplete_author(array('keyword' => $term));
-
-            $json_array = array();
-            foreach ($rows as $row)
-                     array_push($json_array, $row->authorname);
-
-            echo json_encode($json_array);
-        }
+        
 }       
 ?>
