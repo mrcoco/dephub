@@ -173,7 +173,26 @@ class Mdl_penyelenggaraan extends CI_Model{
         
         $retval=array(1=>$array1,2=>$array2);
         return $retval;
-	}
+    }
+    
+    function ajax_pembicara_by_materi($id_materi){
+        $str_query="
+            select * from tb_pengajar inner join
+            (select nama, tb_p.id as id_pembicara, jenis from tb_pegawai inner join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel
+            union
+            select nama, tb_p.id as id_pembicara, jenis from tb_dosen_tamu inner join (select * from tb_pembicara where jenis=3) as tb_p on tb_dosen_tamu.id=tb_p.id_tabel)
+            as tb_x on tb_pengajar.id_pembicara=tb_x.id_pembicara where id_materi=
+            ".$id_materi;
+        $res=$this->db->query($str_query)->result_array();
+        $array1=array();
+        $array2=array();
+        foreach($res as $r){
+            $array1[$r['nama']]=$r['id_pembicara'];
+            $array2[]=$r['nama'];
+        }
+        $retval=array(1=>$array1,2=>$array2);
+        return $retval;
+    }
 	
     function getall_pegawai(){
         $str_query='select * from tb_pegawai';
@@ -269,6 +288,8 @@ class Mdl_penyelenggaraan extends CI_Model{
     function get_item_schedule($where){
         $this->db->where($where);
         return $this->db->get('schedule')->row_array();
+        //return $this->db->compile_select('schedule');
+        
     }
     
     function get_all_pembicara(){
@@ -343,12 +364,11 @@ class Mdl_penyelenggaraan extends CI_Model{
             if($pemateri[$i]['jenis']!=3){
                 $tb='pegawai';
                 $data=$this->db->get_where($tb,array('id'=>$pemateri[$i]['id_tabel']))->row_array();
-                $pemateri[$i]['nama']=$data['nip'].'-'.$data['nama'];
             }else{
                 $tb='dosen_tamu';
                 $data=$this->db->get_where($tb,array('id'=>$pemateri[$i]['id_tabel']))->row_array();
-                $pemateri[$i]['nama']=$data['nama'];
             }
+            $pemateri[$i]['nama']=$data['nama'];
             
         }
         return $pemateri;
@@ -407,5 +427,10 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
 
         return true;
+    }
+    
+    function hitung_peserta($id_program){
+        $this->db->where('id_program',$id_program);
+        return $this->db->count_all_results('registrasi');
     }
 }

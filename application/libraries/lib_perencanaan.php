@@ -22,35 +22,41 @@ class Lib_perencanaan {
     }
     
     function print_tree_all($array_kat,$parent=0){
-        echo '<ul';
-        if($parent==0){echo ' class="tree" id="expList"';}else{echo ' class="tree"';}
+        echo '<ul class="ind"';
+//        if($parent==0){echo ' class="tree" id="expList"';}else{echo ' class="tree"';}
         echo '>'."\n";
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
                 if($diklat['tipe']==1){
-                    echo '<li><h3>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    echo '<li><h3>'.$diklat['name'];
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
-                        echo ' <a class="tip" rel="tooltip" title="Edit Kategori" href="javascript:edit_kat(\''.$diklat['name'].'\','.$diklat['parent'].','.$diklat['id'].')"><i class="icon-edit"></i></a>';
-                        echo ' <a class="tip" rel="tooltip" title="Hapus Kategori" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_kategori/'.$diklat['id'].'"><i class="icon-remove"></i></a>';
-                        echo ' <a class="tip" rel="tooltip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>';
-                        echo ' <a class="tip" rel="tooltip" title="Buat diklat di kategori ini" href="'.base_url().'diklat/buat_diklat/'.$diklat['id'].'"><i class="icon-plus"></i></a>';
-                        echo '</h3>';
+                        echo ' <small class="dropdown"><a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">('.$this->count_diklat($array_kat,$diklat['id']).') <b class="caret"></b></a><ul class="dropdown-menu">';
+                        echo '<li><a href="javascript:edit_kat(\''.$diklat['name'].'\','.$diklat['parent'].','.$diklat['id'].')">Ubah Kategori</a></li>';
+                        echo '<li><a onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_kategori/'.$diklat['id'].'">Hapus Kategori</a></li>';
+                        echo '<li><a href="javascript:add_subkat('.$diklat['id'].')">Tambah subkategori</a></li>';
+                        echo '<li><a href="'.base_url().'diklat/buat_diklat/'.$diklat['id'].'">Buat diklat</a></li>';
+                        echo '</ul></small>';
                     }
+                    echo '</h3></li>';
                 }else if($diklat['tipe']==2){
-                    echo '<li><h4>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
-                    echo ' <a class="tip" rel="tooltip" title="Lihat diklat ini" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'"><i class="icon-eye-open"></i></a>';
+                    echo '<li><h4><a class="tip" title="Lihat diklat ini" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'">'.$diklat['name'].'</a>';
+                    echo ' <small class="dropdown"><a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">('.$this->count_diklat($array_kat,$diklat['id']).') <b class="caret"></b></a><ul class="dropdown-menu">';
+                    echo '<li><a href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'">Lihat diklat</a></li>';
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
-                        echo ' <a class="tip" rel="tooltip" title="Edit diklat ini" href="'.base_url().'diklat/edit_diklat/'.$diklat['id'].'"><i class="icon-edit"></i></a>';
-                        echo ' <a class="tip" rel="tooltip" title="Hapus diklat ini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_diklat/'.$diklat['id'].'"><i class="icon-remove"></i></a>';
-                        echo ' <a class="tip" rel="tooltip" title="Buka program di diklat ini" href="'.base_url().'program/buat_program/'.$diklat['id'].'"><i class="icon-plus"></i></a></h4>';
+                        echo '<li><a href="'.base_url().'diklat/edit_diklat/'.$diklat['id'].'">Edit diklat</a></li>';
+                        echo '<li><a onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_diklat/'.$diklat['id'].'">Hapus diklat</a></li>';
+                        echo '<li><a href="'.base_url().'program/buat_program/'.$diklat['id'].'">Buat program</a></li>';
                     }
+                    echo '</ul></small></h4></li>';
                 }else if($diklat['tipe']==3){
-                    echo '<li><h5> Angkatan '.$diklat['angkatan'];
-                    echo ' <a class="tip" rel="tooltip" title="Lihat program ini" href="'.base_url().'program/view_program/'.$diklat['id'].'"><i class="icon-eye-open"></i></a>';
-                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
-                        echo ' <a class="tip" rel="tooltip" title="Edit program ini" href="'.base_url().'program/edit_program/'.$diklat['id'].'"><i class="icon-edit"></i></a>';
-                        echo ' <a class="tip" rel="tooltip" title="Hapus program ini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'program/delete_diklat/'.$diklat['id'].'"><i class="icon-remove"></i></a></h5>';
-                    }
+                    echo '<li><h5><a class="tip-right" title="Lihat program ini" href="'.base_url().'program/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</a>';
+//                    echo ' <small class="dropdown"><a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a><ul class="dropdown-menu">';
+//                    echo ' <a class="tip" rel="tooltip" title="Lihat program ini" href="'.base_url().'program/view_program/'.$diklat['id'].'"><i class="icon-eye-open"></i></a>';
+//                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
+//                        echo ' <a class="tip" rel="tooltip" title="Edit program ini" href="'.base_url().'program/edit_program/'.$diklat['id'].'"><i class="icon-edit"></i></a>';
+//                        echo ' <a class="tip" rel="tooltip" title="Hapus program ini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'program/delete_diklat/'.$diklat['id'].'"><i class="icon-remove"></i></a>';
+//                    }
+                    echo '</h5></li>';
                 }
                 if($this->count_diklat($array_kat,$diklat['id'])>0){
                 $this->print_tree_all($array_kat,$diklat['id']);}
@@ -59,23 +65,50 @@ class Lib_perencanaan {
         }
         echo "</ul>\n";
     }
-    function print_tree_pub($array_kat,$parent=0){
-        echo '<ul';
-        if($parent==0){echo ' class="tree" id="expList"';}else{echo ' class="tree"';}
-        echo '>'."\n";
+    function print_tree_table($array_kat,$parent=0,$k=0){
+        if($k!=0){$l=$k*20;$p=' style="padding-left:'.$l.'px;"';}else{$p='';}
+        $k++;
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
-                if($diklat['tahun_program']!='0000'){
-                    echo '<li><a href="'.base_url().'site/dashboard/info_diklat/'.$diklat['id'].'">'.$diklat['name'].'</a>';
-                }else{
-                    echo '<li class="klik">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
-                }
+                if($diklat['tipe']==1){
+                    echo '<tr><td'.$p.'><strong>'.$diklat['name'].'</strong></td>'."\n";
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
+                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
+                        echo '<td><div class="btn-group"><a class="btn btn-mini" href="'.base_url().'diklat/buat_diklat/'.$diklat['id'].'">Buat diklat</a>';
+                        echo '<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a><ul class="dropdown-menu">';
+                        echo '<li><a href="javascript:edit_kat(\''.$diklat['name'].'\','.$diklat['parent'].','.$diklat['id'].')">Ubah Kategori</a></li>';
+                        echo '<li><a onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_kategori/'.$diklat['id'].'">Hapus Kategori</a></li>';
+                        echo '<li><a href="javascript:add_subkat('.$diklat['id'].')">Tambah subkategori</a></li>';
+                        echo '</ul></div></td>';
+                    }
+                    echo '</tr>';
+                }else if($diklat['tipe']==2){
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'">'.$diklat['name'].'</td>';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
+                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
+                        echo '<td><div class="btn-group"><a class="btn btn-mini" href="'.base_url().'program/buat_program/'.$diklat['id'].'">Buat program</a>';
+                        echo '<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a><ul class="dropdown-menu">';
+                        echo '<li><a href="'.base_url().'diklat/edit_diklat/'.$diklat['id'].'">Edit diklat</a></li>';
+                        echo '<li><a onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_diklat/'.$diklat['id'].'">Hapus diklat</a></li>';
+                        echo '</ul></div></td>';
+                    }
+                    echo '</tr>';
+                }else if($diklat['tipe']==3){
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</td>';
+                        echo '<td>-</td>';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
+                        echo '<td><div class="btn-group"><a class="btn btn-mini" href="'.base_url().'program/view_program/'.$diklat['id'].'">Lihat program</a>';
+                        echo '<a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#"><b class="caret"></b></a><ul class="dropdown-menu">';
+                        echo '<li><a href="'.base_url().'program/edit_program/'.$diklat['id'].'">Edit program</a></li>';
+                        echo '<li><a onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'program/delete_program/'.$diklat['id'].'">Hapus program</a></li>';
+                        echo '</ul></div></td>';
+                    }
+                   echo '</tr>';
+                 }
                 if($this->count_diklat($array_kat,$diklat['id'])>0){
-                $this->print_tree_pub($array_kat,$diklat['id']);}
-                echo "</li>\n";
+                $this->print_tree_table($array_kat,$diklat['id'],$k);}
             }
         }
-        echo "</ul>\n";
     }
     
     function cetak_excel(&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent=''){

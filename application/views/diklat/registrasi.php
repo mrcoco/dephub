@@ -1,10 +1,11 @@
 <script>
-    var num=0;
     var option;
     var kode_kantor;
     var syarat=<?php echo json_encode($program)?>;
     var pendidikan=<?php echo json_encode($arr_pendidikan)?>;
+    console.log(pendidikan);
     var pangkat=<?php echo json_encode($pangkat)?>;
+    console.log(pangkat);
     $(document).ready(function(){        
         $('#example').hide();
         append_table();
@@ -44,7 +45,7 @@
                         syarat_usia=true;
                     }else{
                         syarat_usia=false;
-                        message+='Syarat usia; '
+                        message+='Syarat usia, usia sudah '+result['usia']+ ' tahun ; '
                     }
                 }else{
                     syarat_usia=true;
@@ -54,27 +55,28 @@
                         syarat_masa_kerja=true;
                     }else{
                         syarat_masa_kerja=false;
-                        message+='Syarat masa kerja; '
+                        message+='Syarat masa kerja, masa kerja masih '+result['masa_kerja']+ 'tahun ; '
                     }
                 }else{
                     syarat_masa_kerja=true;
                 }
                 if(syarat['syarat_pangkat_gol']!=''){
-                    idx_pangkat=pangkat[result['golongan']];
-                    idx_syarat_pangkat=pangkat[syarat['syarat_pangkat_gol']];
-                    if(idx_pangkat>=idx_syarat_pangkat){
+                    idx_pangkat=parseInt(result['kode_gol']);
+                    idx_syarat_pangkat=parseInt(syarat['syarat_pangkat_gol']);
+                    
+                    if(idx_pangkat<=idx_syarat_pangkat){
                         syarat_pangkat_gol=true;
                     }else{
                         syarat_pangkat_gol=false;
-                        message+='Syarat pangkat/golongan; '
+                        message+='Syarat pangkat/golongan, golongan masih '+idx_pangkat+' ; '
                     }
                 }else{
                     syarat_pangkat_gol=true;
                 }
                 if(syarat['syarat_pendidikan']!=''){
-                    idx_pendidikan=pendidikan[result['pendidikan_terakhir']];
-                    idx_syarat_pendidikan=pendidikan[syarat['syarat_pendidikan']];
-                    if(idx_pendidikan>=idx_syarat_pendidikan){
+                    idx_pendidikan=parseInt(result['kode_pendidikan']);
+                    idx_syarat_pendidikan=parseInt(syarat['syarat_pendidikan']);
+                    if(idx_pendidikan<=idx_syarat_pendidikan){
                         syarat_pendidikan=true;
                     }else{
                         syarat_pendidikan=false;
@@ -86,14 +88,13 @@
                 if(syarat_usia&&syarat_masa_kerja&&syarat_pangkat_gol&&syarat_pendidikan){
                     $('#table'+num+' .id').val(result['id']);
                     $('#table'+num+' .nama').val(result['nama']);
-                    $('#table'+num+' .pangkat').val(result['pangkat']);
-                    $('#table'+num+' .gol').val(result['golongan']);
+                    $('#table'+num+' .gol').val(pangkat[result['kode_gol']]);
                     $('#table'+num+' .jabatan').text(result['jabatan']);
                     $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
                     $('#table'+num+' .view_detail').attr('onclick','view_detail('+result['id']+')');
                 }else{
                     alert('Ada syarat yang tidak terpenuhi '+message);
-                    $('#table'+num+' .nip').val('');
+                    //$('#table'+num+' .nip').val('');
                     $('#table'+num+' .nip').focus();
                 }
                 console.log(syarat_usia);
@@ -219,7 +220,7 @@
         </tr>
         <tr>
             <td>Pangkat/Gol</td>
-            <td><input class="pangkat" type="text" name="pangkat[]" placeholder="Pangkat" readonly/> / <input class="gol" type="text" name="gol[]" placeholder="Golongan" readonly/></td>
+            <td><input class="gol" type="text" name="gol[]" placeholder="Golongan" readonly/></td>
         </tr>
         <tr>
             <td>Jabatan</td>
