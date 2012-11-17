@@ -355,23 +355,34 @@ class Program extends CI_Controller {
                     $row_mulai = $arr_row_jam[$ds['jam_mulai']];
                     $row_selesai = $arr_row_jam[$ds['jam_selesai']];
                     $sheet->mergeCellsByColumnAndRow($kol_print, $row_mulai, $kol_print, $row_selesai);
-//                    $isi = $ds['materi']."\n";
-//                    if($ds['jenis']=='materi'){
-//                        $no=1;
-//                        foreach($ds['pembicara'] as $p){
-//                            $isi.=$no++.'. '.$p."\n";
-//                        }
-//                        foreach($ds['pendamping'] as $p){
-//                            $isi.=$p."(Pend)\n";
-//                        }
-//                    }
+                    $isi = $ds['judul_kegiatan']."\n";
+                    if($ds['jenis']=='materi'){
+                        $isi.='Pembicara : '."\n";
+                        if($ds['ada_pembicara']){
+                            $no=1;
+                            foreach($ds['list_pembicara'] as $p){
+                                if($p['nama_peg']!=''){
+                                    $isi.=$no++.'. '.$p['nama_peg']."\n";
+                                }else{
+                                    $isi.=$no++.'. '.$p['nama_dostam']."\n";
+                                }
+                            }
+                        }
+                        $isi.='Pendamping : '."\n";
+                        if($ds['ada_pendamping']){
+                            $no=1;
+                            foreach($ds['list_pendamping'] as $p){
+                                $isi.=$no++.'. '.$p['nama']."\n";
+                            }
+                        }
+                    }
                     $sheet->setCellValueByColumnAndRow($kol_print, $row_mulai, $isi);
                 }
             }
             $row+=2;
         }
         
-        die();
+        
         
         $filename = 'schedule diklat.xlsx'; //save our workbook as this file name
         header('Content-Type: application/vnd.ms-excel'); //mime type
