@@ -72,3 +72,8 @@
         <?php }?>
     </tbody>
 </table>
+<br/><br/><br/>
+<!--<span>
+    <a href="<?php //echo base_url()?>diklat/cetak_daftar_peserta/<?php //echo $program['id']?>/<?php //echo $tahun?>">Cetak daftar peserta</a>
+    <a href="<?php //echo base_url()?>diklat/publish_daftar_peserta/<?php //echo $program['id']?>/<?php //echo $tahun?>">Publish daftar peserta</a>
+</span>-->

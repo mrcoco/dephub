@@ -1,12 +1,23 @@
 <?php
 class Mdl_penyelenggaraan extends CI_Model{
        
-    function getall_peserta($id_diklat){
+    function getall_peserta($id_diklat,$thn=''){
         if($id_diklat!=-1){
             $this->db->where('registrasi.id_diklat',$id_diklat);
         }
+        if($thn!=''){
+            $this->db->where('registrasi.tahun_daftar',$thn);
+        }
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
         return $this->db->get('registrasi')->result_array();
+    }
+    
+    function get_one_peserta($id_diklat,$nip_pegawai,$thn){
+        $this->db->where('pegawai.nip',$nip_pegawai);
+        $this->db->where('registrasi.id_diklat',$id_diklat);
+        $this->db->where('registrasi.tahun_daftar',$thn);
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        return $this->db->get('registrasi')->num_rows();
     }
     
     function toggle_status($clause,$data){
@@ -288,8 +299,52 @@ class Mdl_penyelenggaraan extends CI_Model{
     function get_item_schedule($where){
         $this->db->where($where);
         return $this->db->get('schedule')->row_array();
-        //return $this->db->compile_select('schedule');
-        
+    }
+    
+    function get_all_item_schedule($where){
+        $this->db->where('id_program',$where); 
+        $this->db->order_by('tanggal','asc');
+        $this->db->order_by('jam_mulai','asc');
+        $arr_schedule=$this->db->get('schedule')->result_array();
+        $data_schedule=array();
+        for($i=0;$i<count($arr_schedule);$i++){
+            //format tulisan tanggal
+            $this->load->library('date');
+            $arr_schedule[$i]['tanggal']=$this->date->konversi5($arr_schedule[$i]['tanggal']);
+            //format jam mulai
+            $jam_mulai = strtotime($arr_schedule[$i]['jam_mulai']);
+            $jam_mulai_next = strtotime('+15 minute', $jam_mulai);
+            $arr_schedule[$i]['jam_mulai']=date('H.i', $jam_mulai) . '-' . date('H.i', $jam_mulai_next);
+            //format jam akhir
+            $jam_selesai = strtotime($arr_schedule[$i]['jam_selesai']);
+            $jam_selesai_next = strtotime('-15 minute', $jam_selesai);
+            $arr_schedule[$i]['jam_selesai']=date('H.i', $jam_selesai_next) . '-' . date('H.i', $jam_selesai);
+            
+            
+            //mengambil data pemateri dengan id schedule $arr_schedule[$i]['id']
+            $str_qry_pembicara='SELECT tb_pembicara.id, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam from tb_pembicara 
+            left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+            left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3)) inner join tb_pemateri on tb_pembicara.id=tb_pemateri.id_pembicara
+            where tb_pemateri.id_schedule='.$arr_schedule[$i]['id'];
+            $nama_dosen=$this->db->query($str_qry_pembicara)->result_array();
+            if(count($nama_dosen)>0){
+                $arr_schedule[$i]['ada_pembicara']=true;
+                $arr_schedule[$i]['list_pembicara']=$nama_dosen;
+            }else{
+                $arr_schedule[$i]['ada_pembicara']=false;
+            }
+            //mengambil lokasi kelas
+            if($arr_schedule[$i]['jenis_tempat']=='kelas'){
+                $this->db->where('id',$arr_schedule[$i]['id_ruangan']);
+                $data_kelas=$this->db->get('sarpras_kelas')->row_array();
+                $arr_schedule[$i]['nama_ruangan']=$data_kelas['nama'];
+            }
+        }
+        return $arr_schedule;
+//        foreach($arr_schedule as $a){
+//            $data_schedule[$a['tanggal']][]=$a;
+//        }
+        //return $data_schedule;      
     }
     
     function get_all_pembicara(){
@@ -297,64 +352,6 @@ class Mdl_penyelenggaraan extends CI_Model{
             left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
             left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))';
         return $this->db->query($str_qry_pembicara)->result_array();
-    }
-    
-    function get_data_schedule_by_id($id){
-        //query data dari tb_schedule
-        //masing2 data di cek jenisnya
-        //klo jenisnya materi, query nama pematerinya
-        
-        
-        $str_qry_pembicara='SELECT materi, tb_pembicara.jenis as jenis_dosen, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam FROM 
-                    tb_schedule LEFT JOIN ((tb_pemateri JOIN tb_pembicara ON tb_pemateri.id_pembicara = tb_pembicara.id) 
-                    LEFT JOIN tb_pegawai ON ( id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
-                    LEFT JOIN tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))) ON ( id_schedule = tb_schedule.id)
-                    WHERE id_program ='.$id;
-        $arr_pembicara = $this->db->query($str_qry_pembicara)->result_array();
-        
-        $str_qry_acara='SELECT DISTINCT tb_schedule.jenis as jenis, materi,tanggal, jam_mulai, jam_selesai FROM 
-                    tb_schedule LEFT JOIN ((tb_pemateri JOIN tb_pembicara ON tb_pemateri.id_pembicara = tb_pembicara.id) 
-                    LEFT JOIN tb_pegawai ON ( id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
-                    LEFT JOIN tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))) ON ( id_schedule = tb_schedule.id)
-                    WHERE id_program ='.$id;
-        $arr_res = $this->db->query($str_qry_acara)->result_array();
-        
-        $str_qry_pendamping='SELECT nama FROM 
-                    tb_schedule LEFT JOIN tb_pendamping on tb_schedule.id=tb_pendamping.id_schedule
-                    WHERE id_program ='.$id;
-        $arr_pendamping = $this->db->query($str_qry_pendamping)->result_array();
-        
-        for($i=0;$i<count($arr_res);$i++){
-            $jam_mulai = strtotime($arr_res[$i]['jam_mulai']);
-            $jam_mulai_next = strtotime('+15 minute', $jam_mulai);
-            $arr_res[$i]['jam_mulai']=date('H.i', $jam_mulai) . '-' . date('H.i', $jam_mulai_next);
-            
-            $jam_selesai = strtotime($arr_res[$i]['jam_selesai']);
-            $jam_selesai_next = strtotime('-15 minute', $jam_selesai);
-            $arr_res[$i]['jam_selesai']=date('H.i', $jam_selesai_next) . '-' . date('H.i', $jam_selesai);
-            
-            $tgl = strtotime($arr_res[$i]['tanggal']);
-            $arr_res[$i]['tanggal']=date('d', $tgl) . ' ' . $this->date->get_month_name(date('m', $tgl)) . ' ' . date('Y', $tgl);
-            
-            if($arr_res[$i]['jenis']=='materi'){
-                $arr_res[$i]['pembicara']=array();
-                foreach($arr_pembicara as $ap){
-                    if($ap['materi']==$arr_res[$i]['materi']){
-                        if($ap['nama_peg']!=''){
-                            $arr_res[$i]['pembicara'][]=$ap['nama_peg'];
-                        }else{
-                            $arr_res[$i]['pembicara'][]=$ap['nama_dostam'];
-                        }
-                    }
-                }
-                $arr_res[$i]['pendamping']=array();
-                foreach($arr_pendamping as $ap){
-                    $arr_res[$i]['pendamping'][]=$ap['nama'];
-                }
-            }
-            
-        }
-        return $arr_res;
     }
     
     function get_pemateri($id){

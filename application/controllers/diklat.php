@@ -212,12 +212,13 @@ class Diklat extends CI_Controller{
     function registrasi_proses(){
         $id_diklat=$this->input->post('id_diklat');
         $id=$this->input->post('id');
-        
+        $tahun=$this->input->post('tahun');
         $reg_batch=array();
         for($i=0;$i<count($id);$i++){
             $reg['id_peserta']=$id[$i];
             $reg['id_diklat']=$id_diklat;
             $reg['status']='daftar';
+            $reg['tahun_daftar']=$tahun;
             $reg_batch[]=$reg;
         }
         $this->slng->insert_registrasi_batch($reg_batch);
@@ -225,19 +226,43 @@ class Diklat extends CI_Controller{
         redirect(base_url().'diklat/alokasi_peserta/'.$id_diklat);
     }
     
-    function alokasi_peserta($id){
+    function alokasi_peserta($id,$thn=''){
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $data['tahun']=$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         $data['sub_title']='List Pendaftar Diklat '.$data['program']['name'];
-        $data['list']=$this->slng->getall_peserta($id);
+        $data['list']=$this->slng->getall_peserta($id,$thn);
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
         $data['pil_angkatan']['']='---';
         foreach($pil_angkatan as $p){
             $data['pil_angkatan'][$p['id']]='Angkt. '.$p['angkatan'];
         }
         $this->template->display_with_sidebar('diklat/list_peserta','diklat',$data);
+    }
+    
+    function cetak_daftar_peserta($id,$thn=''){
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
+    }
+    
+    function publish_daftar_peserta($id,$thn=''){
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
+    }
+    
+    function ajax_cek_daftar($id_diklat,$nip_pegawai,$thn){
+        if($this->slng->get_one_peserta($id_diklat,$nip_pegawai,$thn)==0){
+            echo true;
+        }else{
+            echo false;
+        }
     }
     
     function ajax_toggle_status($status){
