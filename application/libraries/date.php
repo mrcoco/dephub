@@ -15,6 +15,11 @@ class Date{
         return $arr_date[$idx-1];
     }
     
+    function savetgl($in){
+        //merubah format tanggal yy-mm-dd jadi dd-mm-yy
+        $obj_date=  date_create_from_format('d-m-Y', $in);
+        return date_format($obj_date, 'Y-m-d');
+    }
     function konversi1($in){
         //merubah format tanggal yy-mm-dd jadi dd-mm-yy
         $obj_date=  date_create_from_format('Y-m-d', $in);

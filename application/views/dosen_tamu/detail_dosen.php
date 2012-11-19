@@ -3,8 +3,8 @@
 </div>
 <p align="center" class="lead">Curriculum Vitae Dosen Tamu</p>
 <div class="well-small">
-    <a href="dosen_tamu/edit_dosen/<?php echo $data['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
-    <a href="dosen_tamu/delete_dosen/<?php echo $data['id'] ?>" class="btn btn-danger"
+    <a href="dosen_tamu/edit_dosen/<?php echo $data['id'] ?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+    <a href="dosen_tamu/delete_dosen/<?php echo $data['id'] ?>" class="btn btn-danger btn-mini"
        onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $data['nama'] ?>?')">
         <i class="icon-trash"></i> Hapus</a>
 </div>
@@ -27,7 +27,7 @@
         <?php } ?>
         <tr>
             <th>TTL</th>
-            <td>: <?php echo $data['tempat_lahir'] ?>, <?php echo $data['tanggal_lahir'] ?></td>
+            <td>: <?php echo $data['tempat_lahir'] ?>, <?php echo $this->date->konversi5($data['tanggal_lahir']) ?></td>
         </tr>
         <?php if ($data['is_pns']) { ?>
             <tr>

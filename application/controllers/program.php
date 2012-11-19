@@ -15,7 +15,12 @@ class Program extends CI_Controller {
 
     function view_program($id) {
         $this->load->library('date');
+        $data['sub_title']="Detail Program";
         $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         $data['pil_pendidikan'] = $this->rnc->get_list_pendidikan();
         $data['pil_pangkat'] = $this->rnc->get_pangkat_gol();
@@ -47,6 +52,10 @@ class Program extends CI_Controller {
         $this->load->library('editor');
 
         $data['program'] = $data['pil_diklat'] = $this->rnc->get_diklat_by_id($parent);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
 
         $pil_kelas = $this->spr->get_kelas_by_size($data['pil_diklat']['jumlah_peserta'])->result_array();
 
@@ -75,8 +84,8 @@ class Program extends CI_Controller {
         $data['parent'] = $this->input->post('parent');
         $data['tipe'] = 3;
         $data['tahun_program'] = $this->input->post('tahun_program');
-        $data['tanggal_mulai'] = $this->input->post('tanggal_mulai');
-        $data['tanggal_akhir'] = $this->input->post('tanggal_akhir');
+        $data['tanggal_mulai'] = $this->date->savetgl($this->input->post('tanggal_mulai'));
+        $data['tanggal_akhir'] = $this->date->savetgl($this->input->post('tanggal_akhir'));
         $data['lama_pendidikan'] = $this->input->post('lama_pendidikan');
         $data['pelaksanaan'] = $this->input->post('pelaksanaan');
         $data['tempat'] = $this->input->post('tempat');
@@ -112,6 +121,10 @@ class Program extends CI_Controller {
             redirect(base_url() . 'error/error_priv');
         }
         $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $data['pil_diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         $pil_kelas = $this->spr->get_kelas_by_size($data['pil_diklat']['jumlah_peserta'])->result_array();
         $data['kelas'] = array(-1 => '-- Pilih Kelas --');
@@ -143,8 +156,8 @@ class Program extends CI_Controller {
         $data['parent'] = $this->input->post('parent');
         $data['tipe'] = 3;
         $data['tahun_program'] = $this->input->post('tahun_program');
-        $data['tanggal_mulai'] = $this->input->post('tanggal_mulai');
-        $data['tanggal_akhir'] = $this->input->post('tanggal_akhir');
+        $data['tanggal_mulai'] = $this->date->savetgl($this->input->post('tanggal_mulai'));
+        $data['tanggal_akhir'] = $this->date->savetgl($this->input->post('tanggal_akhir'));
         $data['lama_pendidikan'] = $this->input->post('lama_pendidikan');
         $data['pelaksanaan'] = $this->input->post('pelaksanaan');
         $data['tempat'] = $this->input->post('tempat');
@@ -184,6 +197,11 @@ class Program extends CI_Controller {
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');
         }
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $this->rnc->delete_program($id);
         $this->session->set_flashdata('msg', $this->editor->alert_ok('Program telah dihapus'));
         redirect(base_url() . 'diklat');
@@ -194,6 +212,11 @@ class Program extends CI_Controller {
             redirect(base_url() . 'error/error_priv');
         }
         $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
 
         $pil_materi = $this->rnc->get_materi_diklat($data['program']['parent']);
         $data['pil_materi'][-1] = '-- Pilih Materi --';
@@ -201,7 +224,7 @@ class Program extends CI_Controller {
             $data['pil_materi'][$p['id_materi']] = $p['judul'];
         }
 
-        $pil_kelas = $this->spr->get_kelas_by_size($data['program']['jumlah_peserta'])->result_array();
+        $pil_kelas = $this->spr->get_kelas_by_size($data['diklat']['jumlah_peserta'])->result_array();
 
         $data['kelas'] = array(-1 => '-- Pilih Kelas --');
         foreach ($pil_kelas as $k) {
@@ -243,6 +266,10 @@ class Program extends CI_Controller {
         $this->load->library('excel');
 
         $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
 
         $data_schedule = $this->slng->get_all_item_schedule($id);
         

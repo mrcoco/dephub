@@ -14,6 +14,7 @@
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.print.css' media='print' />
     <link rel='stylesheet' type='text/css' href='assets/css/custom-theme/jquery-ui-1.8.16.custom.css' media='print' />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
     <link type="text/css" href="assets/css/datepicker.css" rel="stylesheet" />
     
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -29,15 +30,25 @@
     <script type="text/javascript" src="assets/js/tm/jquery.tinymce.js"></script>
 <!--    <script type="text/javascript" src="assets/js/bootstrap_new.min.js"></script>-->
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
+<!--    <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>-->
     <script type="text/javascript" src="assets/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap-tooltip.js"></script>
     <script type="text/javascript" src="assets/js/sisfo.js"></script>
 <script type="text/javascript">
     $(function(){
-        $('#date').datepicker({
-            format: 'yyyy-mm-dd'
+        $('.tgllahir').datepicker({
+            changeMonth:true,
+            changeYear:true,
+            dateFormat:"dd-mm-yy",
+            yearRange: '-100y:c-nn',
+            maxDate: '-15Y',
+            defaultDate: '-25Y'
+        });
+        $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd-mm-yy"
         });
         $('#list').dataTable();
         $('#list_length').addClass('pull-right');
@@ -89,7 +100,7 @@
 	    <div class="row">
                 <div class="span12">
                     <h1 class="title-page"><?php if(isset($_title)){echo $_title;}?>
-                        <small><?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?></small>
+                        <?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?>
                     </h1>
                 </div>
 		<?php if(isset($_sidebar)){?>

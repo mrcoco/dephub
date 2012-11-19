@@ -1,6 +1,5 @@
 <script type="text/javascript">
     $(document).ready(function(){		
-        
         $('.pns').hide();
 
         if($('#kategori').val()==1){
@@ -63,7 +62,7 @@
     }
         
 </script>
-<p align="center" class="lead">Curriculum Vitae Pengajar/Penceramah</p>
+<p align="center" class="lead">Curriculum Vitae Dosen Tamu</p>
 <form name="form_dosen" action="dosen_tamu/edit_process" method="POST">
     <input type="hidden" name="id" value="<?php echo $data['id'] ?>"/>    
     <table class="table table-striped table-condensed">
@@ -81,7 +80,8 @@
         </tr>
         <tr>
             <td>Tempat Tanggal Lahir</td>
-            <td><input type="text" name="tempat" value="<?php echo $data['tempat_lahir'] ?>"/>, <input type="text" id="date" name="tanggal" value="<?php echo $data['tanggal_lahir'] ?>"/></td>
+            <td><input type="text" name="tempat" value="<?php echo $data['tempat_lahir'] ?>"/>,
+                <input type="text" class="tgllahir" name="tanggal" value="<?php echo $this->date->konversi1($data['tanggal_lahir']) ?>"/></td>
         </tr>
         <tr class="pns">
             <td>Pangkat/Gol</td>

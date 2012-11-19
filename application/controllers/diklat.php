@@ -37,6 +37,10 @@ class Diklat extends CI_Controller{
     function view_diklat($id){
         $data['id']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $data['feedback'] = $this->rnc->get_feedback_sarpras_program($id);
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
@@ -58,6 +62,10 @@ class Diklat extends CI_Controller{
         }
 	$data['sub_title']='Daftar Program Diklat Dibuka';
         $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $list_program=$this->rnc->get_program_by_parent($id,$thn);
         foreach($list_program as $p){
             $data['list_program'][$p['id']]=$data['program']['name'].' Angkatan '.$p['angkatan'].' '.$p['tahun_program'];
@@ -72,6 +80,12 @@ class Diklat extends CI_Controller{
         
         $this->load->library('editor');
 	
+        $kat=$this->rnc->get_kategori_id($pil_kat);
+        if(!$kat){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Kategori tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+
         $kategori=$this->rnc->get_kategori();
         $data['pil_kat']=$pil_kat;
         
@@ -138,6 +152,10 @@ class Diklat extends CI_Controller{
         
         $data['id']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $this->load->library('editor');
 	$data['sub_title']='Ubah Detail Diklat';
         $kategori=$this->rnc->get_kategori();
@@ -203,6 +221,10 @@ class Diklat extends CI_Controller{
         }
         $data['id_diklat']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pangkat']=$this->rnc->get_pangkat_gol();
         $data['sub_title']='Registrasi Diklat '.$data['program']['name'];
@@ -236,6 +258,10 @@ class Diklat extends CI_Controller{
         }
         $data['tahun']=$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $data['sub_title']='List Pendaftar Diklat '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id,$thn);
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
@@ -302,6 +328,11 @@ class Diklat extends CI_Controller{
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $this->rnc->delete_diklat($id);
         $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
         redirect(base_url().'diklat');
@@ -335,6 +366,11 @@ class Diklat extends CI_Controller{
     function delete_kategori($id){
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
+        }
+        $kat=$this->rnc->get_kategori_id($id);
+        if(!$kat){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Kategori tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
         }
         $this->rnc->delete_kategori($id);
         $this->session->set_flashdata('msg',$this->editor->alert_warning('Diklat telah dihapus'));
