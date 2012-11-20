@@ -47,7 +47,7 @@ class Template {
     }
     
     function display_lib($template, $data = null) {
-        $data['_sidebar'] = $this->_ci->load->view('elibrary/sidebar/user', $data, true);            
+        $data['_sidebar'] = $this->_ci->load->view('elibrary/sidebar', $data, true);            
         if(isset($data['title'])){
             $data['_title']=$data['title'];
         }else{
