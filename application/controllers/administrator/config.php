@@ -235,7 +235,17 @@ class Config extends CI_Controller {
 	{
         $this->load->model('mdl_sarpras');
 	// generator
-	
+	for($i=1;$i<=144;$i++)	
+	{
+	    for($j=1;$j<=14;$j++)
+	    {
+		    $data_check_list=array(
+			'id_kamar'=>$i,
+			'id_item'=>$j
+		    );
+		    $this->mdl_sarpras->insert_checklist_kamar($data_check_list);
+	    }
+	}
 	$this->session->set_flashdata('msg',$this->editor->alert_ok('Insert OK!'));
 	redirect('sarpras/dashboard/#scs');
 	}
