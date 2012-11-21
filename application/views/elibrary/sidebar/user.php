@@ -7,12 +7,14 @@ else $t='bukan kategori';
 
 $nama=ucwords(strtolower($this->session->userdata('nama')));
 ?>
-<?php  if($this->session->userdata('is_login')) {//administrator?>
+<?php  if($this->session->userdata('is_login')) {//logged in?>
     <div class="well sidemenu">
         <ul class="nav nav-list">
             <li><?php echo 'Selamat datang '.$nama; ?></li>
             <li class="divider"></li>
+            <?php  if($this->session->userdata('elib_userrole')==1) {//administrator?>
             <li ><a href="<?php echo site_url("elibrary/admin"); ?>">Admin</a></li>
+            <?php }?>
             <li ><a href="<?php echo site_url("elibrary/digital/upload"); ?>"><i class="icon-upload"></i> Upload</a></li>
             <li><a href="<?php echo site_url("elibrary/digital/logout"); ?>">Logout</a></li>
         </ul>

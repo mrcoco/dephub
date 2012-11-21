@@ -5,8 +5,7 @@
             load(1,$(this).val());
         });
     });
-<?php if($this->uri->segment(3)=='list_pesan')$url="elibrary/admin/list_pesan_ajax/";
-        else $url="elibrary/admin/histori_pesan_ajax/"
+<?php  $url="elibrary/admin/list_buku_pinjam_ajax/"
 ?>    
     function load(page,filter){
         $('#body_table').empty();

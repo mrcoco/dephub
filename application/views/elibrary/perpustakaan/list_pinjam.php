@@ -1,41 +1,33 @@
+<script>
+    $(document).ready(function() {
+        load(1,'');
+        $('#cari').keyup(function(){
+            load(1,$(this).val());
+        });
+    });
+<?php if($this->uri->segment(3)=='list_pinjam')$url="elibrary/admin/list_pinjam_ajax/";
+        else $url="elibrary/admin/list_pinjam_ajax/"
+?>    
+    function load(page,filter){
+        $('#body_table').empty();
+        $('#body_table').append('<center>Loading... <img src="<?php echo base_url()?>assets/img/spinner.gif"/></center>');
+        if(filter!=''){
+            $.get('<?php echo base_url().$url?>'+page+'/'+filter, function(result){
+                $('#body_table').html(result);
+            });
+        }else{
+            $.get('<?php echo base_url().$url?>'+page, function(result){
+                $('#body_table').empty();
+                $('#body_table').html(result);
+            });
+        }
+    }
+    
+    
+</script>
 
-                        <div class="row-fluid">
-                            <?php echo $this->session->flashdata('msg'); ?>
-                        </div>        			
-			<h3>Daftar Pinjaman </h3>
-			<?php if(count($loan)<1){?>
-			Data kosong
-			<?php }
-			else{?>
-                        <table class="table table-condensed table-striped">
-                            <thead>
-                                <tr>
-                                    <th >No Peminjaman</th>
-                                    <th >Peminjam</th>
-                                    <th>NIP</th>
-                                    <th>Buku</th>
-                                    <th>Tanggal</th>
-                                    <th>Sampai</th>
-                                    <th>Status</th>
-                                    <th>aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php foreach ($loan as $number => $n):?>
-                                <tr>
-                                    <?php if($loan[$number]['returndate']=='0000-00-00'){?>
-                                    <td><?php echo $loan[$number]['id'];?></td>
-                                    <td><?php echo $loan[$number]['nama'];?></td>
-                                    <td><?php echo $loan[$number]['nip'];?></td>
-                                    <td><?php echo $loan[$number]['title'];?></td>
-                                    <td><?php echo $loan[$number]['loandate'];?></td>
-                                    <td><?php echo $loan[$number]['duedate'];?></td>
-                                    <td><?php echo 'Belum'; //echo $loan[$number]['returndate'];?></td>
-                                    <td><a href='<?php echo site_url()."elibrary/admin/kembali/".$loan[$number]['id'];?>' class='btn'>Buku kembali</a></td>
-                                </tr>
-                                <?php }?>
-                            <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                         <p><?php echo $links;?></p>
-			<?php }?>				
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
+Search: <input type="text" id="cari" placeholder="Nama, NIP,No Peminjaman, atau judul buku" rel="tooltip" title="Masukkan Nama, NIP,No Peminjaman, atau judul buku" class="tip"/>
+<div id="body_table"></div>    

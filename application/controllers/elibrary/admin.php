@@ -11,10 +11,8 @@ class Admin extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('mdl_elibrary','elib');
                 $this->load->library('pagination');
+                $this->load->model('mdl_penyelenggaraan','slng');
                 
-                $id=$this->session->userdata('id'); //mengambil id pegawai
-                $elib_userrole=$this->elib->get_userrole(array('id'=>$id)); //mengambil userrole di elib_userrole
-                if($elib_userrole) $this->session->set_userdata('elib_userrole', $elib_userrole[0]['userrole']);  //mengeset userrole ke session
                 if(!$this->session->userdata('is_login')||$this->session->userdata('elib_userrole')!=1){ //melarang apabila bukan admin
                 redirect(base_url().'elibrary');
                 }
@@ -28,7 +26,7 @@ class Admin extends CI_Controller {
 //                );
                 
                 
-		$this->template->display_lib('elibrary/admin-page');
+		$this->template->display_lib('elibrary/admin/admin-page');
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         function add_category()
@@ -36,7 +34,7 @@ class Admin extends CI_Controller {
 //                $data = array(
 //                
 //                );
-		$this->template->display_lib('elibrary/short_form');
+		$this->template->display_lib('elibrary/admin/short_form');
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         function do_add_category()
@@ -47,7 +45,7 @@ class Admin extends CI_Controller {
                         redirect(base_url().'elibrary/admin/list_category');
 		
 	}
-        
+        /*tanpa ajax
         function list_category()
 	{
                 $config=array();
@@ -62,15 +60,38 @@ class Admin extends CI_Controller {
                 $data = array('list'=>$this->elib->get_category_by(array(),$config["per_page"], $page)
                 );
                 $data["links"] = $this->pagination->create_links();
-		$this->template->display_lib('elibrary/list',$data);
+		$this->template->display_lib('elibrary/admin/list',$data);
                 
                 
-	}
+	} */
+        function list_category(){
+            if($this->session->userdata('elib_userrole')!=1){
+                redirect(base_url().'error/error_priv');
+            }
+            //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
+            $data['sub_title']='List Kategori';
+            $this->template->display_lib('elibrary/admin/list_category',$data);
+        }
+        
+        function list_category_ajax($page=1,$filter=''){
+            if($this->session->userdata('elib_userrole')!=1){
+                redirect(base_url().'error/error_priv');
+            }
+            //melist pegawai, pake paging dan ada filter berdasarkan instansi
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $data['data']=$this->elib->get_category_like($data['filter'],$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_category_like($filter);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/admin/ajax_list_category',$data,true);
+        }
         function edit_category($id)
 	{       
                 $data = array( 'data'=>$this->elib->get_category_by(array('idcategory'=>$id))
                        );
-		$this->template->display_lib('elibrary/short_form',$data);
+		$this->template->display_lib('elibrary/admin/short_form',$data);
 
 	}
         function do_edit_category()
@@ -98,8 +119,30 @@ class Admin extends CI_Controller {
                
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
+        function list_author(){
+            if($this->session->userdata('elib_userrole')!=1){
+                redirect(base_url().'error/error_priv');
+            }
+            //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
+            $data['sub_title']='List Pengarang';
+            $this->template->display_lib('elibrary/admin/list_author',$data);
+        }
         
-        function list_author()
+        function list_author_ajax($page=1,$filter=''){
+            if($this->session->userdata('elib_userrole')!=1){
+                redirect(base_url().'error/error_priv');
+            }
+            //melist pegawai, pake paging dan ada filter berdasarkan instansi
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $data['data']=$this->elib->get_author_like($data['filter'],$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_author_like($filter);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/admin/ajax_list_author',$data,true);
+        }
+        /*function list_author()
 	{
                 $config=array();
                 $config["base_url"]= base_url()."elibrary/admin/list_author";
@@ -113,15 +156,14 @@ class Admin extends CI_Controller {
                 $data = array('list'=>$this->elib->get_author_by(array(),$config["per_page"], $page)
                 );
                 $data["links"] = $this->pagination->create_links();
-		$this->template->display_lib('elibrary/list',$data);
-                
-                
-	}
+		$this->template->display_lib('elibrary/admin/list',$data);
+    
+	}*/
         function edit_author($id)
 	{       
                 $data = array( 'data'=>$this->elib->get_author_by(array('idauthor'=>$id))
                        );
-		$this->template->display_lib('elibrary/short_form',$data);
+		$this->template->display_lib('elibrary/admin/short_form',$data);
 
 	}
         function do_edit_author()
@@ -148,7 +190,7 @@ class Admin extends CI_Controller {
                
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
-        
+        /*tanpa ajax
         function list_user()
 	{
                 $config=array();
@@ -164,13 +206,38 @@ class Admin extends CI_Controller {
                     'userrole'=>$this->elib->get_userrole()
                 );
                 $data["links"] = $this->pagination->create_links();
-		$this->template->display_lib('elibrary/list',$data);   
+		$this->template->display_lib('elibrary/admin/list',$data);   
 		
 	}
+        */
+        function list_user(){
+            if($this->session->userdata('elib_userrole')!=1){
+                redirect(base_url().'error/error_priv');
+            }
+            //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
+            $data['sub_title']='List Anggota';
+            $this->template->display_lib('elibrary/admin/list_anggota',$data);
+        }
+        
+        function list_user_ajax($page=1,$filter=''){
+            if($this->session->userdata('elib_userrole')!=1){
+                redirect(base_url().'error/error_priv');
+            }
+            //melist pegawai, pake paging dan ada filter berdasarkan instansi
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $data['data']=$this->elib->get_user_like($data['filter'],$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_user_like($filter);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/admin/ajax_list_anggota',$data,true);
+        }
+        
         function edit_user($id)
 	{
             $data=array('data'=>$this->elib->get_user_by(array('t1.id'=>$id)));
-		$this->template->display_lib('elibrary/form_edit_user',$data);
+		$this->template->display_lib('elibrary/admin/form_edit_user',$data);
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
 /*--------------Administrasi Perpustakaan fisik Mulai----------------------*/
@@ -296,6 +363,22 @@ class Admin extends CI_Controller {
             //menampilkan form peminjaman isinya, judul buku (auto complete) NIP, tanggal pinjam,  tanggal harus kembali, banyaknya(default 1)
             
         }
+        function list_buku_pinjam(){
+            $data['sub_title']='List Buku';
+            $this->template->display_lib('elibrary/perpustakaan/list_buku_pinjam',$data);
+        }
+        
+        function list_buku_pinjam_ajax($page=1,$filter=''){
+            //melist Peminjaman, pake paging 
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $data['data']=$this->elib->search_books($data['filter'],$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_books_for_search($data['filter']);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/perpustakaan/ajax_list_buku_pinjam',$data,true);
+        }
         function do_pinjam(){
             $data=array('insert'=>$this->input->post());
             $data['insert']['idpegawai']=  $this->elib->get_idpegawai(array('nip'=>$data['insert']['idpegawai']));
@@ -311,6 +394,7 @@ class Admin extends CI_Controller {
             }
             
         }
+        /* tanpa js
         function list_pinjam(){
                 $filter['1.returndate']='0000-00-00';//filter harus ditambahkan string angka. (misal 1.) karena query join di mdl
                 $config=array();
@@ -329,6 +413,23 @@ class Admin extends CI_Controller {
            
             
             //menampilkan daftar peminjaman, bisa berdasarkan NIP, tanggal peminjaman, tanggal seharusnya kembali, buku
+        } */
+        function list_pinjam(){
+            $data['sub_title']='List Peminjaman';
+            $this->template->display_lib('elibrary/perpustakaan/list_pinjam',$data);
+        }
+        
+        function list_pinjam_ajax($page=1,$filter=''){
+            //melist Peminjaman, pake paging 
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $datefilter='= 0000-00-00';
+            $data['data']=$this->elib->get_loan_for_list($data['filter'],$datefilter,$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_loan_for_list($data['filter'],$datefilter);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/perpustakaan/ajax_list_pinjam',$data,true);
         }
         function kembali($id){
             
@@ -357,6 +458,7 @@ class Admin extends CI_Controller {
             
             redirect(base_url().'elibrary/admin/list_pinjam'); 
         }
+        /*tanpa JS
         function histori_pinjam(){
                  $filter['1.returndate !=']='0000-00-00';
                  
@@ -368,10 +470,30 @@ class Admin extends CI_Controller {
                 $config["uri_segment"] = 4;
                 $this->pagination->initialize($config);
                 $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-		 $data = array('loan' => $this->elib->get_loan($filter,$config["per_page"],$page));
-                 $data["links"] = $this->pagination->create_links();
+		$data = array('loan' => $this->elib->get_loan($filter,$config["per_page"],$page));
+                $data["links"] = $this->pagination->create_links();
                 $this->template->display_lib('elibrary/perpustakaan/histori_pinjam', $data);
         }
+         */
+         
+        function histori_pinjam(){
+            $data['sub_title']='Histori Peminjaman';
+            $this->template->display_lib('elibrary/perpustakaan/list_pinjam',$data);
+        }
+        
+        function histori_pinjam_ajax($page=1,$filter=''){
+            //melist Peminjaman, pake paging 
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $datefilter='!= 0000-00-00';
+            $data['data']=$this->elib->get_loan_for_list($data['filter'],$datefilter,$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_loan_for_list($data['filter'],$datefilter);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/perpustakaan/ajax_list_pinjam',$data,true);
+        }
+        /*tanpa js
         function list_pesan(){
             $config=array();
                 $config["base_url"]= base_url()."elibrary/admin/list_pesan/";
@@ -383,9 +505,27 @@ class Admin extends CI_Controller {
                 $filter=array('status <='=>1);
 		 $data = array('queue' => $this->elib->get_queue($filter,$config["per_page"],$page));
                  $data["links"] = $this->pagination->create_links();
-                $this->template->display_lib('elibrary/perpustakaan/list_pesan', $data);
+                $this->template->display_lib('elibrary/perpustakaan/list_pesan-2', $data);
             
+        }*/
+        function list_pesan(){
+            $data['sub_title']='List Peminjaman';
+            $this->template->display_lib('elibrary/perpustakaan/list_pesan',$data);
         }
+        
+        function list_pesan_ajax($page=1,$filter=''){
+            //melist Peminjaman, pake paging 
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $statusfilter='<= 1';
+            $data['data']=$this->elib->get_queue_for_list($data['filter'],$statusfilter,$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_queue_for_list($data['filter'],$statusfilter);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/perpustakaan/ajax_list_pesan',$data,true);
+        }
+        /*tanpa JS
         function histori_pesan(){
             $config=array();
                 $config["base_url"]= base_url()."elibrary/admin/list_pesan/";
@@ -399,6 +539,23 @@ class Admin extends CI_Controller {
                 $data["links"] = $this->pagination->create_links();
                 $this->template->display_lib('elibrary/perpustakaan/list_pesan', $data);
             
+        }*/
+        function histori_pesan(){
+            $data['sub_title']='List Peminjaman';
+            $this->template->display_lib('elibrary/perpustakaan/list_pesan',$data);
+        }
+        
+        function histori_pesan_ajax($page=1,$filter=''){
+            //melist Peminjaman, pake paging 
+            $data['cur_page']=$page;
+            $data['per_page']=25;
+            $data['filter']= str_replace('%20', ' ', $filter);
+            $data['offset']=($data['cur_page']-1)*$data['per_page'];
+            $statusfilter='> 1';
+            $data['data']=$this->elib->get_queue_for_list($data['filter'],$statusfilter,$data['per_page'],$data['offset']);
+            $data['num_res']=$this->elib->count_queue_for_list($data['filter'],$statusfilter);
+            $data['num_page']=ceil($data['num_res']/$data['per_page']);
+            echo $this->load->view('elibrary/perpustakaan/ajax_list_pesan',$data,true);
         }
         function hapus_pesan($id){
             $this->elib->delete_queue($id);
@@ -409,7 +566,9 @@ class Admin extends CI_Controller {
         function pinjam_dari_pesan($id=''){
             
             $data['queue']=$this->elib->get_queue(array('1.id'=>$id),1,0);
-            $data['data']=$this->elib->get_books_by(array('t1.id'=>$data['queue'][0]['booksid']));
+            $booksid=$data['queue'][0]['booksid'];
+            $data['data']=$this->elib->get_books_by(array('t1.id'=>$booksid));
+            
             $data['data'][0]['pinjam']=$this->elib->count_loaned_books($booksid);
             $this->template->display_lib('elibrary/perpustakaan/form_pinjam_dari_pesan', $data);
             

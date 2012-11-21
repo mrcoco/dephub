@@ -52,14 +52,6 @@ class Perpustakaan extends CI_Controller {
         }
     }
 
-    function search() {
-        $string = $this->input->post('search');
-        $data = array('data' => $this->elib->search_books_by_title_or_author($string));
-
-        $this->template->display_lib('elibrary/perpustakaan/search-result', $data);
-        //$this->load->view('elibrary/user', array('error' => ' ' ));
-    }
-
     function pesan($id) {
         $data = array('data' => $this->elib->get_books_by(array('t1.id'=>$id)),
             'loaned'=>$this->elib->count_loaned_books($id)
