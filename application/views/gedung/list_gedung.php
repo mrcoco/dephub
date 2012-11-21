@@ -18,8 +18,8 @@
             <td class="nama"><?php echo $list[$i]['nama'] ?>
             </td>
             <td class="aksi">
-                <a href="gedung/edit_gedung/<?php echo $i+1?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
-                <a href="gedung/delete_gedung/<?php echo $i+1?>"  class="btn btn-danger btn-mini"
+                <a href="gedung/edit_gedung/<?php echo $list[$i]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+                <a href="gedung/delete_gedung/<?php echo $list[$i]['id']?>"  class="btn btn-danger btn-mini"
                 onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['nama'] ?>?')">
                     <i class="icon-trash"></i> Hapus</a>
 <!--                <a href='kamar/list_kamar_gedung/<?php echo $i+1?>' class='btn'>Lihat Kamar</a>-->

@@ -362,6 +362,33 @@ class Mdl_sarpras extends CI_Model {
 	return $this->db->insert_id();
     }
 
+    function delete_check_list_kelas($id){
+        $this->db->where('id',$id);
+        $this->db->delete($this->table_check_list_kelas);
+    }
+	
+	function update_checklist($id, $data){
+		// $data2 = array(
+               // 'l2' => $data['l2'],
+               // 's2' => $data['s2'],
+               // 'm2' => $data['m2'],
+               // 'wb' => $data['wb'],
+               // 'pb' => $data['pb'],
+               // 'fc' => $data['fc']
+            // );
+		$this->db->where('id',$id);
+		// die(var_dump($data));
+
+		// $this->db->set('l2',$data['l2']);
+		// $this->db->set('s2',$data['s2']);
+		// $this->db->set('m2',$data['m2']);
+		// $this->db->set('wb',$data['wb']);
+		// $this->db->set('pb',$data['pb']);
+		// $this->db->set('fc',$data['fc']);
+	$this->db->update($this->table_check_list_kelas,$data);
+	return true;
+	}
+	
     // Type Prasarana
     //---------------
     function get_type($var=NULL) {
