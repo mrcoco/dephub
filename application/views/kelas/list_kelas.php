@@ -15,10 +15,11 @@
             <th width="20%" colspan='4'><div align="center">LCD Proyektor</div></th>
             <th width="10%" colspan='2'><div align="center">Sound System</div></th>
             <th width="15%" colspan='3'><div align="center">Meja</div></th>
-            <th width="15%" colspan='3'><div align="center">Kursi</div></th>
+            <th width="10%" colspan='3'><div align="center">Kursi</div></th>
             <th width="5%"><div align="center">Whiteboard</div></th>
             <th width="5%"><div align="center">Panaboard</div></th>
             <th width="5%"><div align="center">Flipchart</div></th>
+			<th width="5%" rowspan='2'><div align="center">Aksi</div></th>
         </tr>
         <tr>
             <th>Type</th>
@@ -42,129 +43,74 @@
     <tbody>
         <?php for($i=0;$i<count($list);$i++) {?>
         <tr class="gedung<?php echo $list[$i]['id'] ?>">
+		<form name="form_edit" id="form_reg" action="kelas/update_checklist/<?php echo $list[$i]['id'] ?>">
             <td class="no"><?php echo ($i+1) ?></td>
             <td class="nama"><?php echo $list[$i]['nama'] ?></td>
-            <td class="l1">
-			<?php 
-				if($list[$i]['l1']==0)
-					echo "ok";
-				else
-					echo $list[$i]['l1']; 
-			?>
+            <td class="l1"><?php echo $list[$i]['l1']; ?>
 			</td>
-            <td class="l2">
+            <td class="l2"><input type="checkbox" name="l2" value="1"
 			<?php 
-				if($list[$i]['l2']==0)
-					echo "ok";
-				else
-					echo $list[$i]['l2']; 
-			?>
+				if($list[$i]['l2']!=0)
+					echo "checked";
+			?>/> ok
 			</td>
-            <td class="l3">
+            <td class="l3"><?php echo $list[$i]['l3']; ?>
+			</td>
+            <td class="l4"><?php echo $list[$i]['l4']; ?>
+			</td>
+			<td class="s1"><?php echo $list[$i]['s1']; ?>
+			</td>
+			<td class="s2"><input type="checkbox" name="s2" value="1"
 			<?php 
-				if($list[$i]['l3']==0)
-					echo "ok";
-				else
-					echo $list[$i]['l3']; 
-			?>
+				if($list[$i]['s2']!=0)
+					echo "checked"; 
+			?>/> ok
 			</td>
-            <td class="l4">
+			<td class="m1"><?php echo $list[$i]['m1']; ?>
+			</td>
+			<td class="m2"><input type="checkbox" name="m2" value="1"
 			<?php 
-				if($list[$i]['l4']==0)
-					echo "ok";
-				else
-					echo $list[$i]['l4']; 
-			?>
+				if($list[$i]['m2']!=0)
+					echo "checked";
+			?>/> ok
 			</td>
-			<td class="s1">
+			<td class="m3"><?php echo $list[$i]['m3']; ?>
+			</td>
+			<td class="k1"><?php echo $list[$i]['k1']; ?>
+			</td>
+			<td class="k2"><input type="checkbox" name="k2" value="1"
 			<?php 
-				if($list[$i]['s1']==0)
-					echo "ok";
-				else
-					echo $list[$i]['s1']; 
-			?>
+				if($list[$i]['k2']!=0)
+					echo "checked";
+			?>/> ok
 			</td>
-			<td class="s2">
+			<td class="k3"><?php echo $list[$i]['k3']; ?>
+			</td>
+			<td class="wb"><input type="checkbox" name="wb" value="1"
 			<?php 
-				if($list[$i]['s2']==0)
-					echo "ok";
-				else
-					echo $list[$i]['s2']; 
-			?>
+				if($list[$i]['wb']!=0)
+					echo "checked";
+			?>/> ok
 			</td>
-			<td class="m1">
+			<td class="pb"><input type="checkbox" name="pb" value="1"
 			<?php 
-				if($list[$i]['m1']==0)
-					echo "ok";
-				else
-					echo $list[$i]['m1']; 
-			?>
+				if($list[$i]['pb']!=0)
+					echo "checked";
+			?>/> ok
 			</td>
-			<td class="m2">
+			<td class="fc"><input type="checkbox" name="fc" value="1"
 			<?php 
-				if($list[$i]['m2']==0)
-					echo "ok";
-				else
-					echo $list[$i]['m2']; 
-			?>
+				if($list[$i]['fc']!=0)
+					echo "checked";
+			?>/> ok
 			</td>
-			<td class="m3">
-			<?php 
-				if($list[$i]['m3']==0)
-					echo "ok";
-				else
-					echo $list[$i]['m3']; 
-			?>
+			
+			<td>
+				<input type="submit" class="btn btn-small btn-primary pull-right" value="Edit"/>
 			</td>
-			<td class="k1">
-			<?php 
-				if($list[$i]['k1']==0)
-					echo "ok";
-				else
-					echo $list[$i]['k1']; 
-			?>
-			</td>
-			<td class="k2">
-			<?php 
-				if($list[$i]['k2']==0)
-					echo "ok";
-				else
-					echo $list[$i]['k2']; 
-			?>
-			</td>
-			<td class="k3">
-			<?php 
-				if($list[$i]['k3']==0)
-					echo "ok";
-				else
-					echo $list[$i]['k3']; 
-			?>
-			</td>
-			<td class="wb">
-			<?php 
-				if($list[$i]['wb']==0)
-					echo "ok";
-				else
-					echo $list[$i]['wb']; 
-			?>
-			</td>
-			<td class="pb">
-			<?php 
-				if($list[$i]['pb']==0)
-					echo "ok";
-				else
-					echo $list[$i]['pb']; 
-			?>
-			</td>
-			<td class="fc">
-			<?php 
-				if($list[$i]['fc']==0)
-					echo "ok";
-				else
-					echo $list[$i]['fc']; 
-			?>
-			</td>
-            
+			
+            </form>
+		</tr>
         <?php }?>
     </tbody>
 </table>
