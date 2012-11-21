@@ -11,6 +11,7 @@ class Program extends CI_Controller {
         $this->load->model('mdl_sarpras', 'spr');
         $this->load->model('mdl_penyelenggaraan', 'slng');
         $this->load->library('date');
+        $this->thn_default=date('Y');
     }
 
     function view_program($id) {
@@ -44,6 +45,19 @@ class Program extends CI_Controller {
         $this->template->display_with_sidebar('program/view_program', 'program', $data);
     }
 
+    function peserta_program($id,$thn=''){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $data['sub_title']="List Peserta";
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        $data['list']=$this->slng->get_terima_peserta($id,$thn);
+        $this->template->display_with_sidebar('program/list_peserta','program',$data);
+    }
+    
     function buat_program($parent) {
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');
@@ -570,4 +584,6 @@ class Program extends CI_Controller {
         echo json_encode($data_ins);
     }
 
+    
+    
 }
