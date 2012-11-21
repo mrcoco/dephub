@@ -11,13 +11,15 @@
         $('#instansi').focus(function(){
             $.getJSON('<?php echo base_url() ?>instansi/json_list_instansi',function(result){
                 option=result;
-                $('#instansi').typeahead({'source':option});
-            });
-            
-        });
-        $('#instansi').change(function(){
-            $.get('<?php echo base_url() ?>instansi/ajax_kode_instansi/'+$('#instansi').val(),function(result){
-                kode_kantor=result;
+                $('#instansi').typeahead({
+                    'source':option,
+                    updater : function(item){
+                        $.get('<?php echo base_url() ?>instansi/ajax_kode_instansi/'+item,function(result){
+                            kode_kantor=result;
+                        });
+                        return item;
+                    }
+                });
             });
             
         });
@@ -42,8 +44,9 @@
         message='';
         
         $.get('<?php echo base_url() ?>diklat/ajax_cek_daftar/'+id_diklat+'/'+nip+'/'+tahun,function(result){
-            if(result){
-                alert('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
+            console.log(result);
+            if(result=='false'){
+                console.log('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
                 $('#table'+num+' .nip').val('');
                 $('#table'+num+' .nip').focus();
             }else{
@@ -182,7 +185,7 @@
         $('#table'+num+' .num').text(num);
         $('#table'+num+' .nip').attr('id','nip'+num);
         $('#table'+num+' .nip').attr('onclick','tes('+num+')');
-        $('#table'+num+' .nip').attr('onchange','tes2('+num+')');
+        $('#table'+num+' .cek').attr('onclick','tes2('+num+')');
         obj_table.show('blind');
         $(function(){
             $('#table'+num+' .tgl').datepicker({
@@ -221,8 +224,12 @@
     <tbody>
     <input class="id" type="hidden" name="id[]"/>
     <tr>
-        <td>NIP/Nama</td>
-        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> / <input class="nama" type="text" name="nama[]" placeholder="Nama" readonly/></td>
+        <td>NIP</td>
+        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> <span class="cek">Cek</span></td>
+    </tr>
+    <tr>
+        <td>Nama</td>
+        <td><input class="nama" type="text" name="nama[]" placeholder="Nama" readonly/></td>
     </tr>
     <tr>
         <td>Pangkat/Gol</td>
@@ -244,7 +251,7 @@
 <div id="display_dialog" class="modal hide"></div>
 
 <form name="form_reg" id="form_reg" action="diklat/registrasi_proses" method="POST">
-    <?php echo form_hidden('id_diklat', $id_diklat) ?>
+    <input type="hidden" id="id_diklat" name="id_diklat" value="<?php echo $id_diklat?>"/>
     <table width="800" class="table table-condensed">
         <tr>
             <td>Asal Instansi Peserta</td>

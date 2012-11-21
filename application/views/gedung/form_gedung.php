@@ -38,10 +38,12 @@
             </tr>
         </thead>
         <tbody>
+		<!--
             <tr>
                 <td>Gedung ID</td>
                 <td><input class="id" type="text" name="id" placeholder="Nama" value="<?php echo $gedung['id'];?>" readonly/></td>
             </tr>
+		-->
         <tr>
             <td>Nama Gedung</td>
             <td><input class="nama" type="text" name="nama" placeholder="Nama" value="<?php echo $gedung['nama'];?>"/></td>

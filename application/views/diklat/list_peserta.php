@@ -7,7 +7,7 @@
             function(data){
                 $('#status'+id_peserta).attr('class','badge badge-success');           
                 $('#status'+id_peserta).html("accept");
-                if(status==1){
+                if(status==1||status==2){
                     $(item).siblings('#dropdown').removeClass('hide');
                 }else{
                     $(item).siblings('#dropdown').addClass('hide');
@@ -23,12 +23,6 @@
                 $(item).val(-1);
                 alert('Program sudah penuh');
             }
-        });
-    }
-    
-    function alokasi_kamar(){
-        $.getJSON("<?php echo base_url() ?>diklat/ajax_alokasi_kamar", function(data){
-            
         });
     }
 </script>
@@ -58,7 +52,7 @@
                     <button class="btn <?php if($list[$i]['status']=='waiting') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,2)">Waiting</button>
                     
                     <?php 
-                    if($list[$i]['status']=='accept'){
+                    if($list[$i]['status']=='accept'||$list[$i]['status']=='waiting'){
                         $class='class=""';
                     } else{
                         $class='class="hide"';
@@ -73,7 +67,4 @@
     </tbody>
 </table>
 <br/><br/><br/>
-<!--<span>
-    <a href="<?php //echo base_url()?>diklat/cetak_daftar_peserta/<?php //echo $program['id']?>/<?php //echo $tahun?>">Cetak daftar peserta</a>
-    <a href="<?php //echo base_url()?>diklat/publish_daftar_peserta/<?php //echo $program['id']?>/<?php //echo $tahun?>">Publish daftar peserta</a>
-</span>-->
+<a href="<?php echo base_url()?>diklat/publish_daftar_peserta/<?php echo $program['id']?>">Publish</a>

@@ -39,9 +39,20 @@
         </thead>
         <tbody>
         <tr>
-            <tr>
+            <!--
+			<tr>
             <td>ID</td>
-            <td><input class="id" type="text" name="id" placeholder="ID" value="<?php echo $kamar['id'];?>"/></td>
+            <td><input class="id" type="text" name="id" placeholder="ID" value="<?php echo $kamar['id'];?>" 
+			<?php 
+				//if($kamar['id']!="")
+					//echo "readonly";
+			?>
+			/></td>
+            </tr>
+			-->
+            <tr>
+            <td>Nomor Kamar</td>
+            <td><input class="nama" type="text" name="nama" placeholder="Nomor Kamar" value="<?php echo $kamar['nama_kamar'];?>"/></td>
             </tr>
             <tr>
             <td>Asrama</td>

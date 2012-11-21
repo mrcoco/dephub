@@ -1,6 +1,14 @@
 <?php
 class Mdl_penyelenggaraan extends CI_Model{
-       
+    
+    function insert_pengumuman($data){
+        $this->db->insert('post',$data);
+    }
+    
+    function load_pengumuman(){
+        return $this->db->get('post')->result_array();
+    }
+    
     function getall_peserta($id_diklat,$thn=''){
         if($id_diklat!=-1){
             $this->db->where('registrasi.id_diklat',$id_diklat);
@@ -8,6 +16,35 @@ class Mdl_penyelenggaraan extends CI_Model{
         if($thn!=''){
             $this->db->where('registrasi.tahun_daftar',$thn);
         }
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        return $this->db->get('registrasi')->result_array();
+    }
+    
+    function getall_peserta_by_angkatan($id_diklat,$thn=''){
+        $this->db->order_by('registrasi.id_program','asc');
+        if($id_diklat!=-1){
+            $this->db->where('registrasi.id_diklat',$id_diklat);
+        }
+        if($thn!=''){
+            $this->db->where('registrasi.tahun_daftar',$thn);
+        }
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $array=$this->db->get('registrasi')->result_array();
+        $arr_angkatan=array();
+        foreach($array as $a){
+            $arr_angkatan[$a['id_program']][]=$a;
+        }
+        return $arr_angkatan;
+    }
+    
+    function get_terima_peserta($id_diklat,$thn=''){
+        if($id_diklat!=-1){
+            $this->db->where('registrasi.id_program',$id_diklat);
+        }
+        if($thn!=''){
+            $this->db->where('registrasi.tahun_daftar',$thn);
+        }
+        $this->db->where('status !=','daftar');
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
         return $this->db->get('registrasi')->result_array();
     }
