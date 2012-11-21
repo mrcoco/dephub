@@ -43,7 +43,7 @@
     <tbody>
         <?php for($i=0;$i<count($list);$i++) {?>
         <tr class="gedung<?php echo $list[$i]['id'] ?>">
-		<form name="form_edit" id="form_reg" action="kelas/update_checklist/<?php echo $list[$i]['id'] ?>">
+		<form name="form_edit" id="form_reg" action="kelas/update_checklist/<?php echo $list[$i]['id'] ?>" method="POST">
             <td class="no"><?php echo ($i+1) ?></td>
             <td class="nama"><?php echo $list[$i]['nama'] ?></td>
             <td class="l1"><?php echo $list[$i]['l1']; ?>
@@ -106,7 +106,8 @@
 			</td>
 			
 			<td>
-				<input type="submit" class="btn btn-small btn-primary pull-right" value="Edit"/>
+				<input type="submit" class="btn btn-mini btn-primary pull-right" value="Save"/>
+				<a href="kelas/edit_checklist/<?php echo $list[$i]['id'] ?>" class="btn btn-mini btn-primary pull-right"/>Edit</a>
 			</td>
 			
             </form>
