@@ -83,6 +83,31 @@ class Kelas extends CI_Controller{
         redirect(base_url() . 'kelas');
     }
 	
+    function edit_checklist($id) {
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
+            redirect(base_url().'error/error_priv');
+        }
+        //menampilkan form untuk edit data kelas
+        $data['sub_title'] = 'Edit Kamar';
+        $var = $this->spr->get_check_list_kelas($id)->result_array();
+        $data['kelas'] = $var[0];
+        // die(var_dump($data['kelas']));
+        $this->template->display('kelas/form_checklistkelas', $data);
+    }
+	
+    function edit_checklist_process() {
+        //process penyimpanan data kelas
+
+		foreach(array_keys($_POST) as $var)
+		{
+			if($var!='nama')
+				$ins[$var]=$_POST[$var];
+		}
+        $this->spr->update_check_list_kelas($_POST['id'], $ins);
+        $this->session->set_flashdata('msg', $this->editor->alert_ok('kelas telah diedit'));
+        redirect(base_url() . 'kelas');
+    }
+	
 	function update_checklist($id) {
 		//update checklist item kelas
 		// die(var_dump($_GET));
@@ -92,9 +117,9 @@ class Kelas extends CI_Controller{
 		$ins['wb']='0';
 		$ins['pb']='0';
 		$ins['fc']='0';
-		foreach(array_keys($_GET) as $var)
+		foreach(array_keys($_POST) as $var)
 		{
-			$ins[$var]=$_GET[$var];
+			$ins[$var]=$_POST[$var];
 		}
 		
 		// die(var_dump($ins));

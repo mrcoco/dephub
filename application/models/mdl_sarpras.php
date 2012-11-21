@@ -334,7 +334,7 @@ class Mdl_sarpras extends CI_Model {
 		);
 		$this->db->from($this->table_check_list_kelas);
 		
-	    $this->db->where('id', $var);
+	    $this->db->where($this->table_check_list_kelas.'.id', $var);
 	    $this->db->join($this->table_kelas, $this->table_check_list_kelas.'.id_kelas = '.$this->table_kelas.'.id');
 		
 	    return $this->db->get();
