@@ -210,15 +210,15 @@ class Mdl_sarpras extends CI_Model {
     }
 
     function insert_kamar($data) {
-        $ins['id']=$data['id'];
-        $ins['nama_kamar']=$data['nama_kamar'];
-        $ins['asrama']=$data['asrama'];
-        $ins['lantai']=$data['lantai'];
-        $ins['sayap']=$data['sayap'];
-        $ins['nomor']=$data['nomor'];
-        $ins['bed']=$data['bed'];
-        $ins['status']=$data['status'];
-	$this->db->insert($this->table_kamar, $ins);
+        // $ins['id']=$data['id'];
+        // $ins['nama_kamar']=$data['nama_kamar'];
+        // $ins['asrama']=$data['asrama'];
+        // $ins['lantai']=$data['lantai'];
+        // $ins['sayap']=$data['sayap'];
+        // $ins['nomor']=$data['nomor'];
+        // $ins['bed']=$data['bed'];
+        // $ins['status']=$data['status'];
+	$this->db->insert($this->table_kamar, $data);
 	return $this->db->insert_id();
     }
 

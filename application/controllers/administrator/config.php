@@ -5,7 +5,7 @@
  *
  * @author irhamnurhalim
  */
-class Config extends Administrator_Controller {
+class Config extends CI_Controller {
 
     public function index()
     {

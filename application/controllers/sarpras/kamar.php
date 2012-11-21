@@ -10,7 +10,7 @@
  *
  * @author d_frEak
  */
-class kamar extends Sarpras_Controller{
+class kamar extends CI_Controller{
     //put your code here
     
     public function index()
@@ -35,7 +35,7 @@ class kamar extends Sarpras_Controller{
 
 	$var = $this->mdl_sarpras->get_kamar($offset)->result_array();
         $data['list']=$var;
-	$this->template->display('simdik/sarpras/kamar',$data);
+	$this->template->display('kamar/list_kamar',$data);
     }
 
 	function list_kamar_gedung($offset=0)
@@ -45,7 +45,7 @@ class kamar extends Sarpras_Controller{
 
 	$var = $this->mdl_sarpras->get_kamar_gedung($offset)->result_array();
         $data['list']=$var;
-	$this->template->display('simdik/sarpras/kamar',$data);
+	$this->template->display('kamar/list_kamar',$data);
     }
 	
     function add_kamar()
@@ -63,7 +63,7 @@ class kamar extends Sarpras_Controller{
         $var['status']='';
         $var['gedung']=$id;
         $data['kamar']=$var;
-        $this->template->display('simdik/sarpras/form_kamar',$data);
+        $this->template->display('kamar/form_kamar',$data);
     
     }
     
@@ -93,7 +93,7 @@ class kamar extends Sarpras_Controller{
         $var=$this->spr->get_kamar($id)->result_array();
         $data['kamar']=$var[0];
         //var_dump($data['kamar']);
-        $this->template->display('simdik/sarpras/form_kamar',$data);
+        $this->template->display('kamar/form_kamar',$data);
     }
     
     function edit_kamar_process(){
