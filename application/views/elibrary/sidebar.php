@@ -1,10 +1,8 @@
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
     <?php
-
     $t=$this->uri->segment(4);
     $t2=$this->uri->segment(2);
     $t3=$this->uri->segment(3);
-
 $nama=ucwords(strtolower($this->session->userdata('nama')));
 ?>
 
@@ -13,7 +11,7 @@ $nama=ucwords(strtolower($this->session->userdata('nama')));
         <ul class="nav nav-list">
             <li><?php echo 'Selamat datang '.$nama; ?></li>
             <li class="divider"></li>
-<?php  if($this->session->userdata('elib_userrole')==1) {
+<?php  if($this->session->userdata('elib_userrole')==1) { ?>
 			<li <?php if($t2=='admin') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/admin"); ?>"><i class="icon-list-alt <?php if($t2=='admin') echo 'icon-white'; ?>"></i>Administrasi</a></li>
 <?php }?>
             <li <?php if($t3=='upload') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/upload"); ?>"><i class="icon-upload <?php if($t3=='upload') echo 'icon-white'; ?>"></i>Upload File</a></li>
