@@ -11,7 +11,7 @@ class User extends CI_Model {
     function login($usr,$pwd){
 	$where=array('username'=>$usr,'password'=>$pwd);
         
-        $this->db->join('role','pegawai.id=role.id_pegawai');
+        $this->db->join('role','pegawai.id=role.id_pegawai','left');
         $res=$this->db->get_where('pegawai',$where);
         
         if($res->num_rows()>0){
