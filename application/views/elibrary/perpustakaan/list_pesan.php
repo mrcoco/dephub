@@ -1,4 +1,4 @@
-
+<?php $t=$this->uri->segment(3);?>
                         <div class="row-fluid">
                             <?php echo $this->session->flashdata('msg'); ?>
                         </div>        			
@@ -16,22 +16,29 @@
                                     <th>Buku</th>
                                     <th>Tanggal Antri</th>
                                     <th>Status</th>
-                                    <th>aksi</th>
+<?php if($t=='list_pesan'){?>                       <th>aksi</th> <?php }?>
                                 </tr>
                             </thead>
                             <tbody>
                             <?php foreach ($queue as $number => $n):?>
                                 <tr>
                                     <td><?php echo $queue[$number]['id'];?></td>
-                                    <td><?php echo $queue[$number]['idpegawai'];?></td>
-                                    <td>NIP <?php echo $queue[$number]['idpegawai'];?></td>
-                                    <td><?php echo $queue[$number]['booksid'];?></td>
+                                    <td><?php echo $queue[$number]['nama'];?></td>
+                                    <td><?php echo $queue[$number]['nip'];?></td>
+                                    <td><?php echo $queue[$number]['title'];?></td>
                                     <td><?php echo $queue[$number]['queuedate'];?></td>
-                                    <td>Belum</td>
+                                    <td><?php switch ($queue[$number]['status']) {
+                                                case 0: echo 'belum'; break;
+                                                case 1: echo 'sedang'; break;
+                                                case 2: echo 'sudah'; break;
+                                                case 3: echo 'terlambat'; break;
+                                                case 4: echo 'Dihapus'; break;}?></td>
+                                    <?php if($t=='list_pesan'){?>
                                     <td>
-                                        <a href='<?php echo site_url()."elibrary/admin/kembali/".$queue[$number]['id'];?>' class='btn'>Pinjamkan</a>
-                                        <a href='<?php echo site_url()."elibrary/admin/kembali/".$queue[$number]['id'];?>' class='btn'>Hapus</a>
+<?php if($queue[$number]['status']==1) {?>   <a href='<?php echo site_url()."elibrary/admin/pinjam_dari_pesan/".$queue[$number]['id'];?>' class='btn'>Pinjamkan</a> <?php }?>
+                                        <a href='<?php echo site_url()."elibrary/admin/hapus_pesan/".$queue[$number]['id'];?>' class='btn'>Hapus</a>
                                     </td>
+                                    <?php }?>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>

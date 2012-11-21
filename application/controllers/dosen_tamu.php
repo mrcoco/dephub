@@ -54,7 +54,7 @@ class Dosen_tamu extends CI_Controller{
         $data['is_pns']=$this->input->post('kategori');
         $data['nip']=$this->input->post('nip');
         $data['tempat_lahir']=$this->input->post('tempat');
-        $data['tanggal_lahir']=$this->input->post('tanggal');
+        $data['tanggal_lahir']=$this->date->savetgl($this->input->post('tanggal'));
         $data['kode_gol']=$this->input->post('kode_gol');
         $data['instansi']=$this->input->post('instansi');
         $data['alamat_rumah']=$this->input->post('alamat_rumah');
@@ -284,7 +284,7 @@ class Dosen_tamu extends CI_Controller{
         $data['is_pns']=$this->input->post('kategori');
         $data['nip']=$this->input->post('nip');
         $data['tempat_lahir']=$this->input->post('tempat');
-        $data['tanggal_lahir']=$this->input->post('tanggal');
+        $data['tanggal_lahir']=$this->date->savetgl($this->input->post('tanggal'));
         $data['kode_gol']=$this->input->post('kode_gol');
         $data['instansi']=$this->input->post('instansi');
         $data['jabatan']=$this->input->post('jabatan');

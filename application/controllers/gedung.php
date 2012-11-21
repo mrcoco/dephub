@@ -23,7 +23,7 @@ class Gedung extends CI_Controller {
         
         if (empty($offset))
             $offset = 0;
-        $data['sub_title'] = 'Gedung';
+        $data['sub_title'] = 'Daftar Gedung';
 
         $var = $this->spr->get_gedung()->result_array();
         $data['list'] = $var;

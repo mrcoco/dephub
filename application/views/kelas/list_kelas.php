@@ -7,7 +7,7 @@
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 	
-<table width="100%" class="table table-striped table-bordered table-condensed">
+<table width="100%" id="list" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
             <th width="5%" rowspan='2'>No</th>

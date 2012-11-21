@@ -34,6 +34,7 @@ class Materi extends CI_Controller{
         $data['judul']=$this->input->post('judul');
         $data['deskripsi']=$this->input->post('deskripsi');
         $this->rnc->insert_materi($data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Materi telah ditambahkan'));
         redirect(base_url().'materi');
     }
     
@@ -51,11 +52,13 @@ class Materi extends CI_Controller{
         $data['judul']=$this->input->post('judul');
         $data['deskripsi']=$this->input->post('deskripsi');
         $this->rnc->update_materi($id,$data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Materi telah diubah'));
         redirect(base_url().'materi');
     }
     
     function delete($id){
         $this->rnc->delete_materi($id);
+        $this->session->set_flashdata('msg',$this->editor->alert_warning('Materi telah dihapus'));
         redirect(base_url().'materi');
     }
     
@@ -64,7 +67,7 @@ class Materi extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         $data['materi']=$this->rnc->get_materi($id);
-        $data['sub_title']='Assign Dosen ke Materi '.$data['materi']['judul'];
+        $data['sub_title']='Assign Dosen';
         $data['pengajar']=$this->rnc->get_pengajar($id);
         $pembicara=$this->slng->get_all_pembicara();
         $data['pembicara']=array();
@@ -87,8 +90,7 @@ class Materi extends CI_Controller{
     function ajax_save(){
         $data['id_materi']=$this->input->post('id_materi');
         $data['id_pembicara']=$this->input->post('id_pembicara');
-        echo $this->rnc->insert_pengajar($data);
-        
+        echo $this->rnc->insert_pengajar($data);        
     }
     
     function ajax_hapus(){

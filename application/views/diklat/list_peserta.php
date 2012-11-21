@@ -25,6 +25,12 @@
             }
         });
     }
+    
+    function alokasi_kamar(){
+        $.getJSON("<?php echo base_url() ?>diklat/ajax_alokasi_kamar", function(data){
+            
+        });
+    }
 </script>
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
@@ -34,7 +40,7 @@
         <tr>
             <th width="5%">No</th>
             <th width="25%">Nama</th>
-            <th width="25%">NIP</th>
+            <th width="15%">NIP</th>
             <th width="45%">Aksi</th>
         </tr>
     </thead>
@@ -66,3 +72,8 @@
         <?php }?>
     </tbody>
 </table>
+<br/><br/><br/>
+<!--<span>
+    <a href="<?php //echo base_url()?>diklat/cetak_daftar_peserta/<?php //echo $program['id']?>/<?php //echo $tahun?>">Cetak daftar peserta</a>
+    <a href="<?php //echo base_url()?>diklat/publish_daftar_peserta/<?php //echo $program['id']?>/<?php //echo $tahun?>">Publish daftar peserta</a>
+</span>-->

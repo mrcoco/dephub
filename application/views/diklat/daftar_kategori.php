@@ -14,8 +14,8 @@
     <a class="btn btn-primary" data-toggle="modal" href="#tambah"><i class="icon-plus-sign icon-white"></i> Tambah</a>
 <?php } ?>
 
+<form action="<?php echo base_url() ?>diklat/insert_kategori" method="post">
     <div class="modal hide" id="tambah">
-        <form action="<?php echo base_url() ?>diklat/insert_kategori" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3>Tambah Kategori</h3>
@@ -36,11 +36,11 @@
                 <a href="#" class="btn" data-dismiss="modal">Cancel</a>
                 <input class="btn btn-primary" type="submit" value="Buat kategori"/>
             </div>
-        </form>
     </div>
+</form>
 
+<form action="<?php echo base_url() ?>diklat/update_kategori" method="post">
     <div class="modal hide" id="edit">
-        <form action="<?php echo base_url() ?>diklat/update_kategori" method="post">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">×</button>
                 <h3>Edit Kategori</h3>
@@ -61,6 +61,5 @@
                 <a href="#" class="btn" data-dismiss="modal">Cancel</a>
                 <input class="btn btn-primary" type="submit" value="Ubah kategori"/>
             </div>
-        </form>
     </div>
-  
+</form>  

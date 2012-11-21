@@ -16,6 +16,7 @@
                 }
             }
         });
+        $('.fc-state-highlight').css('background','#C7DFFF');
     });
 </script>
 <div class="row"><div class="span9"><?php echo $this->session->flashdata('msg'); ?></div></div>
