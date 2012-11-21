@@ -28,25 +28,6 @@
 Tidak ada data
 <?php } ?>
     </div>
-<?php if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) { ?>
-    <div class="span3 well">
-        <div id="dik">
-            <h3>Tambah Diklat</h3>
-            <label>Kategori</label>
-            <?php echo form_dropdown('parentdiklat', $pil_kategori) ?>
-            <a class="btn btn-primary" href="javascript:add_diklat()">Buat diklat</a>
-        </div>
-        <hr />
-        <form action="<?php echo base_url() ?>diklat/insert_kategori" method="post">
-            <h3>Tambah Kategori</h3>
-            <label>Nama kategori</label>
-            <input type="text" name="nama"/>
-            <label>Kategori induk</label>
-            <?php echo form_dropdown('parent', $pil_kategori) ?>
-            <input class="btn btn-primary" type="submit" value="Simpan kategori"/>
-        </form>
-    </div>    
-<?php } ?>
 </div>
 <div class="form-actions">
     <a class="btn btn-success" href="<?php echo base_url()?>diklat/cetak_jadwal">Cetak Jadwal</a>

@@ -26,7 +26,14 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane" id="pengumuman">Pengumuman di sini</div>
+    <div class="tab-pane" id="pengumuman">
+        <?php foreach($data_post as $dp){?>
+        <?php echo $dp['judul'] .'<br/>' ?>
+        <?php echo $dp['waktu']. $dp['tanggal'] .'<br/>' ?>
+        <?php echo $dp['isi']?>
+        <br/><br/><br/>
+        <?php } ?>
+    </div>
     <div class="tab-pane active" id="kalender">
         <div id='loading' style='display:none'>loading...</div>
         <div id='calendar' style="width:690px;"></div>

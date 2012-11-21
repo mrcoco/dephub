@@ -22,6 +22,18 @@ class Mdl_elibrary extends CI_Model{
          $result=$this->db->get();
          Return $result->result_array();
      }
+     function get_category_like($filter,$limit=200,$start=0){
+         $this->db->from('elib_category');
+         $this->db->like('categoryname',$filter);
+         $this->db->limit($limit,$start);
+         $result=$this->db->get();
+         Return $result->result_array();
+     }
+     function count_category_like($filter,$limit=200,$start=0){
+         $this->db->like('categoryname',$filter);
+         Return $this->db->count_all_results('elib_category');
+         
+     }
         
     function insert_category($data){
         $this->db->insert('elib_category',$data);
@@ -87,6 +99,10 @@ class Mdl_elibrary extends CI_Model{
         function count_bibliography_for_search($string){
                 
                 
+                $this->db->like('elib_bibliography.title', $string); 
+                $this->db->or_like('elib_author.authorname',$string);
+                $this->db->or_like('elib_bibliography.tags', $string); 
+                $this->db->or_like('pegawai.nama', $string); 
                 $this->db->from('elib_bibliography');
                 $this->db->join('elib_category', 'elib_category.idcategory = elib_bibliography.idcategory','left');  
                 $this->db->join('elib_author', 'elib_author.idauthor = elib_bibliography.idauthor','left');
@@ -97,10 +113,12 @@ class Mdl_elibrary extends CI_Model{
                  return $this->db->count_all_results();
                 
         }
-	function search_bibliography_by_title_or_author($string,$limit,$start){
+	function search_bibliography($string,$limit,$start){
                 $this->db->select('elib_bibliography.id,elib_bibliography.uploaddate,pegawai.nama,pegawai.nip,elib_bibliography.title,elib_author.authorname, elib_category.categoryname,elib_filetype.jenis,elib_filetype.filetypename,elib_bibliography.location,elib_bibliography.keterangan,elib_bibliography.tags');
                 $this->db->like('elib_bibliography.title', $string); 
                 $this->db->or_like('elib_author.authorname',$string);
+                $this->db->or_like('elib_bibliography.tags', $string); 
+                $this->db->or_like('pegawai.nama', $string); 
                 $this->db->from('elib_bibliography');
                 $this->db->join('elib_category', 'elib_category.idcategory = elib_bibliography.idcategory','left');  
                 $this->db->join('elib_author', 'elib_author.idauthor = elib_bibliography.idauthor','left');
@@ -118,10 +136,12 @@ class Mdl_elibrary extends CI_Model{
         }
         /*---------- Elib_Books------------*/        
         
-        function search_books_by_title_or_author($string,$limit,$start){
-            $this->db->select('elib_books.id,elib_books.title,elib_author.authorname, elib_category.categoryname,elib_books.keterangan,elib_books.tags');
+        function search_books($string,$limit,$start){
+            $this->db->select('elib_books.id,elib_books.issnisbn,elib_books.stock,elib_books.title,elib_author.authorname, elib_category.categoryname,elib_books.keterangan,elib_books.tags');
                 $this->db->like('elib_books.title', $string); 
                 $this->db->or_like('elib_author.authorname',$string);
+                $this->db->or_like('elib_books.tags', $string);
+                $this->db->or_like('elib_books.issnisbn', $string);
                 $this->db->from('elib_books');
                 $this->db->join('elib_category', 'elib_category.idcategory = elib_books.idcategory','left');  
                 $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
@@ -133,7 +153,17 @@ class Mdl_elibrary extends CI_Model{
             
         }
         
-	
+	function count_books_for_search($string){
+                $this->db->from('elib_books');
+                $this->db->join('elib_category', 'elib_category.idcategory = elib_books.idcategory','left');  
+                $this->db->join('elib_author', 'elib_author.idauthor = elib_books.idauthor','left');
+                $this->db->like('elib_books.title', $string); 
+                $this->db->or_like('elib_author.authorname',$string);
+                $this->db->or_like('elib_books.tags', $string);
+                
+                return $this->db->count_all_results();
+                
+        }
         function get_books_by($data=array(),$limit=20,$start=0){
             $this->db->select('t1.*,t2.categoryname,t3.authorname');
             $this->db->from('elib_books AS t1');
@@ -182,7 +212,25 @@ class Mdl_elibrary extends CI_Model{
             $user = $this->db->get();
             return $user->result_array();
         }
-       
+        function get_user_like($filter,$limit=20,$start=0){
+            $this->db->select('t1.id, t1.nama, t2.userrole,t1.nip,t1.jabatan'); ////t2.userrole : 0 =biasa, 1=admin, 2=uploader(cuma bisa upload)
+            $this->db->from('pegawai AS t1');
+            //$this->db->order_by("nama", "asc");
+            $this->db->join('elib_userrole AS t2', 't1.id = t2.id','left');
+            $this->db->limit($limit,$start);
+            if($filter!=''){
+                $this->db->like('t1.nip',$filter);
+                $this->db->or_like('t1.nama',$filter);
+            }
+            $user = $this->db->get();
+            return $user->result_array();
+        }
+       public function count_user_like($filter) {
+            $this->db->like('nip',$filter);
+            $this->db->or_like('nama',$filter);
+            return $this->db->count_all_results("pegawai");
+
+        }
 	function get_userrole($data=array(),$limit=1,$start=0){
             $this->db->select('userrole');
             $this->db->from('elib_userrole');
@@ -214,10 +262,24 @@ class Mdl_elibrary extends CI_Model{
             $data = $this->db->get(); 
             return $data->result_array();
         }
+        function get_author_like($filter,$limit=20,$start=0){
+            $this->db->select('*');
+            $this->db->from('elib_author');
+            
+            $this->db->like('authorname',$filter);
+            $this->db->limit($limit,$start);
+            $data = $this->db->get(); 
+            return $data->result_array();
+        }
         
         
         public function count_author_by($data=array()) {
             $this->db->where($data);
+            return $this->db->count_all_results("elib_author");
+
+        }
+        public function count_author_like($filter) {
+            $this->db->like('authorname',$filter);
             return $this->db->count_all_results("elib_author");
 
         }
@@ -265,6 +327,17 @@ class Mdl_elibrary extends CI_Model{
 	$data= $this->db->get();
         return $data->result_array();
     }
+    function get_loan_for_list($filter='',$wherefilter,$limit=20,$start=0){ 
+        $filter='%'.$filter.'%';
+        $sql="SELECT `tb_1`.`id`, `tb_2`.`title`, `tb_3`.`nama`, `tb_3`.`nip`, `tb_1`.`loandate`, `tb_1`.`amount`, `tb_1`.`duedate`, `tb_1`.`returndate`, `tb_1`.`booksid` FROM (`tb_elib_loan` AS tb_1) LEFT JOIN `tb_elib_books` AS tb_2 ON `tb_1`.`booksid`=`tb_2`.`id` LEFT JOIN `tb_pegawai` AS tb_3 ON `tb_1`.`idpegawai`=`tb_3`.`id` WHERE `tb_1`.`returndate` ".$wherefilter." AND  (`tb_1`.`id` LIKE ? OR tb_3.nama LIKE ? OR `tb_3`.`nip` LIKE ? OR `tb_2`.`title` LIKE ? OR `tb_1`.`loandate` LIKE ?) LIMIT ?,?";
+        return $this->db->query($sql, array( $filter, $filter,$filter,$filter,$filter, $start,$limit))->result_array();
+    }
+    function count_loan_for_list($filter='',$wherefilter){
+        $filter='%'.$filter.'%';
+        $sql="SELECT count(tb_1.id) as num FROM (`tb_elib_loan` AS tb_1) LEFT JOIN `tb_elib_books` AS tb_2 ON `tb_1`.`booksid`=`tb_2`.`id` LEFT JOIN `tb_pegawai` AS tb_3 ON `tb_1`.`idpegawai`=`tb_3`.`id` WHERE `tb_1`.`returndate` ". $wherefilter." AND  (`tb_1`.`id` LIKE ? OR tb_3.nama LIKE ? OR `tb_3`.`nip` LIKE ? OR `tb_2`.`title` LIKE ? OR `tb_1`.`loandate` LIKE ?)";
+        return $this->db->query($sql,array( $filter, $filter,$filter,$filter,$filter))->row()->num;
+        
+    }
     function insert_loan($data){
         $this->db->insert('elib_loan',$data);
     }
@@ -299,6 +372,16 @@ class Mdl_elibrary extends CI_Model{
 	$data= $this->db->get();
         return $data->result_array();
         
+    }
+    function get_queue_for_list($filter='',$wherefilter,$limit=20,$start=0){
+        $filter='%'.$filter.'%';
+        $sql="SELECT `tb_1`.`id`, `tb_2`.`title`, `tb_3`.`nama`, `tb_3`.`nip`, `tb_1`.`queuedate`, `tb_1`.`amount`, `tb_1`.`status`, `tb_1`.`availabledate`, `tb_1`.`booksid` FROM (`tb_elib_queue` AS tb_1) LEFT JOIN `tb_elib_books` AS tb_2 ON `tb_1`.`booksid`=`tb_2`.`id` LEFT JOIN `tb_pegawai` AS tb_3 ON `tb_1`.`idpegawai`=`tb_3`.`id` WHERE `tb_1`.`status` ".$wherefilter." AND  (`tb_1`.`id` LIKE ? OR tb_3.nama LIKE ? OR `tb_3`.`nip` LIKE ? OR `tb_2`.`title` LIKE ? OR `tb_1`.`queuedate` LIKE ?) LIMIT ?,?";
+        return $this->db->query($sql, array( $filter, $filter,$filter,$filter,$filter, $start,$limit))->result_array();
+    }
+     function count_queue_for_list($filter='',$wherefilter,$limit=20,$start=0){
+        $filter='%'.$filter.'%';
+        $sql="SELECT count(tb_1.id) as num FROM (`tb_elib_queue` AS tb_1) LEFT JOIN `tb_elib_books` AS tb_2 ON `tb_1`.`booksid`=`tb_2`.`id` LEFT JOIN `tb_pegawai` AS tb_3 ON `tb_1`.`idpegawai`=`tb_3`.`id` WHERE `tb_1`.`status` ".$wherefilter." AND  (`tb_1`.`id` LIKE ? OR tb_3.nama LIKE ? OR `tb_3`.`nip` LIKE ? OR `tb_2`.`title` LIKE ? OR `tb_1`.`queuedate` LIKE ?)";
+        return $this->db->query($sql,array( $filter, $filter,$filter,$filter,$filter))->row()->num;
     }
     function get_queue_for_kembali($data=array(),$limit=1,$start=0){ //mencari mana yang paling pertama dapat buku
         

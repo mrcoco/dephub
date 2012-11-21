@@ -12,6 +12,9 @@ class Digital extends CI_Controller {
                 
 	}
         function index(){
+            $id=$this->session->userdata('id'); //mengambil id pegawai
+                $elib_userrole=$this->elib->get_userrole(array('id'=>$id)); //mengambil userrole di elib_userrole
+                if($elib_userrole) $this->session->set_userdata('elib_userrole', $elib_userrole[0]['userrole']);  //mengeset userrole ke session
             $data['queue']=array();
             if($this->session->userdata('is_login')){ //tidak diproses notifikasi bila tidak login
                $data['filter_queue']=array('1.idpegawai'=>$this->session->userdata('id'),'1.status'=>1);
@@ -45,15 +48,18 @@ class Digital extends CI_Controller {
                     $config=array();//pagination
                     $config["base_url"]= base_url()."elibrary/digital/search/";
                     $config["total_rows"]=$this->elib->count_bibliography_for_search($string);
-                    $config["per_page"]=20;
+                    $config["per_page"]=10;
                     $config["uri_segment"] = 5;
                     $this->pagination->initialize($config);                
                     $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
-                    $data = array('data' => $this->elib->search_bibliography_by_title_or_author($string,$config["per_page"],$page)); //query search db
+                    $data = array('data' => $this->elib->search_bibliography($string,$config["per_page"],$page),
+                        'data2' => $this->elib->search_books($string,$config["per_page"],$page)); //query search db
+                    
                     $data["links"] = $this->pagination->create_links();
+                    $config["total_rows"]=$this->elib->count_bibliography_for_search($string);
+                    $this->pagination->initialize($config);  
+                    $data["links2"] = $this->pagination->create_links();
                     $this->template->display_lib('elibrary/digital/search-result', $data);
-		
-                
 	}
         function view($id) //Untuka menampilkan file satuan
 	{

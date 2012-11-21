@@ -282,6 +282,33 @@ class Diklat extends CI_Controller{
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
+        foreach($pil_angkatan as $p){
+            $data['pil_angkatan'][$p['id']]='Angkt. '.$p['angkatan'];
+        }
+        $data['tahun']=$thn;
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        $data['list']=$this->slng->getall_peserta_by_angkatan($id,$thn);
+        
+        $text = '';
+        $text .= 'Berikut ini adalah nama-nama peserta diklat dari masing-masing angkatan : <br/>';
+        foreach($data['list'] as $key => $val){
+            $text .= $data['pil_angkatan'][$key].'<br/>';
+            $text .= '<ul>';
+            foreach($val as $v){
+                $text .= '<li>'.$v['nama'].' '.$v['status'].'</li>';
+            }
+            $text .= '</ul>';
+        }
+        $data_post['judul']='DAFTAR PANGGILAN '.$data['program']['name'];
+        $data_post['isi']=$text;
+        $data_post['waktu']=date('H:i');
+        $data_post['tanggal']=date('Y-m-d');
+        $this->slng->insert_pengumuman($data_post);
+        redirect(base_url().'diklat/alokasi_peserta/'.$id);
     }
     
     function ajax_cek_daftar($id_diklat,$nip_pegawai,$thn){

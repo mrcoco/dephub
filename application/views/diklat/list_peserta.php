@@ -67,3 +67,4 @@
     </tbody>
 </table>
 <br/><br/><br/>
+<a href="<?php echo base_url()?>diklat/publish_daftar_peserta/<?php echo $program['id']?>">Publish</a>

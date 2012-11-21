@@ -3,15 +3,17 @@
     $t=$this->uri->segment(4);
     $t2=$this->uri->segment(2);
     $t3=$this->uri->segment(3);
-
 $nama=ucwords(strtolower($this->session->userdata('nama')));
 ?>
-<?php  if($this->session->userdata('is_login')) {//administrator?>
+
+<?php  if($this->session->userdata('is_login')) {//logged in?>
     <div class="well sidemenu">
         <ul class="nav nav-list">
             <li><?php echo 'Selamat datang '.$nama; ?></li>
             <li class="divider"></li>
-            <li <?php if($t2=='admin') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/admin"); ?>"><i class="icon-list-alt <?php if($t2=='admin') echo 'icon-white'; ?>"></i>Administrasi</a></li>
+<?php  if($this->session->userdata('elib_userrole')==1) { ?>
+			<li <?php if($t2=='admin') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/admin"); ?>"><i class="icon-list-alt <?php if($t2=='admin') echo 'icon-white'; ?>"></i>Administrasi</a></li>
+<?php }?>
             <li <?php if($t3=='upload') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/upload"); ?>"><i class="icon-upload <?php if($t3=='upload') echo 'icon-white'; ?>"></i>Upload File</a></li>
             <li><a href="<?php echo site_url("elibrary/digital/logout"); ?>"><i class="icon-off"></i>Logout</a></li>
         </ul>
@@ -37,7 +39,6 @@ $nama=ucwords(strtolower($this->session->userdata('nama')));
         <li><a href="#">Riwayat</a></li>
         <li><a href="#">Favorit</a></li>-->
         <li class="nav-header">Perpustakaan Digital</li>
-        
         <li <?php if($t=='semua') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/semua"); ?>"><i class="icon-folder-open <?php if($t=='semua') echo 'icon-white'; ?>"></i>Semua File</a></li>
         <li <?php if($t=='dokumen') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/dokumen"); ?>"><i class="icon-file <?php if($t=='dokumen') echo 'icon-white'; ?>"></i>File Dokumen</a></li>
         <li <?php if($t=='multimedia') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/type/multimedia"); ?>"><i class="icon-film <?php if($t=='multimedia') echo 'icon-white'; ?>"></i>File Multimedia</a></li>
