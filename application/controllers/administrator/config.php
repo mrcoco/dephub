@@ -230,4 +230,13 @@ class Config extends CI_Controller {
 	$this->session->set_flashdata('msg',$this->editor->alert_ok('Insert OK!'));
 	redirect('sarpras/dashboard/#scs');
     }
+	
+	function generate_kamar()
+	{
+        $this->load->model('mdl_sarpras');
+	// generator
+	
+	$this->session->set_flashdata('msg',$this->editor->alert_ok('Insert OK!'));
+	redirect('sarpras/dashboard/#scs');
+	}
 }

@@ -3,7 +3,7 @@
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 
-<table width="100%" class="table table-striped table-bordered table-condensed">
+<table width="100%" id="list" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
             <th width="5%">No</th>
@@ -22,7 +22,7 @@
                 <a href="gedung/delete_gedung/<?php echo $list[$i]['id']?>"  class="btn btn-danger btn-mini"
                 onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['nama'] ?>?')">
                     <i class="icon-trash"></i> Hapus</a>
-<!--                <a href='kamar/list_kamar_gedung/<?php echo $i+1?>' class='btn'>Lihat Kamar</a>-->
+                <a href='kamar/list_kamar_gedung/<?php echo $i+1?>' class='btn'>Lihat Kamar</a>
             </td>
         <?php }?>
     </tbody>

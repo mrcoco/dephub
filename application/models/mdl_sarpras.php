@@ -191,10 +191,11 @@ class Mdl_sarpras extends CI_Model {
 	} else {
 			$this->db->where($this->table_kamar.'.id', $var);
 	}
-            //var_dump($this->db->get()->result_array());
 		$this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
 		$this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
-	    return $this->db->get();
+		
+    // die(var_dump($this->db->get()->result_array()));
+	return $this->db->get();
     }
 	
 	
