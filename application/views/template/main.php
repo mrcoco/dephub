@@ -7,14 +7,14 @@
     <meta charset="utf-8" />
     <title>Pusat Pengembangan SDM Aparatur Perhubungan</title>
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
-<!--    <link type="text/css" href="assets/css/bootstrap_new.min.css" rel="stylesheet" />-->
 <!--    <link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />-->
-    <link type="text/css" href="assets/css/bootstrap.css" rel="stylesheet" />
-    <link type="text/css" href="assets/css/style.css" rel="stylesheet" />
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.print.css' media='print' />
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
+    <link rel="stylesheet" type='text/css' href="assets/css/jquery/jquery-ui.css" />
     <link rel='stylesheet' type='text/css' href='assets/css/custom-theme/jquery-ui-1.8.16.custom.css' media='print' />
-    <link type="text/css" href="assets/css/datepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="assets/css/datepicker.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
     
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
@@ -27,17 +27,22 @@
     <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
     <script type="text/javascript" src="assets/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="assets/js/tm/jquery.tinymce.js"></script>
-<!--    <script type="text/javascript" src="assets/js/bootstrap_new.min.js"></script>-->
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-transition.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-button.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap-tooltip.js"></script>
     <script type="text/javascript" src="assets/js/sisfo.js"></script>
 <script type="text/javascript">
     $(function(){
-        $('#date').datepicker({
-            format: 'yyyy-mm-dd'
+        $('.tgllahir').datepicker({
+            changeMonth:true,
+            changeYear:true,
+            dateFormat:"dd-mm-yy",
+            yearRange: '-100y:c-nn',
+            maxDate: '-15Y',
+            defaultDate: '-25Y'
+        });
+        $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd-mm-yy"
         });
         $('#list').dataTable();
         $('#list_length').addClass('pull-right');
@@ -89,7 +94,7 @@
 	    <div class="row">
                 <div class="span12">
                     <h1 class="title-page"><?php if(isset($_title)){echo $_title;}?>
-                        <small><?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?></small>
+                        <?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?>
                     </h1>
                 </div>
 		<?php if(isset($_sidebar)){?>

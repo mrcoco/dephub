@@ -14,13 +14,13 @@
         <?php for ($i = 0; $i < count($list); $i++) { ?>
             <tr>
                 <td><?php echo ($i + 1) ?></td>
-                <td><a href="dosen_tamu/detail_dosen/<?php echo $list[$i]['id'] ?>"><?php echo $list[$i]['nama'] ?></a></td>
+                <td><a class="tip-right" title="Klik untuk detail" href="dosen_tamu/detail_dosen/<?php echo $list[$i]['id'] ?>"><?php echo $list[$i]['nama'] ?></a></td>
                 <td>
                     <?php echo $list[$i]['is_pns']?'PNS':'Profesional' ?>
                 </td>
                 <td>
-                    <a href="dosen_tamu/edit_dosen/<?php echo $list[$i]['id'] ?>" class="btn"><i class="icon-edit"></i> Ubah</a>
-                    <a href="dosen_tamu/delete_dosen/<?php echo $list[$i]['id'] ?>"  class="btn btn-danger"
+                    <a href="dosen_tamu/edit_dosen/<?php echo $list[$i]['id'] ?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+                    <a href="dosen_tamu/delete_dosen/<?php echo $list[$i]['id'] ?>"  class="btn btn-danger btn-mini"
                     onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['nama'] ?>?')">
                         <i class="icon-trash"></i> Hapus</a>
                 </td>

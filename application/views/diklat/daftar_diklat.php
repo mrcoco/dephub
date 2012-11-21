@@ -18,14 +18,18 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-<div class="row-fluid">
+<div class="row">
     <div class="span8">
-        <table width="100%" class="table-striped table-condensed">
+<?php if($program){ ?>
+        <table width="100%" class="table-striped table-condensed table">
             <?php $this->lib_perencanaan->print_tree_table($program)?>
         </table>
+<?php }else{?>
+Tidak ada data
+<?php } ?>
     </div>
 <?php if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) { ?>
-    <div class="span3">
+    <div class="span3 well">
         <div id="dik">
             <h3>Tambah Diklat</h3>
             <label>Kategori</label>
@@ -45,7 +49,7 @@
 <?php } ?>
 </div>
 <div class="form-actions">
-    <a class="btn btn-primary" href="<?php echo base_url()?>diklat/cetak_jadwal">Cetak Jadwal</a>
+    <a class="btn btn-success" href="<?php echo base_url()?>diklat/cetak_jadwal">Cetak Jadwal</a>
 </div>    
 <form action="<?php echo base_url() ?>diklat/insert_kategori" method="post">
 <div class="modal hide" id="tambah">

@@ -29,6 +29,16 @@ class Kamar extends CI_Controller {
         $this->template->display('kamar/list_kamar', $data);
     }
 
+	function list_kamar_gedung($offset=0)
+    {
+	if(empty ($offset)) $offset=0;
+	$data['sub_title']='Kamar';
+
+	$var = $this->spr->get_kamar_gedung($offset)->result_array();
+        $data['list']=$var;
+	$this->template->display('kamar/list_kamar',$data);
+    }
+	
     function add_kamar() {
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
             redirect(base_url().'error/error_priv');

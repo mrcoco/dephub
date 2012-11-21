@@ -14,11 +14,6 @@
     <div id="wrap_form">
     </div>
     <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th colspan="2">Penambahan Pegawai</th>
-            </tr>
-        </thead>
         <tbody>
         <tr>
             <td>NIP/Nama</td>
@@ -99,6 +94,6 @@
         </tbody>
     </table>
     <div class="form-actions">
-        <input type="submit" class="btn btn-large btn-primary pull-right" value="Daftar" onclick="validate_form()"/>
+        <input type="submit" class="btn btn-large btn-primary" value="Simpan" onclick="validate_form()"/>
     </div>
 </form>

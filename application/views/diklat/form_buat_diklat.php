@@ -32,16 +32,9 @@
             $(this).parent().remove();
         });
     });
-    $(function(){
-        $('#tgl_mulai').datepicker({
-            format: 'yyyy-mm-dd'
-        });
-        $('#tgl_akhir').datepicker({
-            format: 'yyyy-mm-dd'
-        });
-    });
 </script>
-<div class="alert alert-error fade in none">
+<div class="alert alert-error hide">
+    <a class="close" data-dismiss="alert">&times;</a>
     <h4>Error!</h4>
 </div>
 <form method="post" id="form1" action="diklat/insert_diklat" class="form-horizontal">
@@ -49,7 +42,7 @@
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
             <li><a href="#tujuan" data-toggle="tab">Tujuan dan Indikator</a></li>
-            <li><a href="#peserta" data-toggle="tab">Peserta</a></li>
+            <li><a href="#peserta" data-toggle="tab">Persyaratan Peserta</a></li>
             <li><a href="#materi" data-toggle="tab">Materi</a></li>
         </ul>
         <div class="tab-content">

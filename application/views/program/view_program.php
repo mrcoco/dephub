@@ -13,74 +13,73 @@
 <table class="table table-striped">
     <tbody>
         <tr>
-            <td width="20%">Tahun Program</td><td><?php echo $program['tahun_program'] ?></td>
+            <th width="30%">Tahun Program</th><td><?php echo $program['tahun_program'] ?></td>
         </tr>
         <tr>
-            <td>Deskripsi Singkat</td><td><?php echo $diklat['deskripsi'] ?></td>
+            <th>Tanggal Pelaksanaan</th><td><?php echo $this->date->konversi5($program['tanggal_mulai']) ?> s/d <?php echo $this->date->konversi5($program['tanggal_akhir']) ?></td>
         </tr>
         <tr>
-            <td width="20%">Tujuan Kurikuler</td><td><?php echo $diklat['tujuan'] ?></td>
-        </tr>
         <tr>
-            <td>Indikator Keluaran</td><td><?php echo $diklat['indikator'] ?></td>
-        </tr>
-        <tr>
-            <td width="20%">Cara Pelaksanaan Kegiatan</td><td><?php echo $program['pelaksanaan'] ?></td>
-        </tr>
-        <tr>
-            <td>Tanggal Mulai</td><td><?php echo $this->date->konversi5($program['tanggal_mulai']) ?></td>
-        </tr>
-        <tr>
-            <td>Tanggal Selesai</td><td><?php echo $this->date->konversi5($program['tanggal_akhir']) ?></td>
-        </tr>
-        <tr>
-            <td>Lama Pendidikan</td><td><?php echo $program['lama_pendidikan'] ?></td>
-        </tr>
-        <tr>
-            <td>Tempat Pelaksanaan</td><td><?php echo $program['tempat'] ?></td>
-        </tr>
-        <tr>
-            <td width="20%">Jumlah Peserta</td><td><?php echo $diklat['jumlah_peserta'] ?></td>
+            <th>Jumlah Peserta</th><td><?php echo $diklat['jumlah_peserta'] ?></td>
         </tr>
         <tr>
             <?php if($diklat['syarat_usia']==-1||$diklat['syarat_usia']==0){
                 $diklat['syarat_usia']='tidak ada';
             }?>
-            <td>Syarat Usia</td><td><?php echo $diklat['syarat_usia'] ?></td>
+            <th>Syarat Usia</th><td><?php echo $diklat['syarat_usia'] ?></td>
         </tr>
         <tr>
             <?php if($diklat['syarat_masa_kerja']==-1||$diklat['syarat_masa_kerja']==0){
                 $diklat['syarat_masa_kerja']='tidak ada';
             }?>
-            <td>Syarat Masa Kerja</td><td><?php echo $diklat['syarat_masa_kerja'] ?></td>
+            <th>Syarat Masa Kerja</th><td><?php echo $diklat['syarat_masa_kerja'] ?></td>
         </tr>
         <tr>
-            <td>Syarat Pendidikan</td><td><?php echo $pil_pendidikan[$diklat['syarat_pendidikan']] ?></td>
-        </tr>
-        <tr>
-            <td>Syarat Pangkat/Gol</td><td><?php echo $pil_pangkat[$diklat['syarat_pangkat_gol']] ?></td>
-        </tr>
-        <tr>
-            <td width="20%">Pelaksana Penanggung Jawab Kegiatan</td><td><?php echo $program['pelaksana'] ?></td>
-        </tr>
-        <tr>
-            <td>Fasilitator</td><td><?php echo $program['fasilitator'] ?></td>
-        </tr>
-        <tr>
-            <td>Kelas</td><td><?php echo $kelas[$program['kelas']] ?></td>
-        </tr>
-        <tr>
-            <td>Alokasi asrama</td>
+            <th>Syarat Pendidikan</th>
             <td>
+            <?php if($diklat['syarat_pendidikan']>0){
+                echo $pil_pangkat[$diklat['syarat_pendidikan']];
+            }else{
+                echo 'tidak ada';
+            }?>
+            </td>
+        </tr>
+        <tr>
+            <th>Syarat Pangkat/Gol</th>
+            <td>
+            <?php if($diklat['syarat_pangkat_gol']>0){
+                echo $pil_pangkat[$diklat['syarat_pangkat_gol']];
+            }else{
+                echo 'tidak ada';
+            }?>
+            </td>
+        </tr>
+        <tr>
+            <th>Kelas</th>
+            <td>
+            <?php if($program['kelas']>0){
+                echo $kelas[$program['kelas']];
+            }else{
+                echo 'tidak ada';
+            }?>
+            </td>
+        </tr>
+        <tr>
+            <th>Alokasi asrama</th>
+            <td>
+            <?php if($pil_asrama){?>
                 <ul>
                 <?php foreach($pil_asrama as $as){?>
                 <li><?php echo $as?></li>
                 <?php }?>
                 </ul>
+            <?php }else{
+                echo 'tidak ada';
+            }?>
             </td>
         </tr>
         <tr>
-            <td>Materi</td>
+            <th>Materi</th>
             <td>
                 <ul>
                 <?php foreach($materi as $m){?>
@@ -89,5 +88,28 @@
                 </ul>
             </td>
         </tr>
+        <tr>
+            <th>Deskripsi Singkat</th><td><?php echo $diklat['deskripsi'] ?></td>
+        </tr>
+        <tr>
+            <th>Tujuan Kurikuler</th><td><?php echo $diklat['tujuan'] ?></td>
+        </tr>
+        <tr>
+            <th>Indikator Keluaran</th><td><?php echo $diklat['indikator'] ?></td>
+        </tr>
+        </tr>
+            <th>Lama Pendidikan</th><td><?php echo $program['lama_pendidikan'] ?></td>
+        </tr>
+        <tr>
+            <th>Tempat Pelaksanaan</th><td><?php echo $program['tempat'] ?></td>
+        </tr>
+        <tr>
+            <th>Cara Pelaksanaan Kegiatan</th><td><?php echo $program['pelaksanaan'] ?></td>
+        </tr>
+        <tr>
+            <th>Pelaksana Penanggung Jawab Kegiatan</th><td><?php echo $program['pelaksana'] ?></td>
+        </tr>
+        <tr>
+            <th>Fasilitator</th><td><?php echo $program['fasilitator'] ?></td>
     </tbody>
 </table>

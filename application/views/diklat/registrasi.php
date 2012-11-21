@@ -1,24 +1,25 @@
 <script>
     var option;
     var kode_kantor;
-    var syarat=<?php echo json_encode($program)?>;
-    var pendidikan=<?php echo json_encode($arr_pendidikan)?>;
-    console.log(pendidikan);
-    var pangkat=<?php echo json_encode($pangkat)?>;
-    console.log(pangkat);
+    var syarat=<?php echo json_encode($program) ?>;
+    var pendidikan=<?php echo json_encode($arr_pendidikan) ?>;
+    var pangkat=<?php echo json_encode($pangkat) ?>;
+    var num=0
     $(document).ready(function(){        
         $('#example').hide();
         append_table();
         $('#instansi').focus(function(){
             $.getJSON('<?php echo base_url() ?>instansi/json_list_instansi',function(result){
                 option=result;
-                $('#instansi').typeahead({'source':option});
-            });
-            
-        });
-        $('#instansi').change(function(){
-            $.get('<?php echo base_url() ?>instansi/ajax_kode_instansi/'+$('#instansi').val(),function(result){
-                kode_kantor=result;
+                $('#instansi').typeahead({
+                    'source':option,
+                    updater : function(item){
+                        $.get('<?php echo base_url() ?>instansi/ajax_kode_instansi/'+item,function(result){
+                            kode_kantor=result;
+                        });
+                        return item;
+                    }
+                });
             });
             
         });
@@ -37,70 +38,78 @@
     }
     
     function tes2(num){
+        id_diklat=$('#id_diklat').val();
         nip=$('#nip'+num).val();
+        tahun=$('#tahun').val();
         message='';
-        $.getJSON('<?php echo base_url() ?>pegawai/json_data_pegawai/'+nip,function(result){
-            if(syarat['syarat_usia']!=-1){
-                    if(result['usia']<=syarat['syarat_usia']){
+        
+        $.get('<?php echo base_url() ?>diklat/ajax_cek_daftar/'+id_diklat+'/'+nip+'/'+tahun,function(result){
+            console.log(result);
+            if(result=='false'){
+                console.log('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
+                $('#table'+num+' .nip').val('');
+                $('#table'+num+' .nip').focus();
+            }else{
+                $.getJSON('<?php echo base_url() ?>pegawai/json_data_pegawai/'+nip,function(result){
+                    if(syarat['syarat_usia']!=-1){
+                        if(result['usia']<=syarat['syarat_usia']){
+                            syarat_usia=true;
+                        }else{
+                            syarat_usia=false;
+                            message+='Syarat usia, usia sudah '+result['usia']+ ' tahun ; '
+                        }
+                    }else{
                         syarat_usia=true;
-                    }else{
-                        syarat_usia=false;
-                        message+='Syarat usia, usia sudah '+result['usia']+ ' tahun ; '
                     }
-                }else{
-                    syarat_usia=true;
-                }
-                if(syarat['syarat_masa_kerja']!=-1){
-                    if(result['masa_kerja']>=syarat['syarat_masa_kerja']){
+                    if(syarat['syarat_masa_kerja']!=-1){
+                        if(result['masa_kerja']>=syarat['syarat_masa_kerja']){
+                            syarat_masa_kerja=true;
+                        }else{
+                            syarat_masa_kerja=false;
+                            message+='Syarat masa kerja, masa kerja masih '+result['masa_kerja']+ 'tahun ; '
+                        }
+                    }else{
                         syarat_masa_kerja=true;
-                    }else{
-                        syarat_masa_kerja=false;
-                        message+='Syarat masa kerja, masa kerja masih '+result['masa_kerja']+ 'tahun ; '
                     }
-                }else{
-                    syarat_masa_kerja=true;
-                }
-                if(syarat['syarat_pangkat_gol']!=''){
-                    idx_pangkat=parseInt(result['kode_gol']);
-                    idx_syarat_pangkat=parseInt(syarat['syarat_pangkat_gol']);
-                    
-                    if(idx_pangkat<=idx_syarat_pangkat){
+                    if(syarat['syarat_pangkat_gol']!=''){
+                        idx_pangkat=parseInt(result['kode_gol']);
+                        idx_syarat_pangkat=parseInt(syarat['syarat_pangkat_gol']);
+
+                        if(idx_pangkat<=idx_syarat_pangkat){
+                            syarat_pangkat_gol=true;
+                        }else{
+                            syarat_pangkat_gol=false;
+                            message+='Syarat pangkat/golongan, golongan masih '+idx_pangkat+' ; '
+                        }
+                    }else{
                         syarat_pangkat_gol=true;
-                    }else{
-                        syarat_pangkat_gol=false;
-                        message+='Syarat pangkat/golongan, golongan masih '+idx_pangkat+' ; '
                     }
-                }else{
-                    syarat_pangkat_gol=true;
-                }
-                if(syarat['syarat_pendidikan']!=''){
-                    idx_pendidikan=parseInt(result['kode_pendidikan']);
-                    idx_syarat_pendidikan=parseInt(syarat['syarat_pendidikan']);
-                    if(idx_pendidikan<=idx_syarat_pendidikan){
+                    if(syarat['syarat_pendidikan']!=''){
+                        idx_pendidikan=parseInt(result['kode_pendidikan']);
+                        idx_syarat_pendidikan=parseInt(syarat['syarat_pendidikan']);
+                        if(idx_pendidikan<=idx_syarat_pendidikan){
+                            syarat_pendidikan=true;
+                        }else{
+                            syarat_pendidikan=false;
+                            message+='Syarat pendidikan; '
+                        }
+                    }else{
                         syarat_pendidikan=true;
-                    }else{
-                        syarat_pendidikan=false;
-                        message+='Syarat pendidikan; '
                     }
-                }else{
-                    syarat_pendidikan=true;
-                }
-                if(syarat_usia&&syarat_masa_kerja&&syarat_pangkat_gol&&syarat_pendidikan){
-                    $('#table'+num+' .id').val(result['id']);
-                    $('#table'+num+' .nama').val(result['nama']);
-                    $('#table'+num+' .gol').val(pangkat[result['kode_gol']]);
-                    $('#table'+num+' .jabatan').text(result['jabatan']);
-                    $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
-                    $('#table'+num+' .view_detail').attr('onclick','view_detail('+result['id']+')');
-                }else{
-                    alert('Ada syarat yang tidak terpenuhi '+message);
-                    //$('#table'+num+' .nip').val('');
-                    $('#table'+num+' .nip').focus();
-                }
-                console.log(syarat_usia);
-                console.log(syarat_masa_kerja);
-                console.log(syarat_pangkat_gol);
-                console.log(syarat_pendidikan);
+                    if(syarat_usia&&syarat_masa_kerja&&syarat_pangkat_gol&&syarat_pendidikan){
+                        $('#table'+num+' .id').val(result['id']);
+                        $('#table'+num+' .nama').val(result['nama']);
+                        $('#table'+num+' .gol').val(pangkat[result['kode_gol']]);
+                        $('#table'+num+' .jabatan').text(result['jabatan']);
+                        $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
+                        $('#table'+num+' .view_detail').attr('onclick','view_detail('+result['id']+')');
+                    }else{
+                        alert('Ada syarat yang tidak terpenuhi '+message);
+                        $('#table'+num+' .nip').val('');
+                        $('#table'+num+' .nip').focus();
+                    }
+                });
+            }
         });
     }
     
@@ -176,7 +185,7 @@
         $('#table'+num+' .num').text(num);
         $('#table'+num+' .nip').attr('id','nip'+num);
         $('#table'+num+' .nip').attr('onclick','tes('+num+')');
-        $('#table'+num+' .nip').attr('onchange','tes2('+num+')');
+        $('#table'+num+' .cek').attr('onclick','tes2('+num+')');
         obj_table.show('blind');
         $(function(){
             $('#table'+num+' .tgl').datepicker({
@@ -213,36 +222,48 @@
         </tr>
     </thead>
     <tbody>
-        <input class="id" type="hidden" name="id[]"/>
-        <tr>
-            <td>NIP/Nama</td>
-            <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> / <input class="nama" type="text" name="nama[]" placeholder="Nama" readonly/></td>
-        </tr>
-        <tr>
-            <td>Pangkat/Gol</td>
-            <td><input class="gol" type="text" name="gol[]" placeholder="Golongan" readonly/></td>
-        </tr>
-        <tr>
-            <td>Jabatan</td>
-            <td><textarea class="jabatan" name="jabatan[]" readonly></textarea></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <span class="view_detail btn btn-mini btn-info">Lihat detail peserta</span> <span class="view_history btn btn-mini btn-info">Lihat history pelatihan</span> 
-            </td>
-        </tr>
-    </tbody>
+    <input class="id" type="hidden" name="id[]"/>
+    <tr>
+        <td>NIP</td>
+        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> <span class="cek">Cek</span></td>
+    </tr>
+    <tr>
+        <td>Nama</td>
+        <td><input class="nama" type="text" name="nama[]" placeholder="Nama" readonly/></td>
+    </tr>
+    <tr>
+        <td>Pangkat/Gol</td>
+        <td><input class="gol" type="text" name="gol[]" placeholder="Golongan" readonly/></td>
+    </tr>
+    <tr>
+        <td>Jabatan</td>
+        <td><textarea class="jabatan" name="jabatan[]" readonly></textarea></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <span class="view_detail btn btn-mini btn-info">Lihat detail peserta</span> <span class="view_history btn btn-mini btn-info">Lihat history pelatihan</span> 
+        </td>
+    </tr>
+</tbody>
 </table>
 <!-- Selesai Contoh-->
 
 <div id="display_dialog" class="modal hide"></div>
 
 <form name="form_reg" id="form_reg" action="diklat/registrasi_proses" method="POST">
-    <?php echo form_hidden('id_diklat',$id_diklat)?>
+    <input type="hidden" id="id_diklat" name="id_diklat" value="<?php echo $id_diklat?>"/>
     <table width="800" class="table table-condensed">
         <tr>
             <td>Asal Instansi Peserta</td>
             <td><input type="text" id="instansi" name="instansi"/></td>
+        </tr>
+        <tr>
+            <td>Tahun registrasi</td>
+            <?php
+            $now = date('Y');
+            $arr_thn = array($now => $now, $now + 1 => $now + 1, $now + 2 => $now + 2, $now + 3 => $now + 3, $now + 4 => $now + 4);
+            ?>
+            <td><?php echo form_dropdown('tahun', $arr_thn, $now, 'id="tahun"') ?></td>
         </tr>
     </table>
     <div id="wrap_form">

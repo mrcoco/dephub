@@ -182,32 +182,25 @@ class Mdl_sarpras extends CI_Model {
      **********/
     
     function get_kamar($var=NULL) {
+	$this->db->select(
+	$this->table_kamar.'.id,'.$this->table_gedung.'.nama,nama_kamar,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
+	);
+	$this->db->from($this->table_kamar);
 	if ($var == NULL) {
-            $this->db->select(
-            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
-            );
-            $this->db->from($this->table_kamar);
-            $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
-            $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
-            
-            //var_dump($this->db->get()->result_array());
-	    return $this->db->get();
+	
 	} else {
-            $this->db->select(
-            $this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
-            );
-            $this->db->from($this->table_kamar);
 			$this->db->where($this->table_kamar.'.id', $var);
-            $this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
-            $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
-	    return $this->db->get();
 	}
+            //var_dump($this->db->get()->result_array());
+		$this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+		$this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
+	    return $this->db->get();
     }
 	
 	
     function get_kamar_gedung($var) {
 		$this->db->select(
-		$this->table_kamar.'.id,'.$this->table_gedung.'.nama,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
+		$this->table_kamar.'.id,'.$this->table_gedung.'.nama,nama_kamar,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
 		);
 		$this->db->from($this->table_kamar);
 		$this->db->where($this->table_kamar.'.asrama', $var);
@@ -217,19 +210,21 @@ class Mdl_sarpras extends CI_Model {
     }
 
     function insert_kamar($data) {
-        $ins['id']=$data['id'];
-        $ins['asrama']=$data['asrama'];
-        $ins['lantai']=$data['lantai'];
-        $ins['sayap']=$data['sayap'];
-        $ins['nomor']=$data['nomor'];
-        $ins['bed']=$data['bed'];
-        $ins['status']=$data['status'];
-	$this->db->insert($this->table_kamar, $ins);
+        // $ins['id']=$data['id'];
+        // $ins['nama_kamar']=$data['nama_kamar'];
+        // $ins['asrama']=$data['asrama'];
+        // $ins['lantai']=$data['lantai'];
+        // $ins['sayap']=$data['sayap'];
+        // $ins['nomor']=$data['nomor'];
+        // $ins['bed']=$data['bed'];
+        // $ins['status']=$data['status'];
+	$this->db->insert($this->table_kamar, $data);
 	return $this->db->insert_id();
     }
 
     function update_kamar($var, $data) {        
         $ins['id']=$data['id'];
+        $ins['nama_kamar']=$data['nama_kamar'];
         $ins['asrama']=$data['asrama'];
         $ins['lantai']=$data['lantai'];
         $ins['sayap']=$data['sayap'];
@@ -339,7 +334,7 @@ class Mdl_sarpras extends CI_Model {
 		);
 		$this->db->from($this->table_check_list_kelas);
 		
-	    $this->db->where('id', $var);
+	    $this->db->where($this->table_check_list_kelas.'.id', $var);
 	    $this->db->join($this->table_kelas, $this->table_check_list_kelas.'.id_kelas = '.$this->table_kelas.'.id');
 		
 	    return $this->db->get();
@@ -367,6 +362,33 @@ class Mdl_sarpras extends CI_Model {
 	return $this->db->insert_id();
     }
 
+    function delete_check_list_kelas($id){
+        $this->db->where('id',$id);
+        $this->db->delete($this->table_check_list_kelas);
+    }
+	
+	function update_checklist($id, $data){
+		// $data2 = array(
+               // 'l2' => $data['l2'],
+               // 's2' => $data['s2'],
+               // 'm2' => $data['m2'],
+               // 'wb' => $data['wb'],
+               // 'pb' => $data['pb'],
+               // 'fc' => $data['fc']
+            // );
+		$this->db->where('id',$id);
+		// die(var_dump($data));
+
+		// $this->db->set('l2',$data['l2']);
+		// $this->db->set('s2',$data['s2']);
+		// $this->db->set('m2',$data['m2']);
+		// $this->db->set('wb',$data['wb']);
+		// $this->db->set('pb',$data['pb']);
+		// $this->db->set('fc',$data['fc']);
+	$this->db->update($this->table_check_list_kelas,$data);
+	return true;
+	}
+	
     // Type Prasarana
     //---------------
     function get_type($var=NULL) {

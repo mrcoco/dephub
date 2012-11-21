@@ -1,6 +1,4 @@
 
-<h4>Daftar Gedung</h4>
-
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
@@ -20,11 +18,11 @@
             <td class="nama"><?php echo $list[$i]['nama'] ?>
             </td>
             <td class="aksi">
-                <div class="btn-group" data-toggle="buttons-radio">
-                    <a href='gedung/edit_gedung/<?php echo $i+1?>' class='btn'>Edit</a>
-                    <a href='gedung/delete_gedung/<?php echo $i+1?>' class='btn' onclick="return confirm('Apakah anda yakin ingin menghapus?');">Delete</a>
-                    <a href='kamar/list_kamar_gedung/<?php echo $i+1?>' class='btn'>Lihat Kamar</a>
-                </div>
+                <a href="gedung/edit_gedung/<?php echo $list[$i]['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
+                <a href="gedung/delete_gedung/<?php echo $list[$i]['id']?>"  class="btn btn-danger btn-mini"
+                onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['nama'] ?>?')">
+                    <i class="icon-trash"></i> Hapus</a>
+<!--                <a href='kamar/list_kamar_gedung/<?php echo $i+1?>' class='btn'>Lihat Kamar</a>-->
             </td>
         <?php }?>
     </tbody>

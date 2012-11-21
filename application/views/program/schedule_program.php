@@ -565,8 +565,8 @@
                     });
 </script>
 <p align="center" class="lead">
-    <?php echo strtoupper($program['name']) ?><br />
-    KEMENTERIAN PERHUBUNGAN TAHUN <?php echo $program['tahun_program'] ?><br />
+    <?php echo $diklat['name']. ' Angkatan '.$program['angkatan'] ?><br />
+    Kementrian Perhubungan Tahun <?php echo $program['tahun_program'] ?><br />
 </p>
 <div id='calendar'></div>
 <?php $pil = array(-1 => '-- Pilih --', 1 => 'non widyaiswara', 2 => 'widyaiswara', 3 => 'dosen tamu') ?>
@@ -649,5 +649,5 @@
 </div>
 <div id="event_edit_container"></div>
 <div class="form-actions">
-    <a class="btn btn-primary" href="<?php echo base_url() ?>penyelenggaraan/schedule/print_schedule/<?php echo $program['id'] ?>">Cetak Jadwal</a>  
+    <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule/<?php echo $program['id'] ?>">Cetak Jadwal</a>  
 </div>

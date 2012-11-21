@@ -89,7 +89,8 @@
         </tr>
         <tr>
             <td>Tempat Tanggal Lahir</td>
-            <td><input type="text" name="tempat" placeholder="Tempat lahir"/>, <input type="text" id="date" name="tanggal" placeholder="Tahun-Bulan-Tanggal"/></td>
+            <td><input type="text" name="tempat" placeholder="Tempat lahir"/>,
+                <input type="text" class="tgllahir" name="tanggal" placeholder="tgl-bulan-tahun"/></td>
         </tr>
         <tr class="pns">
             <td>Pangkat/Gol</td>

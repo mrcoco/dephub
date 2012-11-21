@@ -20,7 +20,7 @@ class Asrama extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         if(empty ($offset)) $offset=0;
-	$data['sub_title']='Asrama';
+	$data['sub_title']='Check List Prasarana Asrama';
 
 	$var = $this->spr->get_check_list_asrama()->result_array();
         $data['list']=$var;
