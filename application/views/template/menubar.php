@@ -24,8 +24,8 @@
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pembicara<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li class="nav-header">Pembicara Internal</li>
-                <li><a href="<?php echo base_url()?>pembicara_int">Lihat Pembicara Internal</a></li>
-                <li><a href="<?php echo base_url()?>pembicara_int/add_pembicara">Tambah Pembicara Internal</a></li>
+                <li><a href="<?php echo base_url()?>pembicara_int">Lihat Widyaiswara dan Non WI</a></li>
+                <li><a href="<?php echo base_url()?>pembicara_int/add_pembicara">Tambah Widyaiswara dan Non WI</a></li>
                 <li></li>
                 <li class="nav-header">Dosen Tamu</li>
                 <li><a href="<?php echo base_url()?>dosen_tamu">Lihat Dosen Tamu</a></li>

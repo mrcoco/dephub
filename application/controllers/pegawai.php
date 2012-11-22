@@ -62,6 +62,7 @@ class Pegawai extends CI_Controller{
             $data['pegawai'][$key]=$item;
         }
         $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
+        $data['arr_pendidikan'][0]="Tidak ada data";
         $data['pangkat']=$this->rnc->get_pangkat_gol();
         $data['history']=$this->slng->get_history($id);
         $this->load->view('pegawai/ajax_detail_pegawai',$data);
@@ -93,7 +94,7 @@ class Pegawai extends CI_Controller{
         $data['htmView'] = $this->load->view('pegawai/cv_pegawai',$data,TRUE);
 //        $this->load->view('pegawai/cv_pegawai',$data);
                       
-        pdf_create($data['htmView'],'detail_pegawai');                                                                    
+        pdf_create($data['htmView'],'Riwayat hidup '.$data['pegawai']['nip']);                                                                    
     }
     
     function tambah_pegawai(){
