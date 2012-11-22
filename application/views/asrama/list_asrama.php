@@ -128,7 +128,7 @@
 					echo "/></td>";
 				}
 			}?>
-			<td><?php echo $total."/".count($item) ?></td>
+			<td><?php echo number_format(($total/count($item)*100),2,',','.')."%" ?></td>
 			<td><input type="submit" class="btn btn-mini btn-primary pull-right" value="Save"/></td>
 		</form>
         </tr>
