@@ -9,7 +9,27 @@ class Mdl_administrator extends CI_Model{
     /**
      * CRUD Administrator
      */
-
+    function get_profil()
+    {
+	return $this->db->get('about')->result_array();
+    }
+    function get_profil_id($id)
+    {
+	$this->db->where('id',$id);
+	return $this->db->get('about')->row_array();
+    }
+    function insert_profil($data){
+        $this->db->insert('about',$data);
+        return $this->db->insert_id();
+    }
+    function update_profil($clause,$data){
+        $this->db->where('id',$clause);
+        $this->db->update('about',$data);
+    }
+    function delete_profil($clause,$data){
+        $this->db->where('id',$clause);
+        $this->db->delete('about');
+    }
     function get_info()
     {
 	return $this->db->get($this->table_info);

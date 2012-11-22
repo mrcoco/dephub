@@ -10,9 +10,12 @@ class Mdl_sarpras extends CI_Model {
     private $table_kamar_status = 'sarpras_kamar_status';
     private $table_pemakaian_asrama = 'sarpras_pemakaian_kamar';
     private $table_pemakaian_kelas = 'sarpras_pemakaian_kelas';
-    private $table_check_list_asrama = 'sarpras_checklist_kamar';
+    //private $table_check_list_asrama = 'sarpras_checklist_kamar';
     private $table_check_list_kelas = 'sarpras_checklist_kelas';
     private $table_type = 'sarpras_type';
+	private $table_checklist_kamar_item = 'sarpras_checklist_kamar_item';
+	private $table_checklist_kamar = 'sarpras_checklist_kamar';
+	
 
     function __construct() {
 	parent::__construct();
@@ -61,44 +64,108 @@ class Mdl_sarpras extends CI_Model {
 
     // Check List Asrama
     //------------------
-    function count_check()
-    {
-	return $this->db->get($this->table_check_list_asrama)->num_rows();
-    }
+    // function count_check()
+    // {
+	// return $this->db->get($this->table_check_list_asrama)->num_rows();
+    // }
 	
     // function get_check_list_asrama($limit=20,$offset=0) {
 	// $this->db->group_by('id_kamar');
 	// return $this->db->get($this->table_check_list_asrama,$limit,$offset);
 	// }
     
-    function get_check_list_asrama($var=NULL) {
+    // function get_check_list_asrama($var=NULL) {
+	// if ($var == NULL) {
+	    // return $this->db->get($this->table_check_list_asrama);
+	// } else {
+	    // $this->db->where('id', $var);
+	    // return $this->db->get($this->table_check_list_asrama);
+	// }
+    // }
+
+    // function update_check_list_asrama($var, $data) {
+	// $this->db->where('id', $var);
+	// return $this->db->update($this->table_check_list_asrama, $data);
+    // }
+
+    // function insert_check_list_asrama($data) {
+	// $this->db->insert($this->table_check_list_asrama, $data);
+	// return $this->db->insert_id();
+    // }
+	
+    // function delete_check_list_asrama($var) {
+	// $this->db->where('id_kamar', $var);
+	// return $this->db->delete($this->table_check_list_asrama);
+    // }
+
+    // function get_tahun()
+    // {
+	// $this->db->group_by('tahun');
+	// return $this->db->get($this->table_check_list_asrama);
+    // }
+	
+	//----------------------------------------------item-----------------------------------------------------
+	function get_checklist_item($var=NULL) {
 	if ($var == NULL) {
-	    return $this->db->get($this->table_check_list_asrama);
 	} else {
 	    $this->db->where('id', $var);
-	    return $this->db->get($this->table_check_list_asrama);
 	}
+	    return $this->db->get($this->table_checklist_kamar_item);
     }
-
-    function update_check_list_asrama($var, $data) {
-	$this->db->where('id', $var);
-	return $this->db->update($this->table_check_list_asrama, $data);
-    }
-
-    function insert_check_list_asrama($data) {
-	$this->db->insert($this->table_check_list_asrama, $data);
+	
+	function insert_checklist_item($data) {
+	$this->db->insert($this->table_checklist_kamar_item, $data);
 	return $this->db->insert_id();
     }
 	
-    function delete_check_list_asrama($var) {
-	$this->db->where('id_kamar', $var);
-	return $this->db->delete($this->table_check_list_asrama);
+    function update_checklist_item($id, $data) {
+	$this->db->where('id', $id);
+	
+	return $this->db->update($this->table_checklist_kamar_item, $data);
     }
 
-    function get_tahun()
-    {
-	$this->db->group_by('tahun');
-	return $this->db->get($this->table_check_list_asrama);
+    function delete_checklist_item($var) {
+	$this->db->where('id', $var);
+	return $this->db->delete($this->table_checklist_kamar_item);
+    }
+	
+	//----------------------------------------------------checklist kamar-------------------------------------------------
+	function get_checklist_kamar_kamar($var=NULL) {
+	if ($var == NULL) {
+	} else {
+	    $this->db->where('id_kamar', $var);
+	}
+	    return $this->db->get($this->table_checklist_kamar);
+    }
+	
+	function get_checklist_kamar_item($var=NULL) {
+	if ($var == NULL) {
+	} else {
+	    $this->db->where('id_item', $var);
+	}
+	    return $this->db->get($this->table_checklist_kamar);
+    }
+
+    function insert_checklist_kamar($data) {
+	$this->db->insert($this->table_checklist_kamar, $data);
+	return $this->db->insert_id();
+    }
+
+    function update_checklist_kamar($kamar, $item, $data) {
+	$this->db->where('id_kamar', $kamar);
+	$this->db->where('id_item', $item);
+	
+	return $this->db->update($this->table_checklist_kamar, $data);
+    }
+
+    function delete_checklist_kamar_kamar($var) {
+	$this->db->where('id_kamar', $var);
+	return $this->db->delete($this->table_checklist_kamar);
+    }
+	
+    function delete_checklist_kamar_item($var) {
+	$this->db->where('id_item', $var);
+	return $this->db->delete($this->table_checklist_kamar);
     }
 
     // Pemakaian Kamar
@@ -180,7 +247,7 @@ class Mdl_sarpras extends CI_Model {
     /**********
      * Kamar *
      **********/
-    
+	
     function get_kamar($var=NULL) {
 	$this->db->select(
 	$this->table_kamar.'.id,'.$this->table_gedung.'.nama,nama_kamar,lantai,sayap,nomor,bed,'.$this->table_gedung.'.nama as gedung,'.$this->table_kamar_status.'.status as status'
@@ -191,10 +258,11 @@ class Mdl_sarpras extends CI_Model {
 	} else {
 			$this->db->where($this->table_kamar.'.id', $var);
 	}
-            //var_dump($this->db->get()->result_array());
 		$this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
 		$this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
-	    return $this->db->get();
+		
+    // die(var_dump($this->db->get()->result_array()));
+	return $this->db->get();
     }
 	
 	
@@ -285,11 +353,10 @@ class Mdl_sarpras extends CI_Model {
 
     function get_kelas($var=NULL) {
 	if ($var == NULL) {
-	    return $this->db->get($this->table_kelas);
 	} else {
 	    $this->db->where('id', $var);
-	    return $this->db->get($this->table_kelas);
 	}
+	    return $this->db->get($this->table_kelas);
     }
 
     function get_kelas_by_size($size){
@@ -452,7 +519,12 @@ class Mdl_sarpras extends CI_Model {
 //	$this->db->query('SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS');
 //	return TRUE;
 //    }
-
+    function cek_kelas($data){
+        $this->db->where('id_kelas',$data['id_kelas']);
+        $this->db->where('tanggal >=',$data['mulai']);
+        $this->db->where('tanggal <=',$data['akhir']);
+        return $this->db->get('sarpras_pemakaian_kelas')->num_rows();
+    }
 }
 
 /* End of file mdl_sarpras.php */

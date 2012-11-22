@@ -1,9 +1,0 @@
-Aplikasi Java dijalankan pada … {=Java Runtime =java runtime}
-
-Java Tiger adalah JDK versi … {=1.5.0}
-
-Pada tahun {=1992} Java mulai diperkenalkan sebagai bahasa pemrograman untuk komputer.
-
-Seorang programmer berkewarganegaraan Amerika Serikat, memperkenalkan Oak sebagai bahasa pemrograman yang kelak akan menjadi bahasa pemrograman terkenal. Siapakah nama programmer ini? {=James Gosling}
-
-Program {=Applet =applet} adalah Program Java yang dapat digunakan pada halaman web.

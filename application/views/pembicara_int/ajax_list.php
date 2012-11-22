@@ -1,3 +1,9 @@
+<script>
+    $(function(){
+             $('.tip-right').tooltip({placement:'right'});   
+    });
+</script>
+<div id="display_dialog" class="modal hide modal-wide"></div>
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -23,7 +29,11 @@
 ?>
 <tr>
     <td><?php echo $no?></td>
-    <td><?php echo $a['nama']?></td>
+    <td>
+        <a href="javascript:view_detail(<?php echo $a['id'] ?>)" class="tip-right" title="Klik untuk detail">
+            <?php echo $a['nama']?>
+        </a>
+    </td>
     <td><?php echo $a['nip']?></td>
 <!--   <td><span id="jenis<?php echo $a['id']?>" class="label label-info"><?php echo $a['jenis']?></span></td> -->
     <td>

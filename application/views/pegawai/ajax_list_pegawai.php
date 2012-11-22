@@ -1,12 +1,3 @@
-<script>
-    function view_detail(num){
-            $.get("<?php echo base_url() ?>pegawai/detail_pegawai/"+num,function(result){
-                $('#display_dialog').html(result);
-                $('#display_dialog').modal('show');
-            })
-    }
-</script>
-    
 <div id="display_dialog" class="modal hide modal-wide"></div>
 
 <table width="100%" class="table table-striped table-bordered table-condensed">

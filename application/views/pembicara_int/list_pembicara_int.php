@@ -1,3 +1,4 @@
+<div id="display_dialog" class="modal hide modal-wide"></div>
 <table id="list" class="table table-striped table-bordered table-condensed">
     <thead>
         <th>No</th>
@@ -10,7 +11,11 @@
         <?php foreach($list as $l){?>
         <tr>
             <td><?php echo $i?></td>
-            <td><?php echo $l['nama']?></td>
+            <td>
+                <a href="javascript:view_detail(<?php echo $l['id'] ?>)" class="tip-right" title="Klik untuk detail">
+                    <?php echo $l['nama']?>
+                </a>
+            </td>
             <td><?php echo $l['nip']?></td>
             <td><?php echo $l['jenis']==1?'Non Widyaiswara':'Widyaiwsara'?></td>
         </tr>

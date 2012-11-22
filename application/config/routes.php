@@ -40,6 +40,8 @@
 
 $route['default_controller'] = 'site';
 $route['elibrary'] = 'elibrary/home';
+$route['unit'] = 'unit/front';
+$route['inst'] = 'inst/front';
 $route['404_override'] = 'site/error';
 
 

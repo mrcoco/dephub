@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $().ready(function() {    
+    $(document).ready(function() {    
         var container = $('div.alert');
         var validator = $("#form1").validate({
             errorLabelContainer: container,
@@ -25,7 +25,29 @@
         $(".cancel").click(function() {
             validator.resetForm();
         });
+        $('#kelas').change(function(){
+            mulai=$('#tgl_mulai').val();
+            akhir=$('#tgl_akhir').val();
+            if(mulai==''||akhir==''){
+                alert('Harap isikan tanggal terlebih dahulu');
+            }else{
+                data={
+                    'id_ruangan':$(this).val(),
+                    'mulai':mulai,
+                    'akhir':akhir
+                };
+                console.log(data);
+                $.post('<?php echo base_url()?>program/ajax_cek_kelas',data,function(res){
+                    console.log(res);
+                    if(res!='true'){
+                        alert('Kelas telah terpakai pada rentang tanggal yang dipilih');
+                        $('#kelas').val('-1');
+                    }
+                });
+            }
+        });
     });
+    
 </script>
 <div class="alert alert-error hide">
     <a class="close" data-dismiss="alert">&times;</a>
@@ -62,19 +84,19 @@
                 <div class="control-group">
                     <label class="control-label" for="tgl_mulai">Tanggal Mulai</label>
                     <div class="controls">
-                        <input type="text" placeholder="tgl-bulan-tahun" name="tanggal_mulai"  class="datepicker"/>
+                        <input id="tgl_mulai" type="text" placeholder="tgl-bulan-tahun" name="tanggal_mulai"  class="datepicker"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="tgl_akhir">Tanggal Selesai</label>
                     <div class="controls">
-                        <input type="text" placeholder="tgl-bulan-tahun" name="tanggal_akhir" class="datepicker"/>
+                        <input id="tgl_akhir" type="text" placeholder="tgl-bulan-tahun" name="tanggal_akhir" class="datepicker"/>
                     </div>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Ruang kelas</label>
                     <div class="controls">
-                        <?php echo form_dropdown('kelas',$kelas)?>
+                        <?php echo form_dropdown('kelas',$kelas,'','id="kelas"')?>
                     </div>
                 </div>
                 <div class="control-group">

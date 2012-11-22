@@ -53,6 +53,13 @@
         $('.alert').delay(2 * 1000).fadeOut();
         $('.tip-right').tooltip({placement:'right'});
     } );
+   function view_detail(num){
+        $.get("<?php echo base_url() ?>pegawai/detail_pegawai/"+num,function(result){
+            $('#display_dialog').html(result);
+            $('#display_dialog').modal('show');
+        })
+    }
+
 </script>
 
 </head>
@@ -71,10 +78,9 @@
 		    <li><a href="<?php echo base_url()?>elibrary">Library</a></li>
 		    <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Profil<b class="caret"></b></a>
 			<ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url()?>about">Pusbang SDM</a></li>
-			    <li><a href="<?php echo base_url()?>about/visi_misi">Visi & Misi</a></li>
-			    <li><a href="<?php echo base_url()?>about/struktur">Struktur Organisasi</a></li>
-			    <li><a href="<?php echo base_url()?>about/kontak">Kontak</a></li>
+                            <?php foreach($profil as $p){ ?>
+                            <li><a href="<?php echo base_url()?>about/profil/<?php echo $p['id'] ?>"><?php echo $p['judul'] ?></a></li>
+                            <?php } ?>
 			</ul>
 		    </li>
 		</ul>

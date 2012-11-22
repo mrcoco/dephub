@@ -46,6 +46,34 @@ class Template {
         $this->_ci->load->view('/template/main.php', $data);
     }
     
+    function display_unit($template, $data = null) {
+        if(isset($data['title'])){
+            $data['_title']=$data['title'];
+        }else{
+            $data['_title'] = $this->_ci->session->userdata('detail');
+        }
+        $data['_header'] = $this->_ci->load->view('template/header', $data, true);
+        if($this->_ci->session->userdata('is_login_unit')){
+            $data['_menu'] = $this->_ci->load->view('template/menubar_unit', $data, true);
+        }
+        $data['_content'] = $this->_ci->load->view($template, $data, true);
+        $this->_ci->load->view('/template/main.php', $data);
+    }
+    
+    function display_inst($template, $data = null) {
+        if(isset($data['title'])){
+            $data['_title']=$data['title'];
+        }else{
+            $data['_title'] = $this->_ci->session->userdata('detail');
+        }
+        $data['_header'] = $this->_ci->load->view('template/header', $data, true);
+        if($this->_ci->session->userdata('is_login_inst')){
+            $data['_menu'] = $this->_ci->load->view('template/menubar_inst', $data, true);
+        }
+        $data['_content'] = $this->_ci->load->view($template, $data, true);
+        $this->_ci->load->view('/template/main.php', $data);
+    }
+    
     function display_lib($template, $data = null) {
         $data['_sidebar'] = $this->_ci->load->view('elibrary/sidebar', $data, true);            
         if(isset($data['title'])){

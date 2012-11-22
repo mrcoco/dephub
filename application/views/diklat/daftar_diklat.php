@@ -30,6 +30,7 @@ Tidak ada data
     </div>
 </div>
 <div class="form-actions">
+    <a class="btn btn-primary" href="javascript:add_subkat(0)">Tambah Kategori</a>
     <a class="btn btn-success" href="<?php echo base_url()?>diklat/cetak_jadwal">Cetak Jadwal</a>
 </div>    
 <form action="<?php echo base_url() ?>diklat/insert_kategori" method="post">

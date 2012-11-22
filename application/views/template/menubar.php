@@ -24,8 +24,8 @@
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pembicara<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li class="nav-header">Pembicara Internal</li>
-                <li><a href="<?php echo base_url()?>pembicara_int">Lihat Pembicara Internal</a></li>
-                <li><a href="<?php echo base_url()?>pembicara_int/add_pembicara">Tambah Pembicara Internal</a></li>
+                <li><a href="<?php echo base_url()?>pembicara_int">Lihat Widyaiswara dan Non WI</a></li>
+                <li><a href="<?php echo base_url()?>pembicara_int/add_pembicara">Tambah Widyaiswara dan Non WI</a></li>
                 <li></li>
                 <li class="nav-header">Dosen Tamu</li>
                 <li><a href="<?php echo base_url()?>dosen_tamu">Lihat Dosen Tamu</a></li>
@@ -38,8 +38,9 @@
             <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url()?>gedung">Gedung Asrama</a></li>
                 <li><a href="<?php echo base_url()?>kamar">Kamar Asrama</a></li>
+                <li><a href="<?php echo base_url()?>kelas">Kelas</a></li>
                 <li><a href="<?php echo base_url()?>asrama">CheckList Asrama</a></li>
-                <li><a href="<?php echo base_url()?>kelas">CheckList Kelas</a></li>
+                <li><a href="<?php echo base_url()?>kelas/checklist_kelas">CheckList Kelas</a></li>
                 <li><a href="#">Laporan</a></li>
             </ul>
         </li>
@@ -47,9 +48,9 @@
         <?php if($this->session->userdata('id_role')==1){?>
         <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Profiles</a></li>
-                <li><a href="#">Site Config</a></li>
-                <li><a href="#">Simdik Info</a></li>
+                <li><a href="<?php echo base_url()?>settings/profil">List Profil</a></li>
+                <li><a href="<?php echo base_url()?>setting/list_priviledge">Site Priviledge</a></li>
+                <li><a href="<?php echo base_url()?>setting/info_pusbang">Simdik Info</a></li>
             </ul>
         </li>
         <?php } ?>

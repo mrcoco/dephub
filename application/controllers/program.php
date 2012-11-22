@@ -54,8 +54,35 @@ class Program extends CI_Controller {
         }
         $data['sub_title']="List Peserta";
         $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
         $data['list']=$this->slng->get_terima_peserta($id,$thn);
         $this->template->display_with_sidebar('program/list_peserta','program',$data);
+    }
+    function cetak_peserta_ang($id,$thn=''){
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $this->load->helper('pdfexport_helper.php');
+        $data['tahun']=$thn;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['judul']='DAFTAR CALON PESERTA '.strtoupper($data['diklat']['name']).'<br />
+            KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>ANGKATAN '.$data['program']['angkatan'];
+        $data['list']=$this->slng->get_terima_peserta($id,$thn);
+        $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);
+//        $this->load->view('diklat/print_list_peserta',$data);
+                      
+        pdf_create($data['htmView'],'Peserta '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan']);                                                                    
     }
     
     function buat_program($parent) {
@@ -584,6 +611,16 @@ class Program extends CI_Controller {
         echo json_encode($data_ins);
     }
 
-    
-    
+    function ajax_cek_kelas(){
+        $this->load->library('date');
+        $data['id_kelas']=$this->input->post('id_ruangan');
+        $data['mulai']=$this->date->savetgl($this->input->post('mulai'));
+        $data['akhir']=$this->date->savetgl($this->input->post('akhir'));
+        $res = $this->spr->cek_kelas($data);
+        if($res>0){
+            echo 'false';
+        }else{
+            echo 'true';
+        }
+    }
 }

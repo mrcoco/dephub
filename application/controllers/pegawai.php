@@ -47,19 +47,25 @@ class Pegawai extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //menampilkan data detail pegawai
-        $this->load->library('date');
         $data_pegawai=$this->slng->get_data_pegawai_id($id);
         $data['header']='Detail data '.$data_pegawai['nama'];
         foreach($data_pegawai as $key=>$item){
+            if($key!='foto'){
+                if($item==''){
+                    $item='-';
+                }
+            }else{
+                if($item==''){
+                    $item=base_url().'assets/public/foto/nopic.jpg';
+                }
+            }
             $data['pegawai'][$key]=$item;
         }
-        $data_history=$this->slng->get_history($id);
-
-        $data['history']=$data_history;
-        $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
-        $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
+        $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
+        $data['arr_pendidikan'][0]="Tidak ada data";
+        $data['pangkat']=$this->rnc->get_pangkat_gol();
+        $data['history']=$this->slng->get_history($id);
         $this->load->view('pegawai/ajax_detail_pegawai',$data);
-    
     }
     
     function detail_pegawai_print($id){
@@ -67,23 +73,28 @@ class Pegawai extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //menampilkan data detail pegawai
-        $this->load->library('date');
         $this->load->helper('pdfexport_helper.php');
         $data_pegawai=$this->slng->get_data_pegawai_id($id);
         $data['header']='Detail data '.$data_pegawai['nama'];
         foreach($data_pegawai as $key=>$item){
+            if($key!='foto'){
+                if($item==''){
+                    $item='-';
+                }
+            }else{
+                if($item==''){
+                    $item=base_url().'assets/public/foto/nopic.jpg';
+                }
+            }
             $data['pegawai'][$key]=$item;
         }
-        $data_history=$this->slng->get_history($id);
-
-        $data['history']=$data_history;
-        $data['pageTitle'] = "Annual Report";
-        $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
-        $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
+        $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
+        $data['pangkat']=$this->rnc->get_pangkat_gol();
+        $data['history']=$this->slng->get_history($id);
         $data['htmView'] = $this->load->view('pegawai/cv_pegawai',$data,TRUE);
-        //$this->load->view('pegawai/cv_pegawai',$data,TRUE);
+//        $this->load->view('pegawai/cv_pegawai',$data);
                       
-        pdf_create($data['htmView'],'detail_pegawai');                                                                    
+        pdf_create($data['htmView'],'Riwayat hidup '.$data['pegawai']['nip']);                                                                    
     }
     
     function tambah_pegawai(){

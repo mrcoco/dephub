@@ -46,7 +46,7 @@
         $.get('<?php echo base_url() ?>diklat/ajax_cek_daftar/'+id_diklat+'/'+nip+'/'+tahun,function(result){
             console.log(result);
             if(result=='false'){
-                console.log('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
+                alert('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
                 $('#table'+num+' .nip').val('');
                 $('#table'+num+' .nip').focus();
             }else{
@@ -225,7 +225,10 @@
     <input class="id" type="hidden" name="id[]"/>
     <tr>
         <td>NIP</td>
-        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> <span class="cek">Cek</span></td>
+        <td><div class="input-append">
+            <input class="nip" type="text" name="nip[]" placeholder="NIP"/><span class="cek btn">Cek!</span>    
+            </div>
+        </td>
     </tr>
     <tr>
         <td>Nama</td>
