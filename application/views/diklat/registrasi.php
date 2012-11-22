@@ -46,7 +46,7 @@
         $.get('<?php echo base_url() ?>diklat/ajax_cek_daftar/'+id_diklat+'/'+nip+'/'+tahun,function(result){
             console.log(result);
             if(result=='false'){
-                console.log('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
+                alert('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
                 $('#table'+num+' .nip').val('');
                 $('#table'+num+' .nip').focus();
             }else{

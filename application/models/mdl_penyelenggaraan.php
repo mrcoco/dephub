@@ -129,6 +129,15 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
     }
     
+    function get_peserta_unit($param){
+        $query=$this->db->get_where('pegawai',array('kode_unit'=>$param));
+        if($query->num_rows()==0){
+            return FALSE;
+        }else{
+            return $query->result_array();
+        }
+    }
+    
     function get_data_peserta($param){
         $query=$this->db->get_where('pegawai',array('nip'=>$param));
         if($query->num_rows()==0){

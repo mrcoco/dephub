@@ -54,6 +54,7 @@
 				<th rowspan='2'><div align="center"><?php echo $item[$i]['item'] ?></div></th>
 			<?php }}?>
 			
+			<th rowspan='2'><div align="center">%</div></th>
 			<th rowspan='2'><div align="center">Aksi</div></th>
 		</tr>
 		<tr>
@@ -80,54 +81,70 @@
     </thead>
 	
     <tbody>
-        <?php for($i=1;$i<=count($list);$i++) {?>
+        <?php foreach($kamar as $is) {
+		$i=$is['id'];
+		$total=0;
+		?>
         <tr>
 		<!--
 			<td><?php //echo $list[$i][1]['id_kamar'] ?></td>
 			<td><?php //echo $list[$i][1]['id_item'] ?></td>
             <td><?php //echo $list[$i][1]['status'] ?></td>
 		-->
-		<form name="form_edit" id="form_reg" action="kelas/update_checklist/<?php echo $i ?>" method="POST">
+		<form name="form_edit" id="form_reg" action="asrama/update_checklist/<?php echo $i ?>" method="POST">
 			<td><?php echo $i?></td>
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='lampu')
 				{
-					echo "<td><input type=\"checkbox\" name=\"s2\" value=\"1\"";
+					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
+					{
+						$total++;
 						echo " checked";
-					echo "/> ok</td>";
+					}
+					echo "/></td>";
 				}
 			}?>
 			
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='toilet')
 				{
-					echo "<td><input type=\"checkbox\" name=\"s2\" value=\"1\"";
+					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
+					{
+						$total++;
 						echo " checked";
-					echo "/> ok</td>";
+					}
+					echo "/></td>";
 				}
 			}?>
 			
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='ac')
 				{
-					echo "<td><input type=\"checkbox\" name=\"s2\" value=\"1\"";
+					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
+					{
+						$total++;
 						echo " checked";
-					echo "/> ok</td>";
+					}
+					echo "/></td>";
 				}
 			}?>
 			
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='')
 				{
-					echo "<td><input type=\"checkbox\" name=\"s2\" value=\"1\"";
+					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
+					{
+						$total++;
 						echo " checked";
-					echo "/> ok</td>";
+					}
+					echo "/></td>";
 				}
 			}?>
+			<td><?php echo $total."/".count($item) ?></td>
 			<td><input type="submit" class="btn btn-mini btn-primary pull-right" value="Save"/></td>
 		</form>
         </tr>

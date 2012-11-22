@@ -26,14 +26,47 @@ class Asrama extends CI_Controller{
     $data['item']=$var;
 	
 	$var2=null;
-	$kmr = $this->spr->count_clkamar();
-	for($i=1;$i<=$kmr;$i++) {
-		$var2[$i] = $this->spr->get_checklist_kamar_kamar($i)->result_array();
+	$kmr = $this->spr->get_kamar()->result_array();
+	foreach($kmr as $i) {
+		$var2[$i['id']] = $this->spr->get_checklist_kamar_kamar($i['id'])->result_array();
 	}
+	$data['kamar']=$kmr;
     $data['list']=$var2;
 	
 	$this->template->display('asrama/list_asrama',$data);
     }
+	
+	
+	function update_checklist($id) {
+		//update checklist item kelas
+		// die(var_dump($_GET));
+		
+		$var2 = $this->spr->get_checklist_item()->result_array();
+		foreach($var2 as $i)
+		{
+			$ins[$i['id']]="0";
+		}
+		
+		foreach(array_keys($_POST) as $var)
+		{
+			$ins[$var]=$_POST[$var];
+		}
+		
+		//die(var_dump($ins));
+		
+		foreach($var2 as $i)
+		{
+			$data = array(
+               'id_item' => $i['id'],
+               'id_kamar' => $id,
+               'status' => $ins[$i['id']]
+            );
+			$this->spr->update_checklist_kamar($id, $i['id'], $data);
+		}
+		
+        $this->session->set_flashdata('msg', $this->editor->alert_ok('checklist telah diupdate'));
+        redirect(base_url() . 'asrama');
+	}
     
     function filter(){
 	$uri = $this->uri->segment(3);
