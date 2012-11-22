@@ -59,6 +59,19 @@ class Template {
         $data['_content'] = $this->_ci->load->view($template, $data, true);
         $this->_ci->load->view('/template/main.php', $data);
     }
+    function display_pes($template, $data = null) {
+        if(isset($data['title'])){
+            $data['_title']=$data['title'];
+        }else{
+            $data['_title'] = $this->_ci->session->userdata('detail');
+        }
+        $data['_header'] = $this->_ci->load->view('template/header', $data, true);
+        if($this->_ci->session->userdata('is_login_pes')){
+            $data['_menu'] = $this->_ci->load->view('template/menubar_pes', $data, true);
+        }
+        $data['_content'] = $this->_ci->load->view($template, $data, true);
+        $this->_ci->load->view('/template/main.php', $data);
+    }
     
     function display_inst($template, $data = null) {
         if(isset($data['title'])){

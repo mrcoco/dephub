@@ -5,8 +5,6 @@
             "<?php echo base_url() ?>diklat/ajax_toggle_status/"+status,
             data,
             function(data){
-                $('#status'+id_peserta).attr('class','badge badge-success');           
-                $('#status'+id_peserta).html("accept");
                 if(status==1||status==2){
                     $(item).siblings('#dropdown').removeClass('hide');
                 }else{
@@ -53,7 +51,7 @@
                 <div class="btn-group" data-toggle="buttons-radio">
                     <button class="btn <?php if($list[$i]['status']!='accept'&&$list[$i]['status']!='waiting') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,0)">Abaikan</button>
                     <button class="btn <?php if($list[$i]['status']=='accept') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,1)">Terima</button>
-                    <button class="btn <?php if($list[$i]['status']=='waiting') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,2)">Waiting</button>
+                    <button class="btn <?php if($list[$i]['status']=='waiting') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id'].','.$list[$i]['id_diklat'] ?>,2)">Cadangan</button>
                     
                     <?php 
                     if($list[$i]['status']=='accept'||$list[$i]['status']=='waiting'){

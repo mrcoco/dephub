@@ -12,7 +12,13 @@ class Editor {
     {
         $this->_ci=&get_instance();
     }
-
+    function status($val){
+        switch($val){
+            case "accept": return "Diterima";break;
+            case "waiting": return "Cadangan";break;
+            default      : return "Mendaftar";break;
+        }
+    }
     // Default Template
     function textarea($name,$value=null)
     {
