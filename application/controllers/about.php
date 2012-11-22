@@ -8,7 +8,8 @@ class About extends CI_Controller {
 	function profil($id=1)
 	{
             $this->load->model('mdl_administrator','adm');
-            $data['about']=$this->adm->get_about_id($id);
+            $data['profil']=$this->adm->get_profil();
+            $data['about']=$this->adm->get_profil_id($id);
 	    $data['title']=$data['about']['judul'];
 	    $this->template->display('about/index',$data);
 	}

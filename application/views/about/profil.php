@@ -10,7 +10,8 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach($about as $a) {?>
+        <?php if($about){
+        foreach($about as $a) {?>
         <tr>
             <td><?php echo $a['judul'] ?></td>
             <td>
@@ -20,7 +21,13 @@
                 onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $a['judul'] ?>?')">
                     <i class="icon-trash"></i> Hapus</a>
             </td>
-        <?php }?>
+        </tr>
+        <?php }        
+        }else{?>
+        <tr>
+            <td colspan="2">Tidak ada data</td>
+        </tr>
+        <?php } ?>    
     </tbody>
 </table>
 

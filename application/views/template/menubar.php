@@ -47,9 +47,7 @@
         <?php if($this->session->userdata('id_role')==1){?>
         <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Profiles</a></li>
-                <li><a href="#">Site Config</a></li>
-                <li><a href="#">Simdik Info</a></li>
+                <li><a href="<?php echo base_url()?>settings/profil">List Profil</a></li>
             </ul>
         </li>
         <?php } ?>
