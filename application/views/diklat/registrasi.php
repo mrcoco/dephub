@@ -225,7 +225,10 @@
     <input class="id" type="hidden" name="id[]"/>
     <tr>
         <td>NIP</td>
-        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> <span class="cek">Cek</span></td>
+        <td><div class="input-append">
+            <input class="nip" type="text" name="nip[]" placeholder="NIP"/><span class="cek btn">Cek!</span>    
+            </div>
+        </td>
     </tr>
     <tr>
         <td>Nama</td>

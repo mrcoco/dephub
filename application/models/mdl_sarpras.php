@@ -247,11 +247,6 @@ class Mdl_sarpras extends CI_Model {
     /**********
      * Kamar *
      **********/
-    
-	function count_clkamar(){
-        
-        return $this->db->count_all($this->table_kamar);
-    }
 	
     function get_kamar($var=NULL) {
 	$this->db->select(
@@ -358,11 +353,10 @@ class Mdl_sarpras extends CI_Model {
 
     function get_kelas($var=NULL) {
 	if ($var == NULL) {
-	    return $this->db->get($this->table_kelas);
 	} else {
 	    $this->db->where('id', $var);
-	    return $this->db->get($this->table_kelas);
 	}
+	    return $this->db->get($this->table_kelas);
     }
 
     function get_kelas_by_size($size){
