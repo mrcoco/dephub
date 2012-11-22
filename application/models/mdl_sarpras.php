@@ -261,10 +261,10 @@ class Mdl_sarpras extends CI_Model {
 		$this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
 		$this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
 		
+	$this->db->order_by($this->table_kamar.".id", "asc");
     // die(var_dump($this->db->get()->result_array()));
 	return $this->db->get();
     }
-	
 	
     function get_kamar_gedung($var) {
 		$this->db->select(
@@ -274,6 +274,7 @@ class Mdl_sarpras extends CI_Model {
 		$this->db->where($this->table_kamar.'.asrama', $var);
 		$this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
 		$this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
+		$this->db->order_by($this->table_kamar.".id", "asc");
 	    return $this->db->get();
     }
 

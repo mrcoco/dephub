@@ -3,6 +3,7 @@
         var container=$('.alert');
         container.html('');
         
+		
         if(document.form_reg.elements["id"].value=="")
         {
             container.show('blind');
@@ -35,6 +36,7 @@
         <thead>
             <tr>
                 <th colspan="2">Penambahan kamar</th>
+				<input class="id" type="hidden" name="id" placeholder="ID" value="<?php echo $kamar['id'];?>"/>
             </tr>
         </thead>
         <tbody>
@@ -42,7 +44,7 @@
             <!--
 			<tr>
             <td>ID</td>
-            <td><input class="id" type="text" name="id" placeholder="ID" value="<?php echo $kamar['id'];?>" 
+            <td><input class="id" type="text" name="id" placeholder="ID" value="<?php //echo $kamar['id'];?>" 
 			<?php 
 				//if($kamar['id']!="")
 					//echo "readonly";
