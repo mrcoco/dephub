@@ -1,9 +1,0 @@
-Jakarta adalah Ibukota RI {true#Benar #Salah}
-
-Bandung letaknya di Jawa Tengah {false#Benar #Salah}
-
-Borobudur adalah peninggalan sejarah Hindu {false#Benar #Salah}
-
-Matahari  adalah bintang {true#Benar #Salah}
-
-Planet terbesar di tatasurya  adalah Saturnus {true#Benar #Salah}
