@@ -519,7 +519,12 @@ class Mdl_sarpras extends CI_Model {
 //	$this->db->query('SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS');
 //	return TRUE;
 //    }
-
+    function cek_kelas($data){
+        $this->db->where('id_kelas',$data['id_kelas']);
+        $this->db->where('tanggal >=',$data['mulai']);
+        $this->db->where('tanggal <=',$data['akhir']);
+        return $this->db->get('sarpras_pemakaian_kelas')->num_rows();
+    }
 }
 
 /* End of file mdl_sarpras.php */

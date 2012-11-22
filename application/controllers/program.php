@@ -611,6 +611,16 @@ class Program extends CI_Controller {
         echo json_encode($data_ins);
     }
 
-    
-    
+    function ajax_cek_kelas(){
+        $this->load->library('date');
+        $data['id_kelas']=$this->input->post('id_ruangan');
+        $data['mulai']=$this->date->savetgl($this->input->post('mulai'));
+        $data['akhir']=$this->date->savetgl($this->input->post('akhir'));
+        $res = $this->spr->cek_kelas($data);
+        if($res>0){
+            echo 'false';
+        }else{
+            echo 'true';
+        }
+    }
 }
