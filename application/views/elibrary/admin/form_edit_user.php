@@ -11,6 +11,8 @@
 ?></td></tr>
 </table>
 <?php echo form_open_multipart('elibrary/admin/do_edit_user');?>
-<button type="submit" class="btn" name="userrole" value="1">Jadikan Administrator</button>
+<input type="hidden" name="id" value="<?php echo $data[0]['id']?>" />
+<button type="submit" class="btn" name="userrole" value="1">Jadikan Petugas Perputakaan</button>
 <button type="submit" class="btn" name="userrole" value="2">Jadikan Uploader</button>
+<button type="submit" class="btn" name="userrole" value="0">Jadikan Anggota biasa</button>
 </form>

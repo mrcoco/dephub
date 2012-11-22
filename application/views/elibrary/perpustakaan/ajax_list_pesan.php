@@ -4,7 +4,7 @@
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-                                    <th >No Peminjaman</th>
+                                    <th >No Pemesanan</th>
                                     <th >Peminjam</th>
                                     <th>NIP</th>
                                     <th>Buku</th>

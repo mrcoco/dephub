@@ -26,5 +26,5 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-Search: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
+Search: <input type="text" id="cari" placeholder="Masukkan nama/NIP" rel="tooltip" title="Masukkan Nama/NIP" class="tip"/>
 <div id="body_table"></div>    

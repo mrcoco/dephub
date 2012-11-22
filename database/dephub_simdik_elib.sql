@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2012 at 04:05 PM
+-- Generation Time: Nov 21, 2012 at 03:50 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -25,7 +25,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `tb_elib_author`
 --
 DROP TABLE IF EXISTS`tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_filetype`, `tb_elib_loan`, `tb_elib_queue`, `tb_elib_userrole`;
-
 CREATE TABLE IF NOT EXISTS `tb_elib_author` (
   `idauthor` int(10) NOT NULL AUTO_INCREMENT,
   `authorname` varchar(50) NOT NULL,
@@ -197,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `tb_elib_loan` (
   `returndate` date NOT NULL DEFAULT '0000-00-00',
   `idqueue` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
 
 --
 -- Dumping data for table `tb_elib_loan`
@@ -265,7 +264,8 @@ INSERT INTO `tb_elib_loan` (`id`, `idpegawai`, `booksid`, `amount`, `loandate`, 
 (60, 1, 3, 1, '2012-11-17', '2012-11-24', '2012-11-17', 0),
 (61, 1, 3, 1, '2012-11-17', '2012-11-24', '2012-11-17', 0),
 (62, 1, 2, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0),
-(63, 1, 3, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0);
+(63, 1, 3, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0),
+(64, 1, 3, 1, '2012-11-20', '2012-11-27', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
