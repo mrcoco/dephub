@@ -52,7 +52,7 @@
 			<?php 
 				if($list[$i]['l2']!=0)
 					echo "checked";
-			?>/> ok
+			?>/>
 			</td>
             <td class="l3"><?php echo $list[$i]['l3']; ?>
 			</td>
@@ -64,7 +64,7 @@
 			<?php 
 				if($list[$i]['s2']!=0)
 					echo "checked"; 
-			?>/> ok
+			?>/>
 			</td>
 			<td class="m1"><?php echo $list[$i]['m1']; ?>
 			</td>
@@ -72,7 +72,7 @@
 			<?php 
 				if($list[$i]['m2']!=0)
 					echo "checked";
-			?>/> ok
+			?>/>
 			</td>
 			<td class="m3"><?php echo $list[$i]['m3']; ?>
 			</td>
@@ -82,7 +82,7 @@
 			<?php 
 				if($list[$i]['k2']!=0)
 					echo "checked";
-			?>/> ok
+			?>/>
 			</td>
 			<td class="k3"><?php echo $list[$i]['k3']; ?>
 			</td>
@@ -90,19 +90,19 @@
 			<?php 
 				if($list[$i]['wb']!=0)
 					echo "checked";
-			?>/> ok
+			?>/>
 			</td>
 			<td class="pb"><input type="checkbox" name="pb" value="1"
 			<?php 
 				if($list[$i]['pb']!=0)
 					echo "checked";
-			?>/> ok
+			?>/>
 			</td>
 			<td class="fc"><input type="checkbox" name="fc" value="1"
 			<?php 
 				if($list[$i]['fc']!=0)
 					echo "checked";
-			?>/> ok
+			?>/>
 			</td>
 			
 			<td>
