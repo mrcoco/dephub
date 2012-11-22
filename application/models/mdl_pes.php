@@ -10,6 +10,12 @@ class Mdl_pes extends CI_Model{
         $this->db->join('program','registrasi.id_diklat=program.id');
         return $this->db->get('registrasi')->result_array();
     }
+    function get_program_pes($id_pes,$id_diklat){
+        $this->db->where('id_peserta',$id_pes);
+        $this->db->where('id_diklat',$id_diklat);
+        $this->db->join('program','registrasi.id_program=program.id');
+        return $this->db->get('registrasi')->row_array();
+    }
     
     function login_pes($data){
         $this->db->where($data);

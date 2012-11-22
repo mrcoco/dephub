@@ -13,6 +13,44 @@ class Program extends CI_Controller {
         $this->load->library('date');
         $this->thn_default=date('Y');
     }
+    function feedback_result($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+	$data['sub_title']='Rekap Evaluasi Diklat';
+        $data['result']=$this->slng->feedback_diklat($id)->result_array();
+        $kurikulum=array();
+        $sarpras=array();
+        $slng=array();
+        $catering=array();
+        $data['kurikulum']=0;
+        $data['sarpras']=0;
+        $data['slng']=0;
+        $data['catering']=0;
+        $data['n']=$this->slng->feedback_diklat($id)->num_rows();
+        if($data['n']!=0){
+            $i=1;
+            foreach($data['result'] as $r){
+                $kurikulum[$i]=($r['1a']+$r['1b']+$r['1c']+$r['1d']+$r['1e'])/5;
+                $sarpras[$i]=($r['2a']+$r['2b']+$r['2c']+$r['2d']+$r['2e']+$r['2f']+$r['2g']+$r['2h']+$r['2i']+$r['2j']+$r['2k']+$r['2l'])/12;
+                $slng[$i]=($r['3a']+$r['3b']+$r['3c']+$r['3d']+$r['3e']+$r['3f']+$r['3g']+$r['3h'])/8;
+                $catering[$i]=$r['catering'];
+                $data['kurikulum']+=$kurikulum[$i];
+                $data['sarpras']+=$sarpras[$i];
+                $data['slng']+=$slng[$i];
+                $data['catering']+=$catering[$i];
+                $i++;
+            }
+            $data['kurikulum']/=$data['n'];
+            $data['sarpras']/=$data['n'];
+            $data['slng']/=$data['n'];
+            $data['catering']/=$data['n'];
+        }
+        $this->template->display_with_sidebar('program/feedback_result','program',$data);
+    }
 
     function view_program($id) {
         $this->load->library('date');

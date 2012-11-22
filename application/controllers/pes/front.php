@@ -27,7 +27,11 @@ class Front extends CI_Controller{
     function info_peserta(){
         $id=$this->session->userdata('id_pes');
         $data['title']='Info peserta';
-        $data['program']=$this->pes->get_diklat_pes($id);
+        $data['diklat']=$this->pes->get_diklat_pes($id);
+        for($i=0;$i<sizeof($data['diklat']);$i++){
+            $pro=$this->rnc->get_program_by_id($data['diklat'][$i]['id_program']);
+            $data['diklat'][$i]['angkatan']=$pro['angkatan'];
+        }
         $data['history']=$this->slng->get_history($id);
         $this->template->display_pes('pes/info',$data);
     }
@@ -61,7 +65,7 @@ class Front extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['feedback'] = $this->pes->get_feedback_diklat_program($id);
+        $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$id);
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
@@ -145,22 +149,24 @@ class Front extends CI_Controller{
 	$this->session->sess_destroy();
         redirect(base_url().'pes/front');
     }
-    function add_feedback_diklat($id_program){
+    function add_feedback_diklat($id){
+        
         $data['sub_title']='Evaluasi Kinerja Penyelenggaraan';
-        $data['program']=$this->rnc->get_diklat_by_id($id_program);
+        $data['program']=$this->rnc->get_program_by_id($id);
         if($data['program']){
             $this->template->display_pes('pes/add_feedback_diklat',$data);
         }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
-            redirect(base_url().'pes/detail_diklat/'.$id_program);                    
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'pes/detail_diklat/'.$id);                    
         }
     }
 
     function insert_feedback_diklat(){
-        $data['id_program']=$this->input->post('id_program');
+        $id_program=$this->input->post('id_program');
+        $program=$this->rnc->get_program_by_id($id_program);
         $this->pes->insert_feedback_diklat($_POST);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
-        redirect(base_url().'pes/front/detail_diklat/'.$data['id_program']);        
+        redirect(base_url().'pes/front/detail_diklat/'.$program['parent']);        
     }
 
     function edit_feedback_diklat($id_feedback){
