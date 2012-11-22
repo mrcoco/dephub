@@ -8,6 +8,6 @@
         <?php echo form_close(); ?>
     </p>
     <a href="<?php echo base_url()?>unit">Login Unit</a><br/>
-    Login Instansi
+    <a href="<?php echo base_url()?>inst">Login Instansi</a><br/>
     Login Pegawai
 </div>

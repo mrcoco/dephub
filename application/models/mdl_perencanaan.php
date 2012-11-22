@@ -51,7 +51,7 @@ class Mdl_perencanaan extends CI_Model{
     
     
     function get_diklat($thn){
-        $program = $this->db->get_where('program',array('tahun_program'=>$thn,'tipe'=>2));
+        $program = $this->db->get_where('program',array('tipe'=>2));
         if($program->num_rows()>0){
             return $program->result_array();
         }else{
