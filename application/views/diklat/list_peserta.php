@@ -1,4 +1,5 @@
 <script>
+<script>
     function toggle(item,id_peserta,id_diklat,status){
         data = {'id_peserta' : id_peserta, 'id_diklat' : id_diklat}
         $.post(

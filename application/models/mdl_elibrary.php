@@ -238,9 +238,12 @@ class Mdl_elibrary extends CI_Model{
             $user = $this->db->get();
             return $user->result_array();
 	}
-	function insert_userrole(){
+	function insert_userrole($data){
+            $this->db->insert('elib_userrole',$data);
 	}
-	function update_userrole(){
+	function update_userrole($data){
+            $this->db->where('id',$data['id']);
+            $this->db->update($data);
 	}
 	function delete_userrole(){
 	}
@@ -410,6 +413,12 @@ class Mdl_elibrary extends CI_Model{
          $this->db->from('elib_queue');
          $this->db->where($data);
      }
+     function check_queue_late(){
+         $sql='UPDATE`tb_elib_queue` 
+             SET status = 3
+             WHERE CURDATE() >= ADDDATE(queuedate, 2)';
+         $this->db->query($sql);
+     }
     /*---- Elib_filetype-----*/
     function get_idfile_by_filetype($string){
 
@@ -448,6 +457,37 @@ class Mdl_elibrary extends CI_Model{
             $this->db->limit(10);
    		$query = $this->db->get('elib_bibliography');
 		return $query->result();
+    }
+    /* elib_post, field status 0=draft, 1=dipublikasikan, 2=penting, 3. deleted*/
+    function get_post($where=array(),$like=array(),$limit=1,$start=0){
+        $this->db->select('elib_post.*, pegawai.nama');
+        $this->db->order_by('modifieddate','desc');
+        $this->db->from('elib_post');
+        $this->db->join('pegawai','elib_post.posterid=pegawai.id','left');
+        $this->db->where($where);
+        $this->db->like($like);
+        $this->db->limit($limit,$start);
+        $query = $this->db->get();
+		return $query->result_array();
+    }
+     function count_post($where=array(),$like=array()){
+        
+        $this->db->join('pegawai','elib_post.posterid=pegawai.id','left');
+        $this->db->where($where);
+        $this->db->like($like);
+        
+        return $this->db->count_all_results("elib_post");
+		
+    }
+    function insert_post($data){
+        $this->db->insert('elib_post',$data);
+    }
+    function update_post($data){
+        $this->db->where('id', $data['id']);
+        $this->db->update('elib_post', $data);
+    }
+    function delete_post(){ //mengubah status jadi deleted 
+        
     }
 }
 

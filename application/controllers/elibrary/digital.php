@@ -8,19 +8,43 @@ class Digital extends CI_Controller {
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('mdl_elibrary','elib');
                 $this->load->library('pagination');
-                
-                
 	}
         function index(){
-            $id=$this->session->userdata('id'); //mengambil id pegawai
+                
+            $data['queue']=array();
+            $data['post']=array();
+            if($this->session->userdata('is_login')){ //tidak diproses notifikasi bila tidak login
+                $id=$this->session->userdata('id'); //mengambil id pegawai
                 $elib_userrole=$this->elib->get_userrole(array('id'=>$id)); //mengambil userrole di elib_userrole
                 if($elib_userrole) $this->session->set_userdata('elib_userrole', $elib_userrole[0]['userrole']);  //mengeset userrole ke session
-            $data['queue']=array();
-            if($this->session->userdata('is_login')){ //tidak diproses notifikasi bila tidak login
                $data['filter_queue']=array('1.idpegawai'=>$this->session->userdata('id'),'1.status'=>1);
                $data['queue']=$this->elib->get_queue($data['filter_queue']);
             }
+            $where=array('elib_post.status'=>2);
+            $like=array();
+            $data['post']=$this->elib->get_post($where);
             $this->template->display_lib('elibrary/index',$data);
+        }
+        function info(){
+                $where=array('elib_post.status !='=>0,'elib_post.status !='=>3);
+                $config=array();
+                $config["base_url"]= base_url()."elibrary/digital/info/";
+                $config["total_rows"]= $this->elib->count_post($where);
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                $data = array('data' => $this->elib->get_post($where,array(),$config["per_page"],$page));
+                $data["links"] = $this->pagination->create_links();
+                $data['sub_title']='List Post';
+                $this->template->display_lib('elibrary/list', $data);
+        }
+        function info_view($id){
+            
+            $where=array('elib_post.id'=>$id);
+            $data['data']=$this->elib->get_post($where);
+            $data['sub_title']='Informasi'.$data['data'][0]['creationdate'];
+            $this->template->display_lib('elibrary/info_view',$data);
         }
         
         function login(){

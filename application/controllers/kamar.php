@@ -26,6 +26,10 @@ class Kamar extends CI_Controller {
 
         $var = $this->spr->get_kamar($offset)->result_array();
         $data['list'] = $var;
+		
+		$var2 = $this->spr->get_kamar_status($offset)->result_array();
+		$data['status'] = $var2;
+		
         $this->template->display('kamar/list_kamar', $data);
     }
 
@@ -36,6 +40,10 @@ class Kamar extends CI_Controller {
 
 	$var = $this->spr->get_kamar_gedung($offset)->result_array();
         $data['list']=$var;
+		
+	$var2 = $this->spr->get_kamar_status($offset)->result_array();
+	$data['status'] = $var2;
+	
 	$this->template->display('kamar/list_kamar',$data);
     }
 	
@@ -92,7 +100,8 @@ class Kamar extends CI_Controller {
     function edit_kamar_process() {
         //process penyimpanan data kamar
         $this->spr->update_kamar($_POST['id'], $_POST);
-
+		
+		//die(var_dump($_POST));
         $this->session->set_flashdata('msg', $this->editor->alert_ok('kamar telah diedit'));
         redirect(base_url() . 'kamar');
     }

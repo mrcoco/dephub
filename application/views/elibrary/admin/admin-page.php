@@ -1,3 +1,6 @@
+<div class="row-fluid">
+                            <?php $this->session->flashdata('msg'); ?>
+</div>  
 <div class="well span1" align="center">
     <a href="<?php echo site_url("elibrary/admin/input_books"); ?>" rel="tooltip" title="Klik untuk menambah buku" class="tip">
         <img src="assets/img/menu-icons/tambah-buku.png" />
@@ -60,8 +63,22 @@
 <div class="well span1" align="center">
     <a href ="<?php echo site_url("elibrary/admin/list_buku_pinjam"); ?>">
         <img src="assets/img/menu-icons/tambah-buku.png" />
+    
+    <strong>List Buku Fisik<br /></strong>
     </a>
-    <strong>List Buku<br /></strong>
+</div>
+<div class="well span1" align="center">
+    <a href="<?php echo site_url("elibrary/admin/create_post"); ?>" rel="tooltip" title="Klik untuk menambah kategori" class="tip">
+        <img src="assets/img/menu-icons/groups.png" />
+        <strong>Tambah Post Informasi</strong>
+    </a>
+</div>
+<div class="well span1" align="center">
+    <a href ="<?php echo site_url("elibrary/admin/list_post"); ?>">
+        <img src="assets/img/menu-icons/tambah-buku.png" />
+    
+    <strong>List Post Informasi<br /></strong>
+    </a>
 </div>
 
 

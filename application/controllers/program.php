@@ -112,7 +112,7 @@ class Program extends CI_Controller {
         }
 
 
-        $data['sub_title'] = 'Buat Program Baru di Diklat ' . $data['pil_diklat']['name'];
+        $data['sub_title'] = 'Buat Program Baru di ' . $data['pil_diklat']['name'];
         $this->template->display_with_sidebar('program/form_buat_program', 'diklat', $data);
     }
 

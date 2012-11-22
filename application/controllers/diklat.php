@@ -16,6 +16,43 @@ class Diklat extends CI_Controller{
         $this->daftar_diklat();
     }
     
+    function feedback_result($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+	$data['sub_title']='Rekap Evaluasi Diklat';
+        $data['result']=$this->slng->feedback_diklat($id)->result_array();
+        $kurikulum=array();
+        $sarpras=array();
+        $slng=array();
+        $catering=array();
+        $data['kurikulum']=0;
+        $data['sarpras']=0;
+        $data['slng']=0;
+        $data['catering']=0;
+        $data['n']=$this->slng->feedback_diklat($id)->num_rows();
+        $i=1;
+        foreach($data['result'] as $r){
+            $kurikulum[$i]=($r['1a']+$r['1b']+$r['1c']+$r['1d']+$r['1e'])/5;
+            $sarpras[$i]=($r['2a']+$r['2b']+$r['2c']+$r['2d']+$r['2e']+$r['2f']+$r['2g']+$r['2h']+$r['2i']+$r['2j']+$r['2k']+$r['2l'])/12;
+            $slng[$i]=($r['3a']+$r['3b']+$r['3c']+$r['3d']+$r['3e']+$r['3f']+$r['3g']+$r['3h'])/8;
+            $catering[$i]=$r['catering'];
+            $data['kurikulum']+=$kurikulum[$i];
+            $data['sarpras']+=$sarpras[$i];
+            $data['slng']+=$slng[$i];
+            $data['catering']+=$catering[$i];
+            $i++;
+        }
+        $data['kurikulum']/=$data['n'];
+        $data['sarpras']/=$data['n'];
+        $data['slng']/=$data['n'];
+        $data['catering']/=$data['n'];
+        $this->template->display_with_sidebar('diklat/feedback_result','diklat',$data);
+    }
+    
     function daftar_diklat($thn=''){
         if($thn==''){
             $thn=$this->thn_default;
@@ -41,7 +78,6 @@ class Diklat extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['feedback'] = $this->rnc->get_feedback_sarpras_program($id);
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
@@ -227,7 +263,7 @@ class Diklat extends CI_Controller{
         }
         $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pangkat']=$this->rnc->get_pangkat_gol();
-        $data['sub_title']='Registrasi Diklat '.$data['program']['name'];
+        $data['sub_title']='Registrasi '.$data['program']['name'];
         $this->template->display_with_sidebar('diklat/registrasi','diklat',$data);
         
     }
@@ -246,10 +282,10 @@ class Diklat extends CI_Controller{
         }
         $this->slng->insert_registrasi_batch($reg_batch);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Peserta telah ditambahkan'));
-        redirect(base_url().'diklat/alokasi_peserta/'.$id_diklat);
+        redirect(base_url().'diklat/terima_peserta/'.$id_diklat);
     }
     
-    function alokasi_peserta($id,$thn=''){
+    function terima_peserta($id,$thn=''){
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
@@ -318,7 +354,7 @@ class Diklat extends CI_Controller{
             $text .= $data['pil_angkatan'][$key].'<br/>';
             $text .= '<ul>';
             foreach($val as $v){
-                $text .= '<li>'.$v['nama'].' '.$v['status'].'</li>';
+                $text .= '<li>'.$v['nama'].' '.$this->editor->status($v['status']).'</li>';
             }
             $text .= '</ul>';
         }
@@ -327,7 +363,8 @@ class Diklat extends CI_Controller{
         $data_post['waktu']=date('H:i');
         $data_post['tanggal']=date('Y-m-d');
         $this->slng->insert_pengumuman($data_post);
-        redirect(base_url().'diklat/alokasi_peserta/'.$id);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Daftar peserta telah di-publish'));
+        redirect(base_url().'diklat/terima_peserta/'.$id);
     }
     
     function alokasi_kamar_program($id,$thn=''){

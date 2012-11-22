@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2012 at 04:05 PM
+-- Generation Time: Nov 22, 2012 at 01:41 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -24,7 +24,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Table structure for table `tb_elib_author`
 --
-DROP TABLE IF EXISTS`tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_filetype`, `tb_elib_loan`, `tb_elib_queue`, `tb_elib_userrole`;
+DROP TABLE IF EXISTS `tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_filetype`, `tb_elib_loan`, `tb_elib_post`, `tb_elib_queue`, `tb_elib_userrole`;
 
 CREATE TABLE IF NOT EXISTS `tb_elib_author` (
   `idauthor` int(10) NOT NULL AUTO_INCREMENT,
@@ -197,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `tb_elib_loan` (
   `returndate` date NOT NULL DEFAULT '0000-00-00',
   `idqueue` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=64 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
 
 --
 -- Dumping data for table `tb_elib_loan`
@@ -265,7 +265,35 @@ INSERT INTO `tb_elib_loan` (`id`, `idpegawai`, `booksid`, `amount`, `loandate`, 
 (60, 1, 3, 1, '2012-11-17', '2012-11-24', '2012-11-17', 0),
 (61, 1, 3, 1, '2012-11-17', '2012-11-24', '2012-11-17', 0),
 (62, 1, 2, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0),
-(63, 1, 3, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0);
+(63, 1, 3, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0),
+(64, 1, 3, 1, '2012-11-20', '2012-11-27', '0000-00-00', 0),
+(65, 1, 4, 2, '2012-11-22', '2012-11-29', '0000-00-00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_elib_post`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_elib_post` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `posterid` int(11) NOT NULL,
+  `modifierid` int(2) NOT NULL,
+  `creationdate` date NOT NULL,
+  `modifieddate` date NOT NULL,
+  `status` int(2) NOT NULL,
+  `content` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `tb_elib_post`
+--
+
+INSERT INTO `tb_elib_post` (`id`, `title`, `posterid`, `modifierid`, `creationdate`, `modifieddate`, `status`, `content`) VALUES
+(8, 'Informasi', 4, 4, '2012-11-22', '2012-11-22', 1, '<p>Perpustakaan adalah tempat untuk mencari ilmu.</p>'),
+(9, 'Perpustakaan', 4, 4, '2012-11-22', '2012-11-22', 2, '<p>Dalam arti tradisional,&nbsp;<strong>perpustakaan</strong>&nbsp;adalah sebuah koleksi&nbsp;<a title="Buku" href="http://id.wikipedia.org/wiki/Buku">buku</a>&nbsp;dan majalah. Walaupun dapat diartikan sebagai koleksi pribadi perseorangan, namun perpustakaan lebih umum dikenal sebagai sebuah koleksi besar yang dibiayai dan dioperasikan oleh sebuah kota atau institusi, dan dimanfaatkan oleh masyarakat yang rata-rata tidak mampu membeli sekian banyak buku atas biaya sendiri.</p>\r\n<p>Tetapi, dengan koleksi dan penemuan media baru selain buku untuk menyimpan informasi, banyak perpustakaan kini juga merupakan tempat penimpanan dan/atau akses ke&nbsp;<a class="new" title="Map (halaman belum tersedia)" href="http://id.wikipedia.org/w/index.php?title=Map&action=edit&redlink=1">map</a>,&nbsp;<a class="new" title="Cetak (seni) (halaman belum tersedia)" href="http://id.wikipedia.org/w/index.php?title=Cetak_(seni)&action=edit&redlink=1">cetak</a>&nbsp;atau&nbsp;<a class="new" title="Hasil seni (halaman belum tersedia)" href="http://id.wikipedia.org/w/index.php?title=Hasil_seni&action=edit&redlink=1">hasil seni</a>&nbsp;lainnya,&nbsp;<a title="Mikrofilm" href="http://id.wikipedia.org/wiki/Mikrofilm">mikrofilm</a>,&nbsp;<a class="mw-redirect" title="Mikrofiche" href="http://id.wikipedia.org/wiki/Mikrofiche">mikrofiche</a>,&nbsp;<a class="new" title="Tape audio (halaman belum tersedia)" href="http://id.wikipedia.org/w/index.php?title=Tape_audio&action=edit&redlink=1">tape audio</a>,&nbsp;<a title="CD" href="http://id.wikipedia.org/wiki/CD">CD</a>,&nbsp;<a class="new" title="Rekaman vinyl (halaman belum tersedia)" href="http://id.wikipedia.org/w/index.php?title=Rekaman_vinyl&action=edit&redlink=1">LP</a>,&nbsp;<a class="new" title="Tape video (halaman belum tersedia)" href="http://id.wikipedia.org/w/index.php?title=Tape_video&action=edit&redlink=1">tape video</a>&nbsp;dan<a title="DVD" href="http://id.wikipedia.org/wiki/DVD">DVD</a>, dan menyediakan fasilitas umum untuk mengakses gudang data&nbsp;<a title="CD-ROM" href="http://id.wikipedia.org/wiki/CD-ROM">CD-ROM</a>&nbsp;dan&nbsp;<a title="Internet" href="http://id.wikipedia.org/wiki/Internet">internet</a>.</p>');
 
 -- --------------------------------------------------------
 
@@ -282,7 +310,7 @@ CREATE TABLE IF NOT EXISTS `tb_elib_queue` (
   `availabledate` date NOT NULL DEFAULT '0000-00-00',
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `tb_elib_queue`
@@ -294,9 +322,11 @@ INSERT INTO `tb_elib_queue` (`id`, `amount`, `idpegawai`, `booksid`, `queuedate`
 (3, 1, 4, 3, '2012-11-14', '0000-00-00', 3),
 (4, 1, 4, 3, '2012-11-14', '0000-00-00', 3),
 (5, 1, 0, 3, '2012-11-14', '0000-00-00', 3),
-(6, 1, 1, 2, '2012-11-15', '0000-00-00', 0),
-(7, 1, 4, 3, '2012-11-17', '2012-11-17', 1),
-(8, 1, 4, 3, '2012-11-17', '2012-11-17', 4);
+(6, 1, 1, 2, '2012-11-15', '0000-00-00', 3),
+(7, 1, 4, 3, '2012-11-17', '2012-11-17', 3),
+(8, 1, 4, 3, '2012-11-17', '2012-11-17', 3),
+(9, 1, 4, 4, '2012-11-22', '0000-00-00', 0),
+(10, 1, 4, 4, '2012-11-22', '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -317,4 +347,5 @@ CREATE TABLE IF NOT EXISTS `tb_elib_userrole` (
 INSERT INTO `tb_elib_userrole` (`id`, `userrole`) VALUES
 (2, 1),
 (3, 2),
-(4, 1);
+(4, 1),
+(6, 1);

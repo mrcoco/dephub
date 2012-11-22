@@ -37,7 +37,7 @@ $data[0]['pinjam']=1;
                         <h3>Form Pemesanan</h3>
                         <?php echo form_open_multipart('elibrary/perpustakaan/do_pesan');?>
 			<table class="table table-hover">
-                            <tr><td>Akan ada tanggal</td><td> : <?php echo '2012-10-14';?> </td></tr>
+                            
                             <tr><td>Banyaknya</td><td> : <input required="required" type="number" name="amount" value="1"/> </td></tr>
                             
                             <input type="hidden" name="booksid" value="<?php echo $data[0]['id'];?>" />
@@ -46,7 +46,8 @@ $data[0]['pinjam']=1;
                         <input type="submit" value="Kirim">
                      </form>
 			<p>Buku yang dipesan akan disimpan selama 2 hari untuk diambil pemesan. <br />
-                        Apabila lebih dari itu, maka akan diberikan ke pemesan berikutnya atau dikembalikan ke rak.</p>
+                            Akan ada notifikasi bila anda mengunjungi web ini dan login. <br />
+                            Apabila lebih dari itu, maka akan diberikan ke pemesan berikutnya atau dikembalikan ke rak.</p>
                      <h4>Buku yang Dipesan</h4>
 			<table class="table table-condensed table-striped">
 
