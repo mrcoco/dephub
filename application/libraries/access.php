@@ -25,9 +25,16 @@ class Access {
      */
 
     function login($username, $password) {
-	$result=$this->user->login($username,$password);
+        $result=$this->user->login($username,$password);
         
         if($result){
+            $data_session=array(
+                'nama',
+                'id_role',
+                'is_login'
+            );
+            $this->CI->session->unset_userdata($data_session);
+            $this->CI->session->sess_destroy();
             $break_nama=  explode(' ', $result['nama']);
             $data_session=array(
                 'id'=>$result['id'],
