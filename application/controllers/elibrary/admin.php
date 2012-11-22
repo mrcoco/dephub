@@ -240,6 +240,21 @@ class Admin extends CI_Controller {
 		$this->template->display_lib('elibrary/admin/form_edit_user',$data);
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
+        function do_edit_user()
+	{
+            $data['query']=$this->input->post();
+            if($this->elib->get_userrole(array('id'=>$data['query']['id']))){
+                //update
+                $this->elib->update_userrole($data['query']);
+                $this->session->set_flashdata('msg',$this->editor->alert_ok('Jenis anggota telah diubah.'));
+                redirect(base_url().'elibrary/admin/list_user');
+            }
+            else {
+                $this->elib->insert_userrole($data['query']);
+                $this->session->set_flashdata('msg',$this->editor->alert_ok('Jenis anggota telah diubah.'));
+                redirect(base_url().'elibrary/admin/list_user');
+            }
+	}
 /*--------------Administrasi Perpustakaan fisik Mulai----------------------*/
         function input_books(){
             $data = array(
@@ -658,7 +673,67 @@ class Admin extends CI_Controller {
             }
             
         }
-        /* ---------- autocomplete---------------*/
+        /* ---------- post---------------*/
+        function list_post(){
+            $config=array();
+                $config["base_url"]= base_url()."elibrary/admin/list_post/";
+                $config["total_rows"]= $this->elib->count_post();
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+                $data = array('data' => $this->elib->get_post(array(),array(),$config["per_page"],$page));
+                $data["links"] = $this->pagination->create_links();
+                $data['sub_title']='List Post';
+                $this->template->display_lib('elibrary/admin/list', $data);
+            
+            
+            
+        }
+        function create_post(){
+            $data['sub_title']='Tambah Post';
+            $this->template->display_lib('elibrary/admin/form_post',$data);
+        }
+        function do_create_post(){
+            $data['insert']['title']=$this->input->post('title');
+            $data['insert']['creationdate']=date('Y-m-d');
+            $data['insert']['modifieddate']=date('Y-m-d');
+            $data['insert']['posterid']=$this->session->userdata('id');
+            $data['insert']['modifierid']=$this->session->userdata('id');
+            $data['insert']['status']=$this->input->post('status');
+            $data['insert']['content']=$this->input->post('content');
+            $this->elib->insert_post($data['insert']);
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Post telah ditambahkan'));
+            redirect(base_url().'elibrary/admin');
+            
+        }
+        function edit_post($id){
+            //ambil isinya
+            $data['sub_title']='Edit Post';
+            $where=array('elib_post.id'=>$id);
+            $data['data']=$this->elib->get_post($where);
+            $data['modifier']=$this->elib->get_user_by(array('t1.id'=>$data['data'][0]['modifierid']));
+            $this->template->display_lib('elibrary/admin/form_edit_post',$data);
+        }
+        function do_edit_post(){
+            $data['update']['id']=$this->input->post('id');
+            $data['update']['title']=$this->input->post('title');
+            $data['update']['modifieddate']=date('Y-m-d');
+            $data['update']['modifierid']=$this->session->userdata('id');
+            $data['update']['status']=$this->input->post('status');
+            $data['update']['content']=$this->input->post('content');
+            $this->elib->update_post($data['update']);
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Post telah diubah'));
+            redirect(base_url().'elibrary/admin');
+        }
         
+        function do_delete_post($id){
+            $data['update']['id']=$id;
+            $data['update']['modifieddate']=date('Y-m-d');
+            $data['update']['authorid']=$this->session->userdata('id');
+            $data['update']['status']=3;
+            $this->elib->insert_post($data['insert']);
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Post telah ditambahkan'));
+        }
 }       
 ?>

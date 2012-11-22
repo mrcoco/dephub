@@ -74,7 +74,7 @@
 		    <li><a href="#">Halaman Utama</a></li>
                     <li><a href="<?php echo base_url()?>elearning" class="">E-Learning</a></li>
                     <li><a href="<?php echo base_url()?>site/email">E-Mail</a></li>
-                    <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>
+<!--                    <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>-->
 		    <li><a href="<?php echo base_url()?>elibrary">Library</a></li>
 		    <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Profil<b class="caret"></b></a>
 			<ul class="dropdown-menu">

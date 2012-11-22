@@ -18,7 +18,7 @@
             </td>
             <td class="nip"><?php echo $list[$i]['nip'] ?></td>
             <td class="aksi">
-                <?php echo $list[$i]['status']?>
+                <?php echo $this->editor->status($list[$i]['status'])?>
             </td>
         <?php }?>
     </tbody>
