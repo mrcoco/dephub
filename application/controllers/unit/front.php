@@ -143,7 +143,6 @@ class Front extends CI_Controller{
         foreach($diklat as $d){
             $data['diklat'][$d['id']]=$d['name'];
         }
-        //var_dump($data['pendaftar'][0]);
         $this->template->display_unit('unit/list_pendaftar',$data);
     }
     
@@ -197,10 +196,10 @@ class Front extends CI_Controller{
     function logout(){
         //buat ngilangin data session sebelumnya
         $data_session=array(
-            'nama',
-            'id_role',
-            'is_login'
-        );
+                'nama_unit',
+                'kode_unit',
+                'is_login_unit'
+            );
 	$this->session->unset_userdata($data_session);
 	$this->session->sess_destroy();
         redirect(base_url().'unit/front');
