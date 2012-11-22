@@ -98,6 +98,6 @@
     </table>
 </div>
 <div class="modal-footer">
-    <a href="pegawai/detail_pegawai_print/<?php echo $pegawai['id'] ?>" class="btn" target="_blank">Download PDF</a>
+    <a href="pegawai/detail_pegawai_print/<?php echo $pegawai['id'] ?>" class="btn btn-success">Cetak PDF</a>
     <a href="#" class="btn" data-dismiss="modal">Close</a>
 </div>

@@ -1,3 +1,4 @@
+<div id="display_dialog" class="modal hide modal-wide"></div>
 <p align="center" class="lead"><?php echo $materi['judul']?></p>
 <div class="well-small">
     <a href="materi/assign/<?php echo $materi['id'] ?>" class="btn btn-mini"><i class="icon-user"></i> Assign Dosen</a>
@@ -17,7 +18,11 @@
             <td>
                 <ol>
                     <?php foreach($pengajar as $p){?>
-                    <li><?php echo $key_pembicara[$p['id_pembicara']]?></li>
+                    <li>
+                        <a href="javascript:view_detail(<?php echo $p['id_pembicara'] ?>)" class="tip-right" title="Klik untuk detail">
+                            <?php echo $key_pembicara[$p['id_pembicara']]?>
+                        </a>
+                    </li>
                     <?php } ?>
                 </ol>                
             </td>

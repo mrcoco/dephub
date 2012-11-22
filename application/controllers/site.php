@@ -14,7 +14,7 @@ class Site extends CI_Controller{
         $this->load->model('mdl_administrator','adm');
         $data['title']='Sistem Informasi Manajemen Diklat';
         $data['data_post'] = $this->slng->load_pengumuman();
-        $data['about'] = $this->adm->get_profil();
+        $data['profil'] = $this->adm->get_profil();
         if($this->session->userdata('is_login')){
             $this->template->display('site/front_view',$data);
         }else{
