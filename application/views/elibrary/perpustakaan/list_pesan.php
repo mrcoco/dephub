@@ -5,8 +5,12 @@
             load(1,$(this).val());
         });
     });
-<?php if($this->uri->segment(3)=='list_pesan')$url="elibrary/admin/list_pesan_ajax/";
-        else $url="elibrary/admin/histori_pesan_ajax/"
+<?php if($this->uri->segment(3)=='list_pesan')
+    {$url="elibrary/admin/list_pesan_ajax/";
+    $delete="elibrary/admin/hapus_pesan";
+        }
+        else $url="elibrary/admin/histori_pesan_ajax/";
+        $delete="elibrary/admin/hapus_pesan_ke_histori";
 ?>    
     function load(page,filter){
         $('#body_table').empty();
@@ -29,5 +33,8 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
+<?php if($this->uri->segment(3)=='list_pesan') { ?>
+<div><a class="btn btn-info" href="<?php echo base_url()?>elibrary/admin/check_pesanan">Check Pesanan yang terlambat</a> </div> <br/>
+    <?php }?>
 Search: <input type="text" id="cari" placeholder="Nama, NIP,No Pemesanan, atau judul buku" rel="tooltip" title="Masukkan Nama, NIP,No Peminjaman, atau judul buku" class="tip"/>
-<div id="body_table"></div>    
+<div id="body_table"> </div>    

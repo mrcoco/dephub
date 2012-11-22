@@ -64,7 +64,13 @@
     <a href ="<?php echo site_url("elibrary/admin/list_buku_pinjam"); ?>">
         <img src="assets/img/menu-icons/tambah-buku.png" />
     
-    <strong>List Buku<br /></strong>
+    <strong>List Buku Fisik<br /></strong>
+    </a>
+</div>
+<div class="well span1" align="center">
+    <a href="<?php echo site_url("elibrary/admin/create_post"); ?>" rel="tooltip" title="Klik untuk menambah kategori" class="tip">
+        <img src="assets/img/menu-icons/groups.png" />
+        <strong>Tambah Post Informasi</strong>
     </a>
 </div>
 <div class="well span1" align="center">
@@ -75,11 +81,6 @@
     </a>
 </div>
 
-<div class="well span1" align="center">
-    <a href="<?php echo site_url("elibrary/admin/create_post"); ?>" rel="tooltip" title="Klik untuk menambah kategori" class="tip">
-        <img src="assets/img/menu-icons/groups.png" />
-        <strong>Tambah Post Informasi</strong>
-    </a>
-</div>
+
 
 <div class="clear"></div>

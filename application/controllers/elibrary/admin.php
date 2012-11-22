@@ -524,7 +524,7 @@ class Admin extends CI_Controller {
             
         }*/
         function list_pesan(){
-            $data['sub_title']='List Peminjaman';
+            $data['sub_title']='List Pemesanan';
             $this->template->display_lib('elibrary/perpustakaan/list_pesan',$data);
         }
         
@@ -539,6 +539,12 @@ class Admin extends CI_Controller {
             $data['num_res']=$this->elib->count_queue_for_list($data['filter'],$statusfilter);
             $data['num_page']=ceil($data['num_res']/$data['per_page']);
             echo $this->load->view('elibrary/perpustakaan/ajax_list_pesan',$data,true);
+        }
+        function check_pesanan(){
+            $this->elib->check_queue_late();
+            $pesan="Pesanan yang terlambat sudah ditandai dan dimasukkan histori.";
+            $this->session->set_flashdata('msg',$this->editor->alert_ok($pesan));
+            redirect(base_url().'elibrary/admin/list_pesan');
         }
         /*tanpa JS
         function histori_pesan(){
@@ -573,6 +579,12 @@ class Admin extends CI_Controller {
             echo $this->load->view('elibrary/perpustakaan/ajax_list_pesan',$data,true);
         }
         function hapus_pesan($id){
+            $this->elib->delete_queue($id);
+            $pesan='pemesanan no '.$id.' telah dihapus.';
+            $this->session->set_flashdata('msg',$this->editor->alert_ok($pesan));
+            redirect(base_url().'elibrary/admin/list_pesan'); 
+        }
+        function hapus_pesan_ke_histori($id){
             $this->elib->delete_queue($id);
             $pesan='pemesanan no '.$id.' telah dihapus.';
             $this->session->set_flashdata('msg',$this->editor->alert_ok($pesan));
