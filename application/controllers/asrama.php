@@ -12,7 +12,7 @@ class Asrama extends CI_Controller{
     }
     
     function index(){
-        $this->list_asrama();
+        $this->list_asrama_simple();
     }
     
     function list_asrama($offset=0){
@@ -36,6 +36,27 @@ class Asrama extends CI_Controller{
 	$this->template->display('asrama/list_asrama',$data);
     }
 	
+	
+    function list_asrama_simple($offset=0){
+	if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
+            redirect(base_url().'error/error_priv');
+        }
+        if(empty ($offset)) $offset=0;
+	$data['sub_title']='Check List Prasarana Asrama';
+
+	$var = $this->spr->get_checklist_item()->result_array();
+    $data['item']=$var;
+	
+	$var2=null;
+	$kmr = $this->spr->get_kamar()->result_array();
+	foreach($kmr as $i) {
+		$var2[$i['id']] = $this->spr->get_checklist_kamar_kamar($i['id'])->result_array();
+	}
+	$data['kamar']=$kmr;
+    $data['list']=$var2;
+	
+	$this->template->display('asrama/list_asrama_simple',$data);
+    }
 	
 	function update_checklist($id) {
 		//update checklist item kelas
@@ -65,7 +86,7 @@ class Asrama extends CI_Controller{
 		}
 		
         $this->session->set_flashdata('msg', $this->editor->alert_ok('checklist telah diupdate'));
-        redirect(base_url() . 'asrama');
+        redirect(base_url() . 'asrama/list_asrama');
 	}
     
     function filter(){
