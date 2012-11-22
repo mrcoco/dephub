@@ -66,8 +66,8 @@
     <div class="span3">
         <div class="well sidemenu">
             <ul class="nav nav-list">
-                <li><a>Feedback</a></li>
-                <li><a>Sarpras</a></li>
+                <li><a href="pes/front/add_feedback_diklat/<?php echo $program['id'] ?>">Evaluasi Diklat</a></li>
+                <li><a>Evaluasi Pembicara</a></li>
                 <li><a>Jadwal</a></li>
             </ul>
         </div>

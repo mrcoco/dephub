@@ -8,6 +8,10 @@ class Mdl_penyelenggaraan extends CI_Model{
     function load_pengumuman(){
         return $this->db->get('post')->result_array();
     }
+    function feedback_diklat($id){
+        $this->db->where('id_program',$id);
+        return $this->db->get('feedback_diklat');
+    }
     
     function getall_peserta($id_diklat,$thn=''){
         if($id_diklat!=-1){
