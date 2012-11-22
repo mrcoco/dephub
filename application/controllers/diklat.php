@@ -246,10 +246,10 @@ class Diklat extends CI_Controller{
         }
         $this->slng->insert_registrasi_batch($reg_batch);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Peserta telah ditambahkan'));
-        redirect(base_url().'diklat/alokasi_peserta/'.$id_diklat);
+        redirect(base_url().'diklat/terima_peserta/'.$id_diklat);
     }
     
-    function alokasi_peserta($id,$thn=''){
+    function terima_peserta($id,$thn=''){
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
@@ -316,7 +316,7 @@ class Diklat extends CI_Controller{
             $text .= $data['pil_angkatan'][$key].'<br/>';
             $text .= '<ul>';
             foreach($val as $v){
-                $text .= '<li>'.$v['nama'].' '.$v['status'].'</li>';
+                $text .= '<li>'.$v['nama'].' '.$this->editor->status($v['status']).'</li>';
             }
             $text .= '</ul>';
         }
@@ -325,7 +325,8 @@ class Diklat extends CI_Controller{
         $data_post['waktu']=date('H:i');
         $data_post['tanggal']=date('Y-m-d');
         $this->slng->insert_pengumuman($data_post);
-        redirect(base_url().'diklat/alokasi_peserta/'.$id);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Daftar peserta telah di-publish'));
+        redirect(base_url().'diklat/terima_peserta/'.$id);
     }
     
     function ajax_cek_daftar($id_diklat,$nip_pegawai,$thn){

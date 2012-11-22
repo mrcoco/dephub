@@ -4,6 +4,31 @@
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
+<div>
+	<?php
+		$total=0;
+	
+		for($j=0;$j<count($status);$j++)
+		{
+			$tot[$j]=0;
+		}
+		for($i=0;$i<count($list);$i++)
+		{
+			//ngitung
+			for($j=0;$j<count($status);$j++)
+			{
+				if($list[$i]['status']==$status[$j]['status'])
+					$tot[$j]++;
+			}
+		}
+		
+		for($j=0;$j<count($status);$j++)
+		{
+			echo $status[$j]['status'].": ".$tot[$j]."<br/>";
+		}
+	
+	?>
+</div>
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -19,7 +44,10 @@
         </tr>
     </thead>
     <tbody>
-        <?php for($i=0;$i<count($list);$i++) {?>
+        <?php 
+		for($i=0;$i<count($list);$i++) {
+			
+		?>
         <tr class="gedung<?php echo $list[$i]['id'] ?>">
             <td class="no"><?php echo ($i+1) ?></td>
             <td class="nomor"><?php echo $list[$i]['nama'].$list[$i]['nomor'] ?></td>

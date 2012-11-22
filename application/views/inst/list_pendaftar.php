@@ -14,7 +14,7 @@
         }
     }
 </script>
-<table width="100%" border="1">
+<table width="100%" class="table table-bordered table-condensed">
     <thead>
         <tr>
             <th>No</th>
@@ -32,7 +32,7 @@
             <td><?php echo $pendaftar[$i]['nama']?></td>
             <td><?php echo $diklat[$pendaftar[$i]['id_diklat']].' '.$program[$pendaftar[$i]['id_program']]?></td>
             <td><?php echo $pendaftar[$i]['tahun_daftar']?></td>
-            <td class="status"><?php echo $pendaftar[$i]['status']?></td>
+            <td class="status"><?php echo $this->editor->status($pendaftar[$i]['status'])?></td>
             <td>
                 <input type="button" value="cancel" onclick="cancel(this,<?php echo $pendaftar[$i]['id_diklat'].','.$pendaftar[$i]['id_program'].','.$pendaftar[$i]['id']?>)"/>
             </td>
