@@ -38,8 +38,9 @@
             <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url()?>gedung">Gedung Asrama</a></li>
                 <li><a href="<?php echo base_url()?>kamar">Kamar Asrama</a></li>
+                <li><a href="<?php echo base_url()?>kelas">Kelas</a></li>
                 <li><a href="<?php echo base_url()?>asrama">CheckList Asrama</a></li>
-                <li><a href="<?php echo base_url()?>kelas">CheckList Kelas</a></li>
+                <li><a href="<?php echo base_url()?>kelas/checklist_kelas">CheckList Kelas</a></li>
                 <li><a href="#">Laporan</a></li>
             </ul>
         </li>

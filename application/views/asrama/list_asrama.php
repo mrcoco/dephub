@@ -1,35 +1,17 @@
 
 
+	<h4>Check List Prasarana Kamar</h4>
+	
+	
+	
+<div class="row">
+    <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 	
 	
 	
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
-	<!--
-        <tr>
-            <th width="5%" rowspan='2'>No</th>
-            <th width="10%" rowspan='2'>ID Kamar</th>
-            <th width="25%" colspan='5'><div align="center">Lampu</div></th>
-            <th width="25%" colspan='5'><div align="center">Toilet</div></th>
-            <th width="10%" colspan='2'><div align="center">AC</div></th>
-            <th width="10%" rowspan='2'><div align="center">Fasilitas Lain</div></th>
-            <th width="5%" rowspan='2'><div align="center">Kebersihan</div></th>
-        </tr>
-        <tr>
-            <th>TL-E 22W</th>
-            <th>TL-D 18W</th>
-            <th>PL-C 14W</th>
-            <th>PL-C 13W</th>
-            <th>LP Bel</th>
-            <th>SHO</th>
-            <th>CLO</th>
-            <th>JE-S</th>
-            <th>WAS</th>
-            <th>EX-F</th>
-            <th>REM</th>
-            <th>BAT</th>
-        </tr>
-		-->
 		
         <?php 
 		$lampu=0;
@@ -45,6 +27,7 @@
 		}?>
 		<tr>
 			<th rowspan='2'>No</th>
+			<th rowspan='2'>ID Kamar</th>
             <th colspan='<?php echo $lampu ?>'><div align="center">Lampu</div></th>
             <th colspan='<?php echo $toilet ?>'><div align="center">Toilet</div></th>
             <th colspan='<?php echo $ac ?>'><div align="center">AC</div></th>
@@ -93,6 +76,7 @@
 		-->
 		<form name="form_edit" id="form_reg" action="asrama/update_checklist/<?php echo $i ?>" method="POST">
 			<td><?php echo $i?></td>
+			<td><?php echo $is['nama_kamar']?></td>
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='lampu')
 				{
