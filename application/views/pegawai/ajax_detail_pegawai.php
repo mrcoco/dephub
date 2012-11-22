@@ -22,12 +22,11 @@
         </tr>
         <tr>
             <th>Gol/Pangkat</th>
-            <td><?php echo $pil_pangkat[$pegawai['kode_gol']] ?></td>
+            <td><?php echo $pangkat[$pegawai['kode_gol']] ?></td>
         </tr>
         <tr>
-            <th>NPWP</th>
-            <td><?php //echo $pegawai['npwp']  ?></td>
-            <td></td>
+            <th>Pendidikan terakhir</th>
+            <td><?php echo $arr_pendidikan[$pegawai['kode_pendidikan']] ?></td>
         </tr>
         <tr>
             <th>Jenis Kelamin</th>
@@ -40,23 +39,60 @@
             <td></td>
         </tr>
         <tr>
-            <th>Status Perkawinan</th>
-            <td><?php //echo $pegawai['status']  ?></td>
-            <td></td>
-        </tr>
-        <tr>
             <th>Alamat Rumah</th>
             <td><?php echo $pegawai['alamat_rumah'] ?></td>
             <td></td>
         </tr>
         <tr>
-            <th>Keterangan Badan</th>
-            <td><?php //echo $pegawai['keterangan']  ?></td>
+            <th>Jabatan</th>
+            <td><?php echo $pegawai['jabatan']?></td>
             <td></td>
         </tr>
         <tr>
-            <th>Kegemaran (hobby)</th>
-            <td><?php //echo $pegawai['hobby']  ?></td>
+            <th>TMT Golongan</th>
+            <td><?php echo $this->date->konversi1($pegawai['tmtgol'])?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>TMT CPNS</th>
+            <td><?php echo $this->date->konversi1($pegawai['tmtcpns'])?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>TMT PNS</th>
+            <td><?php echo $this->date->konversi1($pegawai['tmtpns'])?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>TMT Jabatan</th>
+            <td><?php echo $this->date->konversi1($pegawai['tmtgol'])?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>TMT Jabatan Baru</th>
+            <td><?php echo $this->date->konversi1($pegawai['tmtjabbaru'])?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>TMT Mutasi</th>
+            <td><?php echo $this->date->konversi1($pegawai['tmtmutasi'])?></td>
+            <td></td>
+        </tr>
+        <tr>
+            <th>History Pelatihan</th>
+            <td>
+                <ul>
+                <?php
+                if(count($history)==0){
+                    $text='Tidak ada data history pelatihan';
+                }else{
+                    foreach($history as $h){
+                        echo '<li>'.$h['tahun'].' : '.$h['nama_pelatihan'].'</li>';
+                    }
+                }
+                ?>                    
+                </ul>
+            </td>
             <td></td>
         </tr>
     </table>

@@ -12,21 +12,25 @@
             add();
         });
         
-        $('input').live('change',function(){
+        $('.save').live('click',function(){
            parent=$(this).parent();
-           nama=$(this).val();
+           nama=parent.find('input').val();
            data={'id_materi': id_materi,'id_pembicara':array_id[nama]};
+           tombol=$(this);
            if(array_id[nama]>0){
                 $.post('<?php echo base_url()?>materi/ajax_save',data,function(res){
                     if(res){
-                        parent.append(' <span class="label label-success">disimpan</span>');
-                        $('.label-success').delay(2*1000).fadeOut();
+                        parent.find('input').attr('disabled','');
+                            $('.add').after(' <span class="label label-success">disimpan</span>');
+                            $('.label-success').delay(2*1000).fadeOut();
+                        tombol.html('<i class="icon-remove"></i> Hapus');
+                        tombol.attr('class','hapus btn btn-danger');
                     }else{
-                        alert('Penambahan gagal');
+                        alert('penambahan gagal');
                         parent.find('input').val('');
                     }
                 });
-            }else{
+           }else{
                 alert('Penambahan gagal ');
                 parent.find('input').val('');
             }
@@ -45,21 +49,20 @@
         });
     });
     function add(){
-        $('.cont').append('<div class="item"><input type="text" class="dosen"/> <span class="hapus btn btn-mini btn-danger"><i class="icon-remove"></i> Hapus</span></div>');
+        $('.cont').append('<div class="item input-append"><input type="text" class="dosen"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>');
         $('.dosen').typeahead({
             'source' : array_dosen
         });
     }
 </script>
-<h2><?php echo $materi['judul'] ?></h2>
+<p class="lead"><?php echo $materi['judul']?></p>
 <div class="cont">
     <?php foreach($pengajar as $p){?>
-    <div class="item"><input type="text" class="dosen" value="<?php echo $key_pembicara[$p['id_pembicara']]?>"/> <span class="hapus btn btn-mini btn-danger"><i class="icon-remove"></i> Hapus</span></div>
+    <div class="item input-append"><input type="text" class="dosen" disabled value="<?php echo $key_pembicara[$p['id_pembicara']]?>"/><span class="hapus btn btn-danger"><i class="icon-remove"></i> Hapus</span></div>
     <?php } ?>
-    <div class="item"><input type="text" class="dosen"/> <span class="hapus btn btn-mini btn-danger"><i class="icon-remove"></i> Hapus</span></div>
+    <div class="item input-append"><input type="text" class="dosen"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>
 </div>
 <span class="add btn btn-mini"><i class="icon-plus"></i> Tambah</span>
 <div class="form-actions">
     <a href="<?php echo base_url()?>materi/list_materi" class="btn btn-primary"><i class="icon-arrow-left icon-white"></i> Daftar materi</a>
-    <a href="<?php echo base_url()?>materi/edit/<?php echo $materi['id'] ?>" class="btn">Ubah materi</a>
 </div>

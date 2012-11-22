@@ -262,7 +262,7 @@ class Diklat extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['sub_title']='List Pendaftar Diklat '.$data['program']['name'];
+        $data['sub_title']='List Pendaftar '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id,$thn);
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
         $data['pil_angkatan']['']='---';
@@ -276,6 +276,23 @@ class Diklat extends CI_Controller{
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $this->load->helper('pdfexport_helper.php');
+        $data['tahun']=$thn;
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['judul']='DAFTAR CALON PESERTA '.strtoupper($data['program']['name']).'<br />
+            KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>';
+        $data['list']=$this->slng->getall_peserta($id,$thn);
+        $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);
+//        $this->load->view('diklat/print_list_peserta',$data);
+                      
+        pdf_create($data['htmView'],'Pendaftar '.$data['program']['name']);                                                                    
     }
     
     function publish_daftar_peserta($id,$thn=''){

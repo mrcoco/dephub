@@ -21,6 +21,31 @@ class Materi extends CI_Controller{
         $data['list']=$this->rnc->get_all_materi();
         $this->template->display('materi/list_materi',$data);
     }
+
+    function view($id){
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
+        $data['materi']=$this->rnc->get_materi($id);
+        $data['sub_title']='Detail Materi';
+        $data['pengajar']=$this->rnc->get_pengajar($id);
+        $pembicara=$this->slng->get_all_pembicara();
+        $data['pembicara']=array();
+        $data['key_pembicara']=array();
+        $data['id']=array();
+        foreach($pembicara as $p){
+            if($p['nama_peg']!=''){
+                $data['pembicara'][]=$p['nama_peg'];
+                $data['id'][$p['nama_peg']]=$p['id'];
+                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
+            }else{
+                $data['pembicara'][]=$p['nama_dostam'];
+                $data['id'][$p['nama_dostam']]=$p['id'];
+                $data['key_pembicara'][$p['id']]=$p['nama_dostam'];
+            }
+        }
+        $this->template->display('materi/view_materi',$data);
+    }
     
     function tambah(){
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){

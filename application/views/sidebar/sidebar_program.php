@@ -10,6 +10,6 @@
         <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==2){ ?>
         <li <?php if($t=='schedule_program')echo 'class="active"' ?>><a href="<?php echo base_url()?>program/schedule_program/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Ubah Jadwal</a></li>
         <?php } ?>
-        <li><a href="<?php echo base_url()?>program/peserta_program/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Daftar Peserta</a></li>
+        <li <?php if($t=='peserta_program')echo 'class="active"' ?>><a href="<?php echo base_url()?>program/peserta_program/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Daftar Peserta</a></li>
     </ul>
 </div>

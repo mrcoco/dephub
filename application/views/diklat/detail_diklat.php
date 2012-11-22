@@ -54,7 +54,7 @@
             <td>
                 <ul>
                 <?php foreach($materi as $m){?>
-                    <li><?php echo $m['judul']?></li>
+                    <li><a target="_blank" class="tip-right" title="Klik untuk detail" href="materi/view/<?php echo $m['id'] ?>"><?php echo $m['judul']?></a></li>
                 <?php }?>
                 </ul>
             </td>
