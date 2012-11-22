@@ -1,10 +1,16 @@
-    
+<?php if($this->uri->segment(3)=='list_pesan_ajax'){
+    $delete="elibrary/admin/hapus_pesan/";
+}
+else{
+    $delete="elibrary/admin/hapus_pesan_ke_histori/";
+}
+?>    
 <div id="display_dialog" class="modal hide modal-wide"></div>
 
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-                                    <th >No Pemesanan</th>
+                                    <th >No</th>
                                     <th >Peminjam</th>
                                     <th>NIP</th>
                                     <th>Buku</th>
@@ -35,9 +41,9 @@
                                     <td><?php echo $a['availabledate'];?></td>
                                     <td>
 <?php if($a['status']==1) {?>   
-                                        <a href='<?php echo site_url()."elibrary/admin/pinjam_dari_pesan/".$a['id'];?>' class='btn'>Pinjamkan</a> 
+                                        <a href='<?php echo site_url()."elibrary/admin/pinjam_dari_pesan/".$a['id'];?>' class='btn btn-small'>Pinjamkan</a> 
 <?php }?>
-                                        <a href='<?php echo site_url()."elibrary/admin/hapus_pesan/".$a['id'];?>' class='btn'>Hapus</a>
+                                        <a href='<?php echo site_url().$delete.$a['id'];?>' class='btn btn-small'>Hapus</a>
                                     </td>
 
   </tr>

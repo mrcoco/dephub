@@ -4,7 +4,7 @@
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-                                    <th >No Peminjaman</th>
+                                    <th >No</th>
                                     <th >Peminjam</th>
                                     <th>NIP</th>
                                     <th>Buku</th>
@@ -28,7 +28,7 @@
                                     <td><?php echo $a['loandate'];?></td>
                                     <td><?php echo $a['duedate'];?></td>
                                     <td><?php if($a['returndate']!='0000-00-00') echo $a['returndate']."<td></td>";else {echo 'belum'?></td>
-                                    <td><a href='<?php echo site_url()."elibrary/admin/kembali/".$a['id'];?>' class='btn'>Buku kembali</a></td>
+                                    <td><a href='<?php echo site_url()."elibrary/admin/kembali/".$a['id'];?>' class='btn btn-small'>Buku kembali</a></td>
                                     <?php }?>
   </tr>
 <?php $no++ ?>

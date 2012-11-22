@@ -413,6 +413,12 @@ class Mdl_elibrary extends CI_Model{
          $this->db->from('elib_queue');
          $this->db->where($data);
      }
+     function check_queue_late(){
+         $sql='UPDATE`tb_elib_queue` 
+             SET status = 3
+             WHERE CURDATE() >= ADDDATE(queuedate, 2)';
+         $this->db->query($sql);
+     }
     /*---- Elib_filetype-----*/
     function get_idfile_by_filetype($string){
 
