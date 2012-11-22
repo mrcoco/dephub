@@ -17,6 +17,7 @@ class Mdl_penyelenggaraan extends CI_Model{
             $this->db->where('registrasi.tahun_daftar',$thn);
         }
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -46,6 +47,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
         $this->db->where('status !=','daftar');
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
         return $this->db->get('registrasi')->result_array();
     }
     

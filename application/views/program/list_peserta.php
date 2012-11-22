@@ -5,9 +5,9 @@
     <thead>
         <tr>
             <th width="5%">No</th>
-            <th width="25%">Nama</th>
+            <th width="45%">Nama</th>
             <th width="15%">NIP</th>
-            <th width="45%">Status</th>
+            <th width="25%">Status</th>
         </tr>
     </thead>
     <tbody>
@@ -23,3 +23,6 @@
         <?php }?>
     </tbody>
 </table>
+<div class="form-actions">
+    <a class="btn btn-success" href="<?php echo base_url()?>program/cetak_peserta_ang/<?php echo $program['id']?>">Cetak PDF</a>
+</div>
