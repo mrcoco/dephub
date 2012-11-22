@@ -34,7 +34,7 @@ else if ($this->uri->segment(3)=='list_user') {
             <?php foreach ($list as $number => $n):?>
             <tr><td><?php echo $list[$number][$item];?> </td>
                 <?php if ($this->uri->segment(3)=='list_user'){ ?>
-                    <td><?php /*echo 'Anggota biasa';*/if($list[$number]['userrole']==1) echo 'Admin'; else if($list[$number]['userrole']==2) echo "Uploader"; else echo "Anggota Biasa";?></td>
+                    <td><?php if($list[$number]['userrole']==1) echo 'Admin'; else if($list[$number]['userrole']==2) echo "Uploader"; else echo "Anggota Biasa";?></td>
                     
                 <?php }?>
                 

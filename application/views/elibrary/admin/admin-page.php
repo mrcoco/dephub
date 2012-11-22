@@ -57,7 +57,12 @@
         <strong>Histori Pesanan</strong>
     </a>
 </div>
-
+<div class="well span1" align="center">
+    <a href ="<?php echo site_url("elibrary/admin/list_buku_pinjam"); ?>">
+        <img src="assets/img/menu-icons/tambah-buku.png" />
+    </a>
+    <strong>List Buku<br /></strong>
+</div>
 
 
 

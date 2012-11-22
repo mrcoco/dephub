@@ -22,8 +22,16 @@ class Asrama extends CI_Controller{
         if(empty ($offset)) $offset=0;
 	$data['sub_title']='Check List Prasarana Asrama';
 
-	$var = $this->spr->get_check_list_asrama()->result_array();
-        $data['list']=$var;
+	$var = $this->spr->get_checklist_item()->result_array();
+    $data['item']=$var;
+	
+	$var2=null;
+	$kmr = $this->spr->count_clkamar();
+	for($i=1;$i<=$kmr;$i++) {
+		$var2[$i] = $this->spr->get_checklist_kamar_kamar($i)->result_array();
+	}
+    $data['list']=$var2;
+	
 	$this->template->display('asrama/list_asrama',$data);
     }
     

@@ -49,6 +49,7 @@ class Kamar extends CI_Controller {
         $data['sub_title'] = 'Tambah Kamar';
         $var['id'] = '';
         $var['nama'] = '';
+        $var['nama_kamar'] = '';
         $var['lantai'] = '';
         $var['sayap'] = '';
         $var['nomor'] = '';

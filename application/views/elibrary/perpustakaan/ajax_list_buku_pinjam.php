@@ -1,38 +1,35 @@
-<script>
-    function view_detail(num){
-            $.get("<?php echo base_url() ?>pegawai/detail_pegawai/"+num,function(result){
-                $('#display_dialog').html(result);
-                $('#display_dialog').modal('show');
-            })
-    }
-</script>
     
 <div id="display_dialog" class="modal hide modal-wide"></div>
 
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th width="5%" id="no">No</th>
-            <th width="30%" id="nama">Nama</th>
-            <th width="20%" id="nip">NIP</th>
-            <th width="45%">Aksi</th>
+                                    
+                                    <th >Judul</th>
+                                    <th>ISSN/ISBN</th>
+                                    <th>Kategori</th>
+                                    <th>Pengarang</th>
+                                    <th>Stok</th>
+                                    <th>aksi</th>
+
         </tr>
     </thead>
     <tbody id="body_table">
-<?php $no=$offset+1?>
-<?php foreach($array as $a){?>
+<?php $no=$offset+1; ?>
+<?php foreach($data as $a){?>
 <tr>
-    <td><?php echo $no?></td>
-    <td><?php echo $a['nama']?></td>
-    <td><?php echo $a['nip']?></td>
-    <td>
-        <button class="btn btn-mini" onclick="view_detail(<?php echo $a['id']; ?> )"><i class="icon-zoom-in"></i> Detail</button>
-        <a class="btn btn-mini" href="edit_pegawai/<?php echo $a['id']; ?>"><i class="icon-edit"></i> Ubah</a>
-        <a class="btn btn-mini btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $a['nama'] ?>')" href="delete_pegawai/<?php echo $a['id']; ?>"><i class="icon-remove"></i> Hapus</a>
-    </td>
-</tr>
+                                    
+                                    
+                                    <td><?php echo $a['title'];?></td>
+                                    <td><?php echo $a['issnisbn'];?></td>
+                                    <td><?php echo $a['categoryname'];?></td>
+                                    <td><?php echo $a['authorname'];?></td>
+                                    <td><?php echo $a['stock'];?></td>
+                                    <td><a href="<?php echo site_url("elibrary/perpustakaan/view")."/".$a['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Lihat</a></td>
+                                    
+  </tr>
 <?php $no++ ?>
-<?php }?>
+<?php } ?>
 </tbody>
 </table>
 <div id="footer">
@@ -42,6 +39,7 @@
             <li><a href="javascript:void(0)" onclick="load(1,'<?php echo $filter ?>')">Awal</a></li>
         <?php 
             $ac='';
+            
             if($cur_page<3){
                 if($num_page>5){
                     $max=5;
