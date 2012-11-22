@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 21, 2012 at 03:50 PM
+-- Generation Time: Nov 22, 2012 at 08:00 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -24,7 +24,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Table structure for table `tb_elib_author`
 --
-DROP TABLE IF EXISTS`tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_filetype`, `tb_elib_loan`, `tb_elib_queue`, `tb_elib_userrole`;
+DROP TABLE IF EXISTS `tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_filetype`, `tb_elib_loan`, `tb_elib_post`, `tb_elib_queue`, `tb_elib_userrole`;
 CREATE TABLE IF NOT EXISTS `tb_elib_author` (
   `idauthor` int(10) NOT NULL AUTO_INCREMENT,
   `authorname` varchar(50) NOT NULL,
@@ -270,6 +270,32 @@ INSERT INTO `tb_elib_loan` (`id`, `idpegawai`, `booksid`, `amount`, `loandate`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_elib_post`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_elib_post` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `posterid` int(11) NOT NULL,
+  `modifierid` int(2) NOT NULL,
+  `creationdate` date NOT NULL,
+  `modifieddate` date NOT NULL,
+  `status` int(2) NOT NULL,
+  `content` longtext NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `tb_elib_post`
+--
+
+INSERT INTO `tb_elib_post` (`id`, `title`, `posterid`, `modifierid`, `creationdate`, `modifieddate`, `status`, `content`) VALUES
+(8, 'Informasi', 4, 4, '2012-11-22', '2012-11-22', 1, '<p>Perpustakaan adalah tempat untuk mencari ilmu.</p>'),
+(9, 'Perpustakaan', 4, 4, '2012-11-22', '2012-11-22', 2, '<p>Tetapi, dengan koleksi dan penemuan media baru selain buku untuk menyimpan informasi, banyak perpustakaan kini juga merupakan tempat penimpanan dan/atau akses ke map, cetak atau hasil seni lainnya, mikrofilm, mikrofiche, tape audio, CD, LP, tape video dan DVD, dan menyediakan fasilitas umum untuk mengakses gudang data CD-ROM dan internet.<br />Perpustakaan dapat juga diartikan sebagai kumpulan informasi yang bersifat ilmu pengetahuan, hiburan, rekreasi, dan ibadah yang merupakan kebutuhan hakiki manusia.</p>');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_elib_queue`
 --
 
@@ -317,4 +343,5 @@ CREATE TABLE IF NOT EXISTS `tb_elib_userrole` (
 INSERT INTO `tb_elib_userrole` (`id`, `userrole`) VALUES
 (2, 1),
 (3, 2),
-(4, 1);
+(4, 1),
+(6, 1);
