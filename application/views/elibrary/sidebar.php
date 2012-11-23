@@ -14,7 +14,10 @@ $nama=ucwords(strtolower($this->session->userdata('nama')));
 <?php  if($this->session->userdata('elib_userrole')==1) { ?>
 			<li <?php if($t2=='admin') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/admin"); ?>"><i class="icon-list-alt <?php if($t2=='admin') echo 'icon-white'; ?>"></i>Administrasi</a></li>
 <?php }?>
+<?php  if($this->session->userdata('elib_userrole')>=1) { ?>
             <li <?php if($t3=='upload') echo 'class="active"'; ?>><a href="<?php echo site_url("elibrary/digital/upload"); ?>"><i class="icon-upload <?php if($t3=='upload') echo 'icon-white'; ?>"></i>Upload File</a></li>
+<?php }?>
+            <li><a href="<?php echo site_url("elibrary/perpustakaan/histori"); ?>"><i class="icon-list-alt"></i>Histori Saya</a></li>
             <li><a href="<?php echo site_url("elibrary/digital/logout"); ?>"><i class="icon-off"></i>Logout</a></li>
         </ul>
     </div>

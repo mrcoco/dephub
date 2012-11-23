@@ -71,8 +71,23 @@ class Perpustakaan extends CI_Controller {
                 
 
         }
-    public function notifikasi(){
-        
+    public function histori(){
+                if(!$this->session->userdata('is_login')){
+                    $this->session->set_flashdata('msg',$this->editor->alert_ok('Silahkan Login terlebih dahulu'));
+                    redirect (base_url().'elibrary');
+                }
+                   
+                $filter['1.idpegawai']=($this->session->userdata('id'));
+                $config=array();
+                $config["base_url"]= base_url()."elibrary/perpustakaan/histori/";
+                $config["total_rows"]=$this->elib->count_loan($filter);
+                $config["per_page"]=20;
+                $config["uri_segment"] = 4;
+                $this->pagination->initialize($config);
+                $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+		$data = array('loan' => $this->elib->get_loan($filter,$config["per_page"],$page));
+                $data["links"] = $this->pagination->create_links();
+                $this->template->display_lib('elibrary/perpustakaan/histori_pinjam', $data);
     }
     
 }

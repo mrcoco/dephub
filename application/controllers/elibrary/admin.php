@@ -659,7 +659,7 @@ class Admin extends CI_Controller {
                 redirect(base_url().'elibrary/digital/type');
             }
             else {
-                $data = array('bibliography' => $this->elib->get_bibliography_by_id($update['id']),
+                $data = array('bibliography' => $this->elib->get_bibliography_by(array('t1.id'=>$id)),
                 'category'=>$this->elib->get_category_by(),
                 'status'=>'Data tidak berhasil diubah');
                 $this->session->set_flashdata('msg',$this->editor->alert_ok('File gagal diubah'));
@@ -671,7 +671,7 @@ class Admin extends CI_Controller {
         
 
         function delete_bibliography($id){
-            $data = array('data' => $this->elib->get_bibliography_by_id($id));
+            $data = array('data' => $this->elib->get_bibliography_by(array('t1.id'=>$id)));
             $data['sub_title']='Kategori File';
             
             if($data['data']){
