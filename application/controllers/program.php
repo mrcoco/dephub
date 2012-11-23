@@ -13,6 +13,58 @@ class Program extends CI_Controller {
         $this->load->library('date');
         $this->thn_default=date('Y');
     }
+    function feedback_result($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+	$data['sub_title']='Rekap Evaluasi Diklat';
+        $data['result']=$this->slng->feedback_diklat($id)->result_array();
+        $kurikulum=array();
+        $sarpras=array();
+        $slng=array();
+        $catering=array();
+        $data['kurikulum']=0;
+        $data['sarpras']=0;
+        $data['slng']=0;
+        $data['catering']=0;
+        $data['n']=$this->slng->feedback_diklat($id)->num_rows();
+        if($data['n']!=0){
+            $i=1;
+            foreach($data['result'] as $r){
+                $kurikulum[$i]=($r['1a']+$r['1b']+$r['1c']+$r['1d']+$r['1e'])/5;
+                $sarpras[$i]=($r['2a']+$r['2b']+$r['2c']+$r['2d']+$r['2e']+$r['2f']+$r['2g']+$r['2h']+$r['2i']+$r['2j']+$r['2k']+$r['2l'])/12;
+                $slng[$i]=($r['3a']+$r['3b']+$r['3c']+$r['3d']+$r['3e']+$r['3f']+$r['3g']+$r['3h'])/8;
+                $catering[$i]=$r['catering'];
+                $data['kurikulum']+=$kurikulum[$i];
+                $data['sarpras']+=$sarpras[$i];
+                $data['slng']+=$slng[$i];
+                $data['catering']+=$catering[$i];
+                $i++;
+            }
+            $data['kurikulum']/=$data['n'];
+            $data['sarpras']/=$data['n'];
+            $data['slng']/=$data['n'];
+            $data['catering']/=$data['n'];
+        }
+        $this->template->display_with_sidebar('program/feedback_result','program',$data);
+    }
+    function feedback_result_pem($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+	$data['sub_title']='Rekap Evaluasi Pembicara';
+        $data['result']=$this->slng->feedback_pembicara($id)->row_array();
+        $data['saran']=$this->slng->feedback_saran_pembicara($id)->result_array();
+        $data['n']=$this->slng->feedback_saran_pembicara($id)->num_rows();
+//        echo '<pre>';print_r($data['result']);print_r($data['saran']);echo '</pre>';
+        $this->template->display_with_sidebar('program/feedback_result_pembicara','program',$data);
+    }
 
     function view_program($id) {
         $this->load->library('date');
@@ -112,7 +164,7 @@ class Program extends CI_Controller {
         }
 
 
-        $data['sub_title'] = 'Buat Program Baru di Diklat ' . $data['pil_diklat']['name'];
+        $data['sub_title'] = 'Buat Program Baru di ' . $data['pil_diklat']['name'];
         $this->template->display_with_sidebar('program/form_buat_program', 'diklat', $data);
     }
 
@@ -299,6 +351,90 @@ class Program extends CI_Controller {
         $this->template->display_with_sidebar('program/schedule_program', 'program', $data);
     }
 
+    function alokasi_kamar($id,$thn=''){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        //disini ngelist daftar peserta dulu, terus ada tombol alokasi kamar
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        
+        $data['title']='Alokasi Kamar Peserta Diklat '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'];
+        $data['list']=$this->slng->get_status_accept($id,$thn);
+        //get list kamar yg dialokasiin
+        $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);
+        $data['kamar']['']='-';
+        foreach($alokasi_kamar as $k){
+            $data['kamar'][$k['id_peserta']]=$k['id_kamar_asrama'];
+        }
+        $this->template->display_with_sidebar('program/alokasi_kamar', 'program', $data);
+    }
+    
+    function alokasi_kamar_process($id,$thn=''){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        $id_program=$id;
+        //$this->slng->clear_pemakaian_kamar($id);
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        $alokasi_asrama=$this->spr->get_alocated_gedung($id);
+        $in_asrama='(';
+        for($i=0;$i<count($alokasi_asrama);$i++){
+            $in_asrama.=$alokasi_asrama[$i]['id_asrama'];
+            if($i!=count($alokasi_asrama)-1){
+                $in_asrama.=', ';
+            }
+        }
+        //generate_range_date
+        $this->load->library('date');
+        $array_date=$this->date->createDateRangeArray($data['program']['tanggal_mulai'],$data['program']['tanggal_akhir']);
+        
+        $in_asrama.=')';
+        $this->slng->clear_pemakaian_kamar($id);
+        $list_kamar_available=$this->slng->get_vacant_kamar_in_date($in_asrama,$data['program']['tanggal_mulai'],$data['program']['tanggal_akhir']);
+        $peserta=$this->slng->get_status_accept($id,$thn);
+        
+        $batch_ins=array();
+        
+        $cur_kamar=0;
+        $cur_kamar_stok=$list_kamar_available[$cur_kamar]['bed'];
+        $prev_jenis_kelamin='';
+        while(count($peserta)>0){
+            $p = array_pop($peserta);
+            $id_peserta=$p['id_peserta'];
+            if($cur_kamar_stok>0&&$prev_jenis_kelamin==$p['jenis_kelamin']){
+                $id_kamar=$list_kamar_available[$cur_kamar]['id'];
+                $prev_jenis_kelamin=$p['jenis_kelamin'];
+                $cur_kamar_stok--;
+            }else{
+                $cur_kamar++;
+                $cur_kamar_stok=$list_kamar_available[$cur_kamar]['bed'];
+                $prev_jenis_kelamin='';
+                $id_kamar=$list_kamar_available[$cur_kamar]['id'];
+                $prev_jenis_kelamin=$p['jenis_kelamin'];
+                $cur_kamar_stok--;
+            }
+            foreach($array_date as $a){
+                $batch_ins[]=array(
+                    'id_kamar_asrama'=>$id_kamar,
+                    'id_program'=>$id_program,
+                    'id_peserta'=>$id_peserta,
+                    'tanggal'=>$a
+                );
+            }
+        }
+        $this->slng->insert_alokasi_kamar($batch_ins);
+        redirect(base_url().'program/alokasi_kamar/'.$id_program);
+    }
+    
     function print_schedule($id) {
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');

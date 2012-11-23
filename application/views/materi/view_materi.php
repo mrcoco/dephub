@@ -19,9 +19,7 @@
                 <ol>
                     <?php foreach($pengajar as $p){?>
                     <li>
-                        <a href="javascript:view_detail(<?php echo $p['id_pembicara'] ?>)" class="tip-right" title="Klik untuk detail">
                             <?php echo $key_pembicara[$p['id_pembicara']]?>
-                        </a>
                     </li>
                     <?php } ?>
                 </ol>                

@@ -65,6 +65,9 @@ class Template {
         }else{
             $data['_title'] = $this->_ci->session->userdata('detail');
         }
+        if(isset($data['sidebar'])){
+            $data['_sidebar']=$this->_ci->load->view('sidebar/sidebar_pes', $data, true);
+        }
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
         if($this->_ci->session->userdata('is_login_pes')){
             $data['_menu'] = $this->_ci->load->view('template/menubar_pes', $data, true);
