@@ -51,6 +51,20 @@ class Program extends CI_Controller {
         }
         $this->template->display_with_sidebar('program/feedback_result','program',$data);
     }
+    function feedback_result_pem($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+	$data['sub_title']='Rekap Evaluasi Pembicara';
+        $data['result']=$this->slng->feedback_pembicara($id)->row_array();
+        $data['saran']=$this->slng->feedback_saran_pembicara($id)->result_array();
+        $data['n']=$this->slng->feedback_saran_pembicara($id)->num_rows();
+//        echo '<pre>';print_r($data['result']);print_r($data['saran']);echo '</pre>';
+        $this->template->display_with_sidebar('program/feedback_result_pembicara','program',$data);
+    }
 
     function view_program($id) {
         $this->load->library('date');

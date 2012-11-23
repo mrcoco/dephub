@@ -12,6 +12,16 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->where('id_program',$id);
         return $this->db->get('feedback_diklat');
     }
+    function feedback_saran_pembicara($id){
+        $str_query='select saran FROM tb_feedback_pembicara WHERE id_program='.$id;
+        return $this->db->query($str_query);
+    }
+    function feedback_pembicara($id){
+        $str_query='select AVG(a) as a,AVG(b) as b,AVG(c) as c,AVG(d) as d,AVG(e) as e,AVG(f) as f,AVG(g) as g,
+            AVG(h) as h,AVG(i) as i,AVG(j) as j,AVG(k) as k,AVG(l) as l
+            FROM tb_feedback_pembicara WHERE id_program='.$id;
+        return $this->db->query($str_query);
+    }
     
     function getall_peserta($id_diklat,$thn=''){
         if($id_diklat!=-1){

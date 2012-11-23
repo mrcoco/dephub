@@ -27,6 +27,9 @@ class Mdl_pes extends CI_Model{
         $this->db->where('id',$kode);
         return $this->db->get('pegawai')->result_array();
     }
+    function insert_feedback_pembicara($data){
+        $this->db->insert('feedback_pembicara',$data);
+    }
     function insert_feedback_diklat($data){
         $this->db->insert('feedback_diklat',$data);
     }
