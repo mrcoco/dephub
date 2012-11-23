@@ -5,6 +5,7 @@ class Front extends CI_Controller{
         //buat ngilangin data session sebelumnya
         $this->load->model('mdl_penyelenggaraan','slng');
         $this->load->model('mdl_perencanaan','rnc');
+        $this->load->model('mdl_sarpras','spr');
         $this->load->model('mdl_pes','pes');
         $this->thn_def = date('Y');
     }
@@ -59,6 +60,7 @@ class Front extends CI_Controller{
     }
     
     function detail_diklat($id){
+        $data['sidebar']=true;
         $data['id']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
@@ -168,6 +170,25 @@ class Front extends CI_Controller{
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
         redirect(base_url().'pes/front/detail_diklat/'.$program['parent']);        
     }
+    function add_feedback_pembicara($id){
+        
+        $data['sub_title']='Evaluasi Pembicara';
+        $data['program']=$this->rnc->get_program_by_id($id);
+        if($data['program']){
+            $this->template->display_pes('pes/add_feedback_pembicara',$data);
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'pes/detail_diklat/'.$id);                    
+        }
+    }
+
+    function insert_feedback_pembicara(){
+        $id_program=$this->input->post('id_program');
+        $program=$this->rnc->get_program_by_id($id_program);
+        $this->pes->insert_feedback_diklat($_POST);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
+        redirect(base_url().'pes/front/detail_diklat/'.$program['parent']);        
+    }
 
     function edit_feedback_diklat($id_feedback){
         $data['sub_title']='Ubah Evaluasi Penyelenggaraan';
@@ -226,5 +247,61 @@ class Front extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Belum ada feedback/evaluasi yang dimasukkan'));
             redirect(base_url().'perencanaan/diklat/detail_diklat/'.$id);        
         }
-    }    
+    }
+    function ajax_get_form_pemateri_pembimbing($id) {
+        //query nama, id, dan jenis pembicara & pendamping
+        $data['qry_pemateri'] = $this->slng->get_pemateri($id);
+        $data['qry_pendamping'] = $this->slng->get_pendamping($id);
+        echo $this->load->view('pes/ajax_pemateri', $data, TRUE);
+    }
+    function schedule_program($id) {
+        $data['sidebar']=true;
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$data['program']['parent']);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+
+        $pil_materi = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $data['pil_materi'][-1] = '-- Pilih Materi --';
+        foreach ($pil_materi as $p) {
+            $data['pil_materi'][$p['id_materi']] = $p['judul'];
+        }
+
+        $pil_kelas = $this->spr->get_kelas_by_size($data['diklat']['jumlah_peserta'])->result_array();
+
+        $data['kelas'] = array(-1 => '-- Pilih Kelas --');
+        foreach ($pil_kelas as $k) {
+            $data['kelas'][$k['id']] = $k['nama'];
+        }
+
+        $data['schedule'] = $this->slng->get_schedule($id);
+
+        $json_array = array();
+        if (count($data['schedule']) != 0) {
+            //proses json
+            $i = 0;
+            foreach ($data['schedule'] as $item) {
+                $i++;
+                $isi['id'] = $i;
+                $isi['start'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_mulai']);
+                $isi['end'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_selesai']);
+                if ($item['jenis'] == 'non materi')
+                    $isi['title'] = $item['nama_kegiatan'];
+                else
+                    $isi['title'] = $data['pil_materi'][$item['id_materi']];
+                $json_array[] = $isi;
+            }
+            $data['id_max'] = $i;
+        }else {
+            $data['id_max'] = 1;
+        }
+        $data['id'] = $id;
+        $data['sub_title'] = 'Jadwal Tentative';
+        $data['data_json'] = $json_array;
+        $this->template->display_pes('pes/schedule_program', $data);
+    }
+    
 }
