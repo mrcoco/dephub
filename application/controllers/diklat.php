@@ -263,8 +263,10 @@ class Diklat extends CI_Controller{
         }
         $data['sub_title']='List Pendaftar '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id,$thn);
+        
+        
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
-        $data['pil_angkatan']['']='---';
+        $data['pil_angkatan'][-1]='---';
         foreach($pil_angkatan as $p){
             $data['pil_angkatan'][$p['id']]='Angkt. '.$p['angkatan'];
         }
@@ -328,6 +330,27 @@ class Diklat extends CI_Controller{
         redirect(base_url().'diklat/terima_peserta/'.$id);
     }
     
+    function alokasi_kamar_program($id,$thn=''){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        //ngelist program yg ada di diklat ini
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+	$data['sub_title']='Pilih Program Untuk Alokasi Kamar';
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $list_program=$this->rnc->get_program_by_parent($id,$thn);
+        foreach($list_program as $p){
+            $data['list_program'][$p['id']]=$data['program']['name'].' Angkatan '.$p['angkatan'].' '.$p['tahun_program'];
+        }
+        $this->template->display_with_sidebar('diklat/alokasi_kamar_program','diklat',$data);
+    }
+    
     function ajax_cek_daftar($id_diklat,$nip_pegawai,$thn){
 //        echo current_url().'<br/>';
 //        echo $nip_pegawai;
@@ -343,7 +366,6 @@ class Diklat extends CI_Controller{
             $data['status']='accept';
         }if($status==2){
             $data['status']='waiting';
-            $data['id_program']='';
         }else if($status==0){
             $data['status']='daftar';
             $data['id_program']='';
@@ -359,14 +381,20 @@ class Diklat extends CI_Controller{
         $data['id_program']=$this->input->post('id_program');
         $clause['id_peserta']=$this->input->post('id_peserta');
         $clause['id_diklat']=$this->input->post('id_diklat');
-        
+        //get status peserta
+        $status=$this->slng->get_status($clause);
         //pengecekan jumlah pendaftar di angkatan yg dipilih
-        $num_pendaftar = $this->slng->hitung_peserta($data['id_program']);
-        if($num_pendaftar<$max_peserta){
+        if($status=='accept'){
+            $num_pendaftar = $this->slng->hitung_peserta($data['id_program']);
+            if($num_pendaftar<$max_peserta){
+                $this->slng->toggle_status($clause,$data);
+                echo true;
+            }else{
+                echo false;
+            }
+        }else if($status=='waiting'){
             $this->slng->toggle_status($clause,$data);
             echo true;
-        }else{
-            echo false;
         }
     }
     

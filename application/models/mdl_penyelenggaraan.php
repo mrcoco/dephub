@@ -55,6 +55,19 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get('registrasi')->result_array();
     }
     
+    function get_status_accept($id_diklat,$thn=''){
+        if($id_diklat!=-1){
+            $this->db->where('registrasi.id_program',$id_diklat);
+        }
+        if($thn!=''){
+            $this->db->where('registrasi.tahun_daftar',$thn);
+        }
+        $this->db->where('status like','accept');
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        return $this->db->get('registrasi')->result_array();
+    }
+    
     function get_one_peserta($id_diklat,$nip_pegawai,$thn){
         $this->db->where('pegawai.nip',$nip_pegawai);
         $this->db->where('registrasi.id_diklat',$id_diklat);
@@ -495,6 +508,48 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function hitung_peserta($id_program){
         $this->db->where('id_program',$id_program);
+        $this->db->where('status','accept');
         return $this->db->count_all_results('registrasi');
+    }
+    
+    function get_status($clause){
+        $this->db->where($clause);
+        return $this->db->get('registrasi')->row()->status;
+    }
+    
+    function get_pemakaian_kamar($id){
+        $this->db->select('id_peserta, id_kamar_asrama');
+        $this->db->group_by('id_peserta');
+        $this->db->distinct();
+        $this->db->where('id_program',$id);
+        return $this->db->get('sarpras_pemakaian_kamar')->result_array();
+    }
+    
+    function clear_pemakaian_kamar($id){
+        $this->db->where('id_program',$id);
+        $this->db->delete('sarpras_pemakaian_kamar');
+    }
+    
+    function get_vacant_kamar_in_date($in_asrama,$tgl_awal,$tgl_akhir){
+        $str_query='SELECT * 
+                FROM tb_sarpras_kamar
+                WHERE tb_sarpras_kamar.id NOT 
+                IN (
+
+                SELECT DISTINCT tb_sarpras_kamar.id
+                FROM tb_sarpras_kamar
+                LEFT JOIN tb_sarpras_pemakaian_kamar ON tb_sarpras_kamar.id = tb_sarpras_pemakaian_kamar.id_kamar_asrama
+                WHERE tanggal
+                BETWEEN  \''.$tgl_awal.'\'
+                AND  \''.$tgl_akhir.'\'
+                GROUP BY tb_sarpras_kamar.id
+                ) and asrama in '.$in_asrama.'
+            ';
+        //echo $str_query;
+        return $this->db->query($str_query)->result_array();
+    }
+    
+    function insert_alokasi_kamar($batch_data){
+        $this->db->insert_batch('sarpras_pemakaian_kamar',$batch_data);
     }
 }
