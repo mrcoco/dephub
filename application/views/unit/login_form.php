@@ -13,12 +13,9 @@ $(document).ready(function(){
     });
 });
 </script>
-<form action="<?php echo base_url()?>unit/front/login_process" method="post">
-    Instansi : <?php echo form_dropdown('instansi',$ins,'','id="instansi"')?>
-    <br/>
-    Unit : <input type="text" name="unit" id="unit"/>
-    <br/>
-    Password : <input type="password" name="password"/>
-    <br/>
-    <input type="submit" value="login"/>
+<form class="well span3" action="<?php echo base_url()?>unit/front/login_process" method="post">
+    <label>Instansi</label><?php echo form_dropdown('instansi',$ins,'','id="instansi"')?>
+    <label>Unit Kerja</label> <input type="text" name="unit" id="unit" placeholder="Masukkan unit kerja"/>
+    <label>Password</label> <input type="password" name="password" placeholder="Masukkan password"/>
+    <button class="btn btn-primary" type="submit">Login</button>
 </form>

@@ -116,7 +116,7 @@ class Front extends CI_Controller{
     }
     
     function login_form(){
-        $data['title']='Login peserta';
+        $data['title']='Login Peserta';
         $this->template->display('pes/login_form',$data);
     }
     
