@@ -3,7 +3,7 @@
 <?php for($i=0;$i<count($qry_pemateri);$i++){ ?>
 <?php $q=$qry_pemateri[$i]?>
 <tr class="tr_widyaiswara">
-    <td>Pembicara</td>
+    <td>Pengajar</td>
     <?php if($i<count($qry_pemateri)-1) {?>
     <td>: <input type="text" class="nama_pmbcr" name="nama_pmbcr" value="<?php echo $q['nama']?>"/><input type="hidden" name="id_pmbcr[]" value="<?php echo $q['id_pembicara']?>"/> <span class="del_pmbcr btn btn-mini btn-danger">Hapus</span></td>
     <?php } else {?>
@@ -13,7 +13,7 @@
 <?php }?>
 <?php } else {?>
     <tr class="tr_widyaiswara">
-        <td>Pembicara</td>
+        <td>Pengajar</td>
         <td>: <input type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/> <span class="add_pmbcr btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
     </tr>
 <?php } ?>

@@ -21,6 +21,8 @@ Dari responden <?php echo $n ?> peserta diperoleh hasil evaluasi penyelenggaraan
         <td>: <?php echo number_format($catering,2,',','') ?></td>
     </tr>
 </table>
+<hr />
+<p class="lead">Masukan dari peserta</p>
 <table id="list" class="table table-condensed table-bordered table-striped">
     <thead>
         <tr>

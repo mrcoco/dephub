@@ -5,8 +5,19 @@ class Front extends CI_Controller{
         //buat ngilangin data session sebelumnya
         $this->load->model('mdl_penyelenggaraan','slng');
         $this->load->model('mdl_perencanaan','rnc');
+        $this->load->model('mdl_sarpras','spr');
         $this->load->model('mdl_pes','pes');
         $this->thn_def = date('Y');
+        if(!$this->session->userdata('is_login_pes')){
+            $data_session=array(
+                'nama_unit',
+                'kode_unit',
+                'is_login_pes'
+            );
+            $this->session->unset_userdata($data_session);
+            $this->session->sess_destroy();
+            $this->login_form();
+        }
     }
     
     function index(){
@@ -27,7 +38,11 @@ class Front extends CI_Controller{
     function info_peserta(){
         $id=$this->session->userdata('id_pes');
         $data['title']='Info peserta';
-        $data['program']=$this->pes->get_diklat_pes($id);
+        $data['diklat']=$this->pes->get_diklat_pes($id);
+        for($i=0;$i<sizeof($data['diklat']);$i++){
+            $pro=$this->rnc->get_program_by_id($data['diklat'][$i]['id_program']);
+            $data['diklat'][$i]['angkatan']=$pro['angkatan'];
+        }
         $data['history']=$this->slng->get_history($id);
         $this->template->display_pes('pes/info',$data);
     }
@@ -55,13 +70,14 @@ class Front extends CI_Controller{
     }
     
     function detail_diklat($id){
+        $data['sidebar']=true;
         $data['id']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['feedback'] = $this->pes->get_feedback_diklat_program($id);
+        $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$id);
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
@@ -87,17 +103,6 @@ class Front extends CI_Controller{
         $this->template->display_pes('pes/feedback_diklat',$data);
     }
     
-    function schedule_diklat($id){
-        $data['id']=$id;
-        $data['program']=$this->rnc->get_diklat_by_id($id);
-        if(!$data['program']){
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
-            redirect(base_url().'diklat/daftar_diklat/');
-        }
-	$data['sub_title']='Jadwal Diklat';
-        $this->template->display_pes('pes/schedule_diklat',$data);
-    }
-    
     function sarpras_diklat($id){
         $data['id']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
@@ -110,7 +115,7 @@ class Front extends CI_Controller{
     }
     
     function login_form(){
-        $data['title']='Login peserta';
+        $data['title']='Login Peserta';
         $this->template->display('pes/login_form',$data);
     }
     
@@ -145,22 +150,83 @@ class Front extends CI_Controller{
 	$this->session->sess_destroy();
         redirect(base_url().'pes/front');
     }
-    function add_feedback_diklat($id_program){
+    function add_feedback_diklat($id){        
         $data['sub_title']='Evaluasi Kinerja Penyelenggaraan';
-        $data['program']=$this->rnc->get_diklat_by_id($id_program);
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         if($data['program']){
             $this->template->display_pes('pes/add_feedback_diklat',$data);
         }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
-            redirect(base_url().'pes/detail_diklat/'.$id_program);                    
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'pes/detail_diklat/'.$id);                    
         }
     }
 
     function insert_feedback_diklat(){
-        $data['id_program']=$this->input->post('id_program');
+        $id_program=$this->input->post('id_program');
+        $program=$this->rnc->get_program_by_id($id_program);
         $this->pes->insert_feedback_diklat($_POST);
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
-        redirect(base_url().'pes/front/detail_diklat/'.$data['id_program']);        
+        redirect(base_url().'pes/front/detail_diklat/'.$program['parent']);        
+    }
+    function json_pengajar($id_materi){
+        $data['pengajar']=$this->rnc->get_pengajar($id);
+        $pembicara=$this->slng->get_all_pembicara();
+        $data['pembicara']=array();
+        $data['key_pembicara']=array();
+        $data['id']=array();
+        foreach($pembicara as $p){
+            if($p['nama_peg']!=''){
+                $data['pembicara'][]=$p['nama_peg'];
+                $data['id'][$p['nama_peg']]=$p['id'];
+                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
+            }else{
+                $data['pembicara'][]=$p['nama_dostam'];
+                $data['id'][$p['nama_dostam']]=$p['id'];
+                $data['key_pembicara'][$p['id']]=$p['nama_dostam'];
+            }
+        }
+        echo json_encode($data['key_pembicara']);
+    }
+    function add_feedback_pengajar($id){
+        
+        $data['sub_title']='Evaluasi Pengajar';
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $materi = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $data['mat']=array();
+        $data['mat'][-1]='--Pilih Materi--';
+        foreach($materi as $i){
+            $data['mat'][$i['id_materi']]=$i['judul'];
+        }
+        $pembicara=$this->slng->get_all_pembicara();
+        $data['pembicara']=array();
+        $data['key_pembicara']=array();
+        $data['key_pembicara'][-1]='--Pilih Pengajar--';
+        foreach($pembicara as $p){
+            if($p['nama_peg']!=''){
+                $data['pembicara'][]=$p['nama_peg'];
+                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
+            }else{
+                $data['pembicara'][]=$p['nama_dostam'];
+                $data['key_pembicara'][$p['id']]=$p['nama_dostam'];
+            }
+        }
+        if($data['program']){
+            $this->template->display_pes('pes/add_feedback_pembicara',$data);
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'pes/detail_diklat/'.$id);                    
+        }
+    }
+
+    function insert_feedback_pengajar(){
+        $id_program=$this->input->post('id_program');
+        $program=$this->rnc->get_program_by_id($id_program);
+        $_POST['tanggal']=$this->date->savetgl($_POST['tanggal']);
+        $this->pes->insert_feedback_pembicara($_POST);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
+        redirect(base_url().'pes/front/detail_diklat/'.$program['parent']);        
     }
 
     function edit_feedback_diklat($id_feedback){
@@ -220,5 +286,61 @@ class Front extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Belum ada feedback/evaluasi yang dimasukkan'));
             redirect(base_url().'perencanaan/diklat/detail_diklat/'.$id);        
         }
-    }    
+    }
+    function ajax_get_form_pemateri_pembimbing($id) {
+        //query nama, id, dan jenis pembicara & pendamping
+        $data['qry_pemateri'] = $this->slng->get_pemateri($id);
+        $data['qry_pendamping'] = $this->slng->get_pendamping($id);
+        echo $this->load->view('pes/ajax_pemateri', $data, TRUE);
+    }
+    function schedule_program($id) {
+        $data['sidebar']=true;
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$data['program']['parent']);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+
+        $pil_materi = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $data['pil_materi'][-1] = '-- Pilih Materi --';
+        foreach ($pil_materi as $p) {
+            $data['pil_materi'][$p['id_materi']] = $p['judul'];
+        }
+
+        $pil_kelas = $this->spr->get_kelas_by_size($data['diklat']['jumlah_peserta'])->result_array();
+
+        $data['kelas'] = array(-1 => '-- Pilih Kelas --');
+        foreach ($pil_kelas as $k) {
+            $data['kelas'][$k['id']] = $k['nama'];
+        }
+
+        $data['schedule'] = $this->slng->get_schedule($id);
+
+        $json_array = array();
+        if (count($data['schedule']) != 0) {
+            //proses json
+            $i = 0;
+            foreach ($data['schedule'] as $item) {
+                $i++;
+                $isi['id'] = $i;
+                $isi['start'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_mulai']);
+                $isi['end'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_selesai']);
+                if ($item['jenis'] == 'non materi')
+                    $isi['title'] = $item['nama_kegiatan'];
+                else
+                    $isi['title'] = $data['pil_materi'][$item['id_materi']];
+                $json_array[] = $isi;
+            }
+            $data['id_max'] = $i;
+        }else {
+            $data['id_max'] = 1;
+        }
+        $data['id'] = $id;
+        $data['sub_title'] = 'Jadwal Tentative';
+        $data['data_json'] = $json_array;
+        $this->template->display_pes('pes/schedule_program', $data);
+    }
+    
 }

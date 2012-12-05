@@ -42,6 +42,7 @@
             maxDate:maxdate,
             businessHours :{start: 5, end: 22, limitDisplay: true },
             daysToShow : 7,
+            readonly:true,
             //      switchDisplay: {'1 day': 1, '3 next days': 3, 'work week': 5, 'full week': 7},
             title: function(daysToShow) {
                 return daysToShow == 1 ? '%date%' : '%start% - %end%';
@@ -59,14 +60,19 @@
                 }
             },
             draggable : function(calEvent, $event) {
-                return calEvent.readOnly != true;
-                //return false;
+                return calEvent.readOnly = true;
+//                calEvent.readOnly = true;
+//                return false;
             },
             resizable : function(calEvent, $event) {
-                return calEvent.readOnly != true;
-                //return false;
+                return calEvent.readOnly = true;
+//                calEvent.readOnly = true;
+//                return false;
             },
             eventNew : function(calEvent, $event){
+                if (calEvent.readOnly) {
+                    return false;
+                }
                 var $dialogContent = $("#event_edit_container");
                 resetForm($dialogContent);
                 var startField = $dialogContent.find("select[name='mulai']").val(calEvent.start);
@@ -161,6 +167,9 @@
 
             },
             eventDrop : function(calEvent, $event) {
+                if (calEvent.readOnly) {
+                    return;
+                }
                 //console.log($event.end);
                 //console.log(calEvent.end);
                 data_post={
@@ -176,6 +185,10 @@
                 $.post("<?php echo base_url() ?>program/ajax_update_waktu", data_post);
             },
             eventResize : function(calEvent, $event) {
+
+                if (calEvent.readOnly) {
+                    return;
+                }
                 data_post={
                     old_start : $event.start.getHours()+':'+$event.start.getMinutes()+':'+$event.start.getSeconds(),
                     old_end : $event.end.getHours()+':'+$event.end.getMinutes()+':'+$event.end.getSeconds(),
@@ -234,7 +247,7 @@
                             row_lokasi.val(json['lokasi']);
                         }
                         
-                        $.get("<?php echo base_url() ?>program/ajax_get_form_pemateri_pembimbing/"+json['id'],function(data){
+                        $.get("<?php echo base_url() ?>pes/front/ajax_get_form_pemateri_pembimbing/"+json['id'],function(data){
                             $dialogContent.find('#form_event').append(data);
                             jum_col_pmbcr=$dialogContent.find('.nama_pmbcr').length+1;
                             jum_col_pndmpng=$dialogContent.find('.nama_pndmpng').length+1;
@@ -269,85 +282,12 @@
                         modal: true,
                         width: 'auto',
                         height: 500,
-                        title: "Edit - " + calEvent.title,
+                        title: "Lihat - " + calEvent.title,
                         close: function() {
                             $dialogContent.dialog("destroy");
                             $dialogContent.hide();
                             $('#calendar').weekCalendar("removeUnsavedEvents");
                         },
-                        buttons: {
-                            save : function() {
-                                //fungsi ajax buat ngupdate db
-                                calEvent.start = new Date(startField.val());
-                                calEvent.end = new Date(endField.val());
-                                calEvent.title = titleField.val();
-                                mulai=$dialogContent.find("select[name='mulai'] option:selected").text();
-                                selesai=$dialogContent.find("select[name='selesai'] option:selected").text();
-                                pil_jenis=$dialogContent.find("select[name='jenis'] option:selected").val();
-                                if(pil_jenis=='materi'){
-                                    titleField=$dialogContent.find("select[name='nama']");
-                                    calEvent.title = titleField.find('option:selected').text();
-                                    jenis_tempat = $dialogContent.find("select[name='jenis_tempat']").val();
-                                    if(jenis_tempat=='kelas'){
-                                        id_ruangan = $dialogContent.find("select[name='id_ruangan']").val();
-                                    }else if(jenis_tempat=='luar kelas'){
-                                        lokasi = $dialogContent.find("input[name='lokasi']").val();
-                                    }
-                                }else if(pil_jenis=='non materi'){
-                                    console.log('Masuk non materi');
-                                    titleField=$dialogContent.find("input[name='nama']");
-                                    calEvent.title = titleField.val();
-                                }
-                                data_post = {
-                                    idschedule : id_schedule,
-                                    id_program : idprogram,
-                                    jam_mulai : mulai,
-                                    jam_selesai : selesai,
-                                    tanggal : $dialogContent.find(".date_holder").text(),
-                                    jenis : pil_jenis,
-                                    materi : titleField.val()
-                                }
-
-                                if(pil_jenis=='materi'){
-                                    data_post.jenis_tempat=jenis_tempat;
-                                    if(jenis_tempat=='kelas'){
-                                        data_post.id_ruangan=id_ruangan;
-                                        data_post.lokasi='';
-                                    }else if(jenis_tempat=='luar kelas'){
-                                        data_post.id_ruangan=0;
-                                        lokasi = $dialogContent.find("input[name='lokasi']").val();
-                                    }
-                                    
-                                    arr_pmbcr = [];
-                                    arr_pndmpng = [];
-                                    $dialogContent.find("input[name^='id_pmbcr']").each(function(index){
-                                        arr_pmbcr.push($(this).val());
-                                    });
-                                    $dialogContent.find("input[name^='pendamping']").each(function(index){
-                                        arr_pndmpng.push($(this).val());
-                                    });
-
-                                    data_post.id_pembicara = arr_pmbcr;
-                                    data_post.pendamping=arr_pndmpng;
-                                }
-                                $.post("<?php echo base_url() ?>program/ajax_edit_all",data_post,function(data){
-                                    console.log(data);
-                                });
-                                $calendar.weekCalendar("updateEvent", calEvent);
-                                $dialogContent.dialog("close");
-                            },
-                            "delete" : function() {
-                                //fungsi ajax buat delete db
-                                $.get("<?php echo base_url() ?>program/ajax_delete_schedule/"+id_schedule,function(data){
-                                    console.log(data);
-                                });
-                                $calendar.weekCalendar("removeEvent", calEvent.id);
-                                $dialogContent.dialog("close");
-                            },
-                            cancel : function() {
-                                $dialogContent.dialog("close");
-                            }
-                        }
                     }).show()
                 });
 
@@ -563,6 +503,8 @@
                     $('.del_pndmpng').live('click',function(){
                         $(this).parent().parent().remove();
                     });
+                    $('.nama_pmbcr').attr('disabled','');
+                    $('.nama_pmbcr').attr('disabled','');
 </script>
 <p align="center" class="lead">
     <?php echo $diklat['name']. ' Angkatan '.$program['angkatan'] ?><br />
@@ -575,7 +517,7 @@
     <table>
         <tr class="tr_widyaiswara">
             <td>Pengajar</td>
-            <td>: <input type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/> <span class="add_pmbcr btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
+            <td>: <input disabled type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/></td>
         </tr>
     </table>
 </div>
@@ -583,7 +525,7 @@
     <table>
         <tr class="tr_widyaiswara">
             <td>Pendamping</td>
-            <td>: <input type="text" name="pendamping[]"/> <span class="add_pndmpng btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
+            <td>: <input disabled type="text" name="pendamping[]"/></td>
         </tr>
     </table>
 </div>
@@ -593,25 +535,25 @@
         <input type="hidden" id="id_program" name="id_program" value="<?php echo $program['id'] ?>"/>
         <table id="form_event">
             <tr>
-                <td width="180">Tanggal</td>
+                <td width="20%">Tanggal</td>
                 <td>
                     : <span class="date_holder"></span>
                 </td>
             </tr>
             <tr>
                 <td>Jam mulai</td>
-                <td>: <select id="mulai" name="mulai"><option value="">Pilih jam mulai</option></select>
+                <td>: <select id="mulai" name="mulai" disabled><option value="">Pilih jam mulai</option></select>
                 </td>
             </tr>
             <tr>
                 <td>Jam selesai</td>
-                <td>: <select id="selesai" name="selesai"><option value="">Pilih jam selesai</option></select>
+                <td>: <select id="selesai" name="selesai" disabled><option value="">Pilih jam selesai</option></select>
                 </td>
             </tr>
             <tr>
                 <td>Jenis acara</td>
                 <td>: 
-                    <select id="jenis" name="jenis">
+                    <select id="jenis" name="jenis" disabled>
                         <option value="">Pilih jenis acara</option>
                         <option value="materi">Materi</option>
                         <option value="non materi">Non Materi</option>
@@ -620,12 +562,12 @@
             </tr>
             <tr class="pil_materi hide">
                 <td>Nama acara</td>
-                <td>: <?php echo form_dropdown('nama',$pil_materi,'','id="nama"')?></td>
+                <td>: <?php echo form_dropdown('nama',$pil_materi,'','id="nama" disabled')?></td>
             </tr>
             <tr class="pil_tempat hide">
                 <td>Jenis tempat</td>
                 <td>: 
-                    <select id="jenis_tempat" name="jenis_tempat">
+                    <select id="jenis_tempat" name="jenis_tempat" disabled>
                         <option value="">Pilih tempat</option>
                         <option value="kelas">Kelas</option>
                         <option value="luar kelas">Luar Kelas</option>
@@ -634,15 +576,15 @@
             </tr>
             <tr class="pil_kelas hide">
                 <td>Nama ruangan</td>
-                <td>: <?php echo form_dropdown('id_ruangan',$kelas,$program['kelas'])?></td>
+                <td>: <?php echo form_dropdown('id_ruangan',$kelas,$program['kelas'],' disabled')?></td>
             </tr>
             <tr class="lokasi hide">
                 <td>Lokasi</td>
-                <td>: <input type="text" name="lokasi"/></td>
+                <td>: <input type="text" name="lokasi" disabled/></td>
             </tr>
             <tr class="pil_libur hide">
                 <td>Nama kegiatan</td>
-                <td>: <?php echo form_input('nama','','id="nama"')?></td>
+                <td>: <?php echo form_input('nama','','id="nama" disabled')?></td>
             </tr>
         </table>
     </form>

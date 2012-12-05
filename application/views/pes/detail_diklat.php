@@ -1,7 +1,6 @@
 <h2><?php echo $program['name'] ?></h2>
-<div class="row">
-    <div class="span9">
-    <table class="table table-striped">
+
+    <table class="table table-striped table-condensed">
         <tbody>
             <tr>
                 <th width="30%">Kategori Program</th><td><?php echo $pil_kategori[$program['parent']] ?></td>
@@ -62,14 +61,3 @@
             </tr>
         </tbody>
     </table>
-    </div>
-    <div class="span3">
-        <div class="well sidemenu">
-            <ul class="nav nav-list">
-                <li><a href="pes/front/add_feedback_diklat/<?php echo $program['id'] ?>">Evaluasi Diklat</a></li>
-                <li><a>Evaluasi Pembicara</a></li>
-                <li><a>Jadwal</a></li>
-            </ul>
-        </div>
-    </div>
-</div>

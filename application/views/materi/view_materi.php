@@ -1,7 +1,7 @@
 <div id="display_dialog" class="modal hide modal-wide"></div>
 <p align="center" class="lead"><?php echo $materi['judul']?></p>
 <div class="well-small">
-    <a href="materi/assign/<?php echo $materi['id'] ?>" class="btn btn-mini"><i class="icon-user"></i> Assign Dosen</a>
+    <a href="materi/assign/<?php echo $materi['id'] ?>" class="btn btn-mini"><i class="icon-user"></i> Assign Pengajar</a>
     <a href="materi/edit/<?php echo $materi['id'] ?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
     <a href="materi/delete/<?php echo $materi['id'] ?>"  class="btn btn-mini btn-danger"
     onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $materi['judul'] ?>?')">
@@ -14,14 +14,12 @@
             <th width="15%">Judul</th>
             <td><?php echo $materi['judul']; ?></td>
         </tr>
-            <th>Daftar Dosen</th>
+            <th>Daftar Pengajar</th>
             <td>
                 <ol>
                     <?php foreach($pengajar as $p){?>
                     <li>
-                        <a href="javascript:view_detail(<?php echo $p['id_pembicara'] ?>)" class="tip-right" title="Klik untuk detail">
                             <?php echo $key_pembicara[$p['id_pembicara']]?>
-                        </a>
                     </li>
                     <?php } ?>
                 </ol>                

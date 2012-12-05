@@ -17,10 +17,9 @@ $().ready(function() {
 <div class="alert alert-error fade in none">
     <h4>Error!</h4>
 </div>
-<p align="center" class="lead">Saran/Evaluasi Peserta
-    <a href="pes/front/detail_diklat/<?php echo $program['id']?>" class="tip" rel="tooltip" title="Klik untuk melihat detail diklat">
-        <?php echo strtoupper($program['name']) ?>
-    </a>
+<p align="center" class="lead">
+    Evaluasi Kinerja Penyelenggaraan<br/>
+    <?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
 </p>
 <ul class="nav nav-tabs" id="myTab">
     <li class="active"><a href="#kurikulum" data-toggle="tab">Kurikulum Diklat</a></li>

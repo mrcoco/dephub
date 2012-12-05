@@ -55,7 +55,7 @@
         if(nama==''){
             alert('Harap isi nama');
         }else if(kategori==-1){
-            alert('Harap isi kategori pembicara');
+            alert('Harap isi kategori pengajar');
         }else if(nip==''){
             if($('#kategori').val()==1){
                 alert('Harap isi nip');

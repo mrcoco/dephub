@@ -24,5 +24,5 @@
     </tbody>
 </table>
 <div class="form-actions">
-    <a href="<?php echo base_url()?>pembicara_int/add_pembicara" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
+    <a href="<?php echo base_url()?>pengajar_int/add_pengajar" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
 </div>
