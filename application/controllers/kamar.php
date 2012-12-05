@@ -65,6 +65,9 @@ class Kamar extends CI_Controller {
         $var['status'] = '';
         $var['gedung'] = $id;
         $data['kamar'] = $var;
+		
+		
+		
         $this->template->display('kamar/form_kamar', $data);
     }
 

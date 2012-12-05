@@ -50,6 +50,7 @@ class Kelas extends CI_Controller{
         //$reg['id']=$this->spr->count_kelas('')+1;
         $this->spr->insert_kelas($_POST);
 
+		
         $this->session->set_flashdata('msg', $this->editor->alert_ok('kelas telah ditambahkan'));
         redirect(base_url() . 'kelas');
     }

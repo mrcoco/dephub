@@ -31,6 +31,7 @@
                 onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $list[$i]['nama'] ?>?')">
                     <i class="icon-trash"></i> Hapus</a>
             </td>
+		</tr>
         <?php }?>
     </tbody>
 </table>

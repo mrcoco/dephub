@@ -76,7 +76,7 @@
 		-->
 		<form name="form_edit" id="form_reg" action="asrama/update_checklist/<?php echo $i ?>" method="POST">
 			<td><?php echo $i?></td>
-			<td><?php echo $is['nama_kamar']?></td>
+			<td><?php echo $is['nama'].$is['nomor']?></td>
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='lampu')
 				{
