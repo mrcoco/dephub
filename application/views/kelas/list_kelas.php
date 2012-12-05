@@ -1,5 +1,5 @@
 
-	<h4>List Kelas</h4>
+	<h4>Daftar Kelas</h4>
 	
 	
 	

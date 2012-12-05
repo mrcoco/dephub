@@ -128,7 +128,7 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['judul']='DAFTAR CALON PESERTA '.strtoupper($data['diklat']['name']).'<br />
+        $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
             KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>ANGKATAN '.$data['program']['angkatan'];
         $data['list']=$this->slng->get_terima_peserta($id,$thn);
         $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);

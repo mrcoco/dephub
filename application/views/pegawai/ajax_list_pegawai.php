@@ -14,7 +14,7 @@
 <?php foreach($array as $a){?>
 <tr>
     <td><?php echo $no?></td>
-    <td><a class="tip" rel="tooltip" title="Klik untuk detail" href="javascript:view_detail(<?php echo $a['id']; ?> )"><?php echo $a['nama']?></a></td>
+    <td><a class="tip-right" title="Klik untuk detail" href="javascript:view_detail(<?php echo $a['id']; ?>)"><?php echo $a['nama']?></a></td>
     <td><?php echo $a['nip']?></td>
     <td>
         
@@ -59,3 +59,8 @@
         </ul>
     </div>
 </div>
+<script>
+    $(function(){
+        $('.tip-right').tooltip({placement:'right'});
+    });
+</script>
