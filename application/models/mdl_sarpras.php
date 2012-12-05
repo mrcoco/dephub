@@ -8,7 +8,8 @@ class Mdl_sarpras extends CI_Model {
     private $table_gedung = 'sarpras_gedung';
     private $table_kamar = 'sarpras_kamar';
     private $table_kamar_status = 'sarpras_kamar_status';
-    private $table_pemakaian_asrama = 'sarpras_pemakaian_kamar';
+    //private $table_pemakaian_asrama = 'sarpras_pemakaian_kamar';
+    private $table_pemakaian_asrama = 'tb_sarpras_status_pemakaian_kamar';
     private $table_pemakaian_kelas = 'sarpras_pemakaian_kelas';
     //private $table_check_list_asrama = 'sarpras_checklist_kamar';
     private $table_check_list_kelas = 'sarpras_checklist_kelas';
@@ -34,6 +35,46 @@ class Mdl_sarpras extends CI_Model {
 	}
     }
 
+	
+    /*     * ********
+     * Kamaritem *
+     * ******** */
+
+    function get_kamaritem($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_checklist_kamar_item);
+	} else {
+	    $this->db->where('id', $var);
+	    return $this->db->get($this->table_checklist_kamar_item);
+	}
+    }
+	
+	
+    function get_kamaritem_item($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_checklist_kamar_item);
+	} else {
+	    $this->db->where('item', $var);
+	    return $this->db->get($this->table_checklist_kamar_item);
+	}
+    }
+
+    function insert_kamaritem($data) {
+	$this->db->insert($this->table_checklist_kamar_item, $data);
+	return $this->db->insert_id();
+    }
+
+    function update_kamaritem($var, $data) {
+	$this->db->where('id', $var);
+	return $this->db->update($this->table_checklist_kamar_item, $data);
+    }
+
+    function delete_kamaritem($var) {
+	$this->db->where('id', $var);
+	return $this->db->delete($this->table_checklist_kamar_item);
+    }
+
+	
     /*     * ********
      * Asrama *
      * ******** */
@@ -170,7 +211,31 @@ class Mdl_sarpras extends CI_Model {
 
     // Pemakaian Kamar
     //----------------
-    function get_pemakaian_kamar($var=NULL) {
+    // function get_pemakaian_kamar($var=NULL) {
+	// if ($var == NULL) {
+	    // return $this->db->get($this->table_pemakaian_asrama);
+	// } else {
+	    // $this->db->where('id', $var);
+	    // return $this->db->get($this->table_pemakaian_asrama);
+	// }
+    // }
+
+    // function insert_pemakaian_kamar($data) {
+	// $this->db->insert($this->table_pemakaian_asrama, $data);
+	// return $this->db->insert_id();
+    // }
+
+    // function update_pemakaian_kamar($var, $data) {
+	// $this->db->where('id', $var);
+	// return $this->db->update($this->table_pemakaian_asrama, $data);
+    // }
+
+    // function delete_pemakaian_kamar($var) {
+	// $this->db->where('id', $var);
+	// return $this->db->delete($this->table_pemakaian_asrama);
+    // }
+	
+	function get_pemakaian_kamar($var=NULL) {
 	if ($var == NULL) {
 	    return $this->db->get($this->table_pemakaian_asrama);
 	} else {
@@ -178,7 +243,16 @@ class Mdl_sarpras extends CI_Model {
 	    return $this->db->get($this->table_pemakaian_asrama);
 	}
     }
-
+	
+	function get_pemakaian_kamar_idkamar($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_pemakaian_asrama);
+	} else {
+	    $this->db->where('id_kamar', $var);
+	    return $this->db->get($this->table_pemakaian_asrama);
+	}
+    }
+	
     function insert_pemakaian_kamar($data) {
 	$this->db->insert($this->table_pemakaian_asrama, $data);
 	return $this->db->insert_id();
@@ -193,6 +267,7 @@ class Mdl_sarpras extends CI_Model {
 	$this->db->where('id', $var);
 	return $this->db->delete($this->table_pemakaian_asrama);
     }
+	
 
     /**********
      * Gedung *

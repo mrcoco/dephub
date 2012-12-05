@@ -24,7 +24,7 @@
 
 <form name="form_reg" id="form_reg" action="
     <?php 
-    if($sub_title=='Tambah Kamar')
+    if($type=='add')
         echo "kamar/add_kamar_process"; 
     else
         echo "kamar/edit_kamar_process/".$kamar['id']; 
@@ -131,7 +131,7 @@
     <div class="form-actions">
         <input type="button" class="btn btn-large btn-primary pull-right"      
     <?php 
-    if($sub_title=='Tambah Kamar')
+    if($type=='add')
         echo "value=\"Daftar\" onclick=\"validate_form()\""; 
     else
         echo "value=\"Edit\" onclick=\"validate_form()\"";
