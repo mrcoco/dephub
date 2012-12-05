@@ -29,10 +29,10 @@ $(document).ready(function(){
     <h4>Error!</h4>
 </div>
 <p align="center" class="lead">
-    Evaluasi Pembicara<br/>
+    Evaluasi Pengajar<br/>
     <?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
 </p>
-<form id="form1" action="pes/front/insert_feedback_pembicara" method="post" class="form-horizontal">
+<form id="form1" action="pes/front/insert_feedback_pengajar" method="post" class="form-horizontal">
     <fieldset>
         <div class="control-group">
             <label class="control-label">Materi</label>
@@ -205,7 +205,7 @@ $(document).ready(function(){
             </div>
         </div>
         <div class="form-actions">
-            <input type="submit" onclick="return confirm('Apakah Anda yakin telah mengisi seluruh evaluasi pembicara?')" class="btn btn-primary btn-large" value="Simpan"/>
+            <input type="submit" onclick="return confirm('Apakah Anda yakin telah mengisi seluruh evaluasi pengajar?')" class="btn btn-primary btn-large" value="Simpan"/>
             <input type="button" class="btn btn-large" value="Cancel" onclick="history.go(-1)" />
         </div>
     </fieldset>

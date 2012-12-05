@@ -110,3 +110,6 @@ Font Face
     font-style: normal;
 
 }
+.navbar ul.nav a{
+    font-size: larger;
+}

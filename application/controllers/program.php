@@ -58,7 +58,7 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-	$data['sub_title']='Rekap Evaluasi Pembicara';
+	$data['sub_title']='Rekap Evaluasi Pengajar';
         $data['result']=$this->slng->feedback_pembicara($id)->row_array();
         $data['saran']=$this->slng->feedback_saran_pembicara($id)->result_array();
         $data['n']=$this->slng->feedback_saran_pembicara($id)->num_rows();
@@ -561,7 +561,7 @@ class Program extends CI_Controller {
                     $sheet->mergeCellsByColumnAndRow($kol_print, $row_mulai, $kol_print, $row_selesai);
                     $isi = $ds['judul_kegiatan']."\n";
                     if($ds['jenis']=='materi'){
-                        $isi.='Pembicara : '."\n";
+                        $isi.='Pengajar : '."\n";
                         if($ds['ada_pembicara']){
                             $no=1;
                             foreach($ds['list_pembicara'] as $p){

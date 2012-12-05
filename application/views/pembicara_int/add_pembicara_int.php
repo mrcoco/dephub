@@ -9,11 +9,11 @@
         $('#body_table').empty();
         $('#body_table').append('<center>Loading... <img src="<?php echo base_url()?>assets/img/spinner.gif"/></center>');
         if(filter!=''){
-            $.get('<?php echo base_url()?>pembicara_int/ajax_list/'+page+'/'+filter, function(result){
+            $.get('<?php echo base_url()?>pengajar_int/ajax_list/'+page+'/'+filter, function(result){
                 $('#body_table').html(result);
             });
         }else{
-            $.get('<?php echo base_url()?>/pembicara_int/ajax_list/'+page, function(result){
+            $.get('<?php echo base_url()?>/pengajar_int/ajax_list/'+page, function(result){
                 $('#body_table').empty();
                 $('#body_table').html(result);
             });
@@ -22,10 +22,10 @@
     function status(jenis,id){
         $('#jenis'+id).text('');
         $('#jenis'+id).append('<img src="<?php echo base_url()?>assets/img/loading_animation.gif" width=15 height=15/>');
-        $.get('<?php echo base_url()?>pembicara_int/update_status/'+jenis+'/'+id,function(result){
+        $.get('<?php echo base_url()?>pengajar_int/update_status/'+jenis+'/'+id,function(result){
             text_jenis='';
             if(jenis==0){
-                text_jenis='Bukan Pembicara'
+                text_jenis='Bukan Pengajar'
             }else if(jenis==1){
                 text_jenis='Non-widyaiswara'
             }else if(jenis==2){

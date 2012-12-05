@@ -1,6 +1,6 @@
 <h2><?php echo $program['name'] ?></h2>
 <?php if($n==0){?>
-Belum ada peserta yang mengisi evaluasi pembicara
+Belum ada peserta yang mengisi evaluasi pengajar
 <?php }else{ ?>
 <p>Dari responden <?php echo $n ?> peserta diperoleh hasil evaluasi penyelenggaraan sebagai berikut.</p>
 <table>

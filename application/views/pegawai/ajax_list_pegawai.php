@@ -14,10 +14,10 @@
 <?php foreach($array as $a){?>
 <tr>
     <td><?php echo $no?></td>
-    <td><?php echo $a['nama']?></td>
+    <td><a class="tip" rel="tooltip" title="Klik untuk detail" href="javascript:view_detail(<?php echo $a['id']; ?> )"><?php echo $a['nama']?></a></td>
     <td><?php echo $a['nip']?></td>
     <td>
-        <button class="btn btn-mini" onclick="view_detail(<?php echo $a['id']; ?> )"><i class="icon-zoom-in"></i> Detail</button>
+        
         <a class="btn btn-mini" href="edit_pegawai/<?php echo $a['id']; ?>"><i class="icon-edit"></i> Ubah</a>
         <a class="btn btn-mini btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $a['nama'] ?>')" href="delete_pegawai/<?php echo $a['id']; ?>"><i class="icon-remove"></i> Hapus</a>
     </td>
