@@ -36,9 +36,7 @@
                     'mulai':mulai,
                     'akhir':akhir
                 };
-                console.log(data);
                 $.post('<?php echo base_url()?>program/ajax_cek_kelas',data,function(res){
-                    console.log(res);
                     if(res!='true'){
                         alert('Kelas telah terpakai pada rentang tanggal yang dipilih');
                         $('#kelas').val('-1');

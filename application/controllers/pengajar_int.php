@@ -1,5 +1,5 @@
 <?php
-class Pembicara_int extends CI_Controller{
+class Pengajar_int extends CI_Controller{
     function __construct() {
         parent::__construct();
         if(!$this->session->userdata('is_login')){
@@ -22,13 +22,13 @@ class Pembicara_int extends CI_Controller{
         $this->template->display('pembicara_int/list_pembicara_int',$data);
     }
     
-    function add_pembicara(){
+    function add_pengajar(){
         if($this->session->userdata('id_role')>2){
             redirect(base_url().'error/error_priv');
         }
         
         //bentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
-        $data['sub_title']='List Pegawai';
+        $data['sub_title']='Daftar Pegawai Transportasi';
         $this->template->display('pembicara_int/add_pembicara_int',$data);
     }
     

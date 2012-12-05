@@ -92,7 +92,7 @@ class Materi extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         $data['materi']=$this->rnc->get_materi($id);
-        $data['sub_title']='Assign Dosen';
+        $data['sub_title']='Assign Pengajar';
         $data['pengajar']=$this->rnc->get_pengajar($id);
         $pembicara=$this->slng->get_all_pembicara();
         $data['pembicara']=array();

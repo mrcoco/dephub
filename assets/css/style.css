@@ -258,3 +258,6 @@ li.klik{
 li.klik a{
     font-weight: normal;
 }
+.navbar ul.nav a{
+    font-size: larger;
+}

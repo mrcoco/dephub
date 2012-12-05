@@ -15,7 +15,7 @@ class Diklat extends CI_Controller{
     function index(){
         $this->daftar_diklat();
     }
-    
+        
     function daftar_diklat($thn=''){
         if($thn==''){
             $thn=$this->thn_default;
@@ -41,7 +41,6 @@ class Diklat extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['feedback'] = $this->rnc->get_feedback_sarpras_program($id);
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
         $data['pil_kategori']=array();
@@ -227,7 +226,7 @@ class Diklat extends CI_Controller{
         }
         $data['arr_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pangkat']=$this->rnc->get_pangkat_gol();
-        $data['sub_title']='Registrasi Diklat '.$data['program']['name'];
+        $data['sub_title']='Registrasi '.$data['program']['name'];
         $this->template->display_with_sidebar('diklat/registrasi','diklat',$data);
         
     }
@@ -264,8 +263,10 @@ class Diklat extends CI_Controller{
         }
         $data['sub_title']='List Pendaftar '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id,$thn);
+        
+        
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
-        $data['pil_angkatan']['']='---';
+        $data['pil_angkatan'][-1]='---';
         foreach($pil_angkatan as $p){
             $data['pil_angkatan'][$p['id']]='Angkt. '.$p['angkatan'];
         }
@@ -329,6 +330,27 @@ class Diklat extends CI_Controller{
         redirect(base_url().'diklat/terima_peserta/'.$id);
     }
     
+    function alokasi_kamar_program($id,$thn=''){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        //ngelist program yg ada di diklat ini
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+	$data['sub_title']='Pilih Program Untuk Alokasi Kamar';
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $list_program=$this->rnc->get_program_by_parent($id,$thn);
+        foreach($list_program as $p){
+            $data['list_program'][$p['id']]=$data['program']['name'].' Angkatan '.$p['angkatan'].' '.$p['tahun_program'];
+        }
+        $this->template->display_with_sidebar('diklat/alokasi_kamar_program','diklat',$data);
+    }
+    
     function ajax_cek_daftar($id_diklat,$nip_pegawai,$thn){
 //        echo current_url().'<br/>';
 //        echo $nip_pegawai;
@@ -344,7 +366,6 @@ class Diklat extends CI_Controller{
             $data['status']='accept';
         }if($status==2){
             $data['status']='waiting';
-            $data['id_program']='';
         }else if($status==0){
             $data['status']='daftar';
             $data['id_program']='';
@@ -360,14 +381,20 @@ class Diklat extends CI_Controller{
         $data['id_program']=$this->input->post('id_program');
         $clause['id_peserta']=$this->input->post('id_peserta');
         $clause['id_diklat']=$this->input->post('id_diklat');
-        
+        //get status peserta
+        $status=$this->slng->get_status($clause);
         //pengecekan jumlah pendaftar di angkatan yg dipilih
-        $num_pendaftar = $this->slng->hitung_peserta($data['id_program']);
-        if($num_pendaftar<$max_peserta){
+        if($status=='accept'){
+            $num_pendaftar = $this->slng->hitung_peserta($data['id_program']);
+            if($num_pendaftar<$max_peserta){
+                $this->slng->toggle_status($clause,$data);
+                echo true;
+            }else{
+                echo false;
+            }
+        }else if($status=='waiting'){
             $this->slng->toggle_status($clause,$data);
             echo true;
-        }else{
-            echo false;
         }
     }
     
@@ -432,6 +459,7 @@ class Diklat extends CI_Controller{
         $this->load->library('date');
         $this->load->library('excel');
         $this->load->library('lib_perencanaan');
+        $this->load->model('mdl_sarpras','spr');
         
         $this->excel->setActiveSheetIndex(0);
         $this->excel->getActiveSheet()->setTitle('Jadwal '.$thn);
@@ -531,8 +559,90 @@ class Diklat extends CI_Controller{
         $arr_tree=array();
         $arr_program=$this->rnc->get_all_program($thn);
         
-        $this->lib_perencanaan->cetak_excel($row,$col,$sheet,$arr_program);
+        $row=$this->lib_perencanaan->cetak_excel($row,$col,$sheet,$arr_program);
         
+        $row_keterangan=$row+1;
+        $col=1;
+        
+        //mencetak header keterangan  samping kiri
+        
+        //mencetak header total jumlah peserta
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan, $col+2, $row_keterangan);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan, 'Jumlah Total Peserta');
+        
+        //Mencetak header kapasitas kamar
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+1, $col+1, $row_keterangan+1);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+1)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+1)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+1, 'Total Kapasitas Kamar');
+        $num_kamar=$this->spr->count_bed();
+        $sheet->setCellValueByColumnAndRow($col+2, $row_keterangan+1, $num_kamar);
+        //Mencetak header sisa kamar
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+2, $col+2, $row_keterangan+2);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+2)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+2)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+2, 'Sisa Kamar');
+        
+        //Mencetak header kebutuhan kelas
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+3, $col+2, $row_keterangan+3);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+3)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+3)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+3, 'Jumlah Kebutuhan Kelas');
+        
+        //Mencetak header kapasitas kelas
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+4, $col+1, $row_keterangan+4);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+4)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+4)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+4, 'Kapasitas Kelas');
+        $num_kelas=$this->spr->count_all_kelas();
+        $sheet->setCellValueByColumnAndRow($col+2, $row_keterangan+4, $num_kelas);
+        
+        //Mencetak header sisa kelas
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+5, $col+2, $row_keterangan+5);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+5)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+5)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+5, 'Jumlah Sisa Kelas');
+        
+        //Mecetak keterangan ke samping
+        
+        //Menyiapkan data-data
+        $thn=date('Y');
+        $tgl_1 =  date_create_from_format('Y-m-d',$thn.'-01-01');
+        $tgl_31 = date_create_from_format('Y-m-d',$thn.'-12-31');
+        
+        
+        $idx_tgl_1=date_format($tgl_1,'z');
+        $idx_tgl_31=date_format($tgl_31,'z');
+        
+        $col_awal=$idx_tgl_1+6;
+        $col_akhir=$idx_tgl_31+6;
+        
+        $arr_program=$this->rnc->get_all_program($this->thn_default);
+//        foreach($arr_program as $a){
+//            
+//        }
+//        die();
+//        
+//        for($col_now=$col_awal;$col_now<=$col_akhir;$col_now++){
+//            
+//        }
+        
+        
+        //cetak ke file
         $filename = 'jadwal pelatihan.xlsx'; //save our workbook as this file name
         header('Content-Type: application/vnd.ms-excel'); //mime type
         header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name

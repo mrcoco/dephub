@@ -25,7 +25,7 @@ class Front extends CI_Controller{
     }
     
     function login_form(){
-        $data['title']='Login unit';
+        $data['title']='Login Instansi';
         $instansi=$this->slng->getall_instansi();
         $data['ins']=array();
         $data['ins'][-1]='--Pilih Instansi--';

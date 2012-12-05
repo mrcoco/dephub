@@ -18,7 +18,7 @@
 <?php foreach($array as $a){?>
 <?php
     if($a['jenis']==''){
-        $a['jenis_t']='Bukan Pembicara';
+        $a['jenis_t']='Bukan Pengajar';
     }else{
         if($a['jenis']=='1'){
             $a['jenis_t']='Non-widyaiswara';
