@@ -65,7 +65,7 @@ class Kamar extends CI_Controller {
         $var['status'] = '';
         $var['gedung'] = $id;
         $data['kamar'] = $var;
-		
+		$data['type']='add';
 		
 		
         $this->template->display('kamar/form_kamar', $data);
@@ -94,6 +94,7 @@ class Kamar extends CI_Controller {
         }
         //menampilkan form untuk edit data kamar
         $data['sub_title'] = 'Edit Kamar';
+		$data['type']='edit';
         $var = $this->spr->get_kamar($id)->result_array();
         $data['kamar'] = $var[0];
         //var_dump($data['kamar']);

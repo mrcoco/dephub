@@ -39,6 +39,7 @@ class Gedung extends CI_Controller {
         $data['sub_title'] = 'Tambah Gedung';
         $var['id'] = $this->spr->count_gedung('') + 1;
         $var['nama'] = '';
+		$data['type']='add';
         $data['gedung'] = $var;
         $this->template->display('gedung/form_gedung', $data);
     }
@@ -60,6 +61,7 @@ class Gedung extends CI_Controller {
         }
         //menampilkan form untuk edit data gedung
         $data['sub_title']='Edit Gedung';
+		$data['type']='edit';
         $var=$this->spr->get_gedung($id)->result_array();
         $data['gedung']=$var[0];
         $this->template->display('gedung/form_gedung',$data);

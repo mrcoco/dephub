@@ -26,38 +26,14 @@
 				$ac++;
 		}?>
 		<tr>
-			<th rowspan='2'>No</th>
-			<th rowspan='2'>ID Kamar</th>
-            <th colspan='<?php echo $lampu ?>'><div align="center">Lampu</div></th>
-            <th colspan='<?php echo $toilet ?>'><div align="center">Toilet</div></th>
-            <th colspan='<?php echo $ac ?>'><div align="center">AC</div></th>
-			<?php for($i=0;$i<count($item);$i++) {
-				if($item[$i]['kategori']=='')
-				{?>
-				<th rowspan='2'><div align="center"><?php echo $item[$i]['item'] ?></div></th>
-			<?php }}?>
-			
-			<th rowspan='2'><div align="center">%</div></th>
-			<th rowspan='2'><div align="center">Aksi</div></th>
-		</tr>
-		<tr>
-			<?php for($i=0;$i<count($item);$i++) {
-				if($item[$i]['kategori']=='lampu')
-				{?>
-				<th><div align="center"><?php echo $item[$i]['item'] ?></div></th>
-			<?php }}?>
-			
-			<?php for($i=0;$i<count($item);$i++) {
-				if($item[$i]['kategori']=='toilet')
-				{?>
-				<th><div align="center"><?php echo $item[$i]['item'] ?></div></th>
-			<?php }}?>
-			
-			<?php for($i=0;$i<count($item);$i++) {
-				if($item[$i]['kategori']=='ac')
-				{?>
-				<th><div align="center"><?php echo $item[$i]['item'] ?></div></th>
-			<?php }}?>
+			<th>No</th>
+			<th>ID Kamar</th>
+            <th><div align="center">Lampu</div></th>
+            <th><div align="center">Toilet</div></th>
+            <th><div align="center">AC</div></th>
+            <th><div align="center">Lain-lain</div></th>
+			<th><div align="center">%</div></th>
+			<th><div align="center">Aksi</div></th>
 		</tr>
 		
         
@@ -77,57 +53,65 @@
 		<form name="form_edit" id="form_reg" action="asrama/update_checklist/<?php echo $i ?>" method="POST">
 			<td><?php echo $i?></td>
 			<td><?php echo $is['nama'].$is['nomor']?></td>
+			<td>
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='lampu')
 				{
-					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
+					echo "<input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
 					{
 						$total++;
 						echo " checked";
 					}
-					echo "/></td>";
+					echo "/>".$item[$j]['item']."<br/>";
 				}
 			}?>
+			</td>
 			
+			<td>
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='toilet')
 				{
-					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
+					echo "<input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
 					{
 						$total++;
 						echo " checked";
 					}
-					echo "/></td>";
+					echo "/>".$item[$j]['item']."<br/>";
 				}
 			}?>
+			</td>
 			
+			<td>
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='ac')
 				{
-					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
+					echo "<input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
 					{
 						$total++;
 						echo " checked";
 					}
-					echo "/></td>";
+					echo "/>".$item[$j]['item']."<br/>";
 				}
 			}?>
+			</td>
 			
+			<td>
 			<?php for($j=0;$j<count($item);$j++) {
 				if($item[$j]['kategori']=='')
 				{
-					echo "<td><input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
+					echo "<input type=\"checkbox\" name=\"".$list[$i][$j]['id_item']."\" value=\"1\"";
 					if($list[$i][$j]['status']!=0)
 					{
 						$total++;
 						echo " checked";
 					}
-					echo "/></td>";
+					echo "/>".$item[$j]['item']."<br/>";
 				}
 			}?>
+			</td>
 			<td><?php echo number_format(($total/count($item)*100),2,',','.')."%" ?></td>
 			<td><input type="submit" class="btn btn-mini btn-primary pull-right" value="Save"/></td>
 		</form>
