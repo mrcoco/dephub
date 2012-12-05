@@ -496,6 +496,7 @@ class Diklat extends CI_Controller{
         $this->load->library('date');
         $this->load->library('excel');
         $this->load->library('lib_perencanaan');
+        $this->load->model('mdl_sarpras','spr');
         
         $this->excel->setActiveSheetIndex(0);
         $this->excel->getActiveSheet()->setTitle('Jadwal '.$thn);
@@ -595,8 +596,90 @@ class Diklat extends CI_Controller{
         $arr_tree=array();
         $arr_program=$this->rnc->get_all_program($thn);
         
-        $this->lib_perencanaan->cetak_excel($row,$col,$sheet,$arr_program);
+        $row=$this->lib_perencanaan->cetak_excel($row,$col,$sheet,$arr_program);
         
+        $row_keterangan=$row+1;
+        $col=1;
+        
+        //mencetak header keterangan  samping kiri
+        
+        //mencetak header total jumlah peserta
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan, $col+2, $row_keterangan);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan, 'Jumlah Total Peserta');
+        
+        //Mencetak header kapasitas kamar
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+1, $col+1, $row_keterangan+1);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+1)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+1)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+1, 'Total Kapasitas Kamar');
+        $num_kamar=$this->spr->count_bed();
+        $sheet->setCellValueByColumnAndRow($col+2, $row_keterangan+1, $num_kamar);
+        //Mencetak header sisa kamar
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+2, $col+2, $row_keterangan+2);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+2)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+2)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+2, 'Sisa Kamar');
+        
+        //Mencetak header kebutuhan kelas
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+3, $col+2, $row_keterangan+3);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+3)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+3)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+3, 'Jumlah Kebutuhan Kelas');
+        
+        //Mencetak header kapasitas kelas
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+4, $col+1, $row_keterangan+4);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+4)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+4)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+4, 'Kapasitas Kelas');
+        $num_kelas=$this->spr->count_all_kelas();
+        $sheet->setCellValueByColumnAndRow($col+2, $row_keterangan+4, $num_kelas);
+        
+        //Mencetak header sisa kelas
+        $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+5, $col+2, $row_keterangan+5);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+5)
+                    ->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+        $sheet->getStyleByColumnAndRow($col, $row_keterangan+5)
+                ->getFont()->setBold(true);
+        $sheet->setCellValueByColumnAndRow($col, $row_keterangan+5, 'Jumlah Sisa Kelas');
+        
+        //Mecetak keterangan ke samping
+        
+        //Menyiapkan data-data
+        $thn=date('Y');
+        $tgl_1 =  date_create_from_format('Y-m-d',$thn.'-01-01');
+        $tgl_31 = date_create_from_format('Y-m-d',$thn.'-12-31');
+        
+        
+        $idx_tgl_1=date_format($tgl_1,'z');
+        $idx_tgl_31=date_format($tgl_31,'z');
+        
+        $col_awal=$idx_tgl_1+6;
+        $col_akhir=$idx_tgl_31+6;
+        
+        $arr_program=$this->rnc->get_all_program($this->thn_default);
+//        foreach($arr_program as $a){
+//            
+//        }
+//        die();
+//        
+//        for($col_now=$col_awal;$col_now<=$col_akhir;$col_now++){
+//            
+//        }
+        
+        
+        //cetak ke file
         $filename = 'jadwal pelatihan.xlsx'; //save our workbook as this file name
         header('Content-Type: application/vnd.ms-excel'); //mime type
         header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name

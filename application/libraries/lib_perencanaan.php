@@ -131,17 +131,16 @@ class Lib_perencanaan {
                         //cetak ke samping
                         $idx_hari_mulai = date_format($date1,'z');
                         $idx_hari_selesai = date_format($date2,'z');
-
+                        
                         //ngijoin cell, rumusnya kolom=$idx_hari+6
-                        for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
-                            $style_aktif = array( 
-                                'fill' => array( 
-                                    'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-                                    'color' => array('rgb'=>'00FF00')
-                                    )
-                                );
-                            $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
-                        }
+                        $sheet->mergeCellsByColumnAndRow($idx_hari_mulai+6, $row, $idx_hari_selesai+6, $row);
+                        $style_aktif = array( 
+                            'fill' => array( 
+                                'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+                                'color' => array('rgb'=>$this->gen_hexcolor($parent))
+                                )
+                            );
+                        $sheet->getStyleByColumnAndRow(($idx_hari_mulai+6), $row)->applyFromArray($style_aktif);
                     }
                 }else{
                     $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
@@ -155,6 +154,20 @@ class Lib_perencanaan {
                 $this->cetak_excel($row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name']);
             }
         }
+        return $row;
+    }
+    
+    function gen_hexcolor($parent){
+        $array_hex=array(10=>'A',11=>'B',12=>'C',13=>'D',14=>'E',15=>'F');
+        $rgb='';
+        for($i=16;$i<22;$i++){
+            $x=($parent*$i)%16;
+            if($x>9){
+                $x=$array_hex[$x];
+            }
+            $rgb.=$x;
+        }
+        return $rgb;
     }
     
     function overview($array,$id,$field){

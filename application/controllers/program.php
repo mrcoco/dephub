@@ -299,6 +299,7 @@ class Program extends CI_Controller {
         $this->template->display_with_sidebar('program/schedule_program', 'program', $data);
     }
 
+    
     function alokasi_kamar($id,$thn=''){
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');
@@ -544,66 +545,6 @@ class Program extends CI_Controller {
         $obj_writer = new PHPExcel_Writer_Excel2007($this->excel);
         $obj_writer->save('php://output');
         
-
-//        //menghitung awal minggu
-//        $idx_hari_awal = date('w',strtotime($data['program']['tanggal_mulai']));
-//        $time_awal_minggu = strtotime ( '-'.$idx_hari_awal.'day' , strtotime ( $data['program']['tanggal_mulai'] ) ) ;
-//        $awal_minggu = date ( 'Y-m-d' , $time_awal_minggu );
-//        
-//        //menghitung akhir minggu
-//        $idx_hari_akhir = date('w',strtotime($data['program']['tanggal_akhir']));
-//        $time_akhir_minggu = strtotime ( '+'.(6-$idx_hari_awal).'day' , strtotime ( $data['program']['tanggal_akhir'] ) ) ;
-//        $akhir_minggu = date ( 'Y-m-d' , $time_akhir_minggu );
-//        
-//        $arr_tanggal = $this->date->createDateRangeArray($awal_minggu, $akhir_minggu);
-//        
-//
-//        $this->excel->setActiveSheetIndex(0);
-//        $this->excel->getActiveSheet()->setTitle('Jadwal Pelatihan');
-//        $this->excel->getDefaultStyle()->getFont()->setName('Times New Roman')->setSize(9);
-//        $sheet = $this->excel->getActiveSheet();
-//        $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4)->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-//
-//
-//        //bikin header jadwal
-//
-//        $col = 0;
-//
-//        $row = 2;
-//        $judul = strtoupper('Jadwal Tentative ' . $data['program']['name']);
-//        $sheet->setCellValueByColumnAndRow($col, $row, $judul);
-//        $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
-//
-//
-//        $row = 3;
-//        $judul = strtoupper('Kementrian Perhubungan ' . $data['program']['tahun_program']);
-//        $sheet->setCellValueByColumnAndRow($col, $row, $judul);
-//        $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
-//
-//        $row = 5;
-//        $judul = $this->date->konversi5($data['program']['tanggal_mulai']) . ' S/D ' . $this->date->konversi5($data['program']['tanggal_akhir']);
-//        $sheet->setCellValueByColumnAndRow($col, $row, $judul);
-//        $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
-//
-//        //print harinya
-//        
-//        
-//        
-//
-//
-//        $filename = 'schedule diklat.xlsx'; //save our workbook as this file name
-//        header('Content-Type: application/vnd.ms-excel'); //mime type
-//        header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name
-//        header('Cache-Control: max-age=0'); //no cache
-//
-//        $obj_writer = new PHPExcel_Writer_Excel2007($this->excel);
-//        $obj_writer->save('php://output');
     }
 
     function ajax_pembicara($id_materi) {

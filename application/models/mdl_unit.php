@@ -14,7 +14,16 @@ class Mdl_unit extends CI_Model{
         return $this->db->get('unit_kerja')->row()->kode;
     }
     
-    function get_list_unit($parent){
+    function get_all_unit(){
+        return $arr= $this->db->get('unit_kerja')->result_array();
+    }
+    
+    function get_byid_unit($id){
+        $this->db->where('id',$id);
+        return $arr= $this->db->get('unit_kerja')->row_array();
+    }
+    
+    function get_list_unit(){
         $this->db->where('kode_inst',$parent);
         $arr= $this->db->get('unit_kerja')->result_array();
         $retarr=array();
@@ -24,6 +33,20 @@ class Mdl_unit extends CI_Model{
         return $retarr;
     }
     
+    function del_unit($id){
+        $this->db->where('id',$id);
+        $this->db->delete('unit_kerja');
+    }
+    
+    function insert_unit($data){
+        $this->db->insert('unit_kerja',$data);
+    }
+    
+    function update_unit($data,$clause){
+        $this->db->where('id',$clause);
+        $this->db->update('unit_kerja',$data);
+    }
+   
     function get_peserta_by_unit($kode,$thn=''){
         if($thn!=''){
             $this->db->where('registrasi.tahun_daftar',$thn);

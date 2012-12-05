@@ -314,11 +314,16 @@ class Mdl_sarpras extends CI_Model {
 	return $this->db->delete($this->table_kamar);
     }
     
-    function count_kamar($filter){
+    function count_kamar($filter=''){
         $str_query='select count(tb_sarpras_kamar.id) as num FROM tb_sarpras_kamar';
         if($filter!=''){
             $str_query.=' where (nama like "%'.$filter.'%")';
         }
+        return $this->db->query($str_query)->row()->num;
+    }
+    
+    function count_bed(){
+        $str_query='select sum(tb_sarpras_kamar.bed) as num FROM tb_sarpras_kamar';
         return $this->db->query($str_query)->row()->num;
     }
     
@@ -378,6 +383,10 @@ class Mdl_sarpras extends CI_Model {
     function delete_kelas($var) {
 	$this->db->where('id', $var);
 	return $this->db->delete($this->table_kelas);
+    }
+    
+    function count_all_kelas(){
+        return $this->db->count_all($this->table_kelas);
     }
 
     // Check List Kelas
