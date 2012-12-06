@@ -62,6 +62,7 @@
                 <a href='kamar/delete_kamar/<?php echo $list[$i]['id']?>' class='btn btn-mini btn-danger'
                    onclick="return confirm('Apakah anda yakin ingin menghapus?');"><i class="icon-remove"></i> Hapus</a>
             </td>
+		</tr>
         <?php }?>
     </tbody>
 </table>

@@ -34,6 +34,7 @@ class Kelas extends CI_Controller{
         if (empty($id))
             $id = '';
         $data['sub_title'] = 'Tambah Kelas';
+		$data['type']='add';
         $var['id'] = '';
         $var['nama'] = '';
         $var['kapasitas'] = '';
@@ -50,6 +51,7 @@ class Kelas extends CI_Controller{
         //$reg['id']=$this->spr->count_kelas('')+1;
         $this->spr->insert_kelas($_POST);
 
+		
         $this->session->set_flashdata('msg', $this->editor->alert_ok('kelas telah ditambahkan'));
         redirect(base_url() . 'kelas');
     }
@@ -60,6 +62,7 @@ class Kelas extends CI_Controller{
         }
         //menampilkan form untuk edit data kelas
         $data['sub_title'] = 'Edit Kelas';
+		$data['type']='edit';
         $var = $this->spr->get_kelas($id)->result_array();
         $data['kelas'] = $var[0];
         //var_dump($data['kelas']);

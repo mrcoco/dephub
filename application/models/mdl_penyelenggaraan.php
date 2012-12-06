@@ -6,6 +6,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function load_pengumuman(){
+        $this->db->order_by('id','desc');
         return $this->db->get('post')->result_array();
     }
     function feedback_diklat($id){
@@ -37,6 +38,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function getall_peserta_by_angkatan($id_diklat,$thn=''){
         $this->db->order_by('registrasi.id_program','asc');
+        $this->db->order_by('registrasi.status','asc');
         if($id_diklat!=-1){
             $this->db->where('registrasi.id_diklat',$id_diklat);
         }
@@ -50,6 +52,30 @@ class Mdl_penyelenggaraan extends CI_Model{
             $arr_angkatan[$a['id_program']][]=$a;
         }
         return $arr_angkatan;
+    }
+    function get_peserta_ang_stat($id_diklat,$stat,$thn=''){
+        if($id_diklat!=-1){
+            $this->db->where('registrasi.id_program',$id_diklat);
+        }
+        if($thn!=''){
+            $this->db->where('registrasi.tahun_daftar',$thn);
+        }
+        $this->db->where('status like',$stat);
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        return $this->db->get('registrasi')->result_array();
+    }
+    function get_peserta_dik_stat($id_diklat,$stat,$thn=''){
+        if($id_diklat!=-1){
+            $this->db->where('registrasi.id_diklat',$id_diklat);
+        }
+        if($thn!=''){
+            $this->db->where('registrasi.tahun_daftar',$thn);
+        }
+        $this->db->where('status like',$stat);
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        return $this->db->get('registrasi')->result_array();
     }
     
     function get_terima_peserta($id_diklat,$thn=''){
