@@ -612,9 +612,11 @@ class Program extends CI_Controller {
             redirect(base_url().'diklat/daftar_diklat/');
         }
 
-        $data_schedule = $this->slng->get_all_item_schedule_pdf($id);
+        $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
         
-        $this->load->view('program/pdf_schedule');
+        $html=$this->load->view('program/pdf_schedule',$data,true);
+        $this->load->helper('pdfexport');
+        pdf_landscape($html, 'schedule program');
     }
     
     function ajax_pembicara($id_materi) {
@@ -732,6 +734,7 @@ class Program extends CI_Controller {
         $jumlah_kamar_kosong=count($vacant_kamar);
         
         $jumlah_kamar_butuh=ceil($data['jumlah_peserta']/2)+1;
+        
         $retval='Jumlah kamar yang dibutuhkan '.$jumlah_kamar_butuh.' dan kamar kosong yang ada '.$jumlah_kamar_kosong.', ';
         if($jumlah_kamar_butuh>$jumlah_kamar_kosong){
             $retval.='dibutuhkan tambahan asrama';

@@ -494,6 +494,8 @@ class Mdl_penyelenggaraan extends CI_Model{
             //mengisi judul kegiatan
             if($arr_schedule[$i]['jenis']=='non materi'){
                 $arr_schedule[$i]['judul_kegiatan']=$arr_schedule[$i]['nama_kegiatan'];
+                $arr_schedule[$i]['ada_pembicara']=false;
+                $arr_schedule[$i]['ada_pendamping']=false;
             }else{
                 $arr_schedule[$i]['judul_kegiatan']=$this->db->get_where('materi',array('id'=>$arr_schedule[$i]['id_materi']))->row()->judul;
             

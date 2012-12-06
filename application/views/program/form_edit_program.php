@@ -65,7 +65,7 @@
     <h4>Error!</h4>
 </div>
 <form method="post" id="form1" action="program/update_program" class="form-horizontal">
-    <input type="hidden" name="parent" value="<?php echo $pil_diklat['id']?>"/>
+    <input type="hidden" id="parent" name="parent" value="<?php echo $pil_diklat['id']?>"/>
     <input type="hidden" name="id" value="<?php echo $program['id']?>"/>
     <fieldset>
         <ul class="nav nav-tabs" id="myTab">
