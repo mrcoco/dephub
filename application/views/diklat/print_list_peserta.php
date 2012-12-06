@@ -1,15 +1,26 @@
+<style>
+    table{
+        border: 1px #000 solid;
+        border-left: 0;
+        font-size: x-small;
+    }
+    td, th{
+        border-left: 1px #000 solid;
+        border-top: 1px #000 solid;
+    }
+</style>
 <p align="center">
     <?php echo $judul ?>
 </p>
 <p>Diterima :</p>
-<table width="100%" align="center" border="1" style="border-collapse: collapse; border: 0.5px #000 solid" cellspacing="0" cellpadding="2">
+<table width="100%" align="center" cellspacing="0" cellpadding="1">
     <thead>
         <tr>
-            <th width="5%">No</th>
-            <th width="35%">Nama</th>
-            <th width="20%">NIP</th>
-            <th width="5%">Gol</th>
-            <th width="35%">Unit Kerja</th>
+            <th width="3%">No</th>
+            <th width="30%">Nama</th>
+            <th width="16%">NIP</th>
+            <th width="21%">Pangkat/Gol</th>
+            <th width="30%">Unit Kerja</th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +33,7 @@
             <td align="center"><?php echo $i++ ?></td>
             <td><?php echo $l['nama'] ?></td>
             <td align="center"><?php echo $l['nip'] ?></td>
-            <td align="center"><?php echo $l['golongan'] ?></td>
+            <td align="center"><?php echo $l['pangkat'] ?>, <?php echo $l['golongan'] ?></td>
             <td><?php echo $l['unit_kerja'] ?></td>
         <?php 
                 }elseif($l['status']=='waiting'){$w=1;}else{$d=1;}
@@ -33,14 +44,14 @@
 <?php if($w){?>
 <br />
 <p>Cadangan :</p>
-<table width="100%" align="center" border="1" style="border-collapse: collapse; border: 0.5px #000 solid" cellspacing="0" cellpadding="2">
+<table width="100%" align="center" cellspacing="0" cellpadding="1">
     <thead>
         <tr>
-            <th width="5%">No</th>
-            <th width="35%">Nama</th>
-            <th width="20%">NIP</th>
-            <th width="5%">Gol</th>
-            <th width="35%">Unit Kerja</th>
+            <th width="3%">No</th>
+            <th width="30%">Nama</th>
+            <th width="16%">NIP</th>
+            <th width="21%">Pangkat/Gol</th>
+            <th width="30%">Unit Kerja</th>
         </tr>
     </thead>
     <tbody>
@@ -53,7 +64,7 @@
             <td align="center"><?php echo $i++ ?></td>
             <td><?php echo $l['nama'] ?></td>
             <td align="center"><?php echo $l['nip'] ?></td>
-            <td align="center"><?php echo $l['golongan'] ?></td>
+            <td align="center"><?php echo $l['pangkat'] ?>, <?php echo $l['golongan'] ?></td>
             <td><?php echo $l['unit_kerja'] ?></td>
         <?php 
                 }
@@ -65,14 +76,14 @@
 <?php if($d){?>
 <br />
 <p>Tidak diterima :</p>
-<table width="100%" align="center" border="1" style="border-collapse: collapse; border: 0.5px #000 solid" cellspacing="0" cellpadding="2">
+<table width="100%" align="center" cellspacing="0" cellpadding="1">
     <thead>
         <tr>
-            <th width="5%">No</th>
-            <th width="35%">Nama</th>
-            <th width="20%">NIP</th>
-            <th width="5%">Gol</th>
-            <th width="35%">Unit Kerja</th>
+            <th width="3%">No</th>
+            <th width="30%">Nama</th>
+            <th width="16%">NIP</th>
+            <th width="21%">Pangkat/Gol</th>
+            <th width="30%">Unit Kerja</th>
         </tr>
     </thead>
     <tbody>
@@ -85,7 +96,7 @@
             <td align="center"><?php echo $i++ ?></td>
             <td><?php echo $l['nama'] ?></td>
             <td align="center"><?php echo $l['nip'] ?></td>
-            <td align="center"><?php echo $l['golongan'] ?></td>
+            <td align="center"><?php echo $l['pangkat'] ?>, <?php echo $l['golongan'] ?></td>
             <td><?php echo $l['unit_kerja'] ?></td>
         <?php 
                 }

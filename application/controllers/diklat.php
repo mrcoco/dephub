@@ -316,11 +316,29 @@ class Diklat extends CI_Controller{
         foreach($data['list'] as $key => $val){
             if($key>0){
             $text .= $data['pil_angkatan'][$key].'<br/>';
-            $text .= '<ul>';
+            $text .='<table class="table table-condensed table-bordered">';
+            $i=1;
+            $text .= '
+                    <tr>
+                        <th width="5%">No</th>
+                        <th width="30%">Nama</th>
+                        <th width="20%">NIP</th>
+                        <th width="5%">Gol</th>
+                        <th width="30%">Unit Kerja</th>
+                        <th width="10%">Status</th>
+                    </tr>
+                ';
             foreach($val as $v){
-                $text .= '<li>'.$v['nama'].' ('.$this->editor->status($v['status']).')</li>';
+                $text .='<tr>';
+                $text .= '<td>'.$i++.'</td>';
+                $text .= '<td>'.$v['nama'].'</td>';
+                $text .= '<td>'.$v['nip'].'</td>';
+                $text .= '<td>'.$v['golongan'].'</td>';
+                $text .= '<td>'.$v['unit_kerja'].'</td>';
+                $text .= '<td>'.$this->editor->status($v['status']).'</td>';
+                $text .='</tr>';
             }
-            $text .= '</ul>';
+            $text .= '</table>';
             }
         }
         $data_post['judul']='DAFTAR PANGGILAN '.$data['program']['name'];

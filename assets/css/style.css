@@ -261,3 +261,9 @@ li.klik a{
 .navbar ul.nav a{
     font-size: larger;
 }
+select{
+    width:auto;
+}
+.autowidth{
+    width: auto;
+}

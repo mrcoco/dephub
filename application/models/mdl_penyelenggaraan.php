@@ -46,6 +46,7 @@ class Mdl_penyelenggaraan extends CI_Model{
             $this->db->where('registrasi.tahun_daftar',$thn);
         }
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
         $array=$this->db->get('registrasi')->result_array();
         $arr_angkatan=array();
         foreach($array as $a){
