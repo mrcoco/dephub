@@ -78,6 +78,20 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get('registrasi')->result_array();
     }
     
+    function get_status_accept_order($id_diklat,$thn=''){
+        if($id_diklat!=-1){
+            $this->db->where('registrasi.id_program',$id_diklat);
+        }
+        if($thn!=''){
+            $this->db->where('registrasi.tahun_daftar',$thn);
+        }
+        $this->db->where('status like','accept');
+        $this->db->order_by('jenis_kelamin');
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        return $this->db->get('registrasi')->result_array();
+    }
+    
     function get_one_peserta($id_diklat,$nip_pegawai,$thn){
         $this->db->where('pegawai.nip',$nip_pegawai);
         $this->db->where('registrasi.id_diklat',$id_diklat);

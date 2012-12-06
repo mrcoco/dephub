@@ -364,8 +364,9 @@ class Diklat extends CI_Controller{
     function ajax_toggle_status($status){
         if($status==1){
             $data['status']='accept';
+            $data['komentar']='';
         }if($status==2){
-            $data['status']='waiting';
+            $data['komentar']='waiting';
         }else if($status==0){
             $data['status']='daftar';
             $data['id_program']='';
@@ -379,6 +380,7 @@ class Diklat extends CI_Controller{
         
         $max_peserta = $this->input->post('max_peserta');
         $data['id_program']=$this->input->post('id_program');
+        $data['komentar']='';
         $clause['id_peserta']=$this->input->post('id_peserta');
         $clause['id_diklat']=$this->input->post('id_diklat');
         //get status peserta
@@ -396,6 +398,15 @@ class Diklat extends CI_Controller{
             $this->slng->toggle_status($clause,$data);
             echo true;
         }
+    }
+    
+    function ajax_update_komentar(){
+        
+        $data['komentar']=$this->input->post('komentar');
+        $clause['id_peserta']=$this->input->post('id_peserta');
+        $clause['id_diklat']=$this->input->post('id_diklat');
+        
+        $this->slng->toggle_status($clause,$data);
     }
     
     function delete_diklat($id){
