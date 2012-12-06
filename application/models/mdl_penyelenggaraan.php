@@ -471,11 +471,62 @@ class Mdl_penyelenggaraan extends CI_Model{
                 }
             }
         }
-        return $arr_schedule;
-//        foreach($arr_schedule as $a){
-//            $data_schedule[$a['tanggal']][]=$a;
-//        }
-        //return $data_schedule;      
+        return $arr_schedule;     
+    }
+    
+    function get_all_item_schedule_pdf($where){
+        $this->db->where('id_program',$where); 
+        $this->db->order_by('tanggal','asc');
+        $this->db->order_by('jam_mulai','asc');
+        $arr_schedule=$this->db->get('schedule')->result_array();
+        $data_schedule=array();
+        for($i=0;$i<count($arr_schedule);$i++){
+            //format tulisan tanggal
+            $this->load->library('date');
+            $arr_schedule[$i]['tanggal']=$this->date->konversi5($arr_schedule[$i]['tanggal']);
+            //format jam mulai
+            $jam_mulai = strtotime($arr_schedule[$i]['jam_mulai']);
+            $arr_schedule[$i]['jam_mulai']=date('H.i', $jam_mulai);
+            //format jam akhir
+            $jam_selesai = strtotime($arr_schedule[$i]['jam_selesai']);
+            $arr_schedule[$i]['jam_selesai']=date('H.i', $jam_selesai);
+            
+            //mengisi judul kegiatan
+            if($arr_schedule[$i]['jenis']=='non materi'){
+                $arr_schedule[$i]['judul_kegiatan']=$arr_schedule[$i]['nama_kegiatan'];
+            }else{
+                $arr_schedule[$i]['judul_kegiatan']=$this->db->get_where('materi',array('id'=>$arr_schedule[$i]['id_materi']))->row()->judul;
+            
+                //mengambil data pemateri dengan id schedule $arr_schedule[$i]['id']
+                $str_qry_pembicara='SELECT tb_pembicara.id, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam from tb_pembicara 
+                left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+                left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3)) inner join tb_pemateri on tb_pembicara.id=tb_pemateri.id_pembicara
+                where tb_pemateri.id_schedule='.$arr_schedule[$i]['id'];
+                $nama_dosen=$this->db->query($str_qry_pembicara)->result_array();
+                if(count($nama_dosen)>0){
+                    $arr_schedule[$i]['ada_pembicara']=true;
+                    $arr_schedule[$i]['list_pembicara']=$nama_dosen;
+                }else{
+                    $arr_schedule[$i]['ada_pembicara']=false;
+                }
+                //mengambil lokasi kelas
+                if($arr_schedule[$i]['jenis_tempat']=='kelas'){
+                    $this->db->where('id',$arr_schedule[$i]['id_ruangan']);
+                    $data_kelas=$this->db->get('sarpras_kelas')->row_array();
+                    $arr_schedule[$i]['nama_ruangan']=$data_kelas['nama'];
+                }
+                
+                //mengambil data pendamping
+                $list_pendamping=$this->db->get_where('pendamping',array('id_schedule'=>$arr_schedule[$i]['id']))->result_array();
+                if(count($list_pendamping)>0){
+                    $arr_schedule[$i]['ada_pendamping']=true;
+                    $arr_schedule[$i]['list_pendamping']=$list_pendamping;
+                }else{
+                    $arr_schedule[$i]['ada_pendamping']=false;
+                }
+            }
+        }
+        return $arr_schedule;     
     }
     
     function get_all_pembicara(){

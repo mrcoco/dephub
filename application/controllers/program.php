@@ -599,6 +599,24 @@ class Program extends CI_Controller {
         
     }
 
+    function print_schedule_pdf($id){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        $this->load->library('date');
+        $this->load->library('excel');
+
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+
+        $data_schedule = $this->slng->get_all_item_schedule_pdf($id);
+        
+        $this->load->view('program/pdf_schedule');
+    }
+    
     function ajax_pembicara($id_materi) {
         echo json_encode($this->slng->ajax_pembicara_by_materi($id_materi));
     }

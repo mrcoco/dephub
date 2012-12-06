@@ -45,6 +45,20 @@
             }
         });
     });
+    function cek_asrama(id_asrama,item){
+        data={
+            'tgl_awal':$('#tgl_mulai').val(),
+            'tgl_akhir':$('#tgl_akhir').val(),
+            'id_asrama':id_asrama,
+            'id_diklat':$('#parent').val()
+        }
+        
+        $.post("<?php echo base_url()?>program/ajax_cek_vacant_kamar", data, function(data){
+            console.log(data);
+            console.log($(item).siblings('#result'));
+            $(item).siblings('#result').text(data);
+        });
+    }
 </script>
 <div class="alert alert-error hide">
     <a class="close" data-dismiss="alert">&times;</a>
@@ -106,9 +120,12 @@
                             if(array_key_exists($a['id'], $pil_asrama)){
                                 $checked=' checked="checked"';
                             } ?>
+                            <div>
                             <label class="checkbox">
                                 <input type="checkbox"<?php echo $checked?> name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                             </label>
+                            <span onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek</span><span id="result"></span>
+                            </div>
                         <?php }?>
                     </div>
                 </div>

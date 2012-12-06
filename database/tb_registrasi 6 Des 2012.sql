@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Waktu pembuatan: 06. Desember 2012 jam 03:56
+-- Waktu pembuatan: 06. Desember 2012 jam 04:18
 -- Versi Server: 5.5.16
 -- Versi PHP: 5.3.8
 
@@ -26,6 +26,7 @@ SET time_zone = "+00:00";
 -- Struktur dari tabel `tb_registrasi`
 --
 
+DROP TABLE IF EXISTS `tb_registrasi`;
 CREATE TABLE IF NOT EXISTS `tb_registrasi` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_diklat` int(11) NOT NULL,
