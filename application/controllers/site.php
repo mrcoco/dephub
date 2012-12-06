@@ -3,6 +3,7 @@ class Site extends CI_Controller{
     
     function __construct() {
         parent::__construct();
+        $this->load->model('mdl_perencanaan','rnc');
     }
     
     function index(){
@@ -28,6 +29,35 @@ class Site extends CI_Controller{
             $this->session->set_flashdata('msg', $this->editor->alert_error('Maaf, login gagal. Silakan dicoba lagi.'));
         }
         redirect(base_url().'site');
+    }
+    
+    function json_event() {
+	
+	$i = 0;
+        $cal=$this->rnc->get_program(date('Y'));
+        $diklat=$this->rnc->get_diklat(date('Y'));
+        $nama_diklat=array();
+        foreach($diklat as $d){
+            $nama_diklat[$d['id']]=$d['name'];
+        }
+	if (count($cal)== 0) {
+	    $data[0]['id'] = '';
+	    $data[0]['title'] = '';
+	    $data[0]['start'] = '';
+	    $data[0]['end'] = '';
+	    $data[0]['url'] = '';
+	} else {
+	    foreach ($cal as $row) {
+		$data[$i]['id'] = $row['id'];
+		$data[$i]['title'] =$nama_diklat[$row['parent']].' angkatan '.$row['angkatan'];
+		$data[$i]['start'] = $row['tanggal_mulai'];
+		$data[$i]['end'] = $row['tanggal_akhir'];
+		$data[$i]['url'] = base_url().'program/view_program/' . $row['id'];
+		$i++;
+	    }
+	}
+	$data['output'] = $data;
+	$this->load->view('site/cal_event',$data);
     }
     
     function email() {

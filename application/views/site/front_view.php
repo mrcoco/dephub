@@ -26,7 +26,7 @@
     $(function(){
         $('#calendar').fullCalendar({
             editable: false,
-    //	events: "<?php echo site_url(); ?>site/dashboard/event",
+            events: "<?php echo base_url(); ?>site/json_event",
             loading: function(bool) {
                 if (bool){
                     $('#loading').show();

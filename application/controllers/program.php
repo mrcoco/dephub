@@ -369,7 +369,7 @@ class Program extends CI_Controller {
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         
         $data['title']='Alokasi Kamar Peserta Diklat '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'];
-        $data['list']=$this->slng->get_status_accept($id,$thn);
+        $data['list']=$this->slng->get_status_accept_order($id,$thn);
         //get list kamar yg dialokasiin
         $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);
         $data['kamar']['']='-';
@@ -401,7 +401,7 @@ class Program extends CI_Controller {
         $in_asrama.=')';
         $this->slng->clear_pemakaian_kamar($id);
         $list_kamar_available=$this->slng->get_vacant_kamar_in_date($in_asrama,$data['program']['tanggal_mulai'],$data['program']['tanggal_akhir']);
-        $peserta=$this->slng->get_status_accept($id,$thn);
+        $peserta=$this->slng->get_status_accept_order($id,$thn);
         
         $batch_ins=array();
         
@@ -699,5 +699,27 @@ class Program extends CI_Controller {
         }else{
             echo 'true';
         }
+    }
+    
+    function ajax_cek_vacant_kamar(){
+        $id_asrama=$this->input->post('id_asrama');
+        $id_diklat=$this->input->post('id_diklat');
+        $tgl_awal=$this->input->post('tgl_awal');
+        $tgl_akhir=$this->input->post('tgl_akhir');
+        
+        //get info Diklat
+        $data=$this->rnc->get_diklat_by_id($id_diklat);
+        
+        $vacant_kamar=$this->slng->get_vacant_kamar_in_date('('.$id_asrama.')',$tgl_awal,$tgl_akhir);
+        $jumlah_kamar_kosong=count($vacant_kamar);
+        
+        $jumlah_kamar_butuh=ceil($data['jumlah_peserta']/2)+1;
+        $retval='Jumlah kamar yang dibutuhkan '.$jumlah_kamar_butuh.' dan kamar kosong yang ada '.$jumlah_kamar_kosong.', ';
+        if($jumlah_kamar_butuh>$jumlah_kamar_kosong){
+            $retval.='dibutuhkan tambahan asrama';
+        }else{
+            $retval.='asrama mencukupi';
+        }
+        echo $retval;
     }
 }
