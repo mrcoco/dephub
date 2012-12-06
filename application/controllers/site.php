@@ -14,11 +14,7 @@ class Site extends CI_Controller{
         $this->load->model('mdl_penyelenggaraan','slng');
         $data['title']='Sistem Informasi Manajemen Diklat';
         $data['data_post'] = $this->slng->load_pengumuman();
-        if($this->session->userdata('is_login')){
-            $this->template->display('site/front_view',$data);
-        }else{
-            $this->template->display_with_sidebar('site/front_view','login',$data);
-        }
+        $this->template->display_with_sidebar('site/front_view','login',$data);
     }
     
     function login(){

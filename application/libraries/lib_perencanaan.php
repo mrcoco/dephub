@@ -71,9 +71,10 @@ class Lib_perencanaan {
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
                 if($diklat['tipe']==1){
-                    echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')
-                                <a class="tip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>
-                            </strong></td>'."\n";
+                    echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3)
+                    echo '<a class="tip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>';
+                    echo '</strong></td>'."\n";
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
 //                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
                         echo '<td><div class="btn-group">';

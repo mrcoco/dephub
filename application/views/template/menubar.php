@@ -53,9 +53,9 @@
         <li><a href="<?php echo base_url()?>dephub_inst">Instansi</a></li>
         <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url()?>settings/profil">List Profil</a></li>
-                <li><a href="<?php echo base_url()?>setting/list_priviledge">Site Priviledge</a></li>
-                <li><a href="<?php echo base_url()?>setting/info_pusbang">Simdik Info</a></li>
+                <li><a href="<?php echo base_url()?>settings/profil">Daftar Profil</a></li>
+<!--                <li><a href="<?php echo base_url()?>setting/list_priviledge">Site Priviledge</a></li>-->
+<!--                <li><a href="<?php echo base_url()?>setting/info_pusbang">Simdik Info</a></li>-->
             </ul>
         </li>
         <?php } ?>
@@ -63,7 +63,7 @@
             <a href="<?php echo base_url()?>site/logout">Logout</a>
         </li>
         <li class="pull-right">
-            <a>Selamat datang, <?php echo $this->session->userdata('nama')?></a>
+            <a><i class="icon-user"></i> <?php echo $this->session->userdata('nama')?></a>
         </li>
     </ul>
 </div>
