@@ -54,7 +54,14 @@
             </tr>
             <tr>
             <td>Kategori</td>
-            <td><input class="kategori" type="text" name="kategori" placeholder="Kategori" value="<?php echo $item['kategori'];?>"/></td>
+            <td>
+				<select name="kategori">
+					<option value="" <?php if($item['kategori']) echo "selected"?>>---------</option>
+					<option value="lampu" <?php if($item['kategori']) echo "selected"?>>Lampu</option>
+					<option value="toilet" <?php if($item['kategori']) echo "selected"?>>Toilet</option>
+					<option value="ac" <?php if($item['kategori']) echo "selected"?>>ac</option>
+				</select>
+			</td>
             </tr>
             <tr>
             <td>Bobot</td>

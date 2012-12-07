@@ -83,7 +83,7 @@
             <td>
                 <ul>
                 <?php foreach($materi as $m){?>
-                    <li><a target="_blank" class="tip-right" title="Klik untuk detail" href="materi/view/<?php echo $m['id'] ?>"><?php echo $m['judul']?></a></li>
+                    <li><?php echo $m['judul']?></li>
                 <?php }?>
                 </ul>
             </td>
