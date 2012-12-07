@@ -33,7 +33,7 @@
     <thead>
         <tr>
             <th width="5%">No</th>
-            <th width="15%">Nomor Kamar</th>
+            <th width="10%">Nomor Kamar</th>
 			<!--
             <th width="5%">Lantai</th>
             <th width="10%">Sayap</th>

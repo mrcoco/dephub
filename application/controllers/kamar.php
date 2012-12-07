@@ -66,8 +66,6 @@ class Kamar extends CI_Controller {
         $var['gedung'] = $id;
         $data['kamar'] = $var;
 		$data['type']='add';
-		
-		
         $this->template->display('kamar/form_kamar', $data);
     }
 
@@ -80,9 +78,6 @@ class Kamar extends CI_Controller {
         //masukkan checklist
         $data = array('id_kamar' => $_POST['id']);
         $this->spr->insert_check_list_asrama($data);
-
-
-
 
         $this->session->set_flashdata('msg', $this->editor->alert_ok('kamar telah ditambahkan'));
         redirect(base_url() . 'kamar');
