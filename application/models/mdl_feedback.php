@@ -35,4 +35,18 @@ class Mdl_feedback extends CI_Model{
     function getall_kategori(){
         return $this->db->get('feedback_diklat_kategori')->result_array();
     }
+    
+    function insert_kategori($data){
+        $this->db->insert('feedback_diklat_kategori',$data);
+    }
+    
+    function delete_kategori($id){
+        $this->db->where('id_kategori',$id);
+        $this->db->delete('feedback_diklat_kategori');
+    }
+    
+    function update_kategori($data,$id){
+        $this->db->where('id_kategori',$id);
+        $this->db->update('feedback_diklat_kategori',$data);
+    }
 }
