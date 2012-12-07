@@ -16,18 +16,15 @@ class Site extends CI_Controller{
         $this->load->model('mdl_penyelenggaraan','slng');
         $data['title']='Sistem Informasi Manajemen Diklat';
         $data['data_post'] = $this->slng->load_pengumuman();
+        $data['active']=1;
         if($thn==''){
+            $data['active']=0;
             $thn=$this->thn_default;
         }
         $data['thn']=$thn;
         $this->load->library('lib_perencanaan');
         $data['program']=$this->rnc->get_all_program($thn);
-        
-        $data['kategori']=$this->rnc->get_kategori();
-        $data['pil_kategori']=array(0=>'-');
-        foreach($data['kategori'] as $k){
-            $data['pil_kategori'][$k['id']]=$k['name'];
-        }
+        $data['thn_program']=$this->rnc->get_thn_program();
         $this->template->display_with_sidebar('site/front_view','login',$data);
     }
     
@@ -45,9 +42,22 @@ class Site extends CI_Controller{
         redirect(base_url().'site');
     }
     
-    function kal_diklat($thn=''){
+    function kal_diklat(){
         $data['title']='Kalender Diklat';
         $this->template->display_with_sidebar('site/kal_diklat','login',$data);
+    }
+    function print_jadwal($thn=''){
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $this->load->library('lib_perencanaan');
+        $data['program']=$this->rnc->get_all_program($thn);
+        $data['thn_program']=$this->rnc->get_thn_program();
+        $this->load->helper('pdfexport_helper.php');
+        $data['judul']='Jadwal Diklat Tahun '.$thn;              
+        $data['htmView'] = $this->load->view('site/print_jadwal',$data,TRUE);
+//        $this->load->view('site/print_jadwal',$data);
+        pdf_create($data['htmView'],$data['judul']);                                                                    
     }
     
     function view_diklat($id){
