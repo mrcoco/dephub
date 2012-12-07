@@ -17,7 +17,7 @@ class Materi extends CI_Controller{
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
-        $data['sub_title']='Daftar Materi';
+        $data['sub_title']='Daftar Materi dan Tenaga Pengajar';
         $data['list']=$this->rnc->get_all_materi();
         $this->template->display('materi/list_materi',$data);
     }
@@ -92,7 +92,7 @@ class Materi extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         $data['materi']=$this->rnc->get_materi($id);
-        $data['sub_title']='Assign Dosen';
+        $data['sub_title']='Assign Pengajar';
         $data['pengajar']=$this->rnc->get_pengajar($id);
         $pembicara=$this->slng->get_all_pembicara();
         $data['pembicara']=array();

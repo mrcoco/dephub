@@ -22,7 +22,7 @@ class Pegawai extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
-        $data['sub_title']='List Pegawai';
+        $data['sub_title']='Daftar Pegawai Transportasi';
         $this->template->display('pegawai/list_pegawai',$data);
     }
     

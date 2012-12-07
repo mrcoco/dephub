@@ -71,12 +71,12 @@
 	    <div class="nav-collapse">
 		<ul class="nav">
                     <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
-		    <li><a href="#">Halaman Utama</a></li>
-                    <li><a href="<?php echo base_url()?>elearning" class="">E-Learning</a></li>
-                    <li><a href="<?php echo base_url()?>site/email">E-Mail</a></li>
+		    <li><a style="color:lightblue" href="#">Manajemen Diklat</a></li>
+                    <li><a style="color:lightcoral" href="<?php echo base_url()?>elearning" class="">E-Learning</a></li>
+                    <li><a style="color:lightgreen" href="<?php echo base_url()?>site/email">E-Mail</a></li>
 <!--                    <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>-->
-		    <li><a href="<?php echo base_url()?>elibrary">Library</a></li>
-		    <li class="dropdown"><a data-toggle="dropdown" class="dropdown-toggle" href="#">Profil<b class="caret"></b></a>
+		    <li><a style="color:lightskyblue" href="<?php echo base_url()?>elibrary">Library</a></li>
+		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightsalmon" class="dropdown-toggle" href="#">Profil<b class="caret"></b></a>
 			<ul class="dropdown-menu">
                             <?php foreach($profil as $p){ ?>
                             <li><a href="<?php echo base_url()?>about/profil/<?php echo $p['id'] ?>"><?php echo $p['judul'] ?></a></li>

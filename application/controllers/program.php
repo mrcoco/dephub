@@ -58,7 +58,7 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-	$data['sub_title']='Rekap Evaluasi Pembicara';
+	$data['sub_title']='Rekap Evaluasi Pengajar';
         $data['result']=$this->slng->feedback_pembicara($id)->row_array();
         $data['saran']=$this->slng->feedback_saran_pembicara($id)->result_array();
         $data['n']=$this->slng->feedback_saran_pembicara($id)->num_rows();
@@ -128,7 +128,7 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['judul']='DAFTAR CALON PESERTA '.strtoupper($data['diklat']['name']).'<br />
+        $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
             KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>ANGKATAN '.$data['program']['angkatan'];
         $data['list']=$this->slng->get_terima_peserta($id,$thn);
         $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);
@@ -351,6 +351,7 @@ class Program extends CI_Controller {
         $this->template->display_with_sidebar('program/schedule_program', 'program', $data);
     }
 
+    
     function alokasi_kamar($id,$thn=''){
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');
@@ -368,7 +369,7 @@ class Program extends CI_Controller {
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         
         $data['title']='Alokasi Kamar Peserta Diklat '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'];
-        $data['list']=$this->slng->get_status_accept($id,$thn);
+        $data['list']=$this->slng->get_status_accept_order($id,$thn);
         //get list kamar yg dialokasiin
         $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);
         $data['kamar']['']='-';
@@ -400,7 +401,7 @@ class Program extends CI_Controller {
         $in_asrama.=')';
         $this->slng->clear_pemakaian_kamar($id);
         $list_kamar_available=$this->slng->get_vacant_kamar_in_date($in_asrama,$data['program']['tanggal_mulai'],$data['program']['tanggal_akhir']);
-        $peserta=$this->slng->get_status_accept($id,$thn);
+        $peserta=$this->slng->get_status_accept_order($id,$thn);
         
         $batch_ins=array();
         
@@ -561,7 +562,7 @@ class Program extends CI_Controller {
                     $sheet->mergeCellsByColumnAndRow($kol_print, $row_mulai, $kol_print, $row_selesai);
                     $isi = $ds['judul_kegiatan']."\n";
                     if($ds['jenis']=='materi'){
-                        $isi.='Pembicara : '."\n";
+                        $isi.='Pengajar : '."\n";
                         if($ds['ada_pembicara']){
                             $no=1;
                             foreach($ds['list_pembicara'] as $p){
@@ -596,68 +597,28 @@ class Program extends CI_Controller {
         $obj_writer = new PHPExcel_Writer_Excel2007($this->excel);
         $obj_writer->save('php://output');
         
-
-//        //menghitung awal minggu
-//        $idx_hari_awal = date('w',strtotime($data['program']['tanggal_mulai']));
-//        $time_awal_minggu = strtotime ( '-'.$idx_hari_awal.'day' , strtotime ( $data['program']['tanggal_mulai'] ) ) ;
-//        $awal_minggu = date ( 'Y-m-d' , $time_awal_minggu );
-//        
-//        //menghitung akhir minggu
-//        $idx_hari_akhir = date('w',strtotime($data['program']['tanggal_akhir']));
-//        $time_akhir_minggu = strtotime ( '+'.(6-$idx_hari_awal).'day' , strtotime ( $data['program']['tanggal_akhir'] ) ) ;
-//        $akhir_minggu = date ( 'Y-m-d' , $time_akhir_minggu );
-//        
-//        $arr_tanggal = $this->date->createDateRangeArray($awal_minggu, $akhir_minggu);
-//        
-//
-//        $this->excel->setActiveSheetIndex(0);
-//        $this->excel->getActiveSheet()->setTitle('Jadwal Pelatihan');
-//        $this->excel->getDefaultStyle()->getFont()->setName('Times New Roman')->setSize(9);
-//        $sheet = $this->excel->getActiveSheet();
-//        $sheet->getPageSetup()->setPaperSize(PHPExcel_Worksheet_PageSetup::PAPERSIZE_A4)->setOrientation(PHPExcel_Worksheet_PageSetup::ORIENTATION_LANDSCAPE);
-//
-//
-//        //bikin header jadwal
-//
-//        $col = 0;
-//
-//        $row = 2;
-//        $judul = strtoupper('Jadwal Tentative ' . $data['program']['name']);
-//        $sheet->setCellValueByColumnAndRow($col, $row, $judul);
-//        $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
-//
-//
-//        $row = 3;
-//        $judul = strtoupper('Kementrian Perhubungan ' . $data['program']['tahun_program']);
-//        $sheet->setCellValueByColumnAndRow($col, $row, $judul);
-//        $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
-//
-//        $row = 5;
-//        $judul = $this->date->konversi5($data['program']['tanggal_mulai']) . ' S/D ' . $this->date->konversi5($data['program']['tanggal_akhir']);
-//        $sheet->setCellValueByColumnAndRow($col, $row, $judul);
-//        $sheet->mergeCellsByColumnAndRow($col, $row, $col + 7, $row);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-//        $sheet->getStyleByColumnAndRow($col, $row)->getFont()->setSize(12)->setBold();
-//
-//        //print harinya
-//        
-//        
-//        
-//
-//
-//        $filename = 'schedule diklat.xlsx'; //save our workbook as this file name
-//        header('Content-Type: application/vnd.ms-excel'); //mime type
-//        header('Content-Disposition: attachment;filename="' . $filename . '"'); //tell browser what's the file name
-//        header('Cache-Control: max-age=0'); //no cache
-//
-//        $obj_writer = new PHPExcel_Writer_Excel2007($this->excel);
-//        $obj_writer->save('php://output');
     }
 
+    function print_schedule_pdf($id){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        $this->load->library('date');
+        $this->load->library('excel');
+
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+
+        $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
+        
+        $html=$this->load->view('program/pdf_schedule',$data,true);
+        $this->load->helper('pdfexport');
+        pdf_landscape($html, 'schedule program');
+    }
+    
     function ajax_pembicara($id_materi) {
         echo json_encode($this->slng->ajax_pembicara_by_materi($id_materi));
     }
@@ -758,5 +719,28 @@ class Program extends CI_Controller {
         }else{
             echo 'true';
         }
+    }
+    
+    function ajax_cek_vacant_kamar(){
+        $id_asrama=$this->input->post('id_asrama');
+        $id_diklat=$this->input->post('id_diklat');
+        $tgl_awal=$this->input->post('tgl_awal');
+        $tgl_akhir=$this->input->post('tgl_akhir');
+        
+        //get info Diklat
+        $data=$this->rnc->get_diklat_by_id($id_diklat);
+        
+        $vacant_kamar=$this->slng->get_vacant_kamar_in_date('('.$id_asrama.')',$tgl_awal,$tgl_akhir);
+        $jumlah_kamar_kosong=count($vacant_kamar);
+        
+        $jumlah_kamar_butuh=ceil($data['jumlah_peserta']/2)+1;
+        
+        $retval='Jumlah kamar yang dibutuhkan '.$jumlah_kamar_butuh.' dan kamar kosong yang ada '.$jumlah_kamar_kosong.', ';
+        if($jumlah_kamar_butuh>$jumlah_kamar_kosong){
+            $retval.='dibutuhkan tambahan asrama';
+        }else{
+            $retval.='asrama mencukupi';
+        }
+        echo $retval;
     }
 }

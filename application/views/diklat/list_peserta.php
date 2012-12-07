@@ -9,7 +9,9 @@
                 $('#status'+id_peserta).html("accept");
                 if(status==1||status==2){
                     $(item).siblings('#dropdown').removeClass('hide');
+                    $(item).siblings('#komentar').addClass('hide');
                 }else{
+                    $(item).siblings('#komentar').removeClass('hide');
                     $(item).siblings('#dropdown').addClass('hide');
                 }
                 $(item).siblings('#dropdown').find('select').val(-1);
@@ -24,6 +26,17 @@
                 $(item).val(-1);
                 alert('Program sudah penuh');
             }
+        });
+    }
+    
+    function isi_komentar(item,id_peserta,id_diklat){
+        data = {
+            'komentar' : $(item).siblings('#komentar').val(),
+            'id_peserta' : id_peserta,
+            'id_diklat' : id_diklat
+        }
+        $.post("<?php echo base_url() ?>diklat/ajax_update_komentar",data,function(res){
+            
         });
     }
 </script>
@@ -59,12 +72,17 @@
                     <?php 
                     if($list[$i]['status']=='accept'||$list[$i]['status']=='waiting'){
                         $class='class=""';
+                        $class2='class="hide"';
                     } else{
                         $class='class="hide"';
+                        $class2='class=""';
                     }
                     ?>
-                    <span id="dropdown" <?php echo $class?>>    
+                    <span id="dropdown" <?php echo $class?>>
                         <?php echo form_dropdown('angkatan',$pil_angkatan,$list[$i]['id_program'],'style="width: 90px" id="angkatan" onchange="update_angkatan(this,'.$list[$i]['id_peserta'].','.$list[$i]['id_diklat'].')"')?>
+                    </span>
+                    <span id="komentar" <?php echo $class2?>>
+                        <input type="text" id="komentar" value="<?php echo $list[$i]['komentar']?>"/><button onclick="isi_komentar(this,<?php echo $list[$i]['id_peserta']?>,<?php echo $list[$i]['id_diklat']?>)">Save</button>
                     </span>
                 </div>
             </td>

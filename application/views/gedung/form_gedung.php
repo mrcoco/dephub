@@ -23,7 +23,7 @@
 
 <form name="form_reg" id="form_reg" action="
     <?php 
-    if($sub_title=='Tambah Gedung')
+    if($type=='add')
         echo "gedung/add_gedung_process"; 
     else
         echo "gedung/edit_gedung_process/".$gedung['id']; 
@@ -53,7 +53,7 @@
     <div class="form-actions">
         <input type="button" class="btn btn-large btn-primary pull-right"      
     <?php 
-    if($sub_title=='Tambah Gedung')
+    if($type=='add')
         echo "value=\"Daftar\" onclick=\"validate_form()\""; 
     else
         echo "value=\"Edit\" onclick=\"validate_form()\"";

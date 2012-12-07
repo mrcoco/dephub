@@ -1,6 +1,7 @@
 <?php
 class Mdl_sarpras extends CI_Model {
 
+	private $table_pegawai = 'pegawai';
     private $table_program = 'program';
     private $table_asrama = 'sarpras_kamar';
     private $table_alokasi_asrama = 'sarpras_alokasi_asrama';
@@ -9,6 +10,7 @@ class Mdl_sarpras extends CI_Model {
     private $table_kamar = 'sarpras_kamar';
     private $table_kamar_status = 'sarpras_kamar_status';
     private $table_pemakaian_asrama = 'sarpras_pemakaian_kamar';
+    //private $table_pemakaian_asrama = 'tb_sarpras_status_pemakaian_kamar';
     private $table_pemakaian_kelas = 'sarpras_pemakaian_kelas';
     //private $table_check_list_asrama = 'sarpras_checklist_kamar';
     private $table_check_list_kelas = 'sarpras_checklist_kelas';
@@ -34,6 +36,46 @@ class Mdl_sarpras extends CI_Model {
 	}
     }
 
+	
+    /*     * ********
+     * Kamaritem *
+     * ******** */
+
+    function get_kamaritem($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_checklist_kamar_item);
+	} else {
+	    $this->db->where('id', $var);
+	    return $this->db->get($this->table_checklist_kamar_item);
+	}
+    }
+	
+	
+    function get_kamaritem_item($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_checklist_kamar_item);
+	} else {
+	    $this->db->where('item', $var);
+	    return $this->db->get($this->table_checklist_kamar_item);
+	}
+    }
+
+    function insert_kamaritem($data) {
+	$this->db->insert($this->table_checklist_kamar_item, $data);
+	return $this->db->insert_id();
+    }
+
+    function update_kamaritem($var, $data) {
+	$this->db->where('id', $var);
+	return $this->db->update($this->table_checklist_kamar_item, $data);
+    }
+
+    function delete_kamaritem($var) {
+	$this->db->where('id', $var);
+	return $this->db->delete($this->table_checklist_kamar_item);
+    }
+
+	
     /*     * ********
      * Asrama *
      * ******** */
@@ -168,9 +210,9 @@ class Mdl_sarpras extends CI_Model {
 	return $this->db->delete($this->table_checklist_kamar);
     }
 
-    // Pemakaian Kamar
-    //----------------
-    function get_pemakaian_kamar($var=NULL) {
+    // -----------------------------------------------------------Pemakaian Kamar-------------------------------------------
+	
+	function get_pemakaian_kamar($var=NULL) {
 	if ($var == NULL) {
 	    return $this->db->get($this->table_pemakaian_asrama);
 	} else {
@@ -178,7 +220,38 @@ class Mdl_sarpras extends CI_Model {
 	    return $this->db->get($this->table_pemakaian_asrama);
 	}
     }
-
+	
+	function get_pemakaian_kamar_idkamar($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_pemakaian_asrama);
+	} else {
+	    $this->db->where('id_kamar', $var);
+	    return $this->db->get($this->table_pemakaian_asrama);
+	}
+    }
+	
+	function get_pemakaian_kamar_detail() {
+		$this->db->select(
+		$this->table_gedung.'.nama as gedung,'.$this->table_gedung.'.id as id_gedung,'.$this->table_kamar.'.nomor as kamar,'.$this->table_kamar.'.id as id_kamar,'.
+			$this->table_kamar_status.'.id as id_status,'.$this->table_kamar_status.'.status as status,'.
+			$this->table_pegawai.'.nama as nama,'.$this->table_pegawai.'.nip as nip,'.$this->table_pegawai.'.jenis_kelamin as jenis_kelamin,'.
+			$this->table_program.'.name as program'
+		);
+		
+		$this->db->from($this->table_pemakaian_asrama);
+		
+	    $this->db->join($this->table_kamar, $this->table_pemakaian_asrama.'.id_kamar_asrama = '.$this->table_kamar.'.id');
+		$this->db->join($this->table_gedung, $this->table_kamar.'.asrama = '.$this->table_gedung.'.id');
+	    $this->db->join($this->table_kamar_status, $this->table_kamar.'.status = '.$this->table_kamar_status.'.id');
+	    $this->db->join($this->table_pegawai, $this->table_pemakaian_asrama.'.id_peserta = '.$this->table_pegawai.'.id');
+	    $this->db->join($this->table_program, $this->table_pemakaian_asrama.'.id_program = '.$this->table_program.'.id');
+		
+		$today = date("Y-m-d");
+	    $this->db->where($this->table_pemakaian_asrama.'.tanggal', $today);
+		
+	    return $this->db->get();
+    }
+	
     function insert_pemakaian_kamar($data) {
 	$this->db->insert($this->table_pemakaian_asrama, $data);
 	return $this->db->insert_id();
@@ -193,6 +266,7 @@ class Mdl_sarpras extends CI_Model {
 	$this->db->where('id', $var);
 	return $this->db->delete($this->table_pemakaian_asrama);
     }
+	
 
     /**********
      * Gedung *
@@ -247,6 +321,15 @@ class Mdl_sarpras extends CI_Model {
     /**********
      * Kamar *
      **********/
+	
+    function get_kamar_simple($var=NULL) {
+	if ($var == NULL) {
+	    return $this->db->get($this->table_kamar);
+	} else {
+	    $this->db->where('id', $var);
+	    return $this->db->get($this->table_kamar);
+	}
+    }
 	
     function get_kamar($var=NULL) {
 	$this->db->select(
@@ -314,11 +397,16 @@ class Mdl_sarpras extends CI_Model {
 	return $this->db->delete($this->table_kamar);
     }
     
-    function count_kamar($filter){
+    function count_kamar($filter=''){
         $str_query='select count(tb_sarpras_kamar.id) as num FROM tb_sarpras_kamar';
         if($filter!=''){
             $str_query.=' where (nama like "%'.$filter.'%")';
         }
+        return $this->db->query($str_query)->row()->num;
+    }
+    
+    function count_bed(){
+        $str_query='select sum(tb_sarpras_kamar.bed) as num FROM tb_sarpras_kamar';
         return $this->db->query($str_query)->row()->num;
     }
     
@@ -378,6 +466,10 @@ class Mdl_sarpras extends CI_Model {
     function delete_kelas($var) {
 	$this->db->where('id', $var);
 	return $this->db->delete($this->table_kelas);
+    }
+    
+    function count_all_kelas(){
+        return $this->db->count_all($this->table_kelas);
     }
 
     // Check List Kelas

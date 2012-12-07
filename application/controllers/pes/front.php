@@ -8,16 +8,6 @@ class Front extends CI_Controller{
         $this->load->model('mdl_sarpras','spr');
         $this->load->model('mdl_pes','pes');
         $this->thn_def = date('Y');
-        if(!$this->session->userdata('is_login_pes')){
-            $data_session=array(
-                'nama_unit',
-                'kode_unit',
-                'is_login_pes'
-            );
-            $this->session->unset_userdata($data_session);
-            $this->session->sess_destroy();
-            $this->login_form();
-        }
     }
     
     function index(){
@@ -116,7 +106,7 @@ class Front extends CI_Controller{
     
     function login_form(){
         $data['title']='Login Peserta';
-        $this->template->display('pes/login_form',$data);
+        $this->template->display_pes('pes/login_form',$data);
     }
     
     
@@ -188,9 +178,9 @@ class Front extends CI_Controller{
         }
         echo json_encode($data['key_pembicara']);
     }
-    function add_feedback_pembicara($id){
+    function add_feedback_pengajar($id){
         
-        $data['sub_title']='Evaluasi Pembicara';
+        $data['sub_title']='Evaluasi Pengajar';
         $data['program']=$this->rnc->get_program_by_id($id);
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         $materi = $this->rnc->get_materi_diklat($data['program']['parent']);
@@ -202,7 +192,7 @@ class Front extends CI_Controller{
         $pembicara=$this->slng->get_all_pembicara();
         $data['pembicara']=array();
         $data['key_pembicara']=array();
-        $data['key_pembicara'][-1]='--Pilih Pembicara--';
+        $data['key_pembicara'][-1]='--Pilih Pengajar--';
         foreach($pembicara as $p){
             if($p['nama_peg']!=''){
                 $data['pembicara'][]=$p['nama_peg'];
@@ -220,7 +210,7 @@ class Front extends CI_Controller{
         }
     }
 
-    function insert_feedback_pembicara(){
+    function insert_feedback_pengajar(){
         $id_program=$this->input->post('id_program');
         $program=$this->rnc->get_program_by_id($id_program);
         $_POST['tanggal']=$this->date->savetgl($_POST['tanggal']);

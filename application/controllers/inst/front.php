@@ -56,7 +56,7 @@ class Front extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_def;
         }
-        $data['title']='List pendaftar';
+        $data['title']='Tabel Pendaftar';
         $data['pendaftar']=$this->unit->get_accepted_peserta_by_inst($this->session->userdata('kode_kantor'));
         
         $diklat=$this->rnc->get_diklat($thn);

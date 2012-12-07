@@ -14,10 +14,12 @@ class Template {
     // Constructor
     function __construct() {
         $this->_ci = &get_instance();
+        $this->_ci->load->model('mdl_administrator','adm');
     }
 
     // Default Template
     function display($template, $data = null) {
+        $data['profil'] = $this->_ci->adm->get_profil();
         if(isset($data['title'])){
             $data['_title']=$data['title'];
         }else{
@@ -32,6 +34,7 @@ class Template {
     }
     
     function display_with_sidebar($template,$sidebar, $data = null) {
+        $data['profil'] = $this->_ci->adm->get_profil();
         if(isset($data['title'])){
             $data['_title']=$data['title'];
         }else{
@@ -47,6 +50,7 @@ class Template {
     }
     
     function display_unit($template, $data = null) {
+        $data['profil'] = $this->_ci->adm->get_profil();
         if(isset($data['title'])){
             $data['_title']=$data['title'];
         }else{
@@ -60,6 +64,7 @@ class Template {
         $this->_ci->load->view('/template/main.php', $data);
     }
     function display_pes($template, $data = null) {
+        $data['profil'] = $this->_ci->adm->get_profil();
         if(isset($data['title'])){
             $data['_title']=$data['title'];
         }else{
@@ -77,6 +82,7 @@ class Template {
     }
     
     function display_inst($template, $data = null) {
+        $data['profil'] = $this->_ci->adm->get_profil();
         if(isset($data['title'])){
             $data['_title']=$data['title'];
         }else{
@@ -91,6 +97,7 @@ class Template {
     }
     
     function display_lib($template, $data = null) {
+        $data['profil'] = $this->_ci->adm->get_profil();
         $data['_sidebar'] = $this->_ci->load->view('elibrary/sidebar', $data, true);            
         if(isset($data['title'])){
             $data['_title']=$data['title'];

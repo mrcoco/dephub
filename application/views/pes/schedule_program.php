@@ -516,7 +516,7 @@
 <div class="sample1 hide">
     <table>
         <tr class="tr_widyaiswara">
-            <td>Pembicara</td>
+            <td>Pengajar</td>
             <td>: <input disabled type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/></td>
         </tr>
     </table>

@@ -9,6 +9,7 @@ class Lib_perencanaan {
     function __construct() {
 	$CI = & get_instance();
         $this->session = $CI->session;
+        $this->date = $CI->date;
     }
     
     function count_diklat($array,$parent){
@@ -71,9 +72,10 @@ class Lib_perencanaan {
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
                 if($diklat['tipe']==1){
-                    echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')
-                                <a class="tip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>
-                            </strong></td>'."\n";
+                    echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3)
+                    echo '<a class="tip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>';
+                    echo '</strong></td>'."\n";
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
 //                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
                         echo '<td><div class="btn-group">';
@@ -111,6 +113,34 @@ class Lib_perencanaan {
             }
         }
     }
+    function print_tree_table_pub($array_kat,$parent=0,$k=0){
+        if($k!=0){$l=$k*20;$p=' style="padding-left:'.$l.'px;"';}else{$p='';}
+        $k++;
+        foreach($array_kat as $diklat){
+            if($diklat['parent']==$parent){
+                if($diklat['tipe']==1){
+                    echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    echo '</strong></td>'."\n";
+                    echo '<td></td>';
+                    echo '</tr>';
+                }else if($diklat['tipe']==2){
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    if($diklat['jumlah_peserta']>0){
+                        echo '<td>Kuota peserta '.$diklat['jumlah_peserta'].' orang</td>';
+                    }else{
+                        echo '<td>-</td>';
+                    }
+                    echo '</tr>';
+                }else if($diklat['tipe']==3){
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</td>';
+                    echo '<td>'.$this->date->konversi5($diklat['tanggal_mulai']).' - '.$this->date->konversi5($diklat['tanggal_akhir']).'</td>';
+                   echo '</tr>';
+                 }
+                if($this->count_diklat($array_kat,$diklat['id'])>0){
+                $this->print_tree_table_pub($array_kat,$diklat['id'],$k);}
+            }
+        }
+    }
     
     function cetak_excel(&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent=''){
         $no=1;
@@ -131,17 +161,16 @@ class Lib_perencanaan {
                         //cetak ke samping
                         $idx_hari_mulai = date_format($date1,'z');
                         $idx_hari_selesai = date_format($date2,'z');
-
+                        
                         //ngijoin cell, rumusnya kolom=$idx_hari+6
-                        for($idx=$idx_hari_mulai;$idx<=$idx_hari_selesai;$idx++){
-                            $style_aktif = array( 
-                                'fill' => array( 
-                                    'type' => PHPExcel_Style_Fill::FILL_SOLID, 
-                                    'color' => array('rgb'=>'00FF00')
-                                    )
-                                );
-                            $sheet->getStyleByColumnAndRow(($idx+6), $row)->applyFromArray($style_aktif);
-                        }
+                        $sheet->mergeCellsByColumnAndRow($idx_hari_mulai+6, $row, $idx_hari_selesai+6, $row);
+                        $style_aktif = array( 
+                            'fill' => array( 
+                                'type' => PHPExcel_Style_Fill::FILL_SOLID, 
+                                'color' => array('rgb'=>$this->gen_hexcolor($parent))
+                                )
+                            );
+                        $sheet->getStyleByColumnAndRow(($idx_hari_mulai+6), $row)->applyFromArray($style_aktif);
                     }
                 }else{
                     $sheet->mergeCellsByColumnAndRow($col, $row, ($col+5), $row);
@@ -155,6 +184,20 @@ class Lib_perencanaan {
                 $this->cetak_excel($row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name']);
             }
         }
+        return $row;
+    }
+    
+    function gen_hexcolor($parent){
+        $array_hex=array(10=>'A',11=>'B',12=>'C',13=>'D',14=>'E',15=>'F');
+        $rgb='';
+        for($i=16;$i<22;$i++){
+            $x=($parent*$i)%16;
+            if($x>9){
+                $x=$array_hex[$x];
+            }
+            $rgb.=$x;
+        }
+        return $rgb;
     }
     
     function overview($array,$id,$field){

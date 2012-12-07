@@ -574,7 +574,7 @@
 <div class="sample1 hide">
     <table>
         <tr class="tr_widyaiswara">
-            <td>Pembicara</td>
+            <td>Pengajar</td>
             <td>: <input type="text" class="nama_pmbcr" name="nama_pmbcr"/><input type="hidden" name="id_pmbcr[]"/> <span class="add_pmbcr btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
         </tr>
     </table>
@@ -649,5 +649,6 @@
 </div>
 <div id="event_edit_container"></div>
 <div class="form-actions">
-    <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule/<?php echo $program['id'] ?>">Cetak Jadwal</a>  
+    <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule/<?php echo $program['id'] ?>">Cetak Jadwal</a>
+    <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule_pdf/<?php echo $program['id'] ?>">Cetak Jadwal PDF</a>
 </div>

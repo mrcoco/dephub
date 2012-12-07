@@ -23,7 +23,7 @@
 <div id="display_dialog" class="modal hide"></div>
 
 	<form name="form_reg" id="form_reg" action="<?php
-	if($sub_title=="Tambah Kelas")
+	if($type=="add")
 		echo "kelas/add_kelas_process/";
 	else
 		echo "kelas/edit_kelas_process/";
@@ -65,7 +65,7 @@
 </table>
     <div class="form-actions">
         <input type="button" class="btn btn-large btn-primary pull-right" value="<?php
-	if($sub_title=="Tambah Kelas")
+	if($type=="add")
 		echo "Tambah";
 	else
 		echo "Edit";
