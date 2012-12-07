@@ -128,7 +128,7 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['judul']='DAFTAR CALON PESERTA '.strtoupper($data['diklat']['name']).'<br />
+        $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
             KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>ANGKATAN '.$data['program']['angkatan'];
         $data['list']=$this->slng->get_terima_peserta($id,$thn);
         $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);
@@ -369,7 +369,7 @@ class Program extends CI_Controller {
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         
         $data['title']='Alokasi Kamar Peserta Diklat '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'];
-        $data['list']=$this->slng->get_status_accept($id,$thn);
+        $data['list']=$this->slng->get_status_accept_order($id,$thn);
         //get list kamar yg dialokasiin
         $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);
         $data['kamar']['']='-';
@@ -401,7 +401,7 @@ class Program extends CI_Controller {
         $in_asrama.=')';
         $this->slng->clear_pemakaian_kamar($id);
         $list_kamar_available=$this->slng->get_vacant_kamar_in_date($in_asrama,$data['program']['tanggal_mulai'],$data['program']['tanggal_akhir']);
-        $peserta=$this->slng->get_status_accept($id,$thn);
+        $peserta=$this->slng->get_status_accept_order($id,$thn);
         
         $batch_ins=array();
         
@@ -599,6 +599,26 @@ class Program extends CI_Controller {
         
     }
 
+    function print_schedule_pdf($id){
+        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        $this->load->library('date');
+        $this->load->library('excel');
+
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+
+        $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
+        
+        $html=$this->load->view('program/pdf_schedule',$data,true);
+        $this->load->helper('pdfexport');
+        pdf_landscape($html, 'schedule program');
+    }
+    
     function ajax_pembicara($id_materi) {
         echo json_encode($this->slng->ajax_pembicara_by_materi($id_materi));
     }
@@ -699,5 +719,28 @@ class Program extends CI_Controller {
         }else{
             echo 'true';
         }
+    }
+    
+    function ajax_cek_vacant_kamar(){
+        $id_asrama=$this->input->post('id_asrama');
+        $id_diklat=$this->input->post('id_diklat');
+        $tgl_awal=$this->input->post('tgl_awal');
+        $tgl_akhir=$this->input->post('tgl_akhir');
+        
+        //get info Diklat
+        $data=$this->rnc->get_diklat_by_id($id_diklat);
+        
+        $vacant_kamar=$this->slng->get_vacant_kamar_in_date('('.$id_asrama.')',$tgl_awal,$tgl_akhir);
+        $jumlah_kamar_kosong=count($vacant_kamar);
+        
+        $jumlah_kamar_butuh=ceil($data['jumlah_peserta']/2)+1;
+        
+        $retval='Jumlah kamar yang dibutuhkan '.$jumlah_kamar_butuh.' dan kamar kosong yang ada '.$jumlah_kamar_kosong.', ';
+        if($jumlah_kamar_butuh>$jumlah_kamar_kosong){
+            $retval.='dibutuhkan tambahan asrama';
+        }else{
+            $retval.='asrama mencukupi';
+        }
+        echo $retval;
     }
 }

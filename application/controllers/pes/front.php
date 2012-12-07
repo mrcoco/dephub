@@ -8,16 +8,6 @@ class Front extends CI_Controller{
         $this->load->model('mdl_sarpras','spr');
         $this->load->model('mdl_pes','pes');
         $this->thn_def = date('Y');
-        if(!$this->session->userdata('is_login_pes')){
-            $data_session=array(
-                'nama_unit',
-                'kode_unit',
-                'is_login_pes'
-            );
-            $this->session->unset_userdata($data_session);
-            $this->session->sess_destroy();
-            $this->login_form();
-        }
     }
     
     function index(){
@@ -116,7 +106,7 @@ class Front extends CI_Controller{
     
     function login_form(){
         $data['title']='Login Peserta';
-        $this->template->display('pes/login_form',$data);
+        $this->template->display_pes('pes/login_form',$data);
     }
     
     

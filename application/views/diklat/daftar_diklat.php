@@ -29,10 +29,11 @@ Tidak ada data
 <?php } ?>
     </div>
 </div>
+<?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){ ?>
 <div class="form-actions">
     <a class="btn btn-primary" href="javascript:add_subkat(0)">Tambah Kategori</a>
     <a class="btn btn-success" href="<?php echo base_url()?>diklat/cetak_jadwal">Cetak Jadwal</a>
-</div>    
+</div>
 <form action="<?php echo base_url() ?>diklat/insert_kategori" method="post">
 <div class="modal hide" id="tambah">
         <div class="modal-header">
@@ -82,3 +83,4 @@ Tidak ada data
         </div>
 </div>
 </form>
+<? } ?>

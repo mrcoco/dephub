@@ -47,14 +47,27 @@
             }
         });
     });
-    
+    function cek_asrama(id_asrama,item){
+        data={
+            'tgl_awal':$('#tgl_mulai').val(),
+            'tgl_akhir':$('#tgl_akhir').val(),
+            'id_asrama':id_asrama,
+            'id_diklat':$('#parent').val()
+        }
+        
+        $.post("<?php echo base_url()?>program/ajax_cek_vacant_kamar", data, function(data){
+            console.log(data);
+            console.log($(item).siblings('#result'));
+            $(item).siblings('#result').text(data);
+        });
+    }
 </script>
 <div class="alert alert-error hide">
     <a class="close" data-dismiss="alert">&times;</a>
     <h4>Error!</h4>
 </div>
 <form method="post" id="form1" action="program/insert_program" class="form-horizontal">
-    <input type="hidden" name="parent" value="<?php echo $pil_diklat['id']?>"/>
+    <input type="hidden" name="parent" value="<?php echo $pil_diklat['id']?>" id="parent"/>
     <fieldset>
         <ul class="nav nav-tabs" id="myTab">
             <li class="active"><a href="#overview" data-toggle="tab">Overview</a></li>
@@ -103,9 +116,13 @@
                     <label class="control-label">Asrama</label>
                     <div class="controls">
                         <?php foreach($asrama as $a){?>
+                        <div>
                         <label class="checkbox">
-                            <input type="checkbox" name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?> <br/>
+                            <input type="checkbox" name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                         </label>
+                        <span onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek</span><span id="result"></span>
+                        <br/>
+                        </div>
                         <?php }?>
                     </div>
                 </div>

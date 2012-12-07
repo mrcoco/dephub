@@ -2,6 +2,9 @@
 class Dephub_inst extends CI_Controller{
     function __construct() {
         parent::__construct();
+        if(!$this->session->userdata('is_login')){
+            redirect(base_url());
+        }
         $this->load->model('mdl_inst','inst');
     }
     

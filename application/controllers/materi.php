@@ -17,7 +17,7 @@ class Materi extends CI_Controller{
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
-        $data['sub_title']='Daftar Materi';
+        $data['sub_title']='Daftar Materi dan Tenaga Pengajar';
         $data['list']=$this->rnc->get_all_materi();
         $this->template->display('materi/list_materi',$data);
     }

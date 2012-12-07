@@ -261,7 +261,7 @@ class Diklat extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['sub_title']='List Pendaftar '.$data['program']['name'];
+        $data['sub_title']='Pendaftar '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id,$thn);
         
         
@@ -305,7 +305,7 @@ class Diklat extends CI_Controller{
         }
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
         foreach($pil_angkatan as $p){
-            $data['pil_angkatan'][$p['id']]='Angkt. '.$p['angkatan'];
+            $data['pil_angkatan'][$p['id']]='Angkatan '.$p['angkatan'];
         }
         $data['tahun']=$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
@@ -314,12 +314,32 @@ class Diklat extends CI_Controller{
         $text = '';
         $text .= 'Berikut ini adalah nama-nama peserta diklat dari masing-masing angkatan : <br/>';
         foreach($data['list'] as $key => $val){
+            if($key>0){
             $text .= $data['pil_angkatan'][$key].'<br/>';
-            $text .= '<ul>';
+            $text .='<table class="table table-condensed table-bordered">';
+            $i=1;
+            $text .= '
+                    <tr>
+                        <th width="5%">No</th>
+                        <th width="30%">Nama</th>
+                        <th width="20%">NIP</th>
+                        <th width="5%">Gol</th>
+                        <th width="30%">Unit Kerja</th>
+                        <th width="10%">Status</th>
+                    </tr>
+                ';
             foreach($val as $v){
-                $text .= '<li>'.$v['nama'].' '.$this->editor->status($v['status']).'</li>';
+                $text .='<tr>';
+                $text .= '<td>'.$i++.'</td>';
+                $text .= '<td>'.$v['nama'].'</td>';
+                $text .= '<td>'.$v['nip'].'</td>';
+                $text .= '<td>'.$v['golongan'].'</td>';
+                $text .= '<td>'.$v['unit_kerja'].'</td>';
+                $text .= '<td>'.$this->editor->status($v['status']).'</td>';
+                $text .='</tr>';
             }
-            $text .= '</ul>';
+            $text .= '</table>';
+            }
         }
         $data_post['judul']='DAFTAR PANGGILAN '.$data['program']['name'];
         $data_post['isi']=$text;
@@ -364,8 +384,9 @@ class Diklat extends CI_Controller{
     function ajax_toggle_status($status){
         if($status==1){
             $data['status']='accept';
+            $data['komentar']='';
         }if($status==2){
-            $data['status']='waiting';
+            $data['komentar']='waiting';
         }else if($status==0){
             $data['status']='daftar';
             $data['id_program']='';
@@ -379,6 +400,7 @@ class Diklat extends CI_Controller{
         
         $max_peserta = $this->input->post('max_peserta');
         $data['id_program']=$this->input->post('id_program');
+        $data['komentar']='';
         $clause['id_peserta']=$this->input->post('id_peserta');
         $clause['id_diklat']=$this->input->post('id_diklat');
         //get status peserta
@@ -396,6 +418,15 @@ class Diklat extends CI_Controller{
             $this->slng->toggle_status($clause,$data);
             echo true;
         }
+    }
+    
+    function ajax_update_komentar(){
+        
+        $data['komentar']=$this->input->post('komentar');
+        $clause['id_peserta']=$this->input->post('id_peserta');
+        $clause['id_diklat']=$this->input->post('id_diklat');
+        
+        $this->slng->toggle_status($clause,$data);
     }
     
     function delete_diklat($id){
