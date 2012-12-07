@@ -27,7 +27,14 @@ class Gedung extends CI_Controller {
 
         $var = $this->spr->get_gedung()->result_array();
         $data['list'] = $var;
-
+		
+        $var2 = $this->spr->get_pemakaian_kamar_detail()->result_array();
+		$data['pemakaian'] = $var2;
+		// die(var_dump($var2));
+		
+        $var3 = $this->spr->get_kamar_simple()->result_array();
+		$data['kamar'] = $var3;
+		
         $this->template->display('gedung/list_gedung', $data);
     }
 
