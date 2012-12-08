@@ -230,7 +230,7 @@ class Mdl_sarpras extends CI_Model {
 	}
     }
 	
-	function get_pemakaian_kamar_detail($group=NULL) {
+	function get_pemakaian_kamar_detail($group=NULL,$kamar=NULL) {
 		$this->db->select(
 		$this->table_gedung.'.nama as gedung,'.$this->table_gedung.'.id as id_gedung,'.$this->table_kamar.'.nomor as kamar,'.$this->table_kamar.'.id as id_kamar,'.
 			$this->table_kamar_status.'.id as id_status,'.$this->table_kamar_status.'.status as status,'.
@@ -246,10 +246,13 @@ class Mdl_sarpras extends CI_Model {
 	    $this->db->join($this->table_pegawai, $this->table_pemakaian_asrama.'.id_peserta = '.$this->table_pegawai.'.id');
 	    $this->db->join($this->table_program, $this->table_pemakaian_asrama.'.id_program = '.$this->table_program.'.id');
 		
-		if ($group != NULL) {
+		if ($group == NULL) {
 		$this->db->group_by("kamar"); 
 		}
 		
+		if ($kamar != NULL) {
+		$this->db->where($this->table_kamar.'.id', $kamar); 
+		}
 		
 		$today = date("Y-m-d");
 	    $this->db->where($this->table_pemakaian_asrama.'.tanggal', $today);

@@ -86,6 +86,10 @@
                 <a href='kamar/edit_kamar/<?php echo $list[$i]['id']?>' class='btn btn-mini'><i class="icon-edit"></i> Ubah</a>
                 <a href='kamar/delete_kamar/<?php echo $list[$i]['id']?>' class='btn btn-mini btn-danger'
                    onclick="return confirm('Apakah anda yakin ingin menghapus?');"><i class="icon-remove"></i> Hapus</a>
+				<?php
+					if($data!=null)
+						echo "<a href='kamar/list_kamar_detail/".$data['id_kamar']."' class='btn btn-mini'> Detail</a>";
+				?>
             </td>
 		</tr>
         <?php }?>

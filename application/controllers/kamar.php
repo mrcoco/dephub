@@ -30,7 +30,7 @@ class Kamar extends CI_Controller {
 		$var2 = $this->spr->get_kamar_status($offset)->result_array();
 		$data['status'] = $var2;
 		
-        $var3 = $this->spr->get_pemakaian_kamar_detail()->result_array();
+        $var3 = $this->spr->get_pemakaian_kamar_detail('kamar')->result_array();
 		$data['pemakaian'] = $var3;
 		
         $this->template->display('kamar/list_kamar', $data);
@@ -53,6 +53,17 @@ class Kamar extends CI_Controller {
 	$this->template->display('kamar/list_kamar',$data);
     }
 	
+	function list_kamar_detail($id_kamar)
+    {
+	if(empty ($offset)) $offset=0;
+	$data['sub_title']='Detail Kamar';
+
+        $var = $this->spr->get_pemakaian_kamar_detail("group",$id_kamar)->result_array();
+		$data['pemakaian'] = $var;
+		
+	$this->template->display('kamar/ajax_kamar_detail',$data);
+    }
+
     function add_kamar() {
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
             redirect(base_url().'error/error_priv');
