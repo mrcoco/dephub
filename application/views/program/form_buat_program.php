@@ -120,7 +120,8 @@
                         <label class="checkbox">
                             <input type="checkbox" name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                         </label>
-                        <span onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek</span><span id="result"></span>
+                            <span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
+                            <span id="result"></span>
                         <br/>
                         </div>
                         <?php }?>

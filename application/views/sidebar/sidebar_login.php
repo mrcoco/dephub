@@ -9,6 +9,7 @@
         <?php echo form_close(); ?>
     </p>
 <?php }  ?>
+    <br />
         <a href="<?php echo base_url()?>unit"><i class="icon-chevron-right"></i> Login Sebagai Unit</a><br/>
         <a href="<?php echo base_url()?>inst"><i class="icon-chevron-right"></i> Login Sebagai Instansi</a><br/>
         <a href="<?php echo base_url()?>pes"><i class="icon-chevron-right"></i> Login Sebagai Peserta</a><br/>
