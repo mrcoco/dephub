@@ -48,7 +48,7 @@
 					{
 						$tersedia++;
 					}
-					elseif($kamar[$j]['status']==2)
+					else if($kamar[$j]['status']==2)
 					{
 						$rusak++;
 					}
@@ -66,7 +66,7 @@
 							{
 								$terisitersedia++;
 							}
-							elseif($kamar[$j]['status']==2)
+							else if($kamar[$j]['status']==2)
 							{
 								$terisirusak++;
 							}

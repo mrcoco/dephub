@@ -30,6 +30,9 @@ class Kamar extends CI_Controller {
 		$var2 = $this->spr->get_kamar_status($offset)->result_array();
 		$data['status'] = $var2;
 		
+        $var3 = $this->spr->get_pemakaian_kamar_detail()->result_array();
+		$data['pemakaian'] = $var3;
+		
         $this->template->display('kamar/list_kamar', $data);
     }
 
@@ -38,12 +41,15 @@ class Kamar extends CI_Controller {
 	if(empty ($offset)) $offset=0;
 	$data['sub_title']='Kamar';
 
-	$var = $this->spr->get_kamar_gedung($offset)->result_array();
+		$var = $this->spr->get_kamar_gedung($offset)->result_array();
         $data['list']=$var;
 		
-	$var2 = $this->spr->get_kamar_status($offset)->result_array();
-	$data['status'] = $var2;
-	
+		$var2 = $this->spr->get_kamar_status($offset)->result_array();
+		$data['status'] = $var2;
+		
+        $var3 = $this->spr->get_pemakaian_kamar_detail()->result_array();
+		$data['pemakaian'] = $var3;
+		
 	$this->template->display('kamar/list_kamar',$data);
     }
 	

@@ -34,12 +34,11 @@
         <tr>
             <th width="5%">No</th>
             <th width="10%">Nomor Kamar</th>
-			<!--
-            <th width="5%">Lantai</th>
-            <th width="10%">Sayap</th>
-			-->
             <th width="5%">Bed</th>
-            <th width="25%">Status</th>
+            <th width="5%">Status</th>
+            <th width="5%">Terisi</th>
+            <th width="5%">Jenis Kelamin</th>
+            <th width="25%">Program</th>
             <th width="25%">Aksi</th>
         </tr>
     </thead>
@@ -51,12 +50,38 @@
         <tr class="gedung<?php echo $list[$i]['id'] ?>">
             <td class="no"><?php echo ($i+1) ?></td>
             <td class="nomor"><?php echo $list[$i]['nama'].$list[$i]['nomor'] ?></td>
-			<!--
-            <td class="lantai"><?php //echo $list[$i]['lantai'] ?></td>
-            <td class="sayap"><?php //echo $list[$i]['sayap'] ?></td>
-			-->
             <td class="bed"><?php echo $list[$i]['bed'] ?></td>
 			<td class="status"><?php echo $list[$i]['status'] ?></td>
+			<td class="status"><?php 
+			$data=null;
+			for($k=0;$k<count($pemakaian);$k++)
+			{
+				//terisi
+				if($list[$i]['id']==$pemakaian[$k]['id_kamar'])
+				{
+					echo "Terisi";
+					$data=$pemakaian[$k];
+					break;
+				}
+				else
+				{
+					echo "Kosong";
+					$data=null;
+				}
+			}			
+			?></td>
+			<td class="status"><?php 
+			if($data!=null)
+				echo $data['jenis_kelamin'];
+			else
+				echo "-"
+			?></td>
+			<td class="status"><?php 
+			if($data!=null)
+				echo $data['program'];
+			else
+				echo "-"
+			?></td>
             <td class="aksi">
                 <a href='kamar/edit_kamar/<?php echo $list[$i]['id']?>' class='btn btn-mini'><i class="icon-edit"></i> Ubah</a>
                 <a href='kamar/delete_kamar/<?php echo $list[$i]['id']?>' class='btn btn-mini btn-danger'
