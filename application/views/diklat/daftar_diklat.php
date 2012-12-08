@@ -20,6 +20,11 @@
 </div>
 <div class="row">
     <div class="span8">
+        <p>Pilih tahun: 
+        <?php foreach($thn_program as $th){ ?>
+            <a href="<?php echo base_url()?>diklat/daftar_diklat/<?php echo $th['tahun_program'] ?>"><?php echo $th['tahun_program'] ?></a> | 
+        <?php } ?>
+        </p>
 <?php if($program){ ?>
         <table width="100%" class="table-striped table-condensed table">
             <?php $this->lib_perencanaan->print_tree_table($program)?>

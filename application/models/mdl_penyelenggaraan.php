@@ -5,9 +5,12 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->insert('post',$data);
     }
     
-    function load_pengumuman(){
+    function load_pengumuman($offset,$lim=10){
         $this->db->order_by('id','desc');
-        return $this->db->get('post')->result_array();
+        return $this->db->get('post',$lim,$offset)->result_array();
+    }
+    function count_pengumuman(){
+        return $this->db->get('post')->num_rows();
     }
     function feedback_diklat($id){
         $this->db->where('id_program',$id);

@@ -6,6 +6,7 @@ class Site extends CI_Controller{
         $this->load->model('mdl_perencanaan', 'rnc');
         $this->load->model('mdl_sarpras', 'spr');
         $this->thn_default=date('Y');
+        $this->limit_post=8;
     }
     
     function index(){
@@ -15,17 +16,27 @@ class Site extends CI_Controller{
     function front($thn=''){
         $this->load->model('mdl_penyelenggaraan','slng');
         $data['title']='Sistem Informasi Manajemen Diklat';
-        $data['data_post'] = $this->slng->load_pengumuman();
+        $data['lim']=$this->limit_post;
+        $data['data_post'] = $this->slng->load_pengumuman(0,$data['lim']);
         $data['active']=1;
         if($thn==''){
             $data['active']=0;
             $thn=$this->thn_default;
         }
         $data['thn']=$thn;
-        $this->load->library('lib_perencanaan');
+        $data['num_post'] = $this->slng->count_pengumuman();
         $data['program']=$this->rnc->get_all_program($thn);
         $data['thn_program']=$this->rnc->get_thn_program();
         $this->template->display_with_sidebar('site/front_view','login',$data);
+    }
+    function news($offset=0){
+        $this->load->model('mdl_penyelenggaraan','slng');
+        $data['title']='Arsip Berita dan Pengumuman';
+        $data['offset']=$offset;
+        $data['num_post'] = $this->slng->count_pengumuman();
+        $data['lim']=$this->limit_post;
+        $data['data_post'] = $this->slng->load_pengumuman($offset,$data['lim']);
+        $this->template->display_with_sidebar('site/news','login',$data);
     }
     
     function login(){

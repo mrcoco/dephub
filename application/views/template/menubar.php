@@ -12,14 +12,6 @@
             </ul>
         </li>
         <?php } ?>
-        <?php if($this->session->userdata('id_role')==1){?>
-        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pegawai<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url()?>pegawai">Daftar Pegawai</a></li>
-                <li><a href="<?php echo base_url()?>pegawai/tambah_pegawai">Tambah Pegawai</a></li>
-            </ul>
-        </li>
-        <?php }?>
         <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==2){?>
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pengajar<b class="caret"></b></a>
             <ul class="dropdown-menu">
@@ -32,6 +24,7 @@
                 <li><a href="<?php echo base_url()?>dosen_tamu/add_dosen">Tambah Dosen Tamu</a></li>
             </ul>
         </li>
+        <li><a href="<?php echo base_url()?>feedback">Feedback</a></li>
         <?php } ?>
         <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==4){?>
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Sarpras<b class="caret"></b></a>
@@ -49,19 +42,28 @@
         </li>
         <?php }?>
         <?php if($this->session->userdata('id_role')==1){?>
-        <li><a href="<?php echo base_url()?>dephub_unit">Unit</a></li>
-        <li><a href="<?php echo base_url()?>dephub_inst">Instansi</a></li>
-        <li><a href="<?php echo base_url()?>feedback">Feedback</a></li>
-        <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
+        <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pegawai<b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url()?>settings/profil">Daftar Profil</a></li>
-<!--                <li><a href="<?php echo base_url()?>setting/list_priviledge">Site Priviledge</a></li>-->
-<!--                <li><a href="<?php echo base_url()?>setting/info_pusbang">Simdik Info</a></li>-->
+                <li><a href="<?php echo base_url()?>pegawai">Daftar Pegawai</a></li>
+                <li><a href="<?php echo base_url()?>pegawai/tambah_pegawai">Tambah Pegawai</a></li>
             </ul>
         </li>
+        <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Organisasi <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?php echo base_url()?>settings/profil">Profil Organisasi</a></li>
+                <li><a href="<?php echo base_url()?>dephub_unit">Unit Kerja</a></li>
+                <li><a href="<?php echo base_url()?>dephub_inst">Instansi</a></li>
+            </ul>
+        </li>
+<!--        <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="<?php echo base_url()?>setting/list_priviledge">Site Priviledge</a></li>
+                <li><a href="<?php echo base_url()?>setting/info_pusbang">Simdik Info</a></li>
+            </ul>
+        </li>-->
         <?php } ?>
         <li class="pull-right">
-            <a href="<?php echo base_url()?>site/logout">Logout</a>
+            <a href="<?php echo base_url()?>site/logout"><i class="icon-off"></i> Logout</a>
         </li>
         <li class="pull-right">
             <a><i class="icon-user"></i> <?php echo $this->session->userdata('nama')?></a>

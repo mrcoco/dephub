@@ -20,6 +20,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn_program']=$this->rnc->get_thn_program();
         $data['thn']=$thn;
         $this->load->library('lib_perencanaan');
         $data['sub_title']='Daftar Diklat dan Program Tahun '.$thn;

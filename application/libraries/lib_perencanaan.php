@@ -73,8 +73,6 @@ class Lib_perencanaan {
             if($diklat['parent']==$parent){
                 if($diklat['tipe']==1){
                     echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
-                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3)
-                    echo '<a class="tip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>';
                     echo '</strong></td>'."\n";
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
 //                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
@@ -83,6 +81,8 @@ class Lib_perencanaan {
                         echo '<a class="btn btn-mini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_kategori/'.$diklat['id'].'">Hapus</a>';
 //                        echo '<a class="btn btn-mini" href="javascript:add_subkat('.$diklat['id'].')">Tambah sub</a>';
                         echo '<a class="btn btn-mini" href="'.base_url().'diklat/buat_diklat/'.$diklat['id'].'">Buat diklat</a>';
+                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3)
+                    echo '<a class="btn btn-mini" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')">Buat Subkategori</a>';
                         echo '</div></td>';
                     }
                     echo '</tr>';
