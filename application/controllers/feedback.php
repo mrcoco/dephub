@@ -56,4 +56,27 @@ class Feedback extends CI_Controller{
         $this->fbk->delete_pertanyaan($id);
         redirect(base_url().'feedback');
     }
+    
+    function list_kategori(){
+        $data['list']=$this->fbk->getall_kategori();
+        $this->template->display_with_sidebar('feedback/list_kategori','feedback',$data);
+    }
+    
+    function insert_kategori(){
+        $data['nama_kategori']=  $this->input->post('kategori');
+        $this->fbk->insert_kategori($data);
+        redirect(base_url().'feedback/list_kategori');
+    }
+    
+    function delete_kategori($id){
+        $this->fbk->delete_kategori($id);
+        redirect(base_url().'feedback/list_kategori');
+    }
+    
+    function update_kategori(){
+        $clause=  $this->input->post('id_kategori');
+        $data['nama_kategori']=  $this->input->post('kategori');
+        $this->fbk->update_kategori($data,$clause);
+        redirect(base_url().'feedback/list_kategori');
+    }
 }

@@ -9,6 +9,7 @@ class Lib_perencanaan {
     function __construct() {
 	$CI = & get_instance();
         $this->session = $CI->session;
+        $this->date = $CI->date;
     }
     
     function count_diklat($array,$parent){
@@ -109,6 +110,34 @@ class Lib_perencanaan {
                  }
                 if($this->count_diklat($array_kat,$diklat['id'])>0){
                 $this->print_tree_table($array_kat,$diklat['id'],$k);}
+            }
+        }
+    }
+    function print_tree_table_pub($array_kat,$parent=0,$k=0){
+        if($k!=0){$l=$k*20;$p=' style="padding-left:'.$l.'px;"';}else{$p='';}
+        $k++;
+        foreach($array_kat as $diklat){
+            if($diklat['parent']==$parent){
+                if($diklat['tipe']==1){
+                    echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    echo '</strong></td>'."\n";
+                    echo '<td></td>';
+                    echo '</tr>';
+                }else if($diklat['tipe']==2){
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    if($diklat['jumlah_peserta']>0){
+                        echo '<td>Kuota peserta '.$diklat['jumlah_peserta'].' orang</td>';
+                    }else{
+                        echo '<td>-</td>';
+                    }
+                    echo '</tr>';
+                }else if($diklat['tipe']==3){
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</td>';
+                    echo '<td>'.$this->date->konversi5($diklat['tanggal_mulai']).' - '.$this->date->konversi5($diklat['tanggal_akhir']).'</td>';
+                   echo '</tr>';
+                 }
+                if($this->count_diklat($array_kat,$diklat['id'])>0){
+                $this->print_tree_table_pub($array_kat,$diklat['id'],$k);}
             }
         }
     }

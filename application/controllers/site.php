@@ -3,17 +3,28 @@ class Site extends CI_Controller{
     
     function __construct() {
         parent::__construct();
-        $this->load->model('mdl_perencanaan','rnc');
+        $this->load->model('mdl_perencanaan', 'rnc');
+        $this->load->model('mdl_sarpras', 'spr');
+        $this->thn_default=date('Y');
     }
     
     function index(){
         $this->front();
     }
     
-    function front(){
+    function front($thn=''){
         $this->load->model('mdl_penyelenggaraan','slng');
         $data['title']='Sistem Informasi Manajemen Diklat';
         $data['data_post'] = $this->slng->load_pengumuman();
+        $data['active']=1;
+        if($thn==''){
+            $data['active']=0;
+            $thn=$this->thn_default;
+        }
+        $data['thn']=$thn;
+        $this->load->library('lib_perencanaan');
+        $data['program']=$this->rnc->get_all_program($thn);
+        $data['thn_program']=$this->rnc->get_thn_program();
         $this->template->display_with_sidebar('site/front_view','login',$data);
     }
     
@@ -31,6 +42,76 @@ class Site extends CI_Controller{
         redirect(base_url().'site');
     }
     
+    function kal_diklat(){
+        $data['title']='Kalender Diklat';
+        $this->template->display_with_sidebar('site/kal_diklat','login',$data);
+    }
+    function print_jadwal($thn=''){
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $this->load->library('lib_perencanaan');
+        $data['program']=$this->rnc->get_all_program($thn);
+        $data['thn_program']=$this->rnc->get_thn_program();
+        $this->load->helper('pdfexport_helper.php');
+        $data['judul']='Jadwal Diklat Tahun '.$thn;              
+        $data['htmView'] = $this->load->view('site/print_jadwal',$data,TRUE);
+//        $this->load->view('site/print_jadwal',$data);
+        pdf_create($data['htmView'],$data['judul']);                                                                    
+    }
+    
+    function view_diklat($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_diklat_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            redirect(base_url().'site');
+        }
+	$data['sub_title']='Detail Diklat';
+        $kategori=$this->rnc->get_kategori();
+        $data['pil_kategori']=array();
+        $this->load->library('lib_perencanaan');
+        $this->load->library('date');
+        foreach($kategori as $k){
+            $data['pil_kategori'][$k['id']]=$k['name'];
+        }
+        $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
+        $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
+        $data['materi']=$this->rnc->get_materi_diklat($id);
+        $this->template->display_with_sidebar('site/detail_diklat','login',$data);
+    }
+
+    function view_program($id) {
+        $this->load->library('date');
+        $data['sub_title']="Detail Program";
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'site');
+        }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['pil_pendidikan'] = $this->rnc->get_list_pendidikan();
+        $data['pil_pangkat'] = $this->rnc->get_pangkat_gol();
+        $data['materi'] = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $pil_kelas = $this->spr->get_kelas_by_size($data['diklat']['jumlah_peserta'])->result_array();
+        $data['kelas'] = array(0 => '-');
+        foreach ($pil_kelas as $k) {
+            $data['kelas'][$k['id']] = $k['nama'];
+        }
+        $pil_gedung = $this->spr->get_gedung()->result_array();
+
+        foreach ($pil_gedung as $g) {
+            $data['asrama'][$g['id']] = 'Asrama ' . $g['nama'];
+        }
+        $alokasi_asrama = $this->spr->get_alocated_gedung($id);
+        $data['pil_asrama'] = array();
+        foreach ($alokasi_asrama as $as) {
+            $data['pil_asrama'][] = $data['asrama'][$as['id_asrama']];
+        }
+
+        $this->template->display_with_sidebar('site/view_program', 'login', $data);
+    }
+
     function json_event() {
 	
 	$i = 0;

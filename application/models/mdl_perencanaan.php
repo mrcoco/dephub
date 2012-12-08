@@ -29,6 +29,16 @@ class Mdl_perencanaan extends CI_Model{
             return array();
         }
     }
+    function get_thn_program(){
+        $this->db->select('tahun_program');
+        $this->db->group_by('tahun_program');
+        $thn = $this->db->get_where('program',array('tipe'=>3));
+        if($thn->num_rows()>0){
+            return $thn->result_array();
+        }else{
+            return array();
+        }
+    }
     
     function get_program_by_parent($parent,$thn){
         $program = $this->db->get_where('program',array('tahun_program'=>$thn,'tipe'=>3,'parent'=>$parent));
