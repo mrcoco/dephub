@@ -1,13 +1,3 @@
-<script>   
-    $(function(){
-        $('.tanggal').datepicker({
-            format: 'yyyy-mm-dd'
-        });
-        $('#display_history').modal({
-            show: false
-        });
-    });
-</script>
 <div class="alert alert-error fade in none"></div>
 
 <form name="form_reg" id="form_reg" action="<?php echo base_url()?>pegawai/tambah_pegawai_process" method="POST">
@@ -21,7 +11,7 @@
         </tr>
         <tr>
             <td>Tempat Tanggal Lahir</td>
-            <td><input class="tempat" type="text" name="tempat_lahir" placeholder="Tempat Lahir"/> / <input class="tanggal" type="text" name="tanggal_lahir" placeholder="Tanggal Lahir"/></td>
+            <td><input class="tempat" type="text" name="tempat_lahir" placeholder="Tempat Lahir"/> / <input class="tgllahir" type="text" name="tanggal_lahir" placeholder="Tanggal Lahir"/></td>
         </tr>
         <tr>
             <td>Pangkat/Gol</td>
