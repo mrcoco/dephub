@@ -1,14 +1,39 @@
-<form action="<?php echo base_url() ?>dephub_inst/update_inst" method="post">
+<form class="form-horizontal" action="<?php echo base_url() ?>dephub_inst/update_inst" method="post">
+    <fieldset>
     <input type="hidden" name="id" value="<?php echo $inst['id']?>">
-    Kode kantor : <input type="text" name="kode" value="<?php echo $inst['kode_kantor'] ?>"/>
-    <br/>
-    Nama instansi : <input type="text" name="nama" value="<?php echo $inst['nama_instansi'] ?>"/>
-    <br/>
-    Singkatan : <input type="text" name="singkatan" value="<?php echo $inst['nama_singkat'] ?>"/>
-    <br/>
-    Password login : <input type="password" name="password"/>
-    <br/>
-    Konfirmasi Password : <input type="password" name="password_konf"/>
-    <br/>
-    <input type="submit" value="Simpan"/>
+        <div class="control-group">
+            <label class="control-label">Kode Instansi</label>
+            <div class="controls">
+                <input type="text" name="kode" class="input-small" value="<?php echo $inst['kode_kantor'] ?>"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Nama Instansi</label>
+            <div class="controls">
+                <input class="input-xlarge" type="text" name="nama" value="<?php echo $inst['nama_instansi'] ?>"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Singkatan Instansi</label>
+            <div class="controls">
+                <input type="text" name="singkatan" value="<?php echo $inst['nama_singkat'] ?>"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Password</label>
+            <div class="controls">
+                <input type="password" id="pass" name="password"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Ulangi Password</label>
+            <div class="controls">
+                <input type="password" name="password_konf"/>
+            </div>
+        </div>
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary" value="Simpan"/>
+            <input type="button" class="btn" value="Cancel" onclick="history.go(-1)">
+        </div>
+    </fieldset>
 </form>

@@ -10,6 +10,7 @@ class Feedback extends CI_Controller{
     }
     
     function list_pertanyaan(){
+        $data['title']='Daftar Pertanyaan Feedback Diklat';
         $kategori=$this->fbk->getall_kategori();
         foreach($kategori as $k){
             $data['kategori'][$k['id_kategori']]=$k['nama_kategori'];
@@ -19,6 +20,7 @@ class Feedback extends CI_Controller{
     }
     
     function tambah_pertanyaan(){
+        $data['title']='Tambah Pertanyaan Feedback Diklat';
         $kategori=$this->fbk->getall_kategori();
         $data['kategori'][0]='-- Pilih Kategori --';
         foreach($kategori as $k){
@@ -35,6 +37,7 @@ class Feedback extends CI_Controller{
     }
     
     function edit_pertanyaan($id){
+        $data['title']='Ubah Pertanyaan Feedback Diklat';
         $kategori=$this->fbk->getall_kategori();
         $data['kategori'][0]='-- Pilih Kategori --';
         foreach($kategori as $k){
@@ -58,6 +61,7 @@ class Feedback extends CI_Controller{
     }
     
     function list_kategori(){
+        $data['title']='Daftar Kategori Feedback Diklat';
         $data['list']=$this->fbk->getall_kategori();
         $this->template->display_with_sidebar('feedback/list_kategori','feedback',$data);
     }

@@ -13,8 +13,19 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get('post')->num_rows();
     }
     function feedback_diklat($id){
+        $this->db->select('feedback_diklat.id_kategori, feedback_diklat_kategori.nama_kategori, avg(skor)');
+        $this->db->group_by('id_kategori');
         $this->db->where('id_program',$id);
-        return $this->db->get('feedback_diklat');
+        $this->db->join('feedback_diklat_kategori','feedback_diklat_kategori.id_kategori=feedback_diklat.id_kategori');
+        return $this->db->get('feedback_diklat')->result_array();
+    }
+    function saran_diklat($id){
+        $this->db->where('id_program',$id);
+        return $this->db->get('feedback_saran')->result_array();
+    }
+    function count_feedback_diklat($id){
+        $this->db->where('id_program',$id);
+        return $this->db->get('feedback_diklat')->num_rows();
     }
     function feedback_saran_pembicara($id){
         $str_query='select saran FROM tb_feedback_pembicara WHERE id_program='.$id;

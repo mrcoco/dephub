@@ -3,6 +3,11 @@ class Mdl_feedback extends CI_Model{
     function __construct() {
         parent::__construct();
     }
+    function cek_feedback_diklat($id_program,$id_peserta){
+        $this->db->where('id_program',$id_program);
+        $this->db->where('id_peserta',$id_peserta);
+        return $this->db->get('feedback_diklat')->num_rows();
+    }
     
     function getlist_pertanyaan(){
         return $this->db->get('feedback_diklat_pertanyaan')->result_array();
@@ -15,6 +20,12 @@ class Mdl_feedback extends CI_Model{
     
     function insert_pertanyaan($data){
         $this->db->insert('feedback_diklat_pertanyaan',$data);
+    }
+    function insert_feedback_diklat($data){
+        $this->db->insert('feedback_diklat',$data);
+    }
+    function insert_saran_diklat($data){
+        $this->db->insert('feedback_saran',$data);
     }
     
     function getbyid_pertanyaan($id){
