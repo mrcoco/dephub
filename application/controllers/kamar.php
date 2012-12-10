@@ -22,7 +22,7 @@ class Kamar extends CI_Controller {
         }
         if (empty($offset))
             $offset = 0;
-        $data['sub_title'] = 'Kamar';
+        $data['sub_title'] = 'Daftar Kamar';
 
         $var = $this->spr->get_kamar($offset)->result_array();
         $data['list'] = $var;
@@ -39,7 +39,8 @@ class Kamar extends CI_Controller {
 	function list_kamar_gedung($offset=0)
     {
 	if(empty ($offset)) $offset=0;
-	$data['sub_title']='Kamar';
+        $gedung=$this->spr->get_gedung($offset)->row_array();
+	$data['sub_title']='Daftar Kamar di Gedung '.$gedung['nama'];
 
 		$var = $this->spr->get_kamar_gedung($offset)->result_array();
         $data['list']=$var;

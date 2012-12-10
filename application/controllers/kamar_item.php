@@ -22,7 +22,7 @@ class Kamar_item extends CI_Controller {
         }
         if (empty($offset))
             $offset = 0;
-        $data['sub_title'] = 'Pemakaian Kamar';
+        $data['sub_title'] = 'Daftar Prasarana Kamar';
 
         $var = $this->spr->get_kamaritem($offset)->result_array();
         $data['list'] = $var;

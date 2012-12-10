@@ -1,12 +1,8 @@
-
-	<h4>Check List Prasarana Kelas</h4>
-	
-	
-	
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-	
+<div class="row">	
+<div class="span12">	
 <table width="100%" id="list" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -23,20 +19,20 @@
         </tr>
         <tr>
             <th>Type</th>
-            <th>Kondisi</th>
-            <th>Jumlah</th>
+            <th>OK</th>
+            <th>Jml</th>
             <th>Lap Time</th>
             <th>Type</th>
-            <th>Kondisi</th>
+            <th>OK</th>
             <th>Type</th>
-            <th>Kondisi</th>
-            <th>Jumlah</th>
+            <th>OK</th>
+            <th>Jml</th>
             <th>Type</th>
-            <th>Kondisi</th>
-            <th>Jumlah</th>
-            <th>Kondisi</th>
-            <th>Kondisi</th>
-            <th>Kondisi</th>
+            <th>OK</th>
+            <th>Jml</th>
+            <th>OK</th>
+            <th>OK</th>
+            <th>OK</th>
         </tr>
     </thead>
     
@@ -107,7 +103,7 @@
 			
 			<td>
 				<input type="submit" class="btn btn-mini btn-primary pull-right" value="Save"/>
-				<a href="kelas/edit_checklist/<?php echo $list[$i]['id'] ?>" class="btn btn-mini btn-primary pull-right"/>Edit</a>
+				<a href="kelas/edit_checklist/<?php echo $list[$i]['id'] ?>" class="btn btn-mini btn-primary pull-right"/>Ubah</a>
 			</td>
 			
             </form>
@@ -115,4 +111,5 @@
         <?php }?>
     </tbody>
 </table>
-	
+</div>	
+</div>	

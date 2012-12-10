@@ -32,11 +32,12 @@
                 <li class="nav-header">Asrama</li>
                 <li><a href="<?php echo base_url()?>gedung">Daftar Gedung</a></li>
                 <li><a href="<?php echo base_url()?>kamar">Daftar Kamar</a></li>
-                <li><a href="<?php echo base_url()?>asrama">Checklist Asrama</a></li>
-                <li><a href="<?php echo base_url()?>kamar_item">Item Checklist</a></li>
+                <li><a href="<?php echo base_url()?>kamar_item">Daftar Prasarana Kamar</a></li>
+                <li><a href="<?php echo base_url()?>asrama">Status Prasarana Asrama</a></li>
+                <li><a href="<?php echo base_url()?>asrama/list_asrama">Checklist Prasarana Asrama</a></li>
                 <li class="nav-header">Kelas</li>
-                <li><a href="<?php echo base_url()?>kelas">Daftar Kelas</a></li>
-                <li><a href="<?php echo base_url()?>kelas/checklist_kelas">Checklist Kelas</a></li>
+                <li><a href="<?php echo base_url()?>kelas">Daftar Ruang Kelas</a></li>
+                <li><a href="<?php echo base_url()?>kelas/checklist_kelas">Checklist Prasarana Kelas</a></li>
 <!--                <li><a href="#">Laporan</a></li>-->
             </ul>
         </li>

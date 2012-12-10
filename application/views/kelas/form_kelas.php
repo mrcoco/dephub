@@ -28,15 +28,9 @@
 	else
 		echo "kelas/edit_kelas_process/";
 	?>" method="POST">
-	
-<table width="100%" class="table table-striped table-bordered table-condensed">
-	<thead>
-		<tr>
 		<input class="id" type="hidden" name="id" value="<?php echo $kelas['id'];?>"/>
-			<th>Edit Kelas</th>
-		</tr>
-	</thead>
-    
+	
+<table width="100%" class="table table-striped table-condensed">
     <tbody>
 		
         <tr>
@@ -64,12 +58,7 @@
     </tbody>
 </table>
     <div class="form-actions">
-        <input type="button" class="btn btn-large btn-primary pull-right" value="<?php
-	if($type=="add")
-		echo "Tambah";
-	else
-		echo "Edit";
-	?>" onclick="validate_form()"/>
+        <input type="button" class="btn btn-primary" value="Simpan" onclick="validate_form()"/>
     </div>
 </form>
 	
