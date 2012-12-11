@@ -19,6 +19,10 @@ class Editor {
             default      : return "Mendaftar";break;
         }
     }
+    function cek_fdb_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta){
+        $this->_ci->load->model('mdl_feedback','fdb');
+        return $this->_ci->fdb->cek_feedback_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta);
+    }
     // Default Template
     function textarea($name,$value=null)
     {

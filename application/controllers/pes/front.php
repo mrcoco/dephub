@@ -69,8 +69,9 @@ class Front extends CI_Controller{
             redirect(base_url().'diklat/daftar_diklat/');
         }
         $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$id);
+        $data['id_program']=$data['ang']['id_program'];
         $data['feedback_diklat']=false;
-        if($this->fdb->cek_feedback_diklat($data['ang']['id'],$this->session->userdata('id_pes'))==0)
+        if($this->fdb->cek_feedback_diklat($data['id_program'],$this->session->userdata('id_pes'))==0)
         $data['feedback_diklat']=true;
 	$data['sub_title']='Detail Diklat';
         $kategori=$this->rnc->get_kategori();
@@ -161,10 +162,10 @@ class Front extends CI_Controller{
         $semua = $this->fdb->getlist_pertanyaan();
         $kategori = $this->fdb->getall_kategori();
         $program=$this->rnc->get_program_by_id($_POST['id_program']);
+        $data['id_program']=$_POST['id_program'];
         foreach($semua as $tanya){
             if(isset($_POST[$tanya['id_pertanyaan']])){
                 $data['id_peserta']=$id_peserta;
-                $data['id_program']=$_POST['id_program'];
                 $data['id_kategori']=$tanya['id_kategori'];
                 $data['id_pertanyaan']=$tanya['id_pertanyaan'];
                 $data['skor']=$_POST[$tanya['id_pertanyaan']];
@@ -172,9 +173,9 @@ class Front extends CI_Controller{
             }
         }
         $saran=array();
+        $saran['id_program']=$_POST['id_program'];
         foreach($kategori as $kat){
             if($_POST['saran_'.$kat['id_kategori']]){
-                $saran['id_program']=$_POST['id_program'];
                 $saran['id_kategori']=$kat['id_kategori'];
                 $saran['saran']=$_POST['saran_'.$kat['id_kategori']];
                 $this->fdb->insert_saran_diklat($saran);
@@ -183,62 +184,60 @@ class Front extends CI_Controller{
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
         redirect(base_url().'pes/front/detail_diklat/'.$program['parent']);        
     }
-    function json_pengajar($id_materi){
-        $data['pengajar']=$this->rnc->get_pengajar($id);
-        $pembicara=$this->slng->get_all_pembicara();
-        $data['pembicara']=array();
-        $data['key_pembicara']=array();
-        $data['id']=array();
-        foreach($pembicara as $p){
-            if($p['nama_peg']!=''){
-                $data['pembicara'][]=$p['nama_peg'];
-                $data['id'][$p['nama_peg']]=$p['id'];
-                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
-            }else{
-                $data['pembicara'][]=$p['nama_dostam'];
-                $data['id'][$p['nama_dostam']]=$p['id'];
-                $data['key_pembicara'][$p['id']]=$p['nama_dostam'];
-            }
-        }
-        echo json_encode($data['key_pembicara']);
-    }
-    function add_feedback_pengajar($id){
-        
+    function feedback_pengajar($id){
         $data['sub_title']='Evaluasi Pengajar';
+        $data['sidebar']=true;
         $data['program']=$this->rnc->get_program_by_id($id);
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
-        $materi = $this->rnc->get_materi_diklat($data['program']['parent']);
-        $data['mat']=array();
-        $data['mat'][-1]='--Pilih Materi--';
-        foreach($materi as $i){
-            $data['mat'][$i['id_materi']]=$i['judul'];
+        $data['id_program']=$id;
+        $data['feedback_diklat']=false;
+        if($this->fdb->cek_feedback_diklat($data['id_program'],$this->session->userdata('id_pes'))==0)
+        $data['feedback_diklat']=true;
+        $data['pengajar']=$this->slng->get_all_pembicara();
+        $data['materi'] = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $data['pemateri'] = array();
+        $data['cek'] = array();
+        foreach ($data['materi'] as $m){
+            $data['pemateri'][$m['id']]=$this->rnc->get_pengajar($m['id']);
         }
-        $pembicara=$this->slng->get_all_pembicara();
-        $data['pembicara']=array();
-        $data['key_pembicara']=array();
-        $data['key_pembicara'][-1]='--Pilih Pengajar--';
-        foreach($pembicara as $p){
-            if($p['nama_peg']!=''){
-                $data['pembicara'][]=$p['nama_peg'];
-                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
-            }else{
-                $data['pembicara'][]=$p['nama_dostam'];
-                $data['key_pembicara'][$p['id']]=$p['nama_dostam'];
-            }
-        }
-        if($data['program']){
-            $this->template->display_pes('pes/add_feedback_pembicara',$data);
+        $this->template->display_pes('pes/feedback_pengajar',$data);
+    }
+    function add_feedback_pengajar(){
+        $data['sub_title']='Evaluasi Pengajar';
+        $data['materi'] = $this->rnc->get_materi($_POST['id_materi']);
+        $data['pengajar']=$this->slng->get_pembicara_id($_POST['id_pengajar']);
+        $data['pertanyaan'] = $this->fdb->getlist_pertanyaan_pengajar();
+        $data['program']=$this->rnc->get_program_by_id($_POST['id_program']);
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        if($data['pengajar'] AND $data['materi']){
+            $this->template->display_pes('pes/add_feedback_pengajar',$data);
         }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Pengajar atau Materi tidak ditemukan'));
             redirect(base_url().'pes/detail_diklat/'.$id);                    
         }
     }
 
     function insert_feedback_pengajar(){
+        $id_peserta=$this->session->userdata('id_pes');
         $id_program=$this->input->post('id_program');
         $program=$this->rnc->get_program_by_id($id_program);
-        $_POST['tanggal']=$this->date->savetgl($_POST['tanggal']);
-        $this->pes->insert_feedback_pembicara($_POST);
+        $semua = $this->fdb->getlist_pertanyaan_pengajar();
+        $data['id_program']=$_POST['id_program'];
+        $data['id_pengajar']=$_POST['id_pengajar'];
+        $data['id_materi']=$_POST['id_materi'];
+        $saran['id_program']=$_POST['id_program'];
+        $saran['id_pengajar']=$_POST['id_pengajar'];
+        $saran['id_materi']=$_POST['id_materi'];
+        $saran['saran']=$_POST['saran'];
+        $this->fdb->insert_saran_pengajar($saran);
+        foreach($semua as $tanya){
+            if(isset($_POST[$tanya['id_pertanyaan']])){
+                $data['id_peserta']=$id_peserta;
+                $data['id_pertanyaan']=$tanya['id_pertanyaan'];
+                $data['skor']=$_POST[$tanya['id_pertanyaan']];
+                $this->fdb->insert_feedback_pengajar($data);
+            }
+        }
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Feedback/evaluasi telah ditambahkan'));
         redirect(base_url().'pes/front/detail_diklat/'.$program['parent']);        
     }
@@ -250,6 +249,7 @@ class Front extends CI_Controller{
         echo $this->load->view('pes/ajax_pemateri', $data, TRUE);
     }
     function schedule_program($id) {
+        $data['title']='Jadwal Program';
         $data['sidebar']=true;
         $data['program'] = $this->rnc->get_program_by_id($id);
         $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$data['program']['parent']);
@@ -259,44 +259,15 @@ class Front extends CI_Controller{
         }
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
 
-        $pil_materi = $this->rnc->get_materi_diklat($data['program']['parent']);
-        $data['pil_materi'][-1] = '-- Pilih Materi --';
-        foreach ($pil_materi as $p) {
-            $data['pil_materi'][$p['id_materi']] = $p['judul'];
-        }
-
-        $pil_kelas = $this->spr->get_kelas_by_size($data['diklat']['jumlah_peserta'])->result_array();
-
-        $data['kelas'] = array(-1 => '-- Pilih Kelas --');
-        foreach ($pil_kelas as $k) {
-            $data['kelas'][$k['id']] = $k['nama'];
-        }
-
-        $data['schedule'] = $this->slng->get_schedule($id);
-
-        $json_array = array();
-        if (count($data['schedule']) != 0) {
-            //proses json
-            $i = 0;
-            foreach ($data['schedule'] as $item) {
-                $i++;
-                $isi['id'] = $i;
-                $isi['start'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_mulai']);
-                $isi['end'] = $this->date->extract_date($item['tanggal'] . ' ' . $item['jam_selesai']);
-                if ($item['jenis'] == 'non materi')
-                    $isi['title'] = $item['nama_kegiatan'];
-                else
-                    $isi['title'] = $data['pil_materi'][$item['id_materi']];
-                $json_array[] = $isi;
-            }
-            $data['id_max'] = $i;
-        }else {
-            $data['id_max'] = 1;
-        }
-        $data['id'] = $id;
-        $data['sub_title'] = 'Jadwal Tentative';
-        $data['data_json'] = $json_array;
-        $this->template->display_pes('pes/schedule_program', $data);
+        $this->load->library('date');
+        $this->load->library('excel');
+        $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
+        
+        $data['id_program']=$id;
+        $data['feedback_diklat']=false;
+        if($this->fdb->cek_feedback_diklat($data['id_program'],$this->session->userdata('id_pes'))==0)
+        $data['feedback_diklat']=true;
+        $this->template->display_pes('pes/schedule_program',$data);
     }
     
 }

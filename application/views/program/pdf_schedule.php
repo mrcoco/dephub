@@ -1,14 +1,28 @@
 <html>
-    <head></head>
+    <head>
+<style>
+    table{
+        border: 1px #000 solid;
+        border-left: 0;
+    }
+    td, th{
+        border-left: 1px #000 solid;
+        border-top: 1px #000 solid;
+    }
+</style>
+    </head>
     <body>
-        <table width="100%" border="1">
+<h1 align="center">
+    <?php echo 'Jadwal '.$diklat['name'].'<br />Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
+</h1>
+        <table width="100%" cellspacing="0" align="center" cellpadding="3">
             <thead>
                 <tr>
-                    <td>Tanggal</td>
-                    <td>Waktu</td>
-                    <td>Kegiatan</td>
-                    <td>Tempat</td>
-                    <td>Pengajar</td>
+                    <th width>Tanggal</th>
+                    <th>Waktu</th>
+                    <th>Kegiatan</th>
+                    <th>Tempat</th>
+                    <th>Pengajar</th>
                 </tr>
             </thead>
             <tbody>

@@ -8,8 +8,20 @@ class Mdl_feedback extends CI_Model{
         $this->db->where('id_peserta',$id_peserta);
         return $this->db->get('feedback_diklat')->num_rows();
     }
+    function cek_feedback_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta){
+        $this->db->where('id_materi',$id_materi);
+        $this->db->where('id_pengajar',$id_pengajar);
+        $this->db->where('id_program',$id_program);
+        $this->db->where('id_peserta',$id_peserta);
+        return $this->db->get('feedback_pengajar')->num_rows();
+    }
     
     function getlist_pertanyaan(){
+        $this->db->where('id_kategori !=',0);
+        return $this->db->get('feedback_diklat_pertanyaan')->result_array();
+    }
+    function getlist_pertanyaan_pengajar(){
+        $this->db->where('id_kategori',0);
         return $this->db->get('feedback_diklat_pertanyaan')->result_array();
     }
     
@@ -24,8 +36,14 @@ class Mdl_feedback extends CI_Model{
     function insert_feedback_diklat($data){
         $this->db->insert('feedback_diklat',$data);
     }
+    function insert_feedback_pengajar($data){
+        $this->db->insert('feedback_pengajar',$data);
+    }
     function insert_saran_diklat($data){
         $this->db->insert('feedback_saran',$data);
+    }
+    function insert_saran_pengajar($data){
+        $this->db->insert('feedback_saran_pengajar',$data);
     }
     
     function getbyid_pertanyaan($id){

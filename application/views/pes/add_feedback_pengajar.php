@@ -1,5 +1,16 @@
-<script>
-$(function() {
+<script type="text/javascript">
+var list_pengajar;
+$(function(){
+//    $('#pengajar').focus(function(){
+//        $.getJSON('<?php echo base_url()?>pes/front/json_pengajar/'+$('#materi').val(),function(data){
+//            list_pengajar=data;
+//        }).then(function(){
+//            console.log(list_pengajar);
+//            $('#pengajar').typeahead();
+//            $('#pengajar').data('typeahead').source=list_pengajar;
+//        });
+//        
+//    });
     $( ".slider" ).slider({
         value: 80,
         min: 60,
@@ -13,27 +24,33 @@ $(function() {
     $( ".skor" ).val( $( ".slider" ).slider( "value" ) );
 });
 </script>
+<div class="alert alert-error fade in none">
+    <h4>Error!</h4>
+</div>
 <p align="center" class="lead">
-    Evaluasi Kinerja Penyelenggaraan<br/>
     <?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
+<!--</p>
+<p align="center">-->
+<br />
+    <?php echo $materi['judul'] ?><br />oleh<br />
+    <?php if($pengajar['nama_peg']!=''){echo $pengajar['nama_peg']; }  else {echo $pengajar['nama_dostam'];} ?>
 </p>
-<form action="pes/front/insert_feedback_diklat" method="post" class="form-horizontal">
-<input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
-<?php foreach($kategori as $kat){ ?>
-    <div id="<?php echo $kat['id_kategori'] ?>">
-        <h4><?php echo $kat['nama_kategori'] ?></h4>
-        <?php if(isset($pertanyaan[$kat['id_kategori']])){ ?>
+<form action="pes/front/insert_feedback_pengajar" method="post" class="form-horizontal">
+        <input type="hidden" name="id_materi" value="<?php echo $materi['id'] ?>"/>
+        <input type="hidden" name="id_pengajar" value="<?php echo $pengajar['id'] ?>"/>
+        <input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
+        <input type="hidden" name="id_diklat" value="<?php echo $diklat['id'] ?>"/>
+        <?php if(is_array($pertanyaan)){ ?>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th width="5%">No</th>
-                    <th width="25%">Bahan Evaluasi</th>
+                    <th width="50%">Bahan Evaluasi</th>
                     <th width="45%">Evaluasi (geser slider ke arah yang Anda inginkan)</th>
-                    <th width="25%">Saran Konstruktif</th>
                 </tr>
             </thead>
             <tbody>
-            <?php $i=1; foreach($pertanyaan[$kat['id_kategori']] as $tanya){ ?>
+            <?php $i=1; foreach($pertanyaan as $tanya){ ?>
                 <tr>
                     <td><?php echo $i++ ?></td>
                     <td><?php echo $tanya['pertanyaan'] ?></td>
@@ -49,31 +66,25 @@ $(function() {
                         <!--<span class="skor2" style="width:200px;text-align: center;"></span>-->
                         <span class="pull-right">Baik sekali</span>
                     </td>
-                    <?php if($i==2){ ?>
-                    <td rowspan="<?php echo count($pertanyaan[$kat['id_kategori']]) ?>"><textarea name="saran_<?php echo $kat['id_kategori'] ?>" style="width:90%;height:90%"></textarea></td>
-                    <?php } ?> 
                 </tr>
             <?php } ?>
             </tbody>
         </table>
-        <?php }else{ ?>
         <table width="100%" class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Feedback Anda</th>
+                    <th>Saran Anda kepada pengajar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><textarea name="saran_<?php echo $kat['id_kategori'] ?>"  class="input-xxlarge" rows="3"></textarea></td>
+                    <td><textarea name="saran"  class="input-xxlarge" rows="3"></textarea></td>
                 </tr>
             </tbody>
         </table>
         <?php } ?>
-    </div>
-<?php } ?>
     <div class="form-actions">
-        <input type="submit" onclick="return confirm('Apakah Anda yakin telah mengisi seluruh evaluasi diklat?')" class="btn btn-primary btn-large" value="Simpan"/>
+        <input type="submit" onclick="return confirm('Apakah Anda yakin telah mengisi seluruh evaluasi pengajar?')" class="btn btn-primary btn-large" value="Simpan"/>
         <input type="button" class="btn btn-large" value="Cancel" onclick="history.go(-1)" />
     </div>
 </form>

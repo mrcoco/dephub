@@ -596,9 +596,11 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
 
         $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
         
+//        $this->load->view('program/pdf_schedule',$data);
         $html=$this->load->view('program/pdf_schedule',$data,true);
         $this->load->helper('pdfexport');
         pdf_landscape($html, 'schedule program');
