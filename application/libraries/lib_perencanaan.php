@@ -135,7 +135,11 @@ class Lib_perencanaan {
                     echo '<td></td>';
                     echo '</tr>';
                 }else if($diklat['tipe']==2){
-                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) {
+                        echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    }else{
+                        echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    }
                     if($diklat['jumlah_peserta']>0){
                         echo '<td>Kuota peserta '.$diklat['jumlah_peserta'].' orang</td>';
                     }else{

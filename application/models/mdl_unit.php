@@ -23,7 +23,7 @@ class Mdl_unit extends CI_Model{
         return $arr= $this->db->get('unit_kerja')->row_array();
     }
     
-    function get_list_unit(){
+    function get_list_unit($parent){
         $this->db->where('kode_inst',$parent);
         $arr= $this->db->get('unit_kerja')->result_array();
         $retarr=array();

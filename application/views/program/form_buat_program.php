@@ -117,12 +117,11 @@
                     <div class="controls">
                         <?php foreach($asrama as $a){?>
                         <div>
-                        <label class="checkbox">
+                        <label class="checkbox inline">
                             <input type="checkbox" name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                         </label>
-                            <span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
-                            <span id="result"></span>
-                        <br/>
+                             &nbsp;<span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
+                            <p id="result"></p>
                         </div>
                         <?php }?>
                     </div>

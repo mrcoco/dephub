@@ -120,12 +120,12 @@
                             if(array_key_exists($a['id'], $pil_asrama)){
                                 $checked=' checked="checked"';
                             } ?>
-                            <div class="inline">
-                            <label class="checkbox">
+                            <div>
+                            <label class="checkbox inline">
                                 <input type="checkbox"<?php echo $checked?> name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                             </label>
-                            <span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
-                            <span id="result"></span>
+                             &nbsp;<span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
+                            <p id="result"></p>
                             </div>
                         <?php }?>
                     </div>

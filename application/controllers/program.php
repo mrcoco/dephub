@@ -310,6 +310,21 @@ class Program extends CI_Controller {
         $this->session->set_flashdata('msg', $this->editor->alert_ok('Program telah dihapus'));
         redirect(base_url() . 'diklat');
     }
+    function view_schedule_program($id) {
+        $data['id'] = $id;
+        $data['sub_title']='Jadwal Program';
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+
+        $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
+        
+        $data['id_program']=$id;
+        $this->template->display_with_sidebar('program/view_schedule_program', 'program', $data);
+    }
 
     function schedule_program($id) {
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
@@ -357,7 +372,7 @@ class Program extends CI_Controller {
             $data['id_max'] = 1;
         }
         $data['id'] = $id;
-        $data['sub_title'] = 'Jadwal Tentative';
+        $data['sub_title'] = 'Ubah Jadwal';
         $data['data_json'] = $json_array;
         $this->template->display_with_sidebar('program/schedule_program', 'program', $data);
     }
