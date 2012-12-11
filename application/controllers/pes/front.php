@@ -229,6 +229,7 @@ class Front extends CI_Controller{
         $saran['id_pengajar']=$_POST['id_pengajar'];
         $saran['id_materi']=$_POST['id_materi'];
         $saran['saran']=$_POST['saran'];
+        if($_POST['saran'])
         $this->fdb->insert_saran_pengajar($saran);
         foreach($semua as $tanya){
             if(isset($_POST[$tanya['id_pertanyaan']])){

@@ -35,6 +35,19 @@ class Program extends CI_Controller {
         }
         $this->template->display_with_sidebar('program/feedback_result','program',$data);
     }
+    function feedback_pengajar($id){
+        $data['sub_title']='Evaluasi Pengajar';
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['pengajar']=$this->slng->get_all_pembicara();
+        $data['materi'] = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $data['pemateri'] = array();
+        $data['cek'] = array();
+        foreach ($data['materi'] as $m){
+            $data['pemateri'][$m['id']]=$this->rnc->get_pengajar($m['id']);
+        }
+        $this->template->display_with_sidebar('program/feedback_pengajar','program',$data);
+    }
     function feedback_result_pem($id){
         $data['id']=$id;
         $data['program']=$this->rnc->get_program_by_id($id);
@@ -49,6 +62,19 @@ class Program extends CI_Controller {
         $data['n']=$this->slng->feedback_saran_pembicara($id)->num_rows();
 //        echo '<pre>';print_r($data['result']);print_r($data['saran']);echo '</pre>';
         $this->template->display_with_sidebar('program/feedback_result_pembicara','program',$data);
+    }
+    function feedback_result_pengajar($id){
+        $data['id']=$id;
+        $data['materi'] = $this->rnc->get_materi($_POST['id_materi']);
+        $data['pengajar']=$this->slng->get_pembicara_id($_POST['id_pengajar']);
+        $data['program']=$this->rnc->get_program_by_id($_POST['id_program']);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+	$data['sub_title']='Rekap Evaluasi Pengajar';
+        $data['result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
+        $data['n_result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
+        $data['saran']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
+        $data['n']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
+        $this->template->display_with_sidebar('program/feedback_result_pengajar','program',$data);
     }
 
     function view_program($id) {

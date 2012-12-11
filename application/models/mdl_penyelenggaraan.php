@@ -31,11 +31,27 @@ class Mdl_penyelenggaraan extends CI_Model{
         $str_query='select saran FROM tb_feedback_pembicara WHERE id_program='.$id;
         return $this->db->query($str_query);
     }
+    function feedback_saran_pengajar($id_program,$id_materi,$id_pengajar){
+        $this->db->select('saran');
+        $this->db->where('id_program',$id_program);
+        $this->db->where('id_pengajar',$id_pengajar);
+        $this->db->where('id_materi',$id_materi);
+        return $this->db->get('feedback_saran_pengajar');
+    }
     function feedback_pembicara($id){
         $str_query='select AVG(a) as a,AVG(b) as b,AVG(c) as c,AVG(d) as d,AVG(e) as e,AVG(f) as f,AVG(g) as g,
             AVG(h) as h,AVG(i) as i,AVG(j) as j,AVG(k) as k,AVG(l) as l
             FROM tb_feedback_pembicara WHERE id_program='.$id;
         return $this->db->query($str_query);
+    }
+    function feedback_pengajar($id_program,$id_materi,$id_pengajar){
+        $this->db->select('feedback_pengajar.id_pertanyaan, feedback_diklat_pertanyaan.pertanyaan, avg(skor) as skor');
+        $this->db->group_by('id_pertanyaan');
+        $this->db->where('id_program',$id_program);
+        $this->db->where('id_pengajar',$id_pengajar);
+        $this->db->where('id_materi',$id_materi);
+        $this->db->join('feedback_diklat_pertanyaan','feedback_pengajar.id_pertanyaan=feedback_diklat_pertanyaan.id_pertanyaan');
+        return $this->db->get('feedback_pengajar');
     }
     
     function getall_peserta($id_diklat,$thn=''){

@@ -1,33 +1,38 @@
-<h2><?php echo $diklat['name'] ?> Angkatan <?php echo $program['angkatan'] ?></h2>
-<?php if($n==0){?>
-Belum ada peserta yang mengisi evaluasi diklat
+<h2>
+    <?php echo $diklat['name'] ?> Angkatan <?php echo $program['angkatan'] ?><br />
+    <?php echo $materi['judul'] ?> oleh
+    <?php if($pengajar['nama_peg']!=''){echo $pengajar['nama_peg']; }  else {echo $pengajar['nama_dostam'];} ?></h2>
+<?php if($n_result==0){?>
+Belum ada peserta yang mengisi evaluasi pengajar
 <?php }else{ ?>
-<p>Rata-rata nilai evaluasi penyelenggaraan diklat:</p>
+<p>
+    Rata-rata nilai evaluasi pengajar:
+</p>
 <table>
-    <?php foreach($result as $r){ ?> 
+    <?php $i=1; foreach($result as $r){ ?>
     <tr>
-        <td><?php echo $r['nama_kategori'] ?></td>
-        <td>: <?php echo number_format($r['avg(skor)'],2,',','') ?></td>
+        <td><?php echo $i++.'.' ?></td>
+        <td><?php echo $r['pertanyaan'] ?></td>
+        <td>: <?php echo number_format($r['skor'],2,',','') ?></td>
     </tr>
     <?php } ?>
 </table>
-<div id="chartdiv" style="height:300px;width:300px; "></div>
+<br />
+<div id="chartdiv" style="height:400px;width:600px; "></div>
+<?php } ?>
 <hr />
 <p class="lead">Masukan dari peserta</p>
-    <?php foreach($kategori as $kat){ ?>
-    <?php echo $kat['nama_kategori'] ?>
-        <ul>
-        <?php if(isset($saran[$kat['id_kategori']])){ ?>
-            <?php foreach($saran[$kat['id_kategori']] as $s){ ?>
-                <li><?php echo $s ?></li>
-            <?php } ?>
-        <?php }else{ ?>
-                <li>Belum ada saran</li>
+<?php if($n>0){?>
+    <ul>
+        <?php foreach($saran as $s){ ?>
+        <li>
+            <?php echo $s['saran'] ?>
+        </li>
         <?php } ?>
-        </ul>
-    <?php } ?>
+    </ul>
+<?php }else{ ?>
+Belum ada saran
 <?php } ?>
-<!-- Additional plugins go here -->
 
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasTextRenderer.min.js"></script>
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.logAxisRenderer.min.js"></script>
@@ -36,12 +41,12 @@ Belum ada peserta yang mengisi evaluasi diklat
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.categoryAxisRenderer.min.js"></script>
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.barRenderer.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){   
+$(function(){   
     var line3 = [
-    <?php foreach($result as $r){ ?> 
-    ['<?php echo $r['nama_kategori'] ?>',<?php echo number_format($r['avg(skor)'],2,',','') ?>],
+    <?php $i=1; foreach($result as $r){ ?>
+    ['<?php echo $r['pertanyaan'] ?>',<?php echo number_format($r['skor'],2,',','') ?>],
     <?php } ?>
-    ];
+    ]
     $.jqplot('chartdiv', [line3], {
        animate: !$.jqplot.use_excanvas,
        series:[{renderer:$.jqplot.BarRenderer}],
@@ -69,5 +74,3 @@ $(document).ready(function(){
      
 });
 </script>
-
-<!-- End additional plugins -->
