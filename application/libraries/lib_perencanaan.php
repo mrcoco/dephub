@@ -157,7 +157,7 @@ class Lib_perencanaan {
         }
     }
     
-    function cetak_excel(&$array_peserta,&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent='',$jumlah_peserta=''){
+    function cetak_excel(&$array_keterangan,&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent='',$jumlah_peserta=''){
         $no=1;
         for($i=0;$i<count($array_kat);$i++){
             if($array_kat[$i]['parent']==$parent){
@@ -173,10 +173,15 @@ class Lib_perencanaan {
                         
                         $arr_date=$this->CI->date->createDateRangeArray($data['tanggal_mulai'],$data['tanggal_akhir']);
                         foreach($arr_date as $a){
-                            if(array_key_exists($a, $array_peserta)){
-                                $array_peserta[$a]+=$jumlah_peserta;
+                            if(array_key_exists($a, $array_keterangan['jumlah_peserta'])){
+                                $array_keterangan['jumlah_peserta'][$a]+=$jumlah_peserta;
                             }else{
-                                $array_peserta[$a]=$jumlah_peserta;
+                                $array_keterangan['jumlah_peserta'][$a]=$jumlah_peserta;
+                            }
+                            if(array_key_exists($a, $array_keterangan['jumlah_ruangan'])){
+                                $array_keterangan['jumlah_ruangan'][$a]+=1;
+                            }else{
+                                $array_keterangan['jumlah_ruangan'][$a]=1;
                             }
                         }
                         $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
@@ -206,7 +211,7 @@ class Lib_perencanaan {
                             ->getFont()->setBold(true);
                 }
                 $row++;
-                $this->cetak_excel($array_peserta,$row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name'],$array_kat[$i]['jumlah_peserta']);
+                $this->cetak_excel($array_keterangan,$row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name'],$array_kat[$i]['jumlah_peserta']);
             }
         }
         return $row;

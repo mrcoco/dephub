@@ -590,8 +590,11 @@ class Diklat extends CI_Controller{
         $col=0;
         $arr_tree=array();
         $arr_program=$this->rnc->get_all_program($thn);
-        $array_peserta_pertanggal=array();
-        $row=$this->lib_perencanaan->cetak_excel($array_peserta_pertanggal,$row,$col,$sheet,$arr_program);
+        $array_keterangan=array(
+            'jumlah_peserta'=>array(),
+            'jumlah_ruangan'=>array()
+        );
+        $row=$this->lib_perencanaan->cetak_excel($array_keterangan,$row,$col,$sheet,$arr_program);
         
         $row_keterangan=$row+1;
         $col=3;
@@ -669,12 +672,21 @@ class Diklat extends CI_Controller{
         
         //menghitung total peserta ke samping
         $kol=array();
-        foreach($array_peserta_pertanggal as $k => $v){
+        foreach($array_keterangan['jumlah_peserta'] as $k => $v){
             //hittung column di excel
             $date1=  date_create_from_format('Y-m-d',$k);
             $col_peserta=date_format($date1,'z')+6;
             $kol[$col_peserta]['total_peserta']=$v;
             $kol[$col_peserta]['sisa_kamar']=$num_kamar-$v;
+        }
+        
+        //menghitung pemakaian ruangan
+        foreach($array_keterangan['jumlah_ruangan'] as $k => $v){
+            //hittung column di excel
+            $date1=  date_create_from_format('Y-m-d',$k);
+            $col_peserta=date_format($date1,'z')+6;
+            $kol[$col_peserta]['total_kelas']=$v;
+            $kol[$col_peserta]['sisa_kelas']=$num_kelas-$v;
         }
         
 
@@ -683,12 +695,18 @@ class Diklat extends CI_Controller{
             if(array_key_exists($col_now, $kol)){
                 $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan, $kol[$col_now]['total_peserta']);
                 $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+2, $kol[$col_now]['sisa_kamar']);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+3, $kol[$col_now]['total_kelas']);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+5, $kol[$col_now]['sisa_kelas']);
             }else{
                 $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan, 0);
                 $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+2, $num_kamar);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+3, 0);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+5, $num_kelas);
             }
             $sheet->getStyleByColumnAndRow($col_now, $row_keterangan)->getFont()->setSize(5)->setName('Arial');
             $sheet->getStyleByColumnAndRow($col_now, $row_keterangan+2)->getFont()->setSize(5)->setName('Arial');
+            $sheet->getStyleByColumnAndRow($col_now, $row_keterangan+3)->getFont()->setSize(5)->setName('Arial');
+            $sheet->getStyleByColumnAndRow($col_now, $row_keterangan+5)->getFont()->setSize(5)->setName('Arial');
         }
         
         
