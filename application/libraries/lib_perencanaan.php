@@ -5,9 +5,9 @@
  * @author bharata
  */
 class Lib_perencanaan {
-    
+    protected $CI;
     function __construct() {
-	$CI = & get_instance();
+	$this->CI=$CI = & get_instance();
         $this->session = $CI->session;
         $this->date = $CI->date;
     }
@@ -157,7 +157,7 @@ class Lib_perencanaan {
         }
     }
     
-    function cetak_excel(&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent=''){
+    function cetak_excel(&$array_peserta,&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent='',$jumlah_peserta=''){
         $no=1;
         for($i=0;$i<count($array_kat);$i++){
             if($array_kat[$i]['parent']==$parent){
@@ -165,13 +165,23 @@ class Lib_perencanaan {
                     $data=$array_kat[$i];
                     $sheet->setCellValueByColumnAndRow($col, $row,$no++);
                     $sheet->setCellValueByColumnAndRow($col+1, $row,$nama_parent.' angkatan '.$data['angkatan']);
-                    $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
+                    $sheet->setCellValueByColumnAndRow($col+3, $row,$jumlah_peserta);
                     if($data['tanggal_mulai']!=''&&$data['tanggal_akhir']!=''){
-                        $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
-                        $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
+                        $this->CI->load->library('date');
+                        $sheet->setCellValueByColumnAndRow($col+4, $row,$this->CI->date->konversi5($data['tanggal_mulai']));
+                        $sheet->setCellValueByColumnAndRow($col+5, $row,$this->CI->date->konversi5($data['tanggal_akhir']));
+                        
+                        $arr_date=$this->CI->date->createDateRangeArray($data['tanggal_mulai'],$data['tanggal_akhir']);
+                        foreach($arr_date as $a){
+                            if(array_key_exists($a, $array_peserta)){
+                                $array_peserta[$a]+=$jumlah_peserta;
+                            }else{
+                                $array_peserta[$a]=$jumlah_peserta;
+                            }
+                        }
                         $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
                         $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
-                        $hari = date_diff($date1, $date2, true)->format('%d');
+                        $hari = date_diff($date1, $date2, true)->format('%d')+1;
                         $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
                         //cetak ke samping
                         $idx_hari_mulai = date_format($date1,'z');
@@ -196,7 +206,7 @@ class Lib_perencanaan {
                             ->getFont()->setBold(true);
                 }
                 $row++;
-                $this->cetak_excel($row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name']);
+                $this->cetak_excel($array_peserta,$row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name'],$array_kat[$i]['jumlah_peserta']);
             }
         }
         return $row;
