@@ -49,6 +49,7 @@
             <a href="<?php echo base_url()?>site/front/<?php echo $th['tahun_program'] ?>"><?php echo $th['tahun_program'] ?></a> | 
         <?php } ?>
         </p>
+        <?php $this->date->legend_status(); ?>
         <?php if($program){ ?>
                 <table width="100%" class="table-striped table-condensed table">
                     <?php $this->lib_perencanaan->print_tree_table_pub($program)?>

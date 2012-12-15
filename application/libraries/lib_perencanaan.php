@@ -106,7 +106,8 @@ class Lib_perencanaan {
                     echo '</td>';
                     echo '</tr>';
                 }else if($diklat['tipe']==3){
-                    echo '<tr class="diklat"><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</a>';
+                    echo '<tr class="diklat"><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_program/'.$diklat['id'].'">';
+                    echo '<span class="'.$this->date->warna_tgl($diklat['tanggal_mulai'],$diklat['tanggal_akhir']).'">Angkatan '.$diklat['angkatan'].'</span></a>';
 //                        echo '<td>-</td>';
                     echo '</td>';
                     echo '<td>'.$this->date->konversi5($diklat['tanggal_mulai']).' - '.$this->date->konversi5($diklat['tanggal_akhir']);
@@ -147,7 +148,8 @@ class Lib_perencanaan {
                     }
                     echo '</tr>';
                 }else if($diklat['tipe']==3){
-                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</td>';
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_program/'.$diklat['id'].'">';
+                    echo '<span class="'.$this->date->warna_tgl($diklat['tanggal_mulai'],$diklat['tanggal_akhir']).'">Angkatan '.$diklat['angkatan'].'</span></a>';
                     echo '<td>'.$this->date->konversi5($diklat['tanggal_mulai']).' - '.$this->date->konversi5($diklat['tanggal_akhir']).'</td>';
                    echo '</tr>';
                  }

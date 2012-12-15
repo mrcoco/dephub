@@ -8,8 +8,34 @@ class Date{
             'September','Oktober','November','Desember'
         );
         return $arr_month[$idx-1];
-    }    
-    
+    }
+    function legend_status(){
+        echo '<p>Keterangan:
+            <span class="label label-info">Belum berjalan</span>
+            <span class="label label-warning">Baru mulai (0%-50%)</span>
+            <span class="label label-success">Hampir selesai (50%-100%)</span>
+            <span class="label">Sudah selesai</span>
+        </p>
+        ';
+    }
+    function warna_tgl($from, $to) {
+        $first_date = strtotime($from);
+        $second_date = strtotime($to);
+        $curr_date = strtotime(date('Y/m/d'));
+        $offset = floor(($curr_date-$first_date)/60/60/24);
+        $range = floor(($second_date-$first_date)/60/60/24);
+        $progress = $offset/$range*100;
+        if($progress<0){
+            $progress='label label-info';
+        }elseif($progress<50){
+            $progress='label label-warning';
+        }elseif($progress<=100){
+            $progress='label label-success';
+        }else{
+            $progress='label';
+        }
+        return $progress;
+    }
     function get_day_name($idx){
         $arr_date = array('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu');
         return $arr_date[$idx-1];
