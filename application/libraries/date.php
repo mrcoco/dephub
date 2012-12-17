@@ -11,10 +11,11 @@ class Date{
     }
     function legend_status(){
         echo '<p>Keterangan:
-            <span class="label label-info">Belum berjalan</span>
-            <span class="label label-warning">Baru mulai (0%-50%)</span>
-            <span class="label label-success">Hampir selesai (50%-100%)</span>
-            <span class="label">Sudah selesai</span>
+            <span class="label">Belum berjalan</span>
+            <span class="label label-success">Berjalan <50%</span>
+            <span class="label label-info">Berjalan 50%-75%</span>
+            <span class="label label-warning">Berjalan 75%-100%</span>
+            <span class="label label-important">Sudah selesai</span>
         </p>
         ';
     }
@@ -26,13 +27,15 @@ class Date{
         $range = floor(($second_date-$first_date)/60/60/24);
         $progress = $offset/$range*100;
         if($progress<0){
-            $progress='label label-info';
-        }elseif($progress<50){
-            $progress='label label-warning';
-        }elseif($progress<=100){
-            $progress='label label-success';
-        }else{
             $progress='label';
+        }elseif($progress<50){
+            $progress='label label-success';
+        }elseif($progress<75){
+            $progress='label label-info';
+        }elseif($progress<=100){
+            $progress='label label-warning';
+        }else{
+            $progress='label label-important';
         }
         return $progress;
     }
