@@ -18,8 +18,8 @@
     <td><?php echo $a['nip']?></td>
     <td>
         
-        <a class="btn btn-mini" href="edit_pegawai/<?php echo $a['id']; ?>"><i class="icon-edit"></i> Ubah</a>
-        <a class="btn btn-mini btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $a['nama'] ?>')" href="delete_pegawai/<?php echo $a['id']; ?>"><i class="icon-remove"></i> Hapus</a>
+        <a class="btn btn-mini" href='pegawai/edit_pegawai/<?php echo $a['id']; ?>'><i class="icon-edit"></i> Ubah</a>
+        <a class="btn btn-mini btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus <?php echo $a['nama'] ?>')" href='pegawai/delete_pegawai/<?php echo $a['id']; ?>'><i class="icon-remove"></i> Hapus</a>
     </td>
 </tr>
 <?php $no++ ?>

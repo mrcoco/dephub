@@ -103,15 +103,40 @@ class Pegawai extends CI_Controller{
         }
         //menampilkan form untuk memasukkan data pegawai yg belum ada di database
         $data['sub_title']='Penambahan Pegawai';
+		$data['type']='add';
         $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
         $pil_instansi=$this->slng->getall_instansi();
+		
+		$value['id']='';
+		$value['nip']='';
+		$value['nama']='';
+		$value['kode_gol']='';
+		$value['tempat_lahir']='';
+		$value['tanggal_lahir']='';
+		$value['jabatan']='';
+		$value['instansi']='';
+		$value['jenis_kelamin']='';
+		$value['gelar_akademis']='';
+		$value['kode_pendidikan']='';
+		$value['unit_kerja']='';
+		$value['alamat_rumah']='';
+		$value['agama']='';
+		$value['email']='';
+		$value['telepon']='';
+		$value['tmtgol']='';
+		$value['tmtcpns']='';
+		$value['tmtpns']='';
+		$value['tmtjabatan']='';
+		$value['tmtjabbaru']='';
+		$value['tmtmutasi']='';
+		$data['data']=$value;
         
         $data['pil_instansi'][-1]='-- Pilih --';
         foreach($pil_instansi as $p){
             $data['pil_instansi'][$p['kode_kantor']]=$p['nama_instansi'];
         }
-        $this->template->display('pegawai/add_pegawai',$data);
+        $this->template->display('pegawai/form_pegawai',$data);
     }
     
     function tambah_pegawai_process(){
@@ -129,12 +154,50 @@ class Pegawai extends CI_Controller{
     }
     
     function edit_pegawai($id){
+        if($this->session->userdata('id_role')!=1){
+            redirect(base_url().'error/error_priv');
+        }
+        //menampilkan form untuk memasukkan data pegawai yg belum ada di database
+        $data['sub_title']='Pengeditan Pegawai';
+		$data['type']='edit';
+        $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
+        $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
+        $pil_instansi=$this->slng->getall_instansi();
+        
+        $value=$this->slng->get_data_pegawai_id($id);
+		$data['data']=$value;
+		
+		
+        $data['pil_instansi'][-1]='-- Pilih --';
+        foreach($pil_instansi as $p){
+            $data['pil_instansi'][$p['kode_kantor']]=$p['nama_instansi'];
+        }
+        $this->template->display('pegawai/form_pegawai',$data);
     }
     
-    function edit_pegawai_process(){
+    function edit_pegawai_process($id){
+        if($this->session->userdata('id_role')!=1){
+            redirect(base_url().'error/error_priv');
+        }
+        //process pengeditan pegawai
+        foreach($_POST as $key => $val){
+            $data[$key]=$this->input->post($key);
+        }
+        $this->slng->update_pegawai($id,$data);
+        
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah diedit'));
+        redirect(base_url().'pegawai');
     }
     
-    function delete_process($id){
+    function delete_pegawai($id){
+        if($this->session->userdata('id_role')!=1){
+            redirect(base_url().'error/error_priv');
+        }
+        //process penghapusan pegawai
+        $this->slng->delete_pegawai($id);
+        
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah dihapus'));
+        redirect(base_url().'pegawai');
     }
     
     function json_list_pegawai($kodekantor){
