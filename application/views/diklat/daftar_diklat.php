@@ -14,12 +14,25 @@
         var par=$('#dik').find('select').val();
         window.location.href='<?php echo base_url() ?>diklat/buat_diklat/'+par;
     }
+    $(function(){
+//        $('.diklat').find('.btn-group').removeClass('hide');
+        $('.diklat').hover(function(){
+            $(this).find('.btn-group').removeClass('hide');
+        },function(){
+            $(this).find('.btn-group').addClass('hide');
+        });
+    });
 </script>
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-<div class="row">
-    <div class="span8">
+<div class="row-fluid">
+        <p>Pilih tahun: 
+        <?php foreach($thn_program as $th){ ?>
+            <a href="<?php echo base_url()?>diklat/daftar_diklat/<?php echo $th['tahun_program'] ?>"><?php echo $th['tahun_program'] ?></a> | 
+        <?php } ?>
+        </p>
+            <?php $this->date->legend_status(); ?>
 <?php if($program){ ?>
         <table width="100%" class="table-striped table-condensed table">
             <?php $this->lib_perencanaan->print_tree_table($program)?>
@@ -27,7 +40,6 @@
 <?php }else{?>
 Tidak ada data
 <?php } ?>
-    </div>
 </div>
 <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){ ?>
 <div class="form-actions">

@@ -5,9 +5,9 @@
  * @author bharata
  */
 class Lib_perencanaan {
-    
+    protected $CI;
     function __construct() {
-	$CI = & get_instance();
+	$this->CI=$CI = & get_instance();
         $this->session = $CI->session;
         $this->date = $CI->date;
     }
@@ -72,40 +72,52 @@ class Lib_perencanaan {
         foreach($array_kat as $diklat){
             if($diklat['parent']==$parent){
                 if($diklat['tipe']==1){
-                    echo '<tr><td'.$p.' width="50%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
-                    if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3)
-                    echo '<a class="tip" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')"><i class="icon-plus-sign"></i></a>';
-                    echo '</strong></td>'."\n";
+                    echo '<tr class="diklat"><td'.$p.' width="40%"><strong>'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')';
+                    echo '</strong>'."\n";
+                    echo '</td>';
+                    echo '<td>';
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
 //                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
-                        echo '<td><div class="btn-group">';
+                        echo '<div class="btn-group hide">';
                         echo '<a class="btn btn-mini" href="javascript:edit_kat(\''.$diklat['name'].'\','.$diklat['parent'].','.$diklat['id'].')">Ubah</a>';
                         echo '<a class="btn btn-mini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_kategori/'.$diklat['id'].'">Hapus</a>';
 //                        echo '<a class="btn btn-mini" href="javascript:add_subkat('.$diklat['id'].')">Tambah sub</a>';
                         echo '<a class="btn btn-mini" href="'.base_url().'diklat/buat_diklat/'.$diklat['id'].'">Buat diklat</a>';
-                        echo '</div></td>';
+                        echo '<a class="btn btn-mini" title="Tambah subkategori" href="javascript:add_subkat('.$diklat['id'].')">Buat Subkategori</a>';
+                        echo '</div>';
                     }
-                    echo '</tr>';
+                    echo '</td></tr>';
                 }else if($diklat['tipe']==2){
-                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    echo '<tr class="diklat"><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</a>';
+                    echo '</td>';
+                    if($diklat['jumlah_peserta']>0){
+                        echo '<td>Kuota peserta '.$diklat['jumlah_peserta'].' orang';
+                    }else{
+                        echo '<td>-';
+                    }
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
 //                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
-                        echo '<td><div class="btn-group">';
+                        echo '<div class="btn-group hide">';
                         echo '<a class="btn btn-mini" href="'.base_url().'diklat/edit_diklat/'.$diklat['id'].'">Ubah</a>';
                         echo '<a class="btn btn-mini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_diklat/'.$diklat['id'].'">Hapus</a>';
                         echo '<a class="btn btn-mini" href="'.base_url().'program/buat_program/'.$diklat['id'].'">Buat program</a>';
-                        echo '</div></td>';
+                        echo '</div>';
                     }
+                    echo '</td>';
                     echo '</tr>';
                 }else if($diklat['tipe']==3){
-                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</td>';
+                    echo '<tr class="diklat"><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_program/'.$diklat['id'].'">';
+                    echo '<span class="'.$this->date->warna_tgl($diklat['tanggal_mulai'],$diklat['tanggal_akhir']).'">Angkatan '.$diklat['angkatan'].'</span></a>';
 //                        echo '<td>-</td>';
+                    echo '</td>';
+                    echo '<td>'.$this->date->konversi5($diklat['tanggal_mulai']).' - '.$this->date->konversi5($diklat['tanggal_akhir']);
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
-                        echo '<td><div class="btn-group">';
+                        echo '<div class="btn-group hide">';
                         echo '<a class="btn btn-mini" href="'.base_url().'program/edit_program/'.$diklat['id'].'">Ubah</a>';
                         echo '<a class="btn btn-mini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'program/delete_program/'.$diklat['id'].'">Hapus</a>';
-                        echo '</div></td>';
+                        echo '</div>';
                     }
+                    echo '</td>';
                    echo '</tr>';
                  }
                 if($this->count_diklat($array_kat,$diklat['id'])>0){
@@ -124,7 +136,11 @@ class Lib_perencanaan {
                     echo '<td></td>';
                     echo '</tr>';
                 }else if($diklat['tipe']==2){
-                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) {
+                        echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    }else{
+                        echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                    }
                     if($diklat['jumlah_peserta']>0){
                         echo '<td>Kuota peserta '.$diklat['jumlah_peserta'].' orang</td>';
                     }else{
@@ -132,7 +148,8 @@ class Lib_perencanaan {
                     }
                     echo '</tr>';
                 }else if($diklat['tipe']==3){
-                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_program/'.$diklat['id'].'">Angkatan '.$diklat['angkatan'].'</td>';
+                    echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_program/'.$diklat['id'].'">';
+                    echo '<span class="'.$this->date->warna_tgl($diklat['tanggal_mulai'],$diklat['tanggal_akhir']).'">Angkatan '.$diklat['angkatan'].'</span></a>';
                     echo '<td>'.$this->date->konversi5($diklat['tanggal_mulai']).' - '.$this->date->konversi5($diklat['tanggal_akhir']).'</td>';
                    echo '</tr>';
                  }
@@ -142,7 +159,7 @@ class Lib_perencanaan {
         }
     }
     
-    function cetak_excel(&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent=''){
+    function cetak_excel(&$array_keterangan,&$row,$col,$sheet,$array_kat,$parent=0,$nama_parent='',$jumlah_peserta=''){
         $no=1;
         for($i=0;$i<count($array_kat);$i++){
             if($array_kat[$i]['parent']==$parent){
@@ -150,13 +167,28 @@ class Lib_perencanaan {
                     $data=$array_kat[$i];
                     $sheet->setCellValueByColumnAndRow($col, $row,$no++);
                     $sheet->setCellValueByColumnAndRow($col+1, $row,$nama_parent.' angkatan '.$data['angkatan']);
-                    $sheet->setCellValueByColumnAndRow($col+3, $row,$data['jumlah_peserta']);
+                    $sheet->setCellValueByColumnAndRow($col+3, $row,$jumlah_peserta);
                     if($data['tanggal_mulai']!=''&&$data['tanggal_akhir']!=''){
-                        $sheet->setCellValueByColumnAndRow($col+4, $row,$data['tanggal_mulai']);
-                        $sheet->setCellValueByColumnAndRow($col+5, $row,$data['tanggal_akhir']);
+                        $this->CI->load->library('date');
+                        $sheet->setCellValueByColumnAndRow($col+4, $row,$this->CI->date->konversi5($data['tanggal_mulai']));
+                        $sheet->setCellValueByColumnAndRow($col+5, $row,$this->CI->date->konversi5($data['tanggal_akhir']));
+                        
+                        $arr_date=$this->CI->date->createDateRangeArray($data['tanggal_mulai'],$data['tanggal_akhir']);
+                        foreach($arr_date as $a){
+                            if(array_key_exists($a, $array_keterangan['jumlah_peserta'])){
+                                $array_keterangan['jumlah_peserta'][$a]+=$jumlah_peserta;
+                            }else{
+                                $array_keterangan['jumlah_peserta'][$a]=$jumlah_peserta;
+                            }
+                            if(array_key_exists($a, $array_keterangan['jumlah_ruangan'])){
+                                $array_keterangan['jumlah_ruangan'][$a]+=1;
+                            }else{
+                                $array_keterangan['jumlah_ruangan'][$a]=1;
+                            }
+                        }
                         $date1=  date_create_from_format('Y-m-d',$data['tanggal_mulai']);
                         $date2=  date_create_from_format('Y-m-d',$data['tanggal_akhir']);
-                        $hari = date_diff($date1, $date2, true)->format('%d');
+                        $hari = date_diff($date1, $date2, true)->format('%d')+1;
                         $sheet->setCellValueByColumnAndRow($col+2, $row,$hari);
                         //cetak ke samping
                         $idx_hari_mulai = date_format($date1,'z');
@@ -181,7 +213,7 @@ class Lib_perencanaan {
                             ->getFont()->setBold(true);
                 }
                 $row++;
-                $this->cetak_excel($row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name']);
+                $this->cetak_excel($array_keterangan,$row, $col, $sheet, $array_kat,$array_kat[$i]['id'],$array_kat[$i]['name'],$array_kat[$i]['jumlah_peserta']);
             }
         }
         return $row;

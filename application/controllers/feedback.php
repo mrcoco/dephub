@@ -10,6 +10,7 @@ class Feedback extends CI_Controller{
     }
     
     function list_pertanyaan(){
+        $data['title']='Daftar Pertanyaan Feedback Diklat';
         $kategori=$this->fbk->getall_kategori();
         foreach($kategori as $k){
             $data['kategori'][$k['id_kategori']]=$k['nama_kategori'];
@@ -19,6 +20,7 @@ class Feedback extends CI_Controller{
     }
     
     function tambah_pertanyaan(){
+        $data['title']='Tambah Pertanyaan Feedback Diklat';
         $kategori=$this->fbk->getall_kategori();
         $data['kategori'][0]='-- Pilih Kategori --';
         foreach($kategori as $k){
@@ -35,6 +37,7 @@ class Feedback extends CI_Controller{
     }
     
     function edit_pertanyaan($id){
+        $data['title']='Ubah Pertanyaan Feedback Diklat';
         $kategori=$this->fbk->getall_kategori();
         $data['kategori'][0]='-- Pilih Kategori --';
         foreach($kategori as $k){
@@ -57,7 +60,33 @@ class Feedback extends CI_Controller{
         redirect(base_url().'feedback');
     }
     
+    function list_q_pengajar(){
+        $data['title']='Daftar Pertanyaan Feedback Pengajar';
+        $data['list']=$this->fbk->getlist_pertanyaan_pengajar();
+        $this->template->display_with_sidebar('feedback/list_q_pengajar','feedback',$data);
+    }
+    
+    function insert_q_pengajar(){
+        $data['pertanyaan']=$this->input->post('pertanyaan');
+        $data['id_kategori']=0;
+        $this->fbk->insert_pertanyaan($data);
+        redirect(base_url().'feedback/list_q_pengajar');
+    }
+    
+    function update_q_pengajar(){
+        $clause=$this->input->post('id_pertanyaan');
+        $data['pertanyaan']=$this->input->post('pertanyaan');
+        $this->fbk->update_pertanyaan($data,$clause);
+        redirect(base_url().'feedback/list_q_pengajar');
+    }
+    
+    function delete_q_pengajar($id){
+        $this->fbk->delete_pertanyaan($id);
+        redirect(base_url().'feedback/list_q_pengajar');
+    }
+    
     function list_kategori(){
+        $data['title']='Daftar Kategori Feedback Diklat';
         $data['list']=$this->fbk->getall_kategori();
         $this->template->display_with_sidebar('feedback/list_kategori','feedback',$data);
     }

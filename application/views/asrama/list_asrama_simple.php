@@ -1,9 +1,3 @@
-
-
-	<h4>Check List Prasarana Kamar</h4>
-	
-	
-	
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
@@ -28,7 +22,7 @@
 		<tr>
 			<th>No</th>
 			<th>ID Kamar</th>
-			<th>%</th>
+			<th>% Prasarana</th>
 			<th>Aksi</th>
         
     </thead>
@@ -100,7 +94,7 @@
 			}?>
 			<td><?php echo number_format(($total/count($item)*100),2,',','.')."%" ?></td>
 			<td>
-			<a href="asrama/list_asrama/" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i>Detail</a>
+			<a href="asrama/list_asrama/#<?php echo $is['nama'].$is['nomor'] ?>" class="btn btn-mini"><i class="icon-ok-circle"></i> Check List</a>
 			</td>
 		</form>
         </tr>

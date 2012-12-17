@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <title>Pusat Pengembangan SDM Aparatur Perhubungan</title>
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
-<!--    <link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />-->
+    <!--<link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />-->
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.print.css' media='print' />
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css" />
@@ -15,15 +15,17 @@
     <link rel='stylesheet' type='text/css' href='assets/css/custom-theme/jquery-ui-1.8.16.custom.css' media='print' />
     <link rel="stylesheet" type="text/css" href="assets/css/datepicker.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-    
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.jqplot.min.css" />    
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <!--scripts-->
-    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/jquery.js"></script>
     <script type="text/javascript" src="assets/js/jquery-ui.js"></script>
+    <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="assets/js/excanvas.min.js"></script><![endif]-->
+    <script language="javascript" type="text/javascript" src="assets/js/jquery.jqplot.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.validate.js"></script>
     <script type="text/javascript" src="assets/js/jquery.dataTables.js"></script>
     <script type="text/javascript" src="assets/js/tm/jquery.tinymce.js"></script>
@@ -48,8 +50,6 @@
         $('#list_length').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');
         $('#list_filter input').attr('placeholder','Masukkan kata yang dicari');
-        $('#list_previous, #list_next').addClass('btn btn-small');
-        $('#list_previous, #list_next').live('click',function(){$('#list_previous, #list_next').addClass('btn btn-small');});
         $('.alert').delay(2 * 1000).fadeOut();
         $('.tip-right').tooltip({placement:'right'});
     } );

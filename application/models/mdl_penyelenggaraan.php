@@ -5,23 +5,53 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->insert('post',$data);
     }
     
-    function load_pengumuman(){
+    function load_pengumuman($offset,$lim=10){
         $this->db->order_by('id','desc');
-        return $this->db->get('post')->result_array();
+        return $this->db->get('post',$lim,$offset)->result_array();
+    }
+    function count_pengumuman(){
+        return $this->db->get('post')->num_rows();
     }
     function feedback_diklat($id){
+        $this->db->select('feedback_diklat.id_kategori, feedback_diklat_kategori.nama_kategori, avg(skor)');
+        $this->db->group_by('id_kategori');
         $this->db->where('id_program',$id);
-        return $this->db->get('feedback_diklat');
+        $this->db->join('feedback_diklat_kategori','feedback_diklat_kategori.id_kategori=feedback_diklat.id_kategori');
+        return $this->db->get('feedback_diklat')->result_array();
+    }
+    function saran_diklat($id){
+        $this->db->where('id_program',$id);
+        return $this->db->get('feedback_saran')->result_array();
+    }
+    function count_feedback_diklat($id){
+        $this->db->where('id_program',$id);
+        return $this->db->get('feedback_diklat')->num_rows();
     }
     function feedback_saran_pembicara($id){
         $str_query='select saran FROM tb_feedback_pembicara WHERE id_program='.$id;
         return $this->db->query($str_query);
+    }
+    function feedback_saran_pengajar($id_program,$id_materi,$id_pengajar){
+        $this->db->select('saran');
+        $this->db->where('id_program',$id_program);
+        $this->db->where('id_pengajar',$id_pengajar);
+        $this->db->where('id_materi',$id_materi);
+        return $this->db->get('feedback_saran_pengajar');
     }
     function feedback_pembicara($id){
         $str_query='select AVG(a) as a,AVG(b) as b,AVG(c) as c,AVG(d) as d,AVG(e) as e,AVG(f) as f,AVG(g) as g,
             AVG(h) as h,AVG(i) as i,AVG(j) as j,AVG(k) as k,AVG(l) as l
             FROM tb_feedback_pembicara WHERE id_program='.$id;
         return $this->db->query($str_query);
+    }
+    function feedback_pengajar($id_program,$id_materi,$id_pengajar){
+        $this->db->select('feedback_pengajar.id_pertanyaan, feedback_diklat_pertanyaan.pertanyaan, avg(skor) as skor');
+        $this->db->group_by('id_pertanyaan');
+        $this->db->where('id_program',$id_program);
+        $this->db->where('id_pengajar',$id_pengajar);
+        $this->db->where('id_materi',$id_materi);
+        $this->db->join('feedback_diklat_pertanyaan','feedback_pengajar.id_pertanyaan=feedback_diklat_pertanyaan.id_pertanyaan');
+        return $this->db->get('feedback_pengajar');
     }
     
     function getall_peserta($id_diklat,$thn=''){
@@ -536,6 +566,14 @@ class Mdl_penyelenggaraan extends CI_Model{
             left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
             left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))';
         return $this->db->query($str_qry_pembicara)->result_array();
+    }
+    function get_pembicara_id($id){
+        $str_qry_pembicara='SELECT tb_pembicara.id, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam from tb_pembicara
+            left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+            left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))
+            where tb_pembicara.id = '.$id.'
+            ';
+        return $this->db->query($str_qry_pembicara)->row_array();
     }
     
     function get_pemateri($id){

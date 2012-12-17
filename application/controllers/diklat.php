@@ -20,6 +20,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn_program']=$this->rnc->get_thn_program();
         $data['thn']=$thn;
         $this->load->library('lib_perencanaan');
         $data['sub_title']='Daftar Diklat dan Program Tahun '.$thn;
@@ -563,7 +564,7 @@ class Diklat extends CI_Controller{
                 
                 $nama_hari = date_format($obj_date, 'D');
                 
-                $sheet->getColumnDimensionByColumn($j)->setWidth(2);
+                $sheet->getColumnDimensionByColumn($j)->setWidth(3);
                 $sheet->setCellValueByColumnAndRow($j, $row+1,$m);
                 $sheet->getStyleByColumnAndRow($j, $row+1)->getFont()->setSize(5)->setName('Arial');
                 
@@ -589,11 +590,14 @@ class Diklat extends CI_Controller{
         $col=0;
         $arr_tree=array();
         $arr_program=$this->rnc->get_all_program($thn);
-        
-        $row=$this->lib_perencanaan->cetak_excel($row,$col,$sheet,$arr_program);
+        $array_keterangan=array(
+            'jumlah_peserta'=>array(),
+            'jumlah_ruangan'=>array()
+        );
+        $row=$this->lib_perencanaan->cetak_excel($array_keterangan,$row,$col,$sheet,$arr_program);
         
         $row_keterangan=$row+1;
-        $col=1;
+        $col=3;
         
         //mencetak header keterangan  samping kiri
         
@@ -605,6 +609,8 @@ class Diklat extends CI_Controller{
                 ->getFont()->setBold(true);
         $sheet->setCellValueByColumnAndRow($col, $row_keterangan, 'Jumlah Total Peserta');
         
+        
+        
         //Mencetak header kapasitas kamar
         $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+1, $col+1, $row_keterangan+1);
         $sheet->getStyleByColumnAndRow($col, $row_keterangan+1)
@@ -614,6 +620,7 @@ class Diklat extends CI_Controller{
         $sheet->setCellValueByColumnAndRow($col, $row_keterangan+1, 'Total Kapasitas Kamar');
         $num_kamar=$this->spr->count_bed();
         $sheet->setCellValueByColumnAndRow($col+2, $row_keterangan+1, $num_kamar);
+        
         //Mencetak header sisa kamar
         $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+2, $col+2, $row_keterangan+2);
         $sheet->getStyleByColumnAndRow($col, $row_keterangan+2)
@@ -621,6 +628,7 @@ class Diklat extends CI_Controller{
         $sheet->getStyleByColumnAndRow($col, $row_keterangan+2)
                 ->getFont()->setBold(true);
         $sheet->setCellValueByColumnAndRow($col, $row_keterangan+2, 'Sisa Kamar');
+        
         
         //Mencetak header kebutuhan kelas
         $sheet->mergeCellsByColumnAndRow($col, $row_keterangan+3, $col+2, $row_keterangan+3);
@@ -662,15 +670,44 @@ class Diklat extends CI_Controller{
         $col_awal=$idx_tgl_1+6;
         $col_akhir=$idx_tgl_31+6;
         
-        $arr_program=$this->rnc->get_all_program($this->thn_default);
-//        foreach($arr_program as $a){
-//            
-//        }
-//        die();
-//        
-//        for($col_now=$col_awal;$col_now<=$col_akhir;$col_now++){
-//            
-//        }
+        //menghitung total peserta ke samping
+        $kol=array();
+        foreach($array_keterangan['jumlah_peserta'] as $k => $v){
+            //hittung column di excel
+            $date1=  date_create_from_format('Y-m-d',$k);
+            $col_peserta=date_format($date1,'z')+6;
+            $kol[$col_peserta]['total_peserta']=$v;
+            $kol[$col_peserta]['sisa_kamar']=$num_kamar-$v;
+        }
+        
+        //menghitung pemakaian ruangan
+        foreach($array_keterangan['jumlah_ruangan'] as $k => $v){
+            //hittung column di excel
+            $date1=  date_create_from_format('Y-m-d',$k);
+            $col_peserta=date_format($date1,'z')+6;
+            $kol[$col_peserta]['total_kelas']=$v;
+            $kol[$col_peserta]['sisa_kelas']=$num_kelas-$v;
+        }
+        
+
+        for($col_now=$col_awal;$col_now<=$col_akhir;$col_now++){
+            //cetak total pesrta dan sisa kamar
+            if(array_key_exists($col_now, $kol)){
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan, $kol[$col_now]['total_peserta']);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+2, $kol[$col_now]['sisa_kamar']);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+3, $kol[$col_now]['total_kelas']);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+5, $kol[$col_now]['sisa_kelas']);
+            }else{
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan, 0);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+2, $num_kamar);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+3, 0);
+                $sheet->setCellValueByColumnAndRow($col_now, $row_keterangan+5, $num_kelas);
+            }
+            $sheet->getStyleByColumnAndRow($col_now, $row_keterangan)->getFont()->setSize(5)->setName('Arial');
+            $sheet->getStyleByColumnAndRow($col_now, $row_keterangan+2)->getFont()->setSize(5)->setName('Arial');
+            $sheet->getStyleByColumnAndRow($col_now, $row_keterangan+3)->getFont()->setSize(5)->setName('Arial');
+            $sheet->getStyleByColumnAndRow($col_now, $row_keterangan+5)->getFont()->setSize(5)->setName('Arial');
+        }
         
         
         //cetak ke file

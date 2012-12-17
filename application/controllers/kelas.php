@@ -18,7 +18,7 @@ class Kelas extends CI_Controller{
 	
 	function list_kelas($offset=0){
 	if(empty ($offset)) $offset=0;
-	$data['sub_title']='Kelas';
+	$data['sub_title']='Daftar Kelas';
 
 	$var = $this->spr->get_kelas()->result_array();
         $data['list']=$var;
@@ -61,7 +61,7 @@ class Kelas extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //menampilkan form untuk edit data kelas
-        $data['sub_title'] = 'Edit Kelas';
+        $data['sub_title'] = 'Ubah Kelas';
 		$data['type']='edit';
         $var = $this->spr->get_kelas($id)->result_array();
         $data['kelas'] = $var[0];
@@ -89,7 +89,7 @@ class Kelas extends CI_Controller{
 	
     function checklist_kelas($offset=0){
 	if(empty ($offset)) $offset=0;
-	$data['sub_title']='Kelas';
+	$data['sub_title']='Checklist Kelas';
 
 	$var = $this->spr->get_check_list_kelas()->result_array();
         $data['list']=$var;
@@ -101,7 +101,7 @@ class Kelas extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //menampilkan form untuk edit data kelas
-        $data['sub_title'] = 'Edit Kamar';
+        $data['sub_title'] = 'Ubah Prasarana Kelas';
         $var = $this->spr->get_check_list_kelas($id)->result_array();
         $data['kelas'] = $var[0];
         // die(var_dump($data['kelas']));

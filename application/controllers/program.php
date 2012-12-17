@@ -16,44 +16,42 @@ class Program extends CI_Controller {
     function feedback_result($id){
         $data['id']=$id;
         $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
 	$data['sub_title']='Rekap Evaluasi Diklat';
-        $data['result']=$this->slng->feedback_diklat($id)->result_array();
-        $kurikulum=array();
-        $sarpras=array();
-        $slng=array();
-        $catering=array();
-        $data['kurikulum']=0;
-        $data['sarpras']=0;
-        $data['slng']=0;
-        $data['catering']=0;
-        $data['n']=$this->slng->feedback_diklat($id)->num_rows();
-        if($data['n']!=0){
-            $i=1;
-            foreach($data['result'] as $r){
-                $kurikulum[$i]=($r['1a']+$r['1b']+$r['1c']+$r['1d']+$r['1e'])/5;
-                $sarpras[$i]=($r['2a']+$r['2b']+$r['2c']+$r['2d']+$r['2e']+$r['2f']+$r['2g']+$r['2h']+$r['2i']+$r['2j']+$r['2k']+$r['2l'])/12;
-                $slng[$i]=($r['3a']+$r['3b']+$r['3c']+$r['3d']+$r['3e']+$r['3f']+$r['3g']+$r['3h'])/8;
-                $catering[$i]=$r['catering'];
-                $data['kurikulum']+=$kurikulum[$i];
-                $data['sarpras']+=$sarpras[$i];
-                $data['slng']+=$slng[$i];
-                $data['catering']+=$catering[$i];
-                $i++;
+        $data['n']=$this->slng->count_feedback_diklat($id);
+        $data['result']=$this->slng->feedback_diklat($id);
+        $this->load->model('mdl_feedback', 'fdb');
+        $data['kategori'] = $this->fdb->getall_kategori();
+        $saran=$this->slng->saran_diklat($id);
+        foreach($saran as $sar){
+            foreach($data['kategori'] as $kat){
+                if($sar['id_kategori']==$kat['id_kategori'])
+                $data['saran'][$kat['id_kategori']][]=$sar['saran'];
             }
-            $data['kurikulum']/=$data['n'];
-            $data['sarpras']/=$data['n'];
-            $data['slng']/=$data['n'];
-            $data['catering']/=$data['n'];
         }
         $this->template->display_with_sidebar('program/feedback_result','program',$data);
+    }
+    function feedback_pengajar($id){
+        $data['sub_title']='Evaluasi Pengajar';
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['pengajar']=$this->slng->get_all_pembicara();
+        $data['materi'] = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $data['pemateri'] = array();
+        $data['cek'] = array();
+        foreach ($data['materi'] as $m){
+            $data['pemateri'][$m['id']]=$this->rnc->get_pengajar($m['id']);
+        }
+        $this->template->display_with_sidebar('program/feedback_pengajar','program',$data);
     }
     function feedback_result_pem($id){
         $data['id']=$id;
         $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
@@ -64,6 +62,19 @@ class Program extends CI_Controller {
         $data['n']=$this->slng->feedback_saran_pembicara($id)->num_rows();
 //        echo '<pre>';print_r($data['result']);print_r($data['saran']);echo '</pre>';
         $this->template->display_with_sidebar('program/feedback_result_pembicara','program',$data);
+    }
+    function feedback_result_pengajar($id){
+        $data['id']=$id;
+        $data['materi'] = $this->rnc->get_materi($_POST['id_materi']);
+        $data['pengajar']=$this->slng->get_pembicara_id($_POST['id_pengajar']);
+        $data['program']=$this->rnc->get_program_by_id($_POST['id_program']);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+	$data['sub_title']='Rekap Evaluasi Pengajar';
+        $data['result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
+        $data['n_result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
+        $data['saran']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
+        $data['n']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
+        $this->template->display_with_sidebar('program/feedback_result_pengajar','program',$data);
     }
 
     function view_program($id) {
@@ -299,6 +310,21 @@ class Program extends CI_Controller {
         $this->session->set_flashdata('msg', $this->editor->alert_ok('Program telah dihapus'));
         redirect(base_url() . 'diklat');
     }
+    function view_schedule_program($id) {
+        $data['id'] = $id;
+        $data['sub_title']='Jadwal Program';
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+
+        $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
+        
+        $data['id_program']=$id;
+        $this->template->display_with_sidebar('program/view_schedule_program', 'program', $data);
+    }
 
     function schedule_program($id) {
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
@@ -346,7 +372,7 @@ class Program extends CI_Controller {
             $data['id_max'] = 1;
         }
         $data['id'] = $id;
-        $data['sub_title'] = 'Jadwal Tentative';
+        $data['sub_title'] = 'Ubah Jadwal';
         $data['data_json'] = $json_array;
         $this->template->display_with_sidebar('program/schedule_program', 'program', $data);
     }
@@ -611,9 +637,11 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
 
         $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
         
+//        $this->load->view('program/pdf_schedule',$data);
         $html=$this->load->view('program/pdf_schedule',$data,true);
         $this->load->helper('pdfexport');
         pdf_landscape($html, 'schedule program');

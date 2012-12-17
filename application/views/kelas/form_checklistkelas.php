@@ -23,15 +23,8 @@
 <div id="display_dialog" class="modal hide"></div>
 
 	<form name="form_reg" id="form_reg" action="kelas/edit_checklist_process/" method="POST">
-	
-<table width="100%" id="list" class="table table-striped table-bordered table-condensed">
-	<thead>
-		<tr>
-			<th>Edit Checklist Kelas </th>
-			<td> <input class="id" type="text" name="id" placeholder="id" value="<?php echo $kelas['id'];?>" readonly/> </td>
-		</tr>
-	</thead>
-    
+	<input class="id" type="hidden" name="id" value="<?php echo $kelas['id'];?>"/>
+<table width="100%" id="list" class="table table-striped table-condensed">
     <tbody>
         <tr>
             <td>Nama Kelas</td>
@@ -39,7 +32,7 @@
 		</tr>
 		
         <tr>
-            <td colspans="2"><div align="center">LCD Proyektor</div></td>
+            <td colspan="2"><div><strong>LCD Proyektor</strong></div></td>
 		</tr>
         <tr>
             <td>Type</td>
@@ -59,7 +52,7 @@
 		</tr>
 		
         <tr>
-            <td colspans="2"><div align="center">Sound System</div></td>
+            <td colspan="2"><div><strong>Sound System</strong></div></td>
 		</tr>
         <tr>
             <td>Type</td>
@@ -71,7 +64,7 @@
 		</tr>
 		
         <tr>
-            <td colspans="2"><div align="center">Meja</div></td>
+            <td colspan="2"><div><strong>Meja</strong></div></td>
 		</tr>
         <tr>
             <td>Type</td>
@@ -87,7 +80,7 @@
 		</tr>
 		
         <tr>
-            <td colspans="2"><div align="center">Kursi</div></td>
+            <td colspan="2"><div><strong>Kursi</strong></div></td>
 		</tr>
         <tr>
             <td>Type</td>
@@ -103,7 +96,7 @@
 		</tr>
 		
         <tr>
-            <td colspans="2"><div align="center">Whiteboard</div></td>
+            <td colspan="2"><div><strong>Whiteboard</strong></div></td>
 		</tr>
         <tr>
             <td>Kondisi</td>
@@ -111,7 +104,7 @@
 		</tr>
 		
         <tr>
-            <td colspans="2"><div align="center">Panaboard</div></td>
+            <td colspan="2"><div><strong>Panaboard</strong></div></td>
 		</tr>
         <tr>
             <td>Kondisi</td>
@@ -119,7 +112,7 @@
 		</tr>
 		
         <tr>
-            <td colspans="2"><div align="center">Flipchart</div></td>
+            <td colspan="2"><div><strong>Flipchart</strong> </div></td>
 		</tr>
         <tr>
             <td>Kondisi</td>
@@ -128,7 +121,7 @@
     </tbody>
 </table>
     <div class="form-actions">
-        <input type="button" class="btn btn-large btn-primary pull-right" value="Edit" onclick="validate_form()"/>
+        <input type="button" class="btn btn-large btn-primary" value="Simpan" onclick="validate_form()"/>
     </div>
 </form>
 	

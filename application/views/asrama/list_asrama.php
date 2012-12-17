@@ -1,9 +1,3 @@
-
-
-	<h4>Check List Prasarana Kamar</h4>
-	
-	
-	
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
@@ -44,7 +38,7 @@
 		$i=$is['id'];
 		$total=0;
 		?>
-        <tr>
+        <tr id="<?php echo $is['nama'].$is['nomor'] ?>">
 		<!--
 			<td><?php //echo $list[$i][1]['id_kamar'] ?></td>
 			<td><?php //echo $list[$i][1]['id_item'] ?></td>
@@ -113,7 +107,7 @@
 			}?>
 			</td>
 			<td><?php echo number_format(($total/count($item)*100),2,',','.')."%" ?></td>
-			<td><input type="submit" class="btn btn-mini btn-primary pull-right" value="Save"/></td>
+			<td><input type="submit" class="btn btn-small btn-primary" value="Save"/></td>
 		</form>
         </tr>
 		<?php }?>

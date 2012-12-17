@@ -1,3 +1,6 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -17,8 +20,9 @@
             <td><?php echo $l['nama_singkat']?></td>
             <td><?php echo $l['nama_instansi']?></td>
             <td>
-                <a href="<?php echo base_url()?>dephub_inst/edit_inst/<?php echo $l['id']?>">Edit</a> | 
-                <a onclick="return confirm('Apakah anda yakin untuk menghapus instansi <?php echo $l['nama_singkat'] ?> ')" href="<?php echo base_url()?>dephub_inst/delete_inst/<?php echo $l['id']?>">Delete</a>
+                <a class="btn btn-mini" href="<?php echo base_url()?>dephub_inst/edit_inst/<?php echo $l['id']?>"><i class="icon-edit"></i> Ubah</a>
+                <a class="btn btn-mini btn-danger" onclick="return confirm('Apakah anda yakin untuk menghapus instansi <?php echo $l['nama_singkat'] ?> ')"
+                   href="<?php echo base_url()?>dephub_inst/delete_inst/<?php echo $l['id']?>"><i class="icon-trash"></i> Hapus</a>
             </td>
         </tr>
         <?php } ?>

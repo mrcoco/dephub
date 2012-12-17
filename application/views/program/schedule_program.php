@@ -649,6 +649,6 @@
 </div>
 <div id="event_edit_container"></div>
 <div class="form-actions">
-    <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule/<?php echo $program['id'] ?>">Cetak Jadwal</a>
+    <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule/<?php echo $program['id'] ?>">Cetak Jadwal Excel</a>
     <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule_pdf/<?php echo $program['id'] ?>">Cetak Jadwal PDF</a>
 </div>

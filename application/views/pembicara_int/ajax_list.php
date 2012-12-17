@@ -49,7 +49,6 @@
 </tbody>
 </table>
 <div id="footer">
-<div id="info" class="pull-right">Hal <?php echo $cur_page?> dari <?php echo $num_page?></div>
     <div id="paging" class="pagination">
         <ul>
             <li><a href="javascript:void(0)" onclick="load(1,'<?php echo $filter ?>')">Awal</a></li>
@@ -80,4 +79,5 @@
             <li><a href="javascript:void(0)" onclick="load(<?php echo $num_page.',\''.$filter.'\''?>)">Akhir</a></li>
         </ul>
     </div>
+    <div id="info" class="pull-right">Hal <?php echo $cur_page?> dari <?php echo $num_page?></div>
 </div>

@@ -1,48 +1,73 @@
-<h2><?php echo $program['name'] ?></h2>
+<h2><?php echo $diklat['name'] ?> Angkatan <?php echo $program['angkatan'] ?></h2>
 <?php if($n==0){?>
 Belum ada peserta yang mengisi evaluasi diklat
 <?php }else{ ?>
-Dari responden <?php echo $n ?> peserta diperoleh hasil evaluasi penyelenggaraan sebagai berikut.
+<p>Rata-rata nilai evaluasi penyelenggaraan diklat:</p>
 <table>
+    <?php foreach($result as $r){ ?> 
     <tr>
-        <td>Kurikulum</td>
-        <td>: <?php echo number_format($kurikulum,2,',','') ?></td>
+        <td><?php echo $r['nama_kategori'] ?></td>
+        <td>: <?php echo number_format($r['avg(skor)'],2,',','') ?></td>
     </tr>
-    <tr>
-        <td>Sarpras</td>
-        <td>: <?php echo number_format($sarpras,2,',','') ?></td>
-    </tr>
-    <tr>
-        <td>Penyelenggaraan</td>
-        <td>: <?php echo number_format($slng,2,',','') ?></td>
-    </tr>
-    <tr>
-        <td>Catering</td>
-        <td>: <?php echo number_format($catering,2,',','') ?></td>
-    </tr>
+    <?php } ?>
 </table>
+<div id="chartdiv" style="height:300px;width:300px; "></div>
 <hr />
 <p class="lead">Masukan dari peserta</p>
-<table id="list" class="table table-condensed table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>Saran Kurikulum</th>
-            <th>Saran Sarpras</th>
-            <th>Saran Penyelenggaraan</th>
-            <th>Manfaat</th>
-            <th>Saran Catering</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($result as $r){ ?>
-        <tr>
-            <td><?php echo $r['saran_kurikulum'] ?></td>
-            <td><?php echo $r['saran_sarpras'] ?></td>
-            <td><?php echo $r['saran_penyelenggaraan'] ?></td>
-            <td><?php echo $r['manfaat'] ?></td>
-            <td><?php echo $r['saran_catering'] ?></td>
-        </tr>
+    <?php foreach($kategori as $kat){ ?>
+    <?php echo $kat['nama_kategori'] ?>
+        <ul>
+        <?php if(isset($saran[$kat['id_kategori']])){ ?>
+            <?php foreach($saran[$kat['id_kategori']] as $s){ ?>
+                <li><?php echo $s ?></li>
+            <?php } ?>
+        <?php }else{ ?>
+                <li>Belum ada saran</li>
         <?php } ?>
-    </tbody>
-</table>
+        </ul>
+    <?php } ?>
 <?php } ?>
+<!-- Additional plugins go here -->
+
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasTextRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.logAxisRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.barRenderer.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){   
+    var line3 = [
+    <?php foreach($result as $r){ ?> 
+    ['<?php echo $r['nama_kategori'] ?>',<?php echo number_format($r['avg(skor)'],2,',','') ?>],
+    <?php } ?>
+    ];
+    $.jqplot('chartdiv', [line3], {
+       animate: !$.jqplot.use_excanvas,
+       series:[{renderer:$.jqplot.BarRenderer}],
+       axes: {
+           xaxis: {
+             renderer: $.jqplot.CategoryAxisRenderer,
+             labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+             tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+             tickOptions: {
+                 angle: -30,
+                 fontFamily: 'Courier New',
+                 fontSize: '9pt'
+             }
+
+           },
+           yaxis: {
+             min :50,
+             max :100,
+             renderer: $.jqplot.LogAxisRenderer,
+             labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+           }
+         }
+    });
+     
+     
+});
+</script>
+
+<!-- End additional plugins -->

@@ -121,10 +121,11 @@
                                 $checked=' checked="checked"';
                             } ?>
                             <div>
-                            <label class="checkbox">
+                            <label class="checkbox inline">
                                 <input type="checkbox"<?php echo $checked?> name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                             </label>
-                            <span onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek</span><span id="result"></span>
+                             &nbsp;<span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
+                            <p id="result"></p>
                             </div>
                         <?php }?>
                     </div>

@@ -1,10 +1,7 @@
-
-<h4>Daftar Kamar</h4>
-
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-<div>
+<table>
 	<?php
 		$total=0;
 	
@@ -24,11 +21,12 @@
 		
 		for($j=0;$j<count($status);$j++)
 		{
-			echo $status[$j]['status'].": ".$tot[$j]."<br/>";
+			echo "<tr><td>".strtoupper($status[$j]['status'])."</td><td> : ".$tot[$j]."</td></tr>";
 		}
 	
 	?>
-</div>
+</table>
+<br />
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
