@@ -51,6 +51,8 @@ class Dosen_tamu extends CI_Controller{
     
     function insert_dosen(){
         $data['nama']=$this->input->post('nama');
+        $data['username']=$this->input->post('username');
+        $data['password']=md5($this->input->post('password'));
         $data['is_pns']=$this->input->post('kategori');
         $data['nip']=$this->input->post('nip');
         $data['tempat_lahir']=$this->input->post('tempat');
@@ -281,6 +283,9 @@ class Dosen_tamu extends CI_Controller{
     function edit_process(){
         $clause=$this->input->post('id');
         $data['nama']=$this->input->post('nama');
+        $data['username']=$this->input->post('username');
+        if($this->input->post('password')!=''){
+        $data['password']=md5($this->input->post('password'));}
         $data['is_pns']=$this->input->post('kategori');
         $data['nip']=$this->input->post('nip');
         $data['tempat_lahir']=$this->input->post('tempat');

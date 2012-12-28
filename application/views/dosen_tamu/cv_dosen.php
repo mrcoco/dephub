@@ -80,6 +80,14 @@
             <td><input id="nama" type="text" placeholder="Nama" name="nama"/></td>
         </tr>
         <tr>
+            <td>Username</td>
+            <td><input id="username" type="text" placeholder="Username" name="username"/></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input id="password" type="password" placeholder="Password" name="password"/></td>
+        </tr>
+        <tr>
             <td>Kategori</td>
             <td><?php echo form_dropdown('kategori',$kategori,'','id="kategori"')?></td>
         </tr>

@@ -16,6 +16,10 @@
             <td>: <?php echo $data['nama'] ?></td>
         </tr>
         <tr>
+            <th width="20%">Username</th>
+            <td>: <?php echo $data['username'] ?></td>
+        </tr>
+        <tr>
             <th width="20%">Kategori</th>
             <td>: <?php echo $data['is_pns'] ? 'PNS' : 'Profesional' ?></td>
         </tr>

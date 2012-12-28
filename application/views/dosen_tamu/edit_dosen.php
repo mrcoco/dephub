@@ -71,6 +71,14 @@
             <td><input id="nama" type="text" name="nama" value="<?php echo $data['nama'] ?>"/></td>
         </tr>
         <tr>
+            <td>Username</td>
+            <td><input id="username" type="text" value="<?php echo $data['username'] ?>" name="username"/></td>
+        </tr>
+        <tr>
+            <td>Password Baru</td>
+            <td><input id="password" type="password" placeholder="Password" name="password"/></td>
+        </tr>
+        <tr>
             <td>Kategori</td>
             <td><?php echo form_dropdown('kategori',$kategori,$data['is_pns'],'id="kategori"')?></td>
         </tr>
