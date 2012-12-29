@@ -19,7 +19,7 @@ class Editor {
             default      : return "Mendaftar";break;
         }
     }
-    function cek_fdb_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta){
+    function cek_fdb_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta=null){
         $this->_ci->load->model('mdl_feedback','fdb');
         return $this->_ci->fdb->cek_feedback_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta);
     }

@@ -43,6 +43,7 @@ $route['elibrary'] = 'elibrary/home';
 $route['unit'] = 'unit/front';
 $route['inst'] = 'inst/front';
 $route['pes'] = 'pes/front';
+$route['wid'] = 'wid/front';
 $route['404_override'] = 'site/error';
 
 

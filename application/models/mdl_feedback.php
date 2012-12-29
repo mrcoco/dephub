@@ -12,7 +12,8 @@ class Mdl_feedback extends CI_Model{
         $this->db->where('id_materi',$id_materi);
         $this->db->where('id_pengajar',$id_pengajar);
         $this->db->where('id_program',$id_program);
-        $this->db->where('id_peserta',$id_peserta);
+        if($id_peserta){
+        $this->db->where('id_peserta',$id_peserta);}
         return $this->db->get('feedback_pengajar')->num_rows();
     }
     

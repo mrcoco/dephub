@@ -39,6 +39,12 @@ class Date{
         }
         return $progress;
     }
+    function hitung_jam($from, $to) {
+        $from = strtotime($from);
+        $to = strtotime($to);
+        $range = ($to-$from)/60/60;
+        return $range;
+    }
     function get_day_name($idx){
         $arr_date = array('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu');
         return $arr_date[$idx-1];
