@@ -1,7 +1,7 @@
 <p class="lead">
-    <?php echo $judul ?>
+    <?php echo $judul ?><br/>
+    <?php echo  'Total jam mengajar: '.$total_jam.' jam' ?>
 </p>
-
         <table width="100%" class="table table-condensed table-striped table-bordered">
             <thead>
                 <tr>

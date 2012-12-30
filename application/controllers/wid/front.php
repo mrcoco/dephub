@@ -15,7 +15,7 @@ class Front extends CI_Controller{
         if(!$this->session->userdata('is_login_wid')){
             $data_session=array(
                 'nama_wid',
-                'type',
+                'id_jenis',
                 'id_peg',
                 'id_wid',
                 'is_login_wid'
@@ -43,6 +43,238 @@ class Front extends CI_Controller{
 //        print_r($data['materi']);
 //        print_r($data['diklat']);
         $this->template->display_wid('wid/info',$data);
+    }
+    function detail_dosen(){
+        $id=$this->session->userdata('id_peg');
+        $data['data'] = $this->slng->get_dosen_tamu($id);
+        $data['sub_title']='Detail Data '.$data['data']['nama'];
+        $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
+        $this->template->display_wid('wid/detail_dosen',$data);
+    }
+    function edit_dosen($id){
+        $data['data'] = $this->slng->get_dosen_tamu($id);
+        $data['kategori']=array(
+            -1=>'---Pilih kategori---',
+            0=>'Profesional',
+            1=>'PNS');
+        
+        $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
+        //parsing data pendidikan dn
+        $pnddkn_dn=array();
+        $periode_dn=array();
+        
+        $pendidikan_dn=$data['data']['pendidikan_dn'];
+        $pendidikan_dn=str_replace('<li>', '', $pendidikan_dn);
+        $pendidikan_dn=str_replace('</li>', ' # ', $pendidikan_dn);
+        
+        $per_dn=explode('#',$pendidikan_dn);
+        $i=0;
+        foreach($per_dn as $a){
+            if(trim($a)!=''){
+                $dn=explode(':',trim($a));
+                $pnddkn_dn[$i]=trim($dn[1]);
+                $periode_dn[$i]=trim($dn[0]);
+                $i++;
+            }
+        }
+        $data['data']['dn']=$pnddkn_dn;
+        $data['data']['periode_dn']=$periode_dn;
+        
+        
+        //parsing data pendidikan ln
+        $pnddkn_ln=array();
+        $periode_ln=array();
+        
+        $pendidikan_ln=$data['data']['pendidikan_ln'];
+        $pendidikan_ln=str_replace('<li>', '', $pendidikan_ln);
+        $pendidikan_ln=str_replace('</li>', ' # ', $pendidikan_ln);
+        
+        $per_ln=explode('#',$pendidikan_ln);
+        $i=0;
+        foreach($per_ln as $a){
+            if(trim($a)!=''){
+                $ln=explode(':',trim($a));
+                $pnddkn_ln[$i]=trim($ln[1]);
+                $periode_ln[$i]=trim($ln[0]);
+                $i++;
+            }
+        }
+        $data['data']['ln']=$pnddkn_ln;
+        $data['data']['periode_ln']=$periode_ln;
+        
+        
+        //parsing data riwayat pekerjaan
+        $data_riwayat=array();
+        $data_periode=array();
+        
+        $riwayat_pekerjaan=$data['data']['history_jabatan'];
+        $riwayat_pekerjaan=str_replace('<li>', '', $riwayat_pekerjaan);
+        $riwayat_pekerjaan=str_replace('</li>', ' # ', $riwayat_pekerjaan);
+        
+        $per_riwayat=  explode('#', $riwayat_pekerjaan);
+        $i=0;
+        foreach($per_riwayat as $a){
+            if(trim($a)!=''){
+                $riwayat=explode(':',trim($a));
+                $data_riwayat[$i]=trim($riwayat[1]);
+                $data_periode[$i]=trim($riwayat[0]);
+                $i++;
+            }
+        }
+        $data['data']['riwayat']=$data_riwayat;
+        $data['data']['periode']=$data_periode;
+        
+        //parsing data riwayat kursus
+        $data_kursus=array();
+        $kursus_periode=array();
+        
+        $riwayat_kursus=$data['data']['history_kursus'];
+        $riwayat_kursus=str_replace('<li>', '', $riwayat_kursus);
+        $riwayat_kursus=str_replace('</li>', ' # ', $riwayat_kursus);
+        
+        $per_riwayat=  explode('#', $riwayat_kursus);
+        $i=0;
+        foreach($per_riwayat as $a){
+            if(trim($a)!=''){
+                $riwayat=explode(':',trim($a));
+                $data_kursus[$i]=trim($riwayat[1]);
+                $kursus_periode[$i]=trim($riwayat[0]);
+                $i++;
+            }
+        }
+        $data['data']['kursus']=$data_kursus;
+        $data['data']['periode_kursus']=$kursus_periode;
+        
+        //parsing data riwayat diklat
+        $data_diklat=array();
+        
+        $riwayat_diklat=$data['data']['history_diklat'];
+        $riwayat_diklat=str_replace('<li>', '', $riwayat_diklat);
+        $riwayat_diklat=str_replace('</li>', ' # ', $riwayat_diklat);
+        
+        $per_riwayat=  explode('#', $riwayat_diklat);
+        $i=0;
+        foreach($per_riwayat as $a){
+            if(trim($a)!=''){
+                $data_diklat=$a;
+                $i++;
+            }
+        }
+        $data['data']['diklat']=$data_diklat;
+        
+        $data['sub_title']='Edit Data '.$data['data']['nama'];
+        $this->template->display_wid('wid/edit_dosen',$data);
+    }
+    
+    function update_dosen(){
+        $clause=$this->input->post('id');
+        $data['nama']=$this->input->post('nama');
+        $data['username']=$this->input->post('username');
+        if($this->input->post('password')!=''){
+        $data['password']=md5($this->input->post('password'));}
+        $data['is_pns']=$this->input->post('kategori');
+        $data['nip']=$this->input->post('nip');
+        $data['tempat_lahir']=$this->input->post('tempat');
+        $data['tanggal_lahir']=$this->date->savetgl($this->input->post('tanggal'));
+        $data['kode_gol']=$this->input->post('kode_gol');
+        $data['instansi']=$this->input->post('instansi');
+        $data['jabatan']=$this->input->post('jabatan');
+        $data['alamat_rumah']=$this->input->post('alamat_rumah');
+        $data['tlp_rumah']=$this->input->post('tlp_rumah');
+        $data['alamat_kantor']=$this->input->post('alamat_kantor');
+        $data['tlp_kantor']=$this->input->post('tlp_kantor');
+        
+        //mengambil data pendidikan dalam negeri
+        $dlm_ngri=$this->input->post('dlm_ngri');
+        $periode_dlm_ngri=$this->input->post('periode_dlm_ngri');
+        $data['pendidikan_dn']='';
+        if(count($dlm_ngri)>0){
+            for($i=0;$i<count($dlm_ngri);$i++){
+                if($dlm_ngri[$i]==''){
+                    $dlm_ngri[$i]='-';
+                }
+                if($periode_dlm_ngri[$i]==''){
+                    $periode_dlm_ngri[$i]='-';
+                }
+                if($dlm_ngri[$i]!='-'||$periode_dlm_ngri[$i]!='-'){
+                    $text = '<li>'.$periode_dlm_ngri[$i].' : '.$dlm_ngri[$i].'</li>';
+                    $data['pendidikan_dn'].=$text;
+                }
+            }
+        }
+        
+        //mengambil data pendidikan luar negeri
+        $luar_ngri=$this->input->post('luar_ngri');
+        $periode_luar_ngri=$this->input->post('periode_luar_ngri');
+        $data['pendidikan_ln']='';
+        if(count($luar_ngri)>0){
+            for($i=0;$i<count($luar_ngri);$i++){
+                if($luar_ngri[$i]==''){
+                    $luar_ngri[$i]='-';
+                }
+                if($periode_luar_ngri[$i]==''){
+                    $periode_luar_ngri[$i]='-';
+                }
+                if($luar_ngri[$i]!='-'||$periode_luar_ngri[$i]!='-'){
+                    $text = '<li>'.$periode_luar_ngri[$i].' : '.$luar_ngri[$i].'</li>';
+                    $data['pendidikan_ln'].=$text;
+                }
+            }
+        }
+        
+        //mengambil data history jabatan
+        $riwayat_jbtn=$this->input->post('riwayat_jbtn');
+        $periode_jbtn=$this->input->post('periode_jbtn');
+        $data['history_jabatan']='';
+        if(count($riwayat_jbtn)>0){
+            for($i=0;$i<count($riwayat_jbtn);$i++){
+                if($riwayat_jbtn[$i]==''){
+                    $riwayat_jbtn[$i]='-';
+                }
+                if($periode_jbtn[$i]==''){
+                    $periode_jbtn[$i]='-';
+                }
+                if($riwayat_jbtn[$i]!='-'||$periode_jbtn[$i]!='-'){
+                    $text = '<li>'.$periode_jbtn[$i].' : '.$riwayat_jbtn[$i].'</li>';
+                    $data['history_jabatan'].=$text;
+                }
+            }
+        }
+        
+        //mengambil data kursus
+        $kursus=$this->input->post('kursus');
+        $periode_kursus=$this->input->post('thn_kursus');
+        $data['history_kursus']='';
+        if(count($kursus)>0){
+            for($i=0;$i<count($kursus);$i++){
+                if($kursus[$i]==''){
+                    $kursus[$i]='-';
+                }
+                if($periode_kursus[$i]==''){
+                    $periode_kursus[$i]='-';
+                }
+                if($kursus[$i]!='-'||$periode_kursus[$i]!='-'){
+                    $text = '<li>'.$periode_kursus[$i].' : '.$kursus[$i].'</li>';
+                    $data['history_kursus'].=$text;
+                }
+            }
+        }
+        
+        //mengambil data diklat
+        $diklat=$this->input->post('diklat');
+        $data['history_diklat']='';
+        if(count($diklat)>0){
+            for($i=0;$i<count($diklat);$i++){
+                if($diklat[$i]!=''){
+                    $text = '<li>'.$diklat[$i].'</li>';
+                    $data['history_diklat'].=$text;
+                }
+            }
+        }
+        
+        $this->slng->update_dosen_tamu($clause,$data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Data dosen telah diubah'));
+        redirect(base_url().'wid/front/detail_dosen/'.$clause);
     }
     function detail_pegawai(){
         $id=$this->session->userdata('id_peg');
@@ -125,12 +357,12 @@ class Front extends CI_Controller{
         $id=$this->session->userdata('id_wid');
         $data['title']='Jadwal Pengajar';
         $data['data_schedule']=$this->wid->get_schedule_wid($id);
-        $jam=$this->wid->get_hours_wid($id);
+        $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id));
         $data['total_jam']=0;
         foreach($jam as $j){
             $data['total_jam']+=$this->date->hitung_jam($j['jam_mulai'],$j['jam_selesai']);
         }
-        $data['judul']='Jadwal Keseluruhan (Total: '.$data['total_jam'].' jam)';
+        $data['judul']='Jadwal Keseluruhan';
         $data['link_pdf']='wid/front/schedule_pengajar_print';
 //        print_r($data['data_schedule']);
         $this->template->display_wid('wid/schedule_program',$data);
@@ -141,6 +373,11 @@ class Front extends CI_Controller{
         $data['title']='Jadwal Pengajar';
         $data['data_schedule']=$this->wid->get_schedule_wid($id);
         $data['judul']='Jadwal Pengajar - '.$this->session->userdata('nama_wid');
+        $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id));
+        $data['total_jam']=0;
+        foreach($jam as $j){
+            $data['total_jam']+=$this->date->hitung_jam($j['jam_mulai'],$j['jam_selesai']);
+        }
 //        print_r($data['data_schedule']);
         $print = $this->load->view('wid/pdf_schedule',$data,true);
         pdf_create($print, $data['judul']);
@@ -155,6 +392,12 @@ class Front extends CI_Controller{
             redirect(base_url().'diklat/daftar_diklat/');
         }
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $id_pem=$this->session->userdata('id_wid');
+        $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id_pem,'id_program'=>$id));
+        $data['total_jam']=0;
+        foreach($jam as $j){
+            $data['total_jam']+=$this->date->hitung_jam($j['jam_mulai'],$j['jam_selesai']);
+        }
 
         $this->load->library('date');
         $this->load->library('excel');
@@ -167,11 +410,18 @@ class Front extends CI_Controller{
     }
     function login_form(){
         $data['title']='Login Pengajar';
+        $data['jenis']=array(
+            -1=>'--Pilih--',
+            1=>'Non-Widyaiswara',
+            2=>'Widyaiswara',
+            3=>'Dosen Tamu'
+        );
         $this->template->display_wid('wid/login_form',$data);
     }
     
     
     function login_process(){
+        $data['jenis']=$this->input->post('jenis');
         $data['username']=$this->input->post('username');
         $data['password']=md5($this->input->post('password'));
         $res=$this->wid->login_wid($data)->num_rows();
@@ -179,6 +429,7 @@ class Front extends CI_Controller{
         if($res>0){
             $data_session=array(
                 'nama_wid'=>$pengajar['nama'],
+                'id_jenis'=>$pengajar['jenis'],
                 'id_peg'=>$pengajar['id_tabel'],
                 'id_wid'=>$pengajar['id'],
                 'is_login_wid'=>true
@@ -196,6 +447,7 @@ class Front extends CI_Controller{
         //buat ngilangin data session sebelumnya
         $data_session=array(
                 'nama_wid',
+                'id_jenis',
                 'id_peg',
                 'id_wid',
                 'is_login_wid'

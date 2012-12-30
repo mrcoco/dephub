@@ -18,8 +18,8 @@ class Mdl_wid extends CI_Model{
         $this->db->join('program','program.id=schedule.id_program');
         return $this->db->get('pemateri')->result_array();
     }
-    function get_hours_wid($kode){
-        $this->db->where('id_pembicara',$kode);
+    function get_hours_wid($where){
+        $this->db->where($where);
         $this->db->join('schedule','schedule.id=pemateri.id_schedule');
         return $this->db->get('pemateri')->result_array();
     }
@@ -88,8 +88,13 @@ class Mdl_wid extends CI_Model{
     
     function login_wid($data){
         $this->db->where($data);
-        $this->db->join('pembicara','pembicara.id_tabel=pegawai.id');
-        return $this->db->get('pegawai');
+        if($data['jenis']==1 || $data['jenis']==2){
+            $this->db->join('pembicara','pembicara.id_tabel=pegawai.id');
+            return $this->db->get('pegawai');
+        }else{
+            $this->db->join('pembicara','pembicara.id_tabel=dosen_tamu.id');
+            return $this->db->get('dosen_tamu');
+        }
     }
     
     
