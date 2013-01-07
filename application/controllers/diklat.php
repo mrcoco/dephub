@@ -373,8 +373,6 @@ class Diklat extends CI_Controller{
     }
     
     function ajax_cek_daftar($id_diklat,$nip_pegawai,$thn){
-//        echo current_url().'<br/>';
-//        echo $nip_pegawai;
         if($this->slng->get_one_peserta($id_diklat,$nip_pegawai,$thn)==0){
             echo 'true';
         }else{
