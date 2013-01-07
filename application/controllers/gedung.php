@@ -67,7 +67,7 @@ class Gedung extends CI_Controller {
             redirect(base_url().'error/error_priv');
         }
         //menampilkan form untuk edit data gedung
-        $data['sub_title']='Edit Gedung';
+        $data['sub_title']='Ubah Gedung';
 		$data['type']='edit';
         $var=$this->spr->get_gedung($id)->result_array();
         $data['gedung']=$var[0];
@@ -78,7 +78,7 @@ class Gedung extends CI_Controller {
         //process penyimpanan data gedung
         $this->spr->update_gedung($_POST['id'],$_POST);
             
-        $this->session->set_flashdata('msg',$this->editor->alert_ok('Gedung telah diedit'));
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Gedung telah diubah'));
         redirect(base_url().'gedung/list_gedung');
     }
     function delete_gedung($id){

@@ -102,3 +102,6 @@
         <?php } ?>
     </table>
 </form>
+<div class="form-actions">
+    <button class="btn btn-primary" onclick="history.go(-1)"><i class="icon-arrow-left icon-white"></i> Kembali</button>
+</div>

@@ -73,7 +73,7 @@ class Kelas extends CI_Controller{
         //process penyimpanan data kelas
         $this->spr->update_kelas($_POST['id'], $_POST);
 
-        $this->session->set_flashdata('msg', $this->editor->alert_ok('kelas telah diedit'));
+        $this->session->set_flashdata('msg', $this->editor->alert_ok('kelas telah diubah'));
         redirect(base_url() . 'kelas');
     }
 
@@ -117,7 +117,7 @@ class Kelas extends CI_Controller{
 				$ins[$var]=$_POST[$var];
 		}
         $this->spr->update_check_list_kelas($_POST['id'], $ins);
-        $this->session->set_flashdata('msg', $this->editor->alert_ok('kelas telah diedit'));
+        $this->session->set_flashdata('msg', $this->editor->alert_ok('kelas telah diubah'));
         redirect(base_url() . 'kelas');
     }
 	
@@ -138,7 +138,7 @@ class Kelas extends CI_Controller{
 		// die(var_dump($ins));
         $this->spr->update_checklist($id, $ins);
 		
-        $this->session->set_flashdata('msg', $this->editor->alert_ok('checklist telah diupdate'));
-        redirect(base_url() . 'kelas');
+        $this->session->set_flashdata('msg', $this->editor->alert_ok('Checklist telah diperbarui'));
+        redirect(base_url() . 'kelas/checklist_kelas');
 	}
 }

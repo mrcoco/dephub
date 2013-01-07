@@ -207,7 +207,7 @@
                 </div>
             </td>
         </tr>
-        <tr>
+        <tr class="pns">
             <th colspan="2">Riwayat Diklat</th>
         </tr>
         <tr  class="pns">

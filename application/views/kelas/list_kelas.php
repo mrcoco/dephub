@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 	
 <table width="100%" id="list" class="table table-striped table-bordered table-condensed">
@@ -36,6 +36,6 @@
 </table>
 
 <div class="form-actions">
-    <a href="kelas/add_kelas" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i>Tambah</a>
+    <a href="kelas/add_kelas" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
 </div>
 	

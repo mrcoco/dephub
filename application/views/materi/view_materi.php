@@ -32,5 +32,5 @@
     </tbody>
 </table>
 <div class="form-actions">
-    <a href="<?php echo base_url()?>materi/list_materi" class="btn btn-primary"><i class="icon-arrow-left icon-white"></i> Daftar materi</a>
+    <a href="<?php echo base_url()?>materi/list_materi" class="btn btn-primary"><i class="icon-arrow-left icon-white"></i> Kembali</a>
 </div>

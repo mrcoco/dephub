@@ -50,13 +50,13 @@
         <tr>
             <tr>
             <td>Item</td>
-            <td><input class="item" type="text" name="item" placeholder="Item" value="<?php echo $item['item'];?>"/></td>
+            <td><input class="item" type="text" name="item" placeholder="Nama item" value="<?php echo $item['item'];?>"/></td>
             </tr>
             <tr>
             <td>Kategori</td>
             <td>
 				<select name="kategori">
-					<option value="" <?php if($item['kategori']) echo "selected"?>>---------</option>
+					<option value="" <?php if($item['kategori']) echo "selected"?>>--pilih--</option>
 					<option value="lampu" <?php if($item['kategori']) echo "selected"?>>Lampu</option>
 					<option value="toilet" <?php if($item['kategori']) echo "selected"?>>Toilet</option>
 					<option value="ac" <?php if($item['kategori']) echo "selected"?>>ac</option>
@@ -65,11 +65,11 @@
             </tr>
             <tr>
             <td>Bobot</td>
-            <td><input class="bobot" type="text" name="bobot" placeholder="Bobot" value="<?php echo $item['bobot'];?>"/></td>
+            <td><input class="bobot input-mini" type="text" name="bobot" placeholder="Bobot" value="<?php echo $item['bobot'];?>"/></td>
             </tr>
             <tr>
             <td>Status</td>
-            <td><input class="status" type="text" name="status" placeholder="Status" value="<?php echo $item['status'];?>"/></td>
+            <td><input class="status input-mini" type="text" name="status" placeholder="Status" value="<?php echo $item['status'];?>"/></td>
             </tr>
             
         </tr>

@@ -13,7 +13,7 @@
         <?php if($about){
         foreach($about as $a) {?>
         <tr>
-            <td><?php echo $a['judul'] ?></td>
+            <td><a href='about/profil/<?php echo $a['id']?>' class='tip-right' title="klik untuk lihat"><?php echo $a['judul'] ?></a></td>
             <td>
                 <a href='about/profil/<?php echo $a['id']?>' class='btn btn-mini'><i class="icon-zoom-in"></i> Lihat</a>
                 <a href="settings/edit_profil/<?php echo $a['id']?>" class="btn btn-mini"><i class="icon-edit"></i> Ubah</a>
@@ -32,5 +32,5 @@
 </table>
 
 <div class="form-actions">
-    <a href="settings/add_profil" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i>Tambah</a>
+    <a href="settings/add_profil" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
 </div>
