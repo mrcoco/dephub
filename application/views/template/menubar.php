@@ -58,8 +58,8 @@
         </li>
         <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url()?>user">User List</a></li>
-                <li><a href="<?php echo base_url()?>user/manage_user">Manage User</a></li>
+                <li><a href="<?php echo base_url()?>user">Daftar User</a></li>
+                <li><a href="<?php echo base_url()?>user/manage_user">Kelola User</a></li>
             </ul>
         </li>
         <?php } ?>

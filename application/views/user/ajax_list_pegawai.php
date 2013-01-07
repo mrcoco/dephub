@@ -17,15 +17,21 @@
     <td><a class="tip-right" title="Klik untuk detail" href="javascript:view_detail(<?php echo $a['id']; ?>)"><?php echo $a['nama']?></a></td>
     <td><?php echo $a['nip']?></td>
     <td>
-        <?php
-            foreach($role as $k=>$v){
-                if($k==$a['id_role']){
-                    echo '<b>'.$v . '</b>&nbsp;';
+        <div class="btn-group" data-toggle="buttons-radio">
+        <?php foreach($role as $k=>$v){ ?>
+        <?php    if($k==$a['id_role']){
+                    $c='active';
                 }else{
-                    echo $v . '&nbsp;';
-                }
-            }
-        ?>
+                    $c='';
+                } ?>
+        <button type="button" class="btn <?php echo $c ?>" onclick="status(<?php echo $k.','.$a['id']?>)">
+            <?php echo ucfirst($v); ?>
+        </button>
+        <?php } ?>
+        <button type="button" class="btn btn-danger" onclick="status(0,<?php echo $a['id']?>)">
+            x
+        </button>
+        </div>
     </td>
 </tr>
 <?php $no++ ?>
