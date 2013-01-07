@@ -76,14 +76,7 @@
         </tbody>
     </table>
     <div class="form-actions">
-        <input type="button" class="btn btn-large btn-primary pull-right"      
-    <?php 
-    if($type=='add')
-        echo "value=\"Daftar\" onclick=\"validate_form()\""; 
-    else
-        echo "value=\"Edit\" onclick=\"validate_form()\"";
-            //onclick=\"validate_form()"; 
-    ?>  
-      />
+        <input type="button" class="btn btn-primary" value="Simpan" onclick="validate_form()" />
+        <input type="button" class="btn" value="Cancel" onclick="history.go(-1)">
     </div>
 </form>

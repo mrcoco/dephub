@@ -1,4 +1,7 @@
 <script type="text/javascript">
+    function add_gedung(){
+        $('#add').modal({show:true});
+    }
     function edit_gedung(nama,id){
         $('#edit').modal({show:true});
         $('#edit').find('input:text').val(nama);
@@ -109,13 +112,29 @@
 </table>
 
 <div class="form-actions">
-    <a href="gedung/add_gedung" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i>Tambah</a>
+    <a href="javascript:add_gedung()" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i>Tambah</a>
 </div>
+    <form action="<?php echo base_url()?>gedung/add_gedung_process" method="post">
+<div class="modal hide" id="add">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Tambah Gedung</h3>
+        </div>
+        <div class="modal-body">
+            <p>Nama Gedung :</p>
+            <p><input type="text" name="nama"/></p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+            <input class="btn btn-primary" type="submit" value="Simpan"/>
+        </div>
+</div>
+</form>
     <form action="<?php echo base_url()?>gedung/edit_gedung_process" method="post">
 <div class="modal hide" id="edit">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>Edit Gedung</h3>
+            <h3>Ubah Gedung</h3>
         </div>
         <div class="modal-body">
             <p>Nama Gedung :</p>

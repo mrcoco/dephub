@@ -30,15 +30,10 @@
         echo "kamar/edit_kamar_process/".$kamar['id']; 
     ?>
       " method="POST">
+<input class="id" type="hidden" name="id" placeholder="ID" value="<?php echo $kamar['id'];?>"/>
     <div id="wrap_form">
     </div>
     <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th colspan="2">Penambahan kamar</th>
-				<input class="id" type="hidden" name="id" placeholder="ID" value="<?php echo $kamar['id'];?>"/>
-            </tr>
-        </thead>
         <tbody>
         <tr>
             <!--
@@ -53,8 +48,8 @@
             </tr>
 			-->
             <tr>
-            <td>Nomor Kamar</td>
-            <td><input class="nama" type="text" name="nama" placeholder="Nomor Kamar" value="<?php echo $kamar['nama_kamar'];?>"/></td>
+            <td width="20%">Nomor Kamar</td>
+            <td><input class="input-mini" type="text" name="nama" placeholder="Nomor Kamar" value="<?php echo $kamar['nama_kamar'];?>"/></td>
             </tr>
             <tr>
             <td>Asrama</td>
@@ -76,7 +71,7 @@
             </tr>
             <tr>
             <td>Lantai</td>
-            <td><input class="lantai" type="text" name="lantai" placeholder="Lantai" value="<?php echo $kamar['lantai'];?>"/></td>
+            <td><input class="input-mini" type="text" name="lantai" placeholder="Lantai" value="<?php echo $kamar['lantai'];?>"/></td>
             </tr>
             <tr>
             <td>Sayap</td>
@@ -99,11 +94,11 @@
             </tr>
             <tr>
             <td>Nomor</td>
-            <td><input class="nomor" type="text" name="nomor" placeholder="Nomor" value="<?php echo $kamar['nomor'];?>"/></td>
+            <td><input class="input-mini" type="text" name="nomor" placeholder="Nomor" value="<?php echo $kamar['nomor'];?>"/></td>
             </tr>
             <tr>
             <td>Bed</td>
-            <td><input class="bed" type="text" name="bed" placeholder="Bed" value="<?php echo $kamar['bed'];?>"/></td>
+            <td><input class="input-mini" type="text" name="bed" placeholder="Bed" value="<?php echo $kamar['bed'];?>"/></td>
             </tr>
             <tr>
             <td>Status</td>
@@ -129,14 +124,7 @@
         </tbody>
     </table>
     <div class="form-actions">
-        <input type="button" class="btn btn-large btn-primary pull-right"      
-    <?php 
-    if($type=='add')
-        echo "value=\"Daftar\" onclick=\"validate_form()\""; 
-    else
-        echo "value=\"Edit\" onclick=\"validate_form()\"";
-            //onclick=\"validate_form()"; 
-    ?>  
-      />
+        <input type="button" class="btn btn-primary" value="Simpan" onclick="validate_form()" />
+        <input type="button" class="btn" value="Cancel" onclick="history.go(-1)">
     </div>
 </form>
