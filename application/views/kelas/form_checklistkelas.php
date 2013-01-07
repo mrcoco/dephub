@@ -121,7 +121,8 @@
     </tbody>
 </table>
     <div class="form-actions">
-        <input type="button" class="btn btn-large btn-primary" value="Simpan" onclick="validate_form()"/>
+        <input type="button" class="btn btn-primary" value="Simpan" onclick="validate_form()"/>
+        <input type="button" class="btn" value="Cancel" onclick="history.go(-1)">
     </div>
 </form>
 	

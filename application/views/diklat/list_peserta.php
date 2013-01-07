@@ -89,7 +89,11 @@
         <?php }?>
     </tbody>
 </table>
+<?php if($list){?>
 <div class="form-actions">
     <a class="btn btn-success" href="<?php echo base_url()?>diklat/publish_daftar_peserta/<?php echo $program['id']?>">Publish</a>
     <a class="btn btn-success" href="<?php echo base_url()?>diklat/cetak_daftar_peserta/<?php echo $program['id']?>">Cetak PDF</a>
 </div>
+<?php }else{ ?>
+<p>Tidak ada yang mendaftar</p>
+<?php }?>

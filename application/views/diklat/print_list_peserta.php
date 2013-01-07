@@ -36,7 +36,8 @@
             <td align="center"><?php echo $l['pangkat'] ?>, <?php echo $l['golongan'] ?></td>
             <td><?php echo $l['unit_kerja'] ?></td>
         <?php 
-                }elseif($l['status']=='waiting'){$w=1;}else{$d=1;}
+                }elseif($l['status']=='waiting'){$w=1;
+                }else{$d=0;} //}else{$d=1;} jika yg tidak diterima ingin ditampilkan
             }
         ?>
     </tbody>
