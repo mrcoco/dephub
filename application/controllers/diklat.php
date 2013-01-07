@@ -216,7 +216,7 @@ class Diklat extends CI_Controller{
     }
     
     function registrasi($id){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')==3||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
         $data['id_diklat']=$id;
@@ -250,7 +250,7 @@ class Diklat extends CI_Controller{
     }
     
     function terima_peserta($id,$thn=''){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')==3||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
         if($thn==''){
@@ -275,7 +275,7 @@ class Diklat extends CI_Controller{
     }
     
     function cetak_daftar_peserta($id,$thn=''){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')==3||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
         if($thn==''){
@@ -298,7 +298,7 @@ class Diklat extends CI_Controller{
     }
     
     function publish_daftar_peserta($id,$thn=''){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')==3||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
         if($thn==''){
@@ -352,7 +352,7 @@ class Diklat extends CI_Controller{
     }
     
     function alokasi_kamar_program($id,$thn=''){
-        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+        if ($this->session->userdata('id_role') == 3 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');
         }
         //ngelist program yg ada di diklat ini
