@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 <div class="row">	
 <div class="span12">	
@@ -7,8 +7,8 @@
     <thead>
         <tr>
             <th width="5%" rowspan='2'>No</th>
-            <th width="15%" rowspan='2'>Nama Kelas</th>
-            <th width="20%" colspan='4'><div align="center">LCD Proyektor</div></th>
+            <th width="20%" rowspan='2'>Nama Kelas</th>
+            <th width="15%" colspan='4'><div align="center">LCD Proyektor</div></th>
             <th width="10%" colspan='2'><div align="center">Sound System</div></th>
             <th width="15%" colspan='3'><div align="center">Meja</div></th>
             <th width="10%" colspan='3'><div align="center">Kursi</div></th>
@@ -42,7 +42,7 @@
 		<form name="form_edit" id="form_reg" action="kelas/update_checklist/<?php echo $list[$i]['id'] ?>" method="POST">
             <td class="no"><?php echo ($i+1) ?></td>
             <td class="nama"><?php echo $list[$i]['nama'] ?></td>
-            <td class="l1"><?php echo $list[$i]['l1']; ?>
+            <td class="l1"><input type="text" class="angka" name="l1" value="<?php echo $list[$i]['l1']; ?>" />
 			</td>
             <td class="l2"><input type="checkbox" name="l2" value="1"
 			<?php 
@@ -50,11 +50,11 @@
 					echo "checked";
 			?>/>
 			</td>
-            <td class="l3"><?php echo $list[$i]['l3']; ?>
+            <td class="l3"><input type="text" class="angka" name="l3" value="<?php echo $list[$i]['l3']; ?>" />
 			</td>
-            <td class="l4"><?php echo $list[$i]['l4']; ?>
+            <td class="l4"><input type="text" class="angka" name="l4" value="<?php echo $list[$i]['l4']; ?>" />
 			</td>
-			<td class="s1"><?php echo $list[$i]['s1']; ?>
+			<td class="s1"><input type="text" class="angka" name="s1" value="<?php echo $list[$i]['s1']; ?>" />
 			</td>
 			<td class="s2"><input type="checkbox" name="s2" value="1"
 			<?php 
@@ -62,7 +62,7 @@
 					echo "checked"; 
 			?>/>
 			</td>
-			<td class="m1"><?php echo $list[$i]['m1']; ?>
+			<td class="m1"><input type="text" class="angka" name="m1" value="<?php echo $list[$i]['m1']; ?>" />
 			</td>
 			<td class="m2"><input type="checkbox" name="m2" value="1"
 			<?php 
@@ -70,9 +70,9 @@
 					echo "checked";
 			?>/>
 			</td>
-			<td class="m3"><?php echo $list[$i]['m3']; ?>
+			<td class="m3"><input type="text" class="angka" name="m3" value="<?php echo $list[$i]['m3']; ?>" />
 			</td>
-			<td class="k1"><?php echo $list[$i]['k1']; ?>
+			<td class="k1"><input type="text" class="angka" name="k1" value="<?php echo $list[$i]['k1']; ?>" />
 			</td>
 			<td class="k2"><input type="checkbox" name="k2" value="1"
 			<?php 
@@ -80,7 +80,7 @@
 					echo "checked";
 			?>/>
 			</td>
-			<td class="k3"><?php echo $list[$i]['k3']; ?>
+			<td class="k3"><input type="text" class="angka" name="k3" value="<?php echo $list[$i]['k3']; ?>" />
 			</td>
 			<td class="wb"><input type="checkbox" name="wb" value="1"
 			<?php 
@@ -102,8 +102,8 @@
 			</td>
 			
 			<td>
-				<input type="submit" class="btn btn-mini btn-primary pull-right" value="Save"/>
-				<a href="kelas/edit_checklist/<?php echo $list[$i]['id'] ?>" class="btn btn-mini btn-primary pull-right"/>Ubah</a>
+				<input type="submit" class="btn btn-mini btn-primary" value="Simpan"/>
+				<!--<a href="kelas/edit_checklist/<?php echo $list[$i]['id'] ?>" class="btn btn-mini btn-primary pull-right"/>Ubah</a>-->
 			</td>
 			
             </form>

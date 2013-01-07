@@ -1,5 +1,3 @@
 <div class="row">
-    <div class="span-24">
-        <div id="header"></div>
-    </div>
+        <div id="header" class="span12"></div>
 </div>
