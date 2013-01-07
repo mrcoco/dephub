@@ -365,6 +365,15 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->query($str_query)->result_array();
     }
     
+    function get_role_pegawai($per_page,$offset,$filter){
+        $str_query='select * from tb_pegawai left join tb_role on tb_pegawai.id=tb_role.id_pegawai';
+        if($filter!=''){
+            $str_query.=' where (nama like "%'.$filter.'%" or nip like "%'.$filter.'%")';
+        }
+        $str_query.= ' limit '.$offset.', '.$per_page;
+        return $this->db->query($str_query)->result_array();
+    }
+    
     function count_pegawai($filter){
         $str_query='select count(tb_pegawai.id) as num FROM tb_pegawai';
         if($filter!=''){
