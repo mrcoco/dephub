@@ -11,7 +11,6 @@ class Mdl_user extends CI_Model{
     
     function nama_role(){
         $role =  $this->db->get('list_role')->result_array();
-        $ret=array(''=>'-');
         foreach($role as $r){
             $ret[$r['id']]=$r['nama'];
         }

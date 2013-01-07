@@ -6,8 +6,7 @@
             <th width="5%" id="no">No</th>
             <th width="30%" id="nama">Nama</th>
             <th width="20%" id="nip">NIP</th>
-            <th width="20%" id="nip">Role</th>
-            <th width="25%">Aksi</th>
+            <th width="45%" id="nip">Role</th>
         </tr>
     </thead>
     <tbody id="body_table">
@@ -17,9 +16,16 @@
     <td><?php echo $no?></td>
     <td><a class="tip-right" title="Klik untuk detail" href="javascript:view_detail(<?php echo $a['id']; ?>)"><?php echo $a['nama']?></a></td>
     <td><?php echo $a['nip']?></td>
-    <td><?php echo $role[$a['id_role']]?></td>
     <td>
-        
+        <?php
+            foreach($role as $k=>$v){
+                if($k==$a['id_role']){
+                    echo '<b>'.$v . '</b>&nbsp;';
+                }else{
+                    echo $v . '&nbsp;';
+                }
+            }
+        ?>
     </td>
 </tr>
 <?php $no++ ?>
