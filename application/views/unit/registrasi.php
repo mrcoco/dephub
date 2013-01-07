@@ -8,7 +8,7 @@
     $(document).ready(function(){        
         $('#example').hide();
         append_table();
-    });
+    })
     
     function tes(num){
         console.log(kode_kantor);

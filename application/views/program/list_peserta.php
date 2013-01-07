@@ -27,6 +27,10 @@
         <?php }?>
     </tbody>
 </table>
+<?php if($list){?>
 <div class="form-actions">
     <a class="btn btn-success" href="<?php echo base_url()?>program/cetak_peserta_ang/<?php echo $program['id']?>">Cetak PDF</a>
 </div>
+<?php }else{ ?>
+<p>Tidak ada yang mendaftar</p>
+<?php }?>
