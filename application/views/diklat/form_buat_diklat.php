@@ -61,6 +61,15 @@
                     </div>
                 </div>
                 <div class="control-group">
+                    <label class="control-label">Jumlah peserta</label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input class="input-mini" name="jumlah_peserta" type="text"><span class="add-on">orang</span>
+                        </div>
+                        <span class="help-inline">(maksimum)</span>
+                    </div>
+                </div>
+                <div class="control-group">
                     <label class="control-label" for="deskripsi">Deskripsi Singkat</label>
                     <div class="controls">
                         <?php echo $this->editor->textarea('deskripsi') ?>
@@ -82,15 +91,6 @@
                 </div>
             </div>
             <div class="tab-pane" id="peserta">
-                <div class="control-group">
-                    <label class="control-label">Jumlah peserta</label>
-                    <div class="controls">
-                        <div class="input-append">
-                            <input class="input-mini" name="jumlah_peserta" type="text"><span class="add-on">orang</span>
-                        </div>
-                        <span class="help-inline">(maksimum)</span>
-                    </div>
-                </div>
                 <div class="control-group">
                     <label class="control-label">Syarat usia</label>
                     <div class="controls">

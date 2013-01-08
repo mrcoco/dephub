@@ -69,7 +69,7 @@
     <div id="yw0" class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 	<div class="container">
-	    <div class="nav-collapse">
+<!--	    <div class="nav-collapse">-->
 		<ul class="nav">
                     <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
 		    <li><a style="color:lightblue" href="#">Manajemen Diklat</a></li>
@@ -85,7 +85,7 @@
 			</ul>
 		    </li>
 		</ul>
-	    </div>
+	    <!--</div>-->
 	</div>
 	</div>
     </div>

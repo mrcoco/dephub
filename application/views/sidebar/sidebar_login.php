@@ -3,8 +3,9 @@
 <?php    if(!$this->session->userdata('is_login')){ ?>
     <p>
         <?php echo form_open(base_url().'site/login'); ?>
-        <input type="text" name="usr" placeholder="Masukkan NIP" class="input-medium"/>
-        <input type="password" name="password" placeholder="Password" class="input-medium"/>
+        <input type="text" name="usr" placeholder="Masukkan NIP/username" class="span2"/>
+        <input type="password" name="password" placeholder="Password" class="span2"/>
+        <br/>
         <input type="submit" class="btn btn-primary" name="submit" value="Login" />
         <?php echo form_close(); ?>
     </p>

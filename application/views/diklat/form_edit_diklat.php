@@ -74,6 +74,15 @@
                     </div>
                 </div>
                 <div class="control-group">
+                    <label class="control-label">Jumlah peserta</label>
+                    <div class="controls">
+                        <div class="input-append">
+                            <input class="input-mini" name="jumlah_peserta" type="text" value="<?php echo $program['jumlah_peserta'] ?>"/><span class="add-on">orang</span>
+                        </div>
+                        <span class="help-inline">(maksimum)</span>
+                    </div>
+                </div>
+                <div class="control-group">
                     <label class="control-label" for="deskripsi">Deskripsi Singkat</label>
                     <div class="controls">
                         <?php echo $this->editor->textarea('deskripsi', $program['deskripsi']) ?>
@@ -96,15 +105,6 @@
             </div>
             <div class="tab-pane" id="peserta">
                 <div class="control-group">
-                    <label class="control-label">Jumlah peserta</label>
-                    <div class="controls">
-                        <div class="input-append">
-                            <input class="input-mini" name="jumlah_peserta" type="text" value="<?php echo $program['jumlah_peserta'] ?>"/><span class="add-on">orang</span>
-                        </div>
-                        <span class="help-inline">(maksimum)</span>
-                    </div>
-                </div>
-                <div class="control-group">
                     <label class="control-label">Syarat max usia</label>
                     <div class="controls">
                         <div class="input-append">
@@ -119,7 +119,7 @@
                         <div class="input-append">
                             <input class="input-mini" name="syarat_masa_kerja" type="text" value="<?php echo $program['syarat_masa_kerja'] ?>"/><span class="add-on">tahun</span>
                         </div>
-                        <span class="help-inline">(maksimum)</span>
+                        <span class="help-inline">(minimum)</span>
                     </div>
                 </div>
                 <div class="control-group">
