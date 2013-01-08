@@ -33,8 +33,8 @@
                 <li><a href="<?php echo base_url()?>gedung">Daftar Gedung</a></li>
                 <li><a href="<?php echo base_url()?>kamar">Daftar Kamar</a></li>
                 <li><a href="<?php echo base_url()?>kamar_item">Daftar Prasarana Kamar</a></li>
-                <li><a href="<?php echo base_url()?>asrama">Status Prasarana Asrama</a></li>
                 <li><a href="<?php echo base_url()?>asrama/list_asrama">Checklist Prasarana Asrama</a></li>
+                <li><a href="<?php echo base_url()?>asrama">Status Prasarana Asrama</a></li>
                 <li class="nav-header">Kelas</li>
                 <li><a href="<?php echo base_url()?>kelas">Daftar Ruang Kelas</a></li>
                 <li><a href="<?php echo base_url()?>kelas/checklist_kelas">Checklist Prasarana Kelas</a></li>
@@ -58,8 +58,8 @@
         </li>
         <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url()?>user">User List</a></li>
-                <li><a href="<?php echo base_url()?>user/manage_user">Manage User</a></li>
+                <li><a href="<?php echo base_url()?>user">Daftar User</a></li>
+                <li><a href="<?php echo base_url()?>user/manage_user">Kelola User</a></li>
             </ul>
         </li>
         <?php } ?>

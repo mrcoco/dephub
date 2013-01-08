@@ -85,7 +85,7 @@ class Asrama extends CI_Controller{
 			$this->spr->update_checklist_kamar($id, $i['id'], $data);
 		}
 		
-        $this->session->set_flashdata('msg', $this->editor->alert_ok('checklist telah diupdate'));
+        $this->session->set_flashdata('msg', $this->editor->alert_ok('Checklist telah diperbarui'));
         redirect(base_url() . 'asrama/list_asrama');
 	}
     

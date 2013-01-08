@@ -19,12 +19,14 @@
             });
         }
     }
-    
-    
+    function status(jenis,id){
+        $.get('<?php echo base_url()?>user/update_status/'+jenis+'/'+id,function(result){
+        });
+    }
 </script>
 
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-Search: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
+Cari: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
 <div id="body_table"></div>    

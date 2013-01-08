@@ -40,11 +40,17 @@
 		
         <tr>
             <td>Kapasitas</td>
-            <td><input class="kapasitas" type="text" name="kapasitas" placeholder="Kapasitas" value="<?php echo $kelas['kapasitas'];?>"/></td>
+            <td><div class="input-append">
+                <input class="kapasitas input-mini" type="text" name="kapasitas" placeholder="Kapasitas" value="<?php echo $kelas['kapasitas'];?>"/><span class="add-on">orang</span>
+                </div>
+            </td>
 		</tr>
         <tr>
             <td>Meja Kursi</td>
-            <td><input class="mejakursi" type="text" name="mejakursi" placeholder="Meja Kursi" value="<?php echo $kelas['mejakursi'];?>"/></td>
+            <td><div class="input-append">
+                <input class="mejakursi input-mini" type="text" name="mejakursi" placeholder="Meja Kursi" value="<?php echo $kelas['mejakursi'];?>"/><span class="add-on">buah</span>
+                </div>
+            </td>
 		</tr>
         <tr>
             <td>Kondisi</td>

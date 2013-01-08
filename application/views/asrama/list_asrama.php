@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 	
 	
@@ -107,7 +107,7 @@
 			}?>
 			</td>
 			<td><?php echo number_format(($total/count($item)*100),2,',','.')."%" ?></td>
-			<td><input type="submit" class="btn btn-small btn-primary" value="Save"/></td>
+			<td><input type="submit" class="btn btn-small btn-primary" value="Simpan"/></td>
 		</form>
         </tr>
 		<?php }?>

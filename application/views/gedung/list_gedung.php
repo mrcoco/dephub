@@ -112,7 +112,7 @@
 </table>
 
 <div class="form-actions">
-    <a href="javascript:add_gedung()" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i>Tambah</a>
+    <a href="javascript:add_gedung()" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
 </div>
     <form action="<?php echo base_url()?>gedung/add_gedung_process" method="post">
 <div class="modal hide" id="add">
@@ -121,8 +121,7 @@
             <h3>Tambah Gedung</h3>
         </div>
         <div class="modal-body">
-            <p>Nama Gedung :</p>
-            <p><input type="text" name="nama"/></p>
+            <p>Nama Gedung : <input type="text" name="nama"/></p>
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Cancel</a>
@@ -137,8 +136,8 @@
             <h3>Ubah Gedung</h3>
         </div>
         <div class="modal-body">
-            <p>Nama Gedung :</p>
             <p><input type="text" name="nama"/><input type="hidden" name="id"/></p>
+            <p>Nama Gedung : <input type="text" name="nama"/><input type="hidden" name="id"/></p>
         </div>
         <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal">Cancel</a>

@@ -26,5 +26,8 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-Search: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
-<div id="body_table"></div>    
+Cari: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
+<div id="body_table"></div>
+<div class="form-actions">
+    <a href="pegawai/tambah_pegawai" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
+</div>

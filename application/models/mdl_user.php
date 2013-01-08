@@ -16,5 +16,27 @@ class Mdl_user extends CI_Model{
         }
         return $ret;
     }
-    
+    function update_role($jenis,$id){
+        if($jenis!=0){
+            $this->db->where('id_pegawai',$id);
+            $num=$this->db->get('role')->num_rows();
+            if($num==0){
+                //insert
+                $data=array('id_pegawai'=>$id,'id_role'=>$jenis);
+                $this->db->insert('role',$data);
+            }else{
+                //update
+                $data=array('id_role'=>$jenis);
+                $this->db->where('id_pegawai',$id);
+                $this->db->update('role',$data);
+            }
+        }else{
+            $this->db->where('id_pegawai',$id);
+            $this->db->delete('role');
+        }
+    }
+    function delete($id){
+        $this->db->where('id_pegawai',$id);
+        $this->db->delete('role');
+    }
 }

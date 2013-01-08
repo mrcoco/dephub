@@ -15,6 +15,7 @@ class User extends CI_Controller{
     }
     
     function list_user(){
+        $data['sub_title']='Daftar User Manajemen Diklat';
         $data['list']=$this->usr->get_list_user();
         $data['role']=$this->usr->nama_role();
         //var_dump($data['role']);
@@ -40,5 +41,14 @@ class User extends CI_Controller{
         $data['num_res']=$this->slng->count_pegawai($filter);
         $data['num_page']=ceil($data['num_res']/$data['per_page']);
         echo $this->load->view('user/ajax_list_pegawai',$data,true);
+    }
+    function update_status($jenis,$id){
+        $this->usr->update_role($jenis,$id);
+        return 1;
+    }
+    function delete_user($id){
+        $this->usr->delete($id);
+        $this->session->set_flashdata('msg',$this->editor->alert_warning('User role telah dihapus'));
+        redirect(base_url('user'));
     }
 }

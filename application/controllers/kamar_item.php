@@ -95,7 +95,7 @@ class Kamar_item extends CI_Controller {
             redirect(base_url().'error/error_priv');
         }
         //menampilkan form untuk edit data kamar_item
-        $data['sub_title'] = 'Edit Item Kamar';
+        $data['sub_title'] = 'Ubah Item Kamar';
 		$data['type']='edit';
         $var = $this->spr->get_kamaritem($id)->result_array();
         $data['item'] = $var[0];
@@ -108,7 +108,7 @@ class Kamar_item extends CI_Controller {
         $this->spr->update_kamaritem($_POST['id'], $_POST);
 		
 		//die(var_dump($_POST));
-        $this->session->set_flashdata('msg', $this->editor->alert_ok('item kamar telah diedit'));
+        $this->session->set_flashdata('msg', $this->editor->alert_ok('item kamar telah diubah'));
         redirect(base_url() . 'kamar_item');
     }
 

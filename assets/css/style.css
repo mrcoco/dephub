@@ -41,7 +41,8 @@ form label.required {
 }
 #header{
     background: no-repeat bottom url('../img/header.jpg');
-    width: 940px;
+    background-size: cover;
+    /*width: 940px;*/
     height: 140px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -266,4 +267,11 @@ select{
 }
 .autowidth{
     width: auto;
+}
+.sorting_asc, .sorting_desc, .sorting{
+    cursor: pointer;
+    font-weight: bold;
+}
+.angka{
+    width: 20px;
 }

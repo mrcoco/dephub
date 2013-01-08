@@ -1,6 +1,6 @@
 <script>
     var option;
-    var kode_kantor="<?php echo $this->session->userdata('kode_unit')?>";
+    var kode_kantor=<?php echo $this->session->userdata('kode_unit')?>;
     var syarat=<?php echo json_encode($program) ?>;
     var pendidikan=<?php echo json_encode($arr_pendidikan) ?>;
     var pangkat=<?php echo json_encode($pangkat) ?>;
@@ -8,11 +8,13 @@
     $(document).ready(function(){        
         $('#example').hide();
         append_table();
-    });
+    })
     
     function tes(num){
+        console.log(kode_kantor);
         $.getJSON('<?php echo base_url() ?>unit/front/json_unit_pegawai/'+kode_kantor,function(result){
             option=result;
+            console.log(option);
             $('#nip'+num).typeahead({'source':option});
         });
     }
@@ -22,35 +24,36 @@
         nip=$('#nip'+num).val();
         tahun=$('#tahun').val();
         message='';
+        
         $.get('<?php echo base_url() ?>unit/front/ajax_cek_daftar/'+id_diklat+'/'+nip+'/'+tahun,function(result){
+            console.log(result);
             if(result=='false'){
                 alert('Pegawai dengan nip '+nip+' sudah terdaftar untuk diklat ini di tahun ini');
                 $('#table'+num+' .nip').val('');
                 $('#table'+num+' .nip').focus();
             }else{
-                $.getJSON('<?php echo base_url()?>unit/front/json_data_pegawai/'+nip,function(result){
-                    console.log(result);
-                    if(syarat['syarat_usia']>0){
+                $.getJSON('<?php echo base_url() ?>unit/front/json_data_pegawai/'+nip,function(result){
+                    if(syarat['syarat_usia']!=-1){
                         if(result['usia']<=syarat['syarat_usia']){
                             syarat_usia=true;
                         }else{
                             syarat_usia=false;
-                            message+='\nSyarat usia, usia yang diperbolehkan maksimal '+syarat['syarat_usia'];
+                            message+='Syarat usia, usia sudah '+result['usia']+ ' tahun ; '
                         }
                     }else{
                         syarat_usia=true;
                     }
-                    if(syarat['syarat_masa_kerja']!=-1&&syarat['syarat_masa_kerja']!=0){
+                    if(syarat['syarat_masa_kerja']!=-1){
                         if(result['masa_kerja']>=syarat['syarat_masa_kerja']){
                             syarat_masa_kerja=true;
                         }else{
                             syarat_masa_kerja=false;
-                            message+='\nSyarat masa kerja, masa kerja yang diperbolehkan minimal '+syarat['syarat_masa_kerja'];
+                            message+='Syarat masa kerja, masa kerja masih '+result['masa_kerja']+ 'tahun ; '
                         }
                     }else{
                         syarat_masa_kerja=true;
                     }
-                    if(syarat['syarat_pangkat_gol']!=''&&syarat['syarat_pangkat_gol']!=-1){
+                    if(syarat['syarat_pangkat_gol']!=''){
                         idx_pangkat=parseInt(result['kode_gol']);
                         idx_syarat_pangkat=parseInt(syarat['syarat_pangkat_gol']);
 
@@ -58,19 +61,19 @@
                             syarat_pangkat_gol=true;
                         }else{
                             syarat_pangkat_gol=false;
-                            message+='\nSyarat pangkat/golongan';
+                            message+='Syarat pangkat/golongan, golongan masih '+idx_pangkat+' ; '
                         }
                     }else{
                         syarat_pangkat_gol=true;
                     }
-                    if(syarat['syarat_pendidikan']!=''&&syarat['syarat_pendidikan']!=-1){
+                    if(syarat['syarat_pendidikan']!=''){
                         idx_pendidikan=parseInt(result['kode_pendidikan']);
                         idx_syarat_pendidikan=parseInt(syarat['syarat_pendidikan']);
                         if(idx_pendidikan<=idx_syarat_pendidikan){
                             syarat_pendidikan=true;
                         }else{
                             syarat_pendidikan=false;
-                            message+='\nSyarat tingkat pendidikan';
+                            message+='Syarat pendidikan; '
                         }
                     }else{
                         syarat_pendidikan=true;
@@ -83,13 +86,9 @@
                         $('#table'+num+' .view_history').attr('onclick','view_history('+result['id']+')');
                         $('#table'+num+' .view_detail').attr('onclick','view_detail('+result['id']+')');
                     }else{
-                        alert('Ada syarat yang tidak terpenuhi, syarat tersebut antara lain : '+message);
-                        in_nip=$('#table'+num+' .nip');
-                        tbody=in_nip.parent().parent().parent().parent();
-                        tbody.find('input').val('');
-                        tbody.find('textarea').val('');
-                        in_nip.val('');
-                        in_nip.focus();
+                        alert('Ada syarat yang tidak terpenuhi '+message);
+                        $('#table'+num+' .nip').val('');
+                        $('#table'+num+' .nip').focus();
                     }
                 });
             }
@@ -208,7 +207,7 @@
     <input class="id" type="hidden" name="id[]"/>
     <tr>
         <td>NIP</td>
-        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> <span class="cek btn">Cek</span></td>
+        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> <span class="cek">Cek</span></td>
     </tr>
     <tr>
         <td>Nama</td>

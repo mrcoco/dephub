@@ -37,5 +37,5 @@
     }
 </script>
 
-Search: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
+Cari: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
 <div id="body_table"></div>    
