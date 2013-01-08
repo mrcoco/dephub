@@ -40,6 +40,13 @@ class Front extends CI_Controller{
                 $data['program'][$d['id']]=$this->wid->get_program_wid($id,$d['id']);
             }
         }
+        foreach ($data['materi'] as $m) {
+            $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id,'id_materi'=>$m['id']));
+            $data['total_jam'][$m['id']]=0;
+            foreach($jam as $j){
+                $data['total_jam'][$m['id']]+=$this->date->hitung_jam($j['jam_mulai'],$j['jam_selesai']);
+            }
+        }
 //        print_r($data['materi']);
 //        print_r($data['diklat']);
         $this->template->display_wid('wid/info',$data);

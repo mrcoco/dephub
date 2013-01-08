@@ -43,8 +43,8 @@ class Date{
         $from = strtotime($from);
         $to = strtotime($to);
         $range = ($to-$from)/60/45;
-        return number_format($range, 2, ',','.');
-//        return $range;
+//        return number_format($range, 2, ',','.');
+        return round($range, 2);
     }
     function get_day_name($idx){
         $arr_date = array('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu');

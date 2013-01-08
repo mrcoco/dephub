@@ -3,7 +3,7 @@
 </div>
 <?php if($materi){ ?>
 <?php foreach($materi as $m){ ?>
-<h3><?php echo $m['judul'] ?></h3>
+<h3><?php echo $m['judul'] ?> <small>(Total <?php echo $total_jam[$m['id']] ?> jam)</small></h3>
     <table class="table-striped">
         <?php foreach($diklat[$m['id']] as $d){ ?>
             <?php if($program[$d['id']]){ ?>

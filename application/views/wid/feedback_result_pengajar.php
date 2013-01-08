@@ -56,7 +56,7 @@ $(function(){
              labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
              tickRenderer: $.jqplot.CanvasAxisTickRenderer,
              tickOptions: {
-                 angle: -30,
+                 angle: 30,
                  fontFamily: 'Courier New',
                  fontSize: '9pt'
              }
