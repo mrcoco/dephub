@@ -48,7 +48,7 @@ class Site extends CI_Controller{
             $nama=ucwords(strtolower($this->session->userdata('nama')));
             $this->session->set_flashdata('msg', $this->editor->alert_ok('Selamat datang '.$nama));
         }else{
-            $this->session->set_flashdata('msg', $this->editor->alert_error('Maaf, login gagal. Silakan dicoba lagi.'));
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Username atau password salah'));
         }
         redirect(base_url().'site');
     }

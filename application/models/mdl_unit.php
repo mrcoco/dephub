@@ -47,12 +47,22 @@ class Mdl_unit extends CI_Model{
         $this->db->update('unit_kerja',$data);
     }
    
-    function get_peserta_by_unit($kode,$thn=''){
+    function get_peserta_by_unit($kode,$thn='',$id_diklat=''){
         if($thn!=''){
             $this->db->where('registrasi.tahun_daftar',$thn);
         }
+        if($id_diklat!=''){
+            $this->db->where('registrasi.id_diklat',$id_diklat);
+        }
         $this->db->where('pegawai.kode_unit',$kode);
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        return $this->db->get('registrasi')->result_array();
+    }
+    function get_thn_by_unit($kode){
+        $this->db->select('id_diklat, name, tahun_daftar');
+        $this->db->where('pegawai.kode_unit',$kode);
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('program','registrasi.id_diklat=program.id');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -66,13 +76,24 @@ class Mdl_unit extends CI_Model{
         return $this->db->get('instansi')->num_rows();
     }
     
-    function get_accepted_peserta_by_inst($kode,$thn=''){
+    function get_accepted_peserta_by_inst($kode,$thn='',$id_diklat=''){
         if($thn!=''){
             $this->db->where('registrasi.tahun_daftar',$thn);
+        }
+        if($id_diklat!=''){
+            $this->db->where('registrasi.id_diklat',$id_diklat);
         }
         $this->db->where('pegawai.instansi',$kode);
         $this->db->where('registrasi.status !=','daftar');
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        return $this->db->get('registrasi')->result_array();
+    }
+    function get_thn_by_inst($kode){
+        $this->db->select('id_diklat, name, tahun_daftar');
+        $this->db->where('pegawai.instansi',$kode);
+        $this->db->where('registrasi.status !=','daftar');
+        $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
+        $this->db->join('program','registrasi.id_diklat=program.id');
         return $this->db->get('registrasi')->result_array();
     }
 }

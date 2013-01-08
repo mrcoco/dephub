@@ -48,6 +48,14 @@ class Mdl_perencanaan extends CI_Model{
             return array();
         }
     }
+    function get_diklat_by_parent($parent,$thn){
+        $program = $this->db->get_where('program',array('tahun_program'=>$thn,'tipe'=>2,'parent'=>$parent));
+        if($program->num_rows()>0){
+            return $program->result_array();
+        }else{
+            return array();
+        }
+    }
     
     function get_program_by_id($id){
         $program = $this->db->get_where('program',array('id'=>$id,'tipe'=>3));

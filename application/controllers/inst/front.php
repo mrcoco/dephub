@@ -48,24 +48,31 @@ class Front extends CI_Controller{
             $this->session->set_userdata($data_session);
             redirect(base_url().'inst/front/list_pendaftar');
         }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Maaf, login gagal. Silakan coba lagi'));
             redirect(base_url().'inst/front');
         }
     }
     
-    function list_pendaftar($thn=''){
-        if($thn==''){
+    function list_pendaftar(){
+        if($_GET){
+            extract($_GET);
+        }else{
             $thn=$this->thn_def;
+            $id_diklat='';
         }
-        $data['title']='Tabel Pendaftar';
-        $data['pendaftar']=$this->unit->get_accepted_peserta_by_inst($this->session->userdata('kode_kantor'));
-        
-        $diklat=$this->rnc->get_diklat($thn);
-        $data['diklat']=array();
-        foreach($diklat as $d){
-            $data['diklat'][$d['id']]=$d['name'];
+        $data['tahun'][$thn]=$thn;
+        $data['diklat']['']='semua';
+        $tahun=$this->unit->get_thn_by_inst($this->session->userdata('kode_kantor'));
+        foreach($tahun as $t){
+            $data['tahun'][$t['tahun_daftar']]=$t['tahun_daftar'];
+            $data['diklat'][$t['id_diklat']]=$t['name'];
         }
-        
-        $program=$this->rnc->get_program(2012);
+        $data['thn']=$thn;
+        $data['id_diklat']=$id_diklat;
+        $data['title']='Tabel Pendaftar '.$thn;
+        $data['pendaftar']=$this->unit->get_accepted_peserta_by_inst($this->session->userdata('kode_kantor'),$thn,$id_diklat);
+                
+        $program=$this->rnc->get_program($thn);
         //var_dump($program);
         
         $data['program']=array();

@@ -1,6 +1,10 @@
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
+            <button type="button" class="btn btn-primary" onclick="history.go(-1)">
+                <i class="icon-arrow-left icon-white"></i> Kembali
+            </button>
+
 <h2><?php echo $program['name'] ?></h2>
 <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){ ?>
 <div class="well-small">

@@ -129,20 +129,29 @@ class Front extends CI_Controller{
             $this->session->set_userdata($data_session);
             redirect(base_url().'unit/front/list_pendaftar');
         }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Maaf, login gagal. Silakan coba lagi'));
             redirect(base_url().'unit/front');
         }
     }
     
-    function list_pendaftar($thn=''){
-        if($thn=''){
+    function list_pendaftar(){
+        if($_GET){
+            extract($_GET);
+        }else{
             $thn=$this->thn_def;
+            $id_diklat='';
         }
-        $data['title']='Tabel pendaftar';
-        $data['pendaftar']=$this->unit->get_peserta_by_unit($this->session->userdata('kode_unit'));
-        $diklat=$this->rnc->get_diklat($thn);
-        foreach($diklat as $d){
-            $data['diklat'][$d['id']]=$d['name'];
+        $data['tahun'][$thn]=$thn;
+        $data['diklat']['']='semua';
+        $tahun=$this->unit->get_thn_by_unit($this->session->userdata('kode_unit'));
+        foreach($tahun as $t){
+            $data['tahun'][$t['tahun_daftar']]=$t['tahun_daftar'];
+            $data['diklat'][$t['id_diklat']]=$t['name'];
         }
+        $data['thn']=$thn;
+        $data['id_diklat']=$id_diklat;
+        $data['title']='Tabel Pendaftar '.$thn;
+        $data['pendaftar']=$this->unit->get_peserta_by_unit($this->session->userdata('kode_unit'),$thn,$id_diklat);
         $this->template->display_unit('unit/list_pendaftar',$data);
     }
     
@@ -150,11 +159,12 @@ class Front extends CI_Controller{
         if($thn=''){
             $thn=$this->thn_def;
         }
-        $data['title']='Pilih Diklat';
-        $diklat=$this->rnc->get_diklat($thn);
-        foreach($diklat as $d){
-            $data['diklat'][$d['id']]=$d['name'];
+        $data['title']='Registrasi Diklat';
+        $kat=$this->rnc->get_kategori();
+        foreach($kat as $k){
+            $data['kategori'][$k['id']]=$k['name'];
         }
+        $data['diklat']=$this->rnc->get_diklat($thn);
         $this->template->display_unit('unit/pil_registrasi',$data);
     }
     

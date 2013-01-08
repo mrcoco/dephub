@@ -1,3 +1,6 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <?php if($materi){ ?>
 <?php foreach($materi as $m){ ?>
 <h3><?php echo $m['judul'] ?></h3>

@@ -8,10 +8,10 @@
         <?php } ?>
         <li><a href="<?php echo base_url()?>wid/front/schedule_pengajar">Jadwal Pengajar</a></li>
         <li class="pull-right">
-            <a href="<?php echo base_url()?>wid/front/logout">Logout</a>
+            <a href="<?php echo base_url()?>wid/front/logout"><i class="icon-off"></i> Logout</a>
         </li>
         <li class="pull-right">
-            <a>Login sebagai <?php echo $this->session->userdata('nama_wid')?></a>
+            <a><i class="icon-user"></i> <?php echo $this->session->userdata('nama_wid')?> (pengajar)</a>
         </li>
     </ul>
 </div>

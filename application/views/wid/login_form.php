@@ -1,3 +1,6 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <form class="well span3" action="<?php echo base_url()?>wid/front/login_process" method="post">
   <label>Jenis</label>
   <?php echo form_dropdown('jenis',$jenis) ?>

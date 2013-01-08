@@ -118,7 +118,7 @@ class Front extends CI_Controller{
             $this->session->set_userdata($data_session);
             redirect(base_url().'pes/front/info_peserta');
         }else{
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Username atau Password salah'));
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Maaf, login gagal. Silakan coba lagi'));
             redirect(base_url().'pes/front');
         }
     }

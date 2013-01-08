@@ -1,3 +1,6 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <form class="well span3" action="<?php echo base_url()?>pes/front/login_process" method="post">
   <label>Username</label>
   <input type="text" name="username" placeholder="Masukkan NIP/username">

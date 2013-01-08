@@ -1,3 +1,6 @@
+<div class="row">
+    <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
+</div>
 <p class="lead">Daftar diklat</p>
 <?php if($diklat){ ?>
     <ul>

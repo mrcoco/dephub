@@ -207,7 +207,11 @@
     <input class="id" type="hidden" name="id[]"/>
     <tr>
         <td>NIP</td>
-        <td><input class="nip" type="text" name="nip[]" placeholder="NIP"/> <span class="cek">Cek</span></td>
+        <td>
+            <div class="input-append">
+            <input class="nip" type="text" name="nip[]" placeholder="NIP"/><span class="cek btn">Cek!</span>    
+            </div>
+        </td>
     </tr>
     <tr>
         <td>Nama</td>
@@ -234,15 +238,17 @@
 
 <form name="form_reg" id="form_reg" action="unit/front/registrasi_proses" method="POST">
     <input type="hidden" id="id_diklat" name="id_diklat" value="<?php echo $id_diklat?>"/>
-    <table width="800" class="table table-condensed">
+    <table class="table table-condensed">
+        <tbody>
         <tr>
-            <td>Tahun registrasi</td>
+            <td width="260px">Tahun registrasi</td>
             <?php
             $now = date('Y');
             $arr_thn = array($now => $now, $now + 1 => $now + 1, $now + 2 => $now + 2, $now + 3 => $now + 3, $now + 4 => $now + 4);
             ?>
             <td><?php echo form_dropdown('tahun', $arr_thn, $now, 'id="tahun"') ?></td>
         </tr>
+        </tbody>
     </table>
     <div id="wrap_form">
     </div>
