@@ -477,6 +477,7 @@
                             }).then(function(){
                                 $('#event_edit_container .nama_pmbcr').autocomplete({
                                     source: data_json[2],
+                                    minLength: 0,
                                     change: function(event, ui){
                                         if(ui.item){
                                             nama=$(this).val();
@@ -488,6 +489,12 @@
                                             $(this).focus();
                                         }
                                     }
+                                });
+                                $('#event_edit_container .nama_pmbcr').focus(function(){
+                                    if($(this).autocomplete('widget').is(':visible')){
+                                        return ;
+                                    }
+                                    $(this).data("autocomplete").search($(this).val());
                                 });
                             });
                         }
@@ -519,6 +526,7 @@
                         if(autocomplete){
                             $('.nama_pmbcr').autocomplete({
                                 source: data_json[2],
+                                minLength: 0,
                                 change: function(event, ui){
                                     if(ui.item){
                                         nama=$(this).val();
@@ -530,6 +538,9 @@
                                         $(this).focus();
                                     }
                                 }
+                            });
+                            $('.nama_pmbcr').focus(function(){
+                                $(this).data("autocomplete").search($(this).val());
                             });
                         }
                     }

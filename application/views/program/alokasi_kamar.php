@@ -34,6 +34,8 @@
         <?php }?>
     </tbody>
 </table>
+
 <div class="form-actions">
     <a class="btn btn-success" href="<?php echo base_url()?>program/alokasi_kamar_process/<?php echo $program['id']?>">Alokasi Kamar</a>
 </div>
+

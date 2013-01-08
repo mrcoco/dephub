@@ -15,7 +15,7 @@ class Pengajar_int extends CI_Controller{
     }
     
     function view_list(){
-        if($this->session->userdata('id_role')>2){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         $data['list']=$this->slng->getall_pembicara_int();
@@ -23,7 +23,7 @@ class Pengajar_int extends CI_Controller{
     }
     
     function add_pengajar(){
-        if($this->session->userdata('id_role')>2){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         

@@ -15,7 +15,7 @@ class Dosen_tamu extends CI_Controller{
     }
      
     function list_dosen(){
-        if($this->session->userdata('id_role')>2){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         
@@ -25,7 +25,7 @@ class Dosen_tamu extends CI_Controller{
     }
     
     function detail_dosen($id){
-        if($this->session->userdata('id_role')>2){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         
@@ -36,7 +36,7 @@ class Dosen_tamu extends CI_Controller{
     }
     
     function add_dosen(){
-        if($this->session->userdata('id_role')>2){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         
@@ -162,7 +162,7 @@ class Dosen_tamu extends CI_Controller{
     }
     
     function edit_dosen($id){
-        if($this->session->userdata('id_role')>2){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         

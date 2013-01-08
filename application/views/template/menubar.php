@@ -12,7 +12,7 @@
             </ul>
         </li>
         <?php } ?>
-        <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==2){?>
+        <?php if($this->session->userdata('id_role')<4){?>
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pengajar<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li class="nav-header">Widyaiswara dan Non WI</li>

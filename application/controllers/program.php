@@ -398,8 +398,13 @@ class Program extends CI_Controller {
         $data['list']=$this->slng->get_status_accept_order($id,$thn);
         //get list kamar yg dialokasiin
         $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);
+        $list_gdung=$this->spr->get_gedung()->result_array();
+        foreach($list_gdung as $g){
+            $gdng[$g['id']]=$g['nama'];
+        }
         $data['kamar']['']='-';
         foreach($alokasi_kamar as $k){
+            $k['id_kamar_asrama'][0]=$gdng[$k['id_kamar_asrama'][0]];
             $data['kamar'][$k['id_peserta']]=$k['id_kamar_asrama'];
         }
         $this->template->display_with_sidebar('program/alokasi_kamar', 'program', $data);
@@ -411,6 +416,10 @@ class Program extends CI_Controller {
         }
         $id_program=$id;
         //$this->slng->clear_pemakaian_kamar($id);
+        $peserta=$this->slng->get_status_accept_order($id,$thn);
+        if(count($peserta)<=0){
+            redirect(base_url().'program/alokasi_kamar/'.$id_program);
+        }
         $data['program'] = $this->rnc->get_program_by_id($id);
         $alokasi_asrama=$this->spr->get_alocated_gedung($id);
         $in_asrama='(';
@@ -427,7 +436,6 @@ class Program extends CI_Controller {
         $in_asrama.=')';
         $this->slng->clear_pemakaian_kamar($id);
         $list_kamar_available=$this->slng->get_vacant_kamar_in_date($in_asrama,$data['program']['tanggal_mulai'],$data['program']['tanggal_akhir']);
-        $peserta=$this->slng->get_status_accept_order($id,$thn);
         
         $batch_ins=array();
         
