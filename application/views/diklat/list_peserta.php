@@ -82,7 +82,8 @@
                         <?php echo form_dropdown('angkatan',$pil_angkatan,$list[$i]['id_program'],'style="width: 90px" id="angkatan" onchange="update_angkatan(this,'.$list[$i]['id_peserta'].','.$list[$i]['id_diklat'].')"')?>
                     </span>
                     <span id="komentar" <?php echo $class2?>>
-                        <input type="text" id="komentar" value="<?php echo $list[$i]['komentar']?>"/><button onclick="isi_komentar(this,<?php echo $list[$i]['id_peserta']?>,<?php echo $list[$i]['id_diklat']?>)">Save</button>
+                        <input type="text" id="komentar" placeholder="Masukkan alasan" value="<?php echo $list[$i]['komentar']?>"/>
+                        <button class="btn btn-primary" onclick="isi_komentar(this,<?php echo $list[$i]['id_peserta']?>,<?php echo $list[$i]['id_diklat']?>)">Simpan</button>
                     </span>
                 </div>
             </td>

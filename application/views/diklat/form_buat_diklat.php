@@ -10,10 +10,20 @@
             errorLabelContainer: container,
             errorContainer: $(container),
             rules: {
-                name: "required"
+                name: "required",
+                jumlah_peserta : "required"
+//                syarat_usia : "required",
+//                syarat_masa_kerja : "required",
+//                syarat_pendidikan : "required",
+//                syarat_pangkat_gol : "required"
             },
             messages: {
-                name: "Nama wajib diisi!"
+                name: "Nama wajib diisi!<br />",
+                jumlah_peserta : "Jumlah peserta wajib diisi!<br />"
+//                syarat_usia : "Syarat usia wajib diisi!<br />",
+//                syarat_masa_kerja : "Syarat masa kerja wajib diisi!<br />",
+//                syarat_pendidikan : "Syarat pendidikan wajib diisi!<br />",
+//                syarat_pangkat_gol : "Syarat pangkat golongan wajib diisi!<br />"
             }
 
         });

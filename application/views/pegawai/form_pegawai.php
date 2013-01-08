@@ -26,7 +26,8 @@
         </tr>
         <tr>
             <td>Tempat Tanggal Lahir</td>
-            <td><input class="tempat" type="text" name="tempat_lahir" placeholder="Tempat Lahir" value="<?php echo $data['tempat_lahir']?>"/> / <input class="tanggal" type="text" name="tanggal_lahir" placeholder="Tanggal Lahir"  value="<?php echo $data['tanggal_lahir']?>"/></td>
+            <td><input class="tempat" type="text" name="tempat_lahir" placeholder="Tempat Lahir" value="<?php echo $data['tempat_lahir']?>"/> / 
+                <input class="tgllahir" type="text" name="tanggal_lahir" placeholder="Tanggal Lahir (tgl-bln-thn)"  value="<?php echo $data['tanggal_lahir']?>"/></td>
         </tr>
         <tr>
             <td>Pangkat/Gol</td>

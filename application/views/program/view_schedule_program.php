@@ -1,6 +1,11 @@
 <p class="lead">
     <?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
 </p>
+    <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){ ?>
+    <p><a class="btn btn-mini" href="<?php echo base_url() ?>program/schedule_program/<?php echo $program['id'] ?>">
+        <i class="icon-edit"></i> Ubah Jadwal
+    </a></p>
+    <?php } ?>
 
         <table width="100%" class="table table-condensed table-striped table-bordered">
             <thead>
@@ -67,9 +72,6 @@
             </tbody>
         </table>
 <div class="form-actions">
-    <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){ ?>
-    <a class="btn btn-primary" href="<?php echo base_url() ?>program/schedule_program/<?php echo $program['id'] ?>">Ubah Jadwal</a>
-    <?php } ?>
     <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule/<?php echo $program['id'] ?>">Cetak Jadwal Excel</a>
     <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule_pdf/<?php echo $program['id'] ?>">Cetak Jadwal PDF</a>
 </div>

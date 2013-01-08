@@ -34,8 +34,10 @@
         <?php }?>
     </tbody>
 </table>
-
+<?php if($list){ ?>
 <div class="form-actions">
-    <a class="btn btn-success" href="<?php echo base_url()?>program/alokasi_kamar_process/<?php echo $program['id']?>">Alokasi Kamar</a>
+    <a class="btn btn-success" href="<?php echo base_url()?>program/alokasi_kamar_process/<?php echo $program['id']?>">Alokasikan Kamar</a>
 </div>
-
+<?php }else{ ?>
+<p>Tidak ada peserta untuk dialokasikan</p>
+<?php } ?>

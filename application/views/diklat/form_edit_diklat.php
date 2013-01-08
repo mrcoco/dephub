@@ -144,7 +144,7 @@
                         <div class="cont">
                         <?php foreach($materi as $m){?>
                             <p><input type="text" class="materi" name="materi[]" value="<?php echo $m['judul']?>"/>
-                                <span class=" btn btn-mini btn-danger"><i class="icon-remove"></i> Hapus</span>
+                                <span class="btn btn-mini btn-danger del"><i class="icon-remove"></i> Hapus</span>
                             </p>
                         <?php } ?>
                             <p><input type="text" class="materi" name="materi[]"/>

@@ -14,14 +14,14 @@
         var par=$('#dik').find('select').val();
         window.location.href='<?php echo base_url() ?>diklat/buat_diklat/'+par;
     }
-    $(function(){
-//        $('.diklat').find('.btn-group').removeClass('hide');
-        $('.diklat').hover(function(){
-            $(this).find('.btn-group').removeClass('hide');
-        },function(){
-            $(this).find('.btn-group').addClass('hide');
-        });
-    });
+//    $(function(){
+////        $('.diklat').find('.btn-group').removeClass('hide');
+//        $('.diklat').hover(function(){
+//            $(this).find('.btn-group').removeClass('hide');
+//        },function(){
+//            $(this).find('.btn-group').addClass('hide');
+//        });
+//    });
 </script>
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>

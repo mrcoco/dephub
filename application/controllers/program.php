@@ -467,6 +467,7 @@ class Program extends CI_Controller {
             }
         }
         $this->slng->insert_alokasi_kamar($batch_ins);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Kamar telah dialokasikan'));
         redirect(base_url().'program/alokasi_kamar/'.$id_program);
     }
     
