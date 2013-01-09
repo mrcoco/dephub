@@ -63,7 +63,7 @@
     </a>
 </div>
 <div class="well span1" align="center">
-    <a href="<?php echo site_url("elibrary/admin/create_post"); ?>" rel="tooltip" title="Klik untuk menambah kategori" class="tip">
+    <a href="<?php echo site_url("elibrary/admin/create_post"); ?>" rel="tooltip" title="Klik untuk menambah artikel" class="tip">
         <img src="assets/img/menu-icons/groups.png" />
         <strong>Tambah Artikel Informasi</strong>
     </a>
@@ -76,6 +76,12 @@
     </a>
 </div>
 
+<div class="well span1" align="center">
+    <a href="<?php echo site_url("elibrary/admin/setting"); ?>" rel="tooltip" title="Klik untuk mengubah setting" class="tip">
+        <img src="assets/img/menu-icons/groups.png" />
+        <strong>Setting Elibrary</strong>
+    </a>
+</div>
 
 
 <div class="clear"></div>
