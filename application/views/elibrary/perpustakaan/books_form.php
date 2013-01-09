@@ -20,7 +20,7 @@ $(document).ready(function() {
                         <div class="row-fluid">
                             <?php echo $this->session->flashdata('msg'); ?>
                         </div>   
-        		<h3>Tambah Buku</h3>	
+        		
 			<?php echo form_open_multipart('elibrary/admin/do_input_books');?>
 			<table class="table table-hover">
 				<tr><td>Judul Buku</td><td> : <input type="text" name="title" size="20" required="required"/> </td></tr>
@@ -49,7 +49,7 @@ $(document).ready(function() {
                                 <tr><td>Penerbit</td><td> : <input type="text" name="publisher" required="required"> </td></tr>
                                 <tr><td>Tempat Terbit</td><td> : <input type="text" name="publisherplace" required="required"/> </td></tr>
                                 <tr><td>Persediaan buku</td><td> : <input type="text" name="stock" required="required"/> </td></tr>
-                                <tr><td>Ada digital</td><td> : <input type="text" name="digital"/></textarea> </td></tr>
+                                <input type="hidden" name="digital"/>
                                 <tr><td>Keterangan</td><td> : <textarea name="keterangan" cols="40" rows="3"/></textarea> </td></tr>
                                 <tr><td>Tags</td><td> : <textarea name="tags" cols="40" rows="3"/> </textarea> </td></tr>
 				
@@ -62,7 +62,7 @@ $(document).ready(function() {
 			<br /><br />
 
 			<input type="submit" value="Tambahkan" class="btn btn-primary" />
-
+                        <input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/>
 			</form>
         
      

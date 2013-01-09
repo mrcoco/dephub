@@ -21,6 +21,12 @@
                     <option <?php if($data[0]['status']==1) echo 'selected="selected"';?> value="1">Dipublikasikan</option>
                     <option <?php if($data[0]['status']==2) echo 'selected="selected"';?> value="2">Penting</option>
                 </select>
+                <table>
+                    <tr><td>Draft</td> <td>: Belum dipublikasikan </td><tr/>
+                    <tr><td>Dipublikasi </td> <td>: Sudah Dipublikasikan dan akan tampil di halaman depan </td></tr>
+                    <tr><td>Penting </td> <td>: Info terakhir yang penting akan ditampilkan di halaman depan. </td></tr>
+                    
+                </table>
             </div>
         </div>
         <div class="control-group">

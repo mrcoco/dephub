@@ -1,5 +1,3 @@
-<h3>Perpustakaan Fisik</h3>
-
 <table class="table table-condensed table-striped">
     <th width="65%">Kategori</th>
     <th width="35%">Aksi</th>

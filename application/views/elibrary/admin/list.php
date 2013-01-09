@@ -36,6 +36,7 @@
             <?php endforeach; ?>
 
         </table>
+        <div><input type="button" class="btn" value="Back" onclick="history.go(-1)"></div>
         <hr />
         <p>Keterangan Status:</p> 
         <table>
@@ -44,6 +45,7 @@
         <tr><td>Penting </td> <td>: Info terakhir yang penting akan ditampilkan di halaman depan. </td></tr>
         <tr><td>Dihapus </td> <td>: Info menjadi arsip dan tidak bisa dilihat anggota biasa.</td></tr>
         </table>
+        
 <p><?php echo $links; ?></p>
 
 

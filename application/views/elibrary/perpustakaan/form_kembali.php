@@ -14,8 +14,8 @@
                                 <tr><td >Tanggal Pinjam</td><td> : <?php echo $data[0]['loandate'];?> </td></tr>
                                 <tr><td >Tanggal seharusnya</td><td> : <?php echo $data[0]['duedate'];?> </td></tr>
                                 <tr><td >Tanggal Kembali</td><td> : <?php echo date('Y-m-d');?> </td></tr>
-                                <tr><td >Denda </td><td> : <?php echo "Rp 1000";?> </td></tr>
-                                <tr><td ><input type="submit" value="Kembali"></td><td></td></tr>
+                                <tr><td >Denda </td><td> : <?php echo $data[0]['denda'];?> </td></tr>
+                                <tr><td ><input type="submit" value="Kembali" class="btn btn-primary"><input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/></td><td></td></tr>
                                 <input type="hidden" name="id" value="<?php echo $data[0]['id'];?>" />
                                 <input type="hidden" name="booksid" value="<?php echo $data[0]['booksid'];?>" />
                                 

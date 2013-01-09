@@ -7,7 +7,7 @@
         <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="submit">Search</button>
     </div>
     </form>
-			<h3>Daftar File</h3>
+			
 			<?php if(count($data)<1){?>
 			Data kosong
 			<?php }

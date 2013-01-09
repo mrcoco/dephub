@@ -45,7 +45,7 @@ $sisa=($data[0]['stock']-$data[0]['pinjam']);
                             <input type="hidden" name="idqueue" value="<?php echo $queue[0]['id'];?>" />
                             <input type="hidden" name="sisa" value="<?php echo $sisa;?>" />
                         </table>
-                        <input type="submit" value="Kirim">
+                        <input type="submit" value="Kirim"><input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/>
                      </form>
 			
                      <h4>Buku yang Dipinjam</h4>

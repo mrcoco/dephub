@@ -11,8 +11,9 @@
                                     <th>Tanggal</th>
                                     <th>Sampai</th>
                                     <th>Status</th>
-
+<?php if($this->uri->segment(3)!='histori_pinjam_ajax') {?>
                                     <th>aksi</th>
+<?php }?>
 
         </tr>
     </thead>
@@ -27,8 +28,10 @@
                                     <td><?php echo $a['title'];?></td>
                                     <td><?php echo $a['loandate'];?></td>
                                     <td><?php echo $a['duedate'];?></td>
-                                    <td><?php if($a['returndate']!='0000-00-00') echo $a['returndate']."<td></td>";else {echo 'belum'?></td>
-                                    <td><a href='<?php echo site_url()."elibrary/admin/kembali/".$a['id'];?>' class='btn btn-small'>Buku kembali</a></td>
+                                    <td><?php if($a['returndate']!='0000-00-00') echo $a['returndate']."</td>";else {echo 'belum'?></td>
+<?php if($this->uri->segment(3)!='histori_pinjam_ajax') {?>
+                                    <td><a href='<?php echo site_url()."elibrary/admin/kembali/".$a['id'];?>' class='btn btn-small'>Buku kembali</a></td> 
+<?php }?>
                                     <?php }?>
   </tr>
 <?php $no++ ?>

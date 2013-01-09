@@ -27,4 +27,4 @@
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 Search: <input type="text" id="cari" placeholder="Masukkan nama/NIP" rel="tooltip" title="Masukkan Nama/NIP" class="tip"/>
-<div id="body_table"></div>    
+<input type="button" class="btn" value="Back" onclick="history.go(-1)"/><div id="body_table"></div>    

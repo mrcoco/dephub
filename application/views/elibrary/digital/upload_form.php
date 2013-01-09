@@ -21,7 +21,7 @@ $(document).ready(function() {
                         <div class="row-fluid">
                             <?php echo $this->session->flashdata('msg'); ?>
                         </div>   
-        		<h3>Upload File</h3>	
+        		
 			<?php echo form_open_multipart('elibrary/digital/do_upload');?>
 			<table class="table table-hover">
 				<tr><td>File </td><td> : <input type="file" name="userfile" size="20" /> </td></tr>
@@ -44,7 +44,7 @@ $(document).ready(function() {
 			<br /><br />
 
 			<input type="submit" value="Upload" class="btn btn-primary" />
-
+                        <input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/>
 			</form>
         
      

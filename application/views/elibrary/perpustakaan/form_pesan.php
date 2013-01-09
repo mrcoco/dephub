@@ -43,7 +43,7 @@ $data[0]['pinjam']=1;
                             <input type="hidden" name="booksid" value="<?php echo $data[0]['id'];?>" />
                             
                         </table>
-                        <input type="submit" value="Kirim">
+                        <input type="submit" value="Kirim"><input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/>
                      </form>
 			<p>Buku yang dipesan akan disimpan selama 2 hari untuk diambil pemesan. <br />
                             Akan ada notifikasi bila anda mengunjungi web ini dan login. <br />

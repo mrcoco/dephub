@@ -62,7 +62,7 @@ $(document).ready(function() {
 			<br /><br />
 
 			<input type="submit" value="Tambahkan" class="btn btn-primary" />
-
+                        <input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/>
 			</form>
         
      

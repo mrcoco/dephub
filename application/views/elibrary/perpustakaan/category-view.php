@@ -2,7 +2,7 @@
                         <div class="row-fluid">
                             <?php echo $this->session->flashdata('msg'); ?>
                         </div>        			
-			<h3>Daftar Buku <?php echo $category;?></h3>
+			<h3>Daftar Buku</h3>
 			<?php if(count($data)<1){?>
 			Data kosong
 			<?php }

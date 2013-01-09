@@ -27,7 +27,7 @@
                             <input type="hidden" name="booksid" value="<?php echo $data[0]['id'];?>" />
                             
                         </table>
-                        <input type="submit" value="Kirim">
+                        <input type="submit" value="Kirim"><input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/>
                      </form>
 			
                      <h4>Buku yang Dipinjam</h4>

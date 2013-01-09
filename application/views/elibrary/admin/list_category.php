@@ -27,5 +27,6 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-Search: <input type="text" id="cari" placeholder="Cari Kategori" rel="tooltip" title="Masukkan nama kategori" class="tip"/>
+<div class="actionlink">Search: <input type="text" id="cari" placeholder="Cari Kategori" rel="tooltip" title="Masukkan nama kategori" class="tip"/>
+ <a class="btn btn-primary" href="<?php echo site_url("elibrary/admin/list_category"); ?>">Tambah Kategori</a> <input type="button" class="btn" value="Back" onclick="history.go(-1)"/></div>
 <div id="body_table"></div>    

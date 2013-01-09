@@ -22,7 +22,7 @@
     <h2>Pencarian</h2>
     <?php echo form_open_multipart('elibrary/digital/search/');?>
     <div class="input-append">
-        <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="button">Search</button>
+        <input type="text" name="search" placeholder="Cari file..." style="width: 60%;height: 30px;font-size: 1.4em;"/><button class="btn btn-primary btn-large" type="submit">Search</button>
     </div>
     </form>
 </div>

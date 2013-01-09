@@ -40,4 +40,5 @@
           <?php }?>
                          <input name="id" type="hidden" value="<?php echo $data[0]['id'];?>" />
    <?php }?>
+                         <input type="button" class="btn" value="Back" onclick="history.go(-1)"/>
 			</form>

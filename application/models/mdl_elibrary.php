@@ -10,6 +10,18 @@ class Mdl_elibrary extends CI_Model{
      * CRUD elibrary
      */
     /*---------- Elib_Category------------*/
+    function get_setting(){
+         $this->db->from('elib_setting');
+         $result=$this->db->get();
+         Return $result->result_array();
+     }
+     function update_setting($data){
+        
+            $this->db->where('id',0);
+            if($this->db->update('elib_setting',$data))
+                    return true;
+            else return false;
+	}
     public function count_category() {
         return $this->db->count_all("elib_category");
         }

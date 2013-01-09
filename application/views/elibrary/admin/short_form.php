@@ -28,14 +28,11 @@
     ?>
 
 
-<?php   if($fungsi=="add_c") {echo "<h3>Tambah Kategori</h3>";}
-        else if ($fungsi="edit_a") {echo "<h3>Ubah Pengarang</h3>";}
-        else if ($fungsi="edit_c") {echo "<h3>Ubah Kategori</h3>";}
-?>
+
 <form action="<?php echo site_url($action);echo '/'.$data[0][$id];?>" method="post" accept-charset="utf-8" enctype="multipart/form-data">
 <table>
     <tr><td width="40%"><?php echo $label;?></td><td>: <input type="text" name="<?php echo $item;?>" value="<?php echo $data[0][$item];?>"></td></tr>
     <input type="hidden" name="<?php echo $id;?>" value="<?php echo $data[0][$id];?>">
-    <tr><td ><input type="submit" value="Simpan" /></td></tr>
+    <tr><td ><input class="btn btn-primary" type="submit" value="Simpan" /><input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/></td></tr>
 </table>
 </form>

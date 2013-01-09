@@ -15,4 +15,5 @@
 <button type="submit" class="btn" name="userrole" value="1">Jadikan Petugas Perputakaan</button>
 <button type="submit" class="btn" name="userrole" value="2">Jadikan Uploader</button>
 <button type="submit" class="btn" name="userrole" value="0">Jadikan Anggota biasa</button>
+<input type="button" class="btn" value="Cancel" onclick="history.go(-1)"/>
 </form>

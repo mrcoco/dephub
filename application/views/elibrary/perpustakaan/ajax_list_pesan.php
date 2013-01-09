@@ -17,9 +17,9 @@ else{
                                     <th>Pesan</th>
                                     <th>Status</th>
                                     <th>Tersedia</th>
-
+<?php if($this->uri->segment(3)!='histori_pesan_ajax') {?>
                                     <th>aksi</th>
-
+<?php }?>
         </tr>
     </thead>
     <tbody id="body_table">

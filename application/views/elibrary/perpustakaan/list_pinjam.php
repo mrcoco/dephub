@@ -6,7 +6,7 @@
         });
     });
 <?php if($this->uri->segment(3)=='list_pinjam')$url="elibrary/admin/list_pinjam_ajax/";
-        else $url="elibrary/admin/list_pinjam_ajax/"
+        else $url="elibrary/admin/histori_pinjam_ajax/"
 ?>    
     function load(page,filter){
         $('#body_table').empty();
@@ -30,4 +30,5 @@
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 Search: <input type="text" id="cari" placeholder="Nama, NIP,No Peminjaman, atau judul buku" rel="tooltip" title="Masukkan Nama, NIP,No Pemesanan, atau judul buku" class="tip"/>
+<input type="button" class="btn" value="Back" onclick="history.go(-1)"/>
 <div id="body_table"></div>    

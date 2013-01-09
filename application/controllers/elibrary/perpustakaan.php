@@ -13,7 +13,8 @@ class Perpustakaan extends CI_Controller {
 
     function index() {
         $data = array(
-            'category' => $this->elib->get_category_by()
+            'category' => $this->elib->get_category_by(),
+            'sub_title'=> 'Buku Perpustakaan'
         );
         $this->template->display_lib('elibrary/perpustakaan/index_perpustakaan', $data);
     }

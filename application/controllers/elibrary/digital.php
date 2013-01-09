@@ -118,7 +118,7 @@ class Digital extends CI_Controller {
                     $config["uri_segment"] = 5;
                     $this->pagination->initialize($config);                
                     $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
-                    $data = array('data' => $this->elib->get_bibliography_by(array(),$config["per_page"],$page));
+                    $data = array('data' => $this->elib->get_bibliography_by(array(),$config["per_page"],$page),'sub_title'=>'Daftar File');
                     $data["links"] = $this->pagination->create_links();
                     
                     $this->template->display_lib('elibrary/digital/type-view', $data);
@@ -139,7 +139,7 @@ class Digital extends CI_Controller {
                 $this->pagination->initialize($config);                
                 $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
                 
-                $data = array('data' => $this->elib->get_bibliography_by(array('t4.jenis'=>$jenis),$config["per_page"],$page));//query
+                $data = array('data' => $this->elib->get_bibliography_by(array('t4.jenis'=>$jenis),$config["per_page"],$page),'sub_title'=>'Daftar File '.$tipe);//query
                 $data["links"] = $this->pagination->create_links();
 		$this->template->display_lib('elibrary/digital/type-view', $data);
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
@@ -181,7 +181,7 @@ class Digital extends CI_Controller {
                 redirect(base_url().'elibrary');
             }    
                 $data = array(
-                'category'=>$this->elib->get_category_by()
+                'category'=>$this->elib->get_category_by(),'sub_title'=>'Upload File'
                 );
 		$this->template->display_lib('elibrary/digital/upload_form', $data);
 		

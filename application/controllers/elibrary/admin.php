@@ -21,20 +21,28 @@ class Admin extends CI_Controller {
 
         function index()
 	{
-//                $data = array(
-//                
-//                );
-                
-                
+
 		$this->template->display_lib('elibrary/admin/admin-page');
+		//$this->load->view('elibrary/user', array('error' => ' ' ));
+	}
+        function setting()
+	{
+                $data=  array('setting'=>$this->elib->get_setting(),'sub_title'=>'Setting');
+                
+		$this->template->display_lib('elibrary/admin/setting',$data);
+	}
+        function do_setting()
+	{
+		$data['update']['late_fee']=  $this->input->post('late_fee');
+                $this->elib->update_setting($data['update']);
+                $this->session->set_flashdata('msg',$this->editor->alert_ok('Setting telah diubah'));
+                redirect(base_url().'elibrary/admin/setting');
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         function add_category()
 	{
-//                $data = array(
-//                
-//                );
-		$this->template->display_lib('elibrary/admin/short_form');
+                $data=array('sub_title'=>'Tambah Buku Fisik');
+		$this->template->display_lib('elibrary/admin/short_form',$data);
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
         function do_add_category()
@@ -69,7 +77,7 @@ class Admin extends CI_Controller {
                 redirect(base_url().'error/error_priv');
             }
             //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
-            $data['sub_title']='List Kategori';
+            $data['sub_title']='List Kategori Buku Digital dan Fisik';
             $this->template->display_lib('elibrary/admin/list_category',$data);
         }
         
@@ -89,7 +97,7 @@ class Admin extends CI_Controller {
         }
         function edit_category($id)
 	{       
-                $data = array( 'data'=>$this->elib->get_category_by(array('idcategory'=>$id))
+                $data = array( 'data'=>$this->elib->get_category_by(array('idcategory'=>$id)),'sub_title'=>'Ubah Kategori'
                        );
 		$this->template->display_lib('elibrary/admin/short_form',$data);
 
@@ -161,7 +169,7 @@ class Admin extends CI_Controller {
 	}*/
         function edit_author($id)
 	{       
-                $data = array( 'data'=>$this->elib->get_author_by(array('idauthor'=>$id))
+                $data = array( 'data'=>$this->elib->get_author_by(array('idauthor'=>$id)),'title'=>'Ubah Pengarang'
                        );
 		$this->template->display_lib('elibrary/admin/short_form',$data);
 
@@ -236,7 +244,8 @@ class Admin extends CI_Controller {
         
         function edit_user($id)
 	{
-            $data=array('data'=>$this->elib->get_user_by(array('t1.id'=>$id)));
+            $data=array('data'=>$this->elib->get_user_by(array('t1.id'=>$id)),
+                'sub_title'=>'Ubah Peran User');
 		$this->template->display_lib('elibrary/admin/form_edit_user',$data);
 		//$this->load->view('elibrary/user', array('error' => ' ' ));
 	}
@@ -258,8 +267,10 @@ class Admin extends CI_Controller {
 /*--------------Administrasi Perpustakaan fisik Mulai----------------------*/
         function input_books(){
             $data = array(
-                'category'=>$this->elib->get_category_by()
+                'category'=>$this->elib->get_category_by(),
+                'sub_title'=>'Tambah Buku Fisik'
                 );
+            
             $this->template->display_lib('elibrary/perpustakaan/books_form', $data);
             
         }
@@ -447,9 +458,12 @@ class Admin extends CI_Controller {
             echo $this->load->view('elibrary/perpustakaan/ajax_list_pinjam',$data,true);
         }
         function kembali($id){
-            
-            
             $data=array('data'=>$this->elib->get_loan(array('1.id'=>$id),1,0));
+            $due = new DateTime(date("Y-m-d G:i:s"));
+            $return = new DateTime($data['data'][0]['duedate']." 01:00:00");
+            $diff = $due->diff($return);
+            $setting=$this->elib->get_setting();
+            $data['data'][0]['denda']=round(($diff->m*28+$diff->d)*5/7,0,PHP_ROUND_HALF_DOWN)*$setting[0]['late_fee'];
             $this->template->display_lib('elibrary/perpustakaan/form_kembali', $data);
             //setelah menekan tombol kembali di list pinjam
             //
