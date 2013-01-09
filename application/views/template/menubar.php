@@ -67,7 +67,7 @@
             <a href="<?php echo base_url()?>site/logout"><i class="icon-off"></i> Logout</a>
         </li>
         <li class="pull-right">
-            <a><i class="icon-user"></i> <?php echo $this->session->userdata('nama')?></a>
+            <a class="tip" title="klik untuk ubah akun" href="<?php echo base_url('user/edit_user')?>"><i class="icon-user"></i> <?php echo $this->session->userdata('nama')?></a>
         </li>
     </ul>
 </div>

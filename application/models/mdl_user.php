@@ -8,7 +8,14 @@ class Mdl_user extends CI_Model{
         $this->db->join('role','pegawai.id=role.id_pegawai');
         return $this->db->get('pegawai')->result_array();
     }
-    
+    function get_user_by_id($id){
+        $this->db->where('id',$id);
+        return $this->db->get('pegawai')->row_array();
+    }
+    function update_user($id,$data){
+        $this->db->where('id',$id);
+        $this->db->update('pegawai',$data);
+    }
     function nama_role(){
         $role =  $this->db->get('list_role')->result_array();
         foreach($role as $r){

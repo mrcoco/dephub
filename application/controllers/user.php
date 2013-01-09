@@ -46,9 +46,31 @@ class User extends CI_Controller{
         $this->usr->update_role($jenis,$id);
         return 1;
     }
+    function update_user(){
+        extract($_POST);
+        if($password){
+            if($password==$password2){
+                $data['password']=md5($password);
+            }else{
+                $this->session->set_flashdata('msg',$this->editor->alert_error('Konfirmasi password tidak sesuai'));
+                redirect(base_url('user/edit_user'));
+            }
+        }
+        $data['username']=$username;
+        $this->usr->update_user($id,$data);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Akun telah diubah'));
+        redirect(base_url('user/edit_user'));
+    }
     function delete_user($id){
         $this->usr->delete($id);
         $this->session->set_flashdata('msg',$this->editor->alert_warning('User role telah dihapus'));
         redirect(base_url('user'));
+    }
+    function edit_user(){
+        $data['sub_title']='Ubah Akun User';
+        $id=$this->session->userdata('id');
+        $data['user']=$this->usr->get_user_by_id($id);
+//        print_r($data['user']);
+        $this->template->display('user/edit',$data);
     }
 }

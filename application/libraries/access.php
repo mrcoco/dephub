@@ -29,6 +29,7 @@ class Access {
         
         if($result){
             $data_session=array(
+                'id',
                 'nama',
                 'id_role',
                 'is_login'
