@@ -47,10 +47,10 @@
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
-            <th width="5%">No</th>
-            <th width="25%">Nama</th>
-            <th width="15%">NIP</th>
-            <th width="45%">Aksi</th>
+            <th width="3%">No</th>
+            <th width="50%">Nama</th>
+            <th width="10%">NIP</th>
+            <th width="22%">Unit Kerja</th>
         </tr>
     </thead>
     <tbody>
@@ -61,9 +61,6 @@
                 <a href="javascript:view_detail(<?php echo $list[$i]['id_peserta'] ?>)" class="tip-right" title="Klik untuk detail">
                     <?php echo $list[$i]['nama'] ?>
                 </a>
-            </td>
-            <td class="nip"><?php echo $list[$i]['nip'] ?></td>
-            <td class="aksi">
                 <div class="btn-group" data-toggle="buttons-radio">
                     <button class="btn <?php if($list[$i]['status']!='accept'&&$list[$i]['status']!='waiting') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id_peserta'].','.$list[$i]['id_diklat'] ?>,0)">Abaikan</button>
                     <button class="btn <?php if($list[$i]['status']=='accept') echo 'active'; ?>" onclick="toggle(this,<?php echo $list[$i]['id_peserta'].','.$list[$i]['id_diklat'] ?>,1)">Terima</button>
@@ -82,11 +79,14 @@
                         <?php echo form_dropdown('angkatan',$pil_angkatan,$list[$i]['id_program'],'style="width: 90px" id="angkatan" onchange="update_angkatan(this,'.$list[$i]['id_peserta'].','.$list[$i]['id_diklat'].')"')?>
                     </span>
                     <span id="komentar" <?php echo $class2?>>
-                        <input type="text" id="komentar" placeholder="Masukkan alasan" value="<?php echo $list[$i]['komentar']?>"/>
-                        <button class="btn btn-primary" onclick="isi_komentar(this,<?php echo $list[$i]['id_peserta']?>,<?php echo $list[$i]['id_diklat']?>)">Simpan</button>
+                        <div class="input-append row-fluid">
+                            <input class="span3" type="text" id="komentar" placeholder="Alasan" value="<?php echo $list[$i]['komentar']?>"/><button class="btn btn-primary" onclick="isi_komentar(this,<?php echo $list[$i]['id_peserta']?>,<?php echo $list[$i]['id_diklat']?>)">Simpan</button>
+                        </div>
                     </span>
                 </div>
             </td>
+            <td class="nip"><?php echo $list[$i]['nip'] ?></td>
+            <td class="unit"><?php echo $unit[$list[$i]['kode_unit']] ?></td>
         <?php }?>
     </tbody>
 </table>

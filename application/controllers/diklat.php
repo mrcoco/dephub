@@ -264,8 +264,11 @@ class Diklat extends CI_Controller{
         }
         $data['sub_title']='Pendaftar '.$data['program']['name'];
         $data['list']=$this->slng->getall_peserta($id,$thn);
-        
-        
+        $this->load->model('mdl_unit','unit');
+        $unit=$this->unit->get_all_unit();
+        foreach ($unit as $u) {
+            $data['unit'][$u['kode']]=$u['nama_unit'];
+        }
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
         $data['pil_angkatan'][-1]='---';
         foreach($pil_angkatan as $p){

@@ -55,6 +55,7 @@ $(function(){
                     <td><?php echo $i++ ?></td>
                     <td><?php echo $tanya['pertanyaan'] ?></td>
                     <td>
+                        Nilai: <span class="skor2"></span>
 <!--                        <label class="radio inline"><input type="radio" name="<?php echo $tanya['id_pertanyaan'] ?>" value="100">Baik Sekali</label>
                         <label class="radio inline"><input type="radio" name="<?php echo $tanya['id_pertanyaan'] ?>" value="90">Baik</label>
                         <label class="radio inline"><input type="radio" name="<?php echo $tanya['id_pertanyaan'] ?>" value="80">Cukup</label>
@@ -63,7 +64,6 @@ $(function(){
                         <input type="hidden" class="skor" name="<?php echo $tanya['id_pertanyaan'] ?>"/>
                         <div class="slider"></div>
                         <span>Kurang Sekali</span>
-                        <!--<span class="skor2" style="width:200px;text-align: center;"></span>-->
                         <span class="pull-right">Baik sekali</span>
                     </td>
                 </tr>

@@ -205,12 +205,16 @@ class Front extends CI_Controller{
     }
     function add_feedback_pengajar(){
         $data['sub_title']='Evaluasi Pengajar';
+        if(!$_POST){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Pengajar atau Materi tidak ditemukan'));
+            redirect(base_url().'pes');                    
+        }
         $data['materi'] = $this->rnc->get_materi($_POST['id_materi']);
         $data['pengajar']=$this->slng->get_pembicara_id($_POST['id_pengajar']);
         $data['pertanyaan'] = $this->fdb->getlist_pertanyaan_pengajar();
         $data['program']=$this->rnc->get_program_by_id($_POST['id_program']);
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
-        if($data['pengajar'] AND $data['materi']){
+        if($data['pengajar'] && $data['materi']){
             $this->template->display_pes('pes/add_feedback_pengajar',$data);
         }else{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Pengajar atau Materi tidak ditemukan'));
