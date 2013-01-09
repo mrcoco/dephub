@@ -79,6 +79,7 @@ class Front extends CI_Controller{
         foreach($program as $p){
             $data['program'][$p['id']]='Angkatan '.$p['angkatan'];
         }
+//        print_r($data['pendaftar']);
         $this->template->display_inst('inst/list_pendaftar',$data);
     }
     

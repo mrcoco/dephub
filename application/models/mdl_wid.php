@@ -10,10 +10,19 @@ class Mdl_wid extends CI_Model{
         $this->db->join('materi','pengajar.id_materi=materi.id');
         return $this->db->get('pengajar')->result_array();
     }
-    function get_program_wid($kode,$parent){
+    function get_program_wid($kode,$parent,$thn){
         $this->db->group_by('program.id');
         $this->db->where('id_pembicara',$kode);
         $this->db->where('program.parent',$parent);
+        $this->db->where('program.tahun_program',$thn);
+        $this->db->join('schedule','schedule.id=pemateri.id_schedule');
+        $this->db->join('program','program.id=schedule.id_program');
+        return $this->db->get('pemateri')->result_array();
+    }
+    function get_thn_wid($kode){
+        $this->db->select('program.tahun_program');
+        $this->db->group_by('program.tahun_program');
+        $this->db->where('id_pembicara',$kode);
         $this->db->join('schedule','schedule.id=pemateri.id_schedule');
         $this->db->join('program','program.id=schedule.id_program');
         return $this->db->get('pemateri')->result_array();
@@ -23,7 +32,9 @@ class Mdl_wid extends CI_Model{
         $this->db->join('schedule','schedule.id=pemateri.id_schedule');
         return $this->db->get('pemateri')->result_array();
     }
-    function get_schedule_wid($kode){
+    function get_schedule_wid($kode,$thn){
+        $year="tanggal BETWEEN '$thn-01-01' AND '$thn-12-31'";
+        $this->db->where($year);
         $this->db->where('id_pembicara',$kode);
         $this->db->join('schedule','schedule.id=pemateri.id_schedule');
         $this->db->order_by('tanggal','asc');

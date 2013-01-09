@@ -1,7 +1,16 @@
 <p class="lead">
     <?php echo $judul ?><br/>
-    <?php echo  'Total jam mengajar: '.$total_jam.' jam' ?>
+    <?php echo  'Total mengajar: '.$total_jam.' jam' ?>
 </p>
+<?php if(isset($tahun)){ ?>
+<p>
+    Pilih tahun : 
+    <?php foreach($tahun as $t){ ?>
+    <a href="<?php echo base_url('wid/front/schedule_pengajar/'.$t) ?>"><?php echo $t ?></a> |
+    <?php } ?>
+</p>
+<?php } ?>
+
         <table width="100%" class="table table-condensed table-striped table-bordered">
             <thead>
                 <tr>
@@ -78,6 +87,6 @@
                 <?php }?>
             </tbody>
         </table>
-<div class="form-actions">
+<!--<div class="form-actions">
     <a class="btn btn-success" href="<?php echo $link_pdf ?>">Cetak Jadwal PDF</a>
-</div>
+</div>-->

@@ -28,8 +28,13 @@ class Front extends CI_Controller{
         }
     }
     
-    function info_pengajar(){
+    function info_pengajar($thn=''){
+        if($thn==''){$thn=$this->thn_def;}
         $id=$this->session->userdata('id_wid');
+        $tahun=$this->wid->get_thn_wid($id);
+        foreach ($tahun as $t) {
+            $data['tahun'][]=$t['tahun_program'];
+        }
         $data['title']='Info Pengajar';
         $data['materi']=$this->wid->get_materi_wid($id);
         $data['diklat']=array();
@@ -37,7 +42,7 @@ class Front extends CI_Controller{
         foreach($data['materi'] as $m){
             $data['diklat'][$m['id_materi']]=$this->wid->get_diklat_materi($m['id_materi']);
             foreach($data['diklat'][$m['id_materi']] as $d){
-                $data['program'][$d['id']]=$this->wid->get_program_wid($id,$d['id']);
+                $data['program'][$d['id']]=$this->wid->get_program_wid($id,$d['id'],$thn);
             }
         }
         foreach ($data['materi'] as $m) {
@@ -360,10 +365,15 @@ class Front extends CI_Controller{
         $this->template->display_wid('wid/feedback_result_pengajar',$data);
     }
 
-    function schedule_pengajar(){
+    function schedule_pengajar($thn=''){
+        if($thn==''){$thn=$this->thn_def;}
         $id=$this->session->userdata('id_wid');
+        $tahun=$this->wid->get_thn_wid($id);
+        foreach ($tahun as $t) {
+            $data['tahun'][]=$t['tahun_program'];
+        }
         $data['title']='Jadwal Pengajar';
-        $data['data_schedule']=$this->wid->get_schedule_wid($id);
+        $data['data_schedule']=$this->wid->get_schedule_wid($id,$thn);
         $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id));
         $data['total_jam']=0;
         foreach($jam as $j){

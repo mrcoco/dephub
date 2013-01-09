@@ -33,7 +33,7 @@
             <th>Nama Diklat</th>
             <th>Tahun Daftar</th>
             <th>Status</th>
-            <th>Batalkan</th>
+            <th>Aksi</th>
         </tr>
     </thead>
     <tbody>
@@ -49,8 +49,8 @@
             <td><?php echo $diklat[$pendaftar[$i]['id_diklat']].' '.$program[$pendaftar[$i]['id_program']]?></td>
             <td><?php echo $pendaftar[$i]['tahun_daftar']?></td>
             <td class="status"><?php echo $this->editor->status($pendaftar[$i]['status'])?></td>
-            <td>
-                <input class="btn" type="button" value="cancel" onclick="cancel(this,<?php echo $pendaftar[$i]['id_diklat'].','.$pendaftar[$i]['id_program'].','.$pendaftar[$i]['id']?>)"/>
+            <td> 
+               <input class="btn btn-mini btn-danger" type="button" value="Batalkan" onclick="cancel(this,<?php echo $pendaftar[$i]['id_diklat'].','.$pendaftar[$i]['id_program'].','.$pendaftar[$i]['id']?>)"/>
             </td>
         </tr>
         <?php } ?>

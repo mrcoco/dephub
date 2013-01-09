@@ -10,6 +10,7 @@
                     <td>Kegiatan</td>
                     <td>Tempat</td>
                     <td>Pengajar</td>
+                    <td>Pendamping</td>
                 </tr>
             </thead>
             <tbody>
@@ -62,10 +63,21 @@
                         -
                         <?php } ?>
                     </td>
+                    <td>
+                        <?php if($d['ada_pendamping']){?>
+                            <?php   
+                            foreach($d['list_pendamping'] as $lp){
+                                echo $lp['nama'] .'<br/>';
+                            } 
+                            ?>
+                        <?php } else { ?>
+                        -
+                        <?php } ?>
+                    </td>
                 </tr>
                 <?php }?>
             </tbody>
         </table>
-<div class="form-actions">
+<!--<div class="form-actions">
     <a class="btn btn-success" href="<?php echo base_url() ?>program/print_schedule_pdf/<?php echo $program['id'] ?>">Cetak Jadwal PDF</a>
-</div>
+</div>-->

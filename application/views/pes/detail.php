@@ -43,6 +43,6 @@
             <td></td>
         </tr>
     </table>
-<div class="form-actions">
+<!--<div class="form-actions">
     <a href="pegawai/detail_pegawai_print/<?php echo $pegawai['id'] ?>" class="btn btn-success">Cetak PDF</a>
-</div>
+</div>-->
