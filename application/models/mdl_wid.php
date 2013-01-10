@@ -99,7 +99,9 @@ class Mdl_wid extends CI_Model{
     
     function login_wid($data){
         $this->db->where($data);
-        if($data['jenis']==1 || $data['jenis']==2){
+        $result=$this->db->get('pegawai')->num_rows();
+        $this->db->where($data);
+        if($result>0){
             $this->db->join('pembicara','pembicara.id_tabel=pegawai.id');
             return $this->db->get('pegawai');
         }else{

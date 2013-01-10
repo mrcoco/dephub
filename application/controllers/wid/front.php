@@ -32,8 +32,10 @@ class Front extends CI_Controller{
         if($thn==''){$thn=$this->thn_def;}
         $id=$this->session->userdata('id_wid');
         $tahun=$this->wid->get_thn_wid($id);
-        foreach ($tahun as $t) {
-            $data['tahun'][]=$t['tahun_program'];
+        if($tahun){
+            foreach ($tahun as $t) {
+                $data['tahun'][]=$t['tahun_program'];
+            }
         }
         $data['title']='Info Pengajar';
         $data['materi']=$this->wid->get_materi_wid($id);
@@ -427,18 +429,12 @@ class Front extends CI_Controller{
     }
     function login_form(){
         $data['title']='Login Pengajar';
-        $data['jenis']=array(
-            -1=>'--Pilih--',
-            1=>'Non-Widyaiswara',
-            2=>'Widyaiswara',
-            3=>'Dosen Tamu'
-        );
         $this->template->display_wid('wid/login_form',$data);
     }
     
     
     function login_process(){
-        $data['jenis']=$this->input->post('jenis');
+//        $data['jenis']=$this->input->post('jenis');
         $data['username']=$this->input->post('username');
         $data['password']=md5($this->input->post('password'));
         $res=$this->wid->login_wid($data)->num_rows();

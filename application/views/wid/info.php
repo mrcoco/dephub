@@ -2,10 +2,12 @@
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 <p>
+<?php if(isset($tahun)){ ?>
     Pilih tahun : 
     <?php foreach($tahun as $t){ ?>
     <a href="<?php echo base_url('wid/front/info_pengajar/'.$t) ?>"><?php echo $t ?></a> |
     <?php } ?>
+<?php } ?>
 </p>
 <?php if($materi){ ?>
 <?php foreach($materi as $m){ ?>

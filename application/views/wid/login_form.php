@@ -2,8 +2,6 @@
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 <form class="well span3" action="<?php echo base_url()?>wid/front/login_process" method="post">
-  <label>Jenis</label>
-  <?php echo form_dropdown('jenis',$jenis) ?>
   <label>Username</label>
   <input type="text" name="username" placeholder="Masukkan NIP/username">
   <label>Password</label>
