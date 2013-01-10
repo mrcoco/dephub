@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.3.9
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Nov 22, 2012 at 01:41 PM
--- Server version: 5.5.8
--- PHP Version: 5.3.5
+-- Host: 127.0.0.1
+-- Generation Time: Jan 10, 2013 at 03:01 AM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -24,7 +25,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Table structure for table `tb_elib_author`
 --
-DROP TABLE IF EXISTS `tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_filetype`, `tb_elib_loan`, `tb_elib_post`, `tb_elib_queue`, `tb_elib_userrole`;
+DROP TABLE IF EXISTS `tb_elib_author`, `tb_elib_bibliography`, `tb_elib_books`, `tb_elib_category`, `tb_elib_filetype`, `tb_elib_loan`, `tb_elib_post`, `tb_elib_queue`, `tb_elib_setting`, `tb_elib_userrole`;
 
 CREATE TABLE IF NOT EXISTS `tb_elib_author` (
   `idauthor` int(10) NOT NULL AUTO_INCREMENT,
@@ -197,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `tb_elib_loan` (
   `returndate` date NOT NULL DEFAULT '0000-00-00',
   `idqueue` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=66 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=67 ;
 
 --
 -- Dumping data for table `tb_elib_loan`
@@ -267,7 +268,8 @@ INSERT INTO `tb_elib_loan` (`id`, `idpegawai`, `booksid`, `amount`, `loandate`, 
 (62, 1, 2, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0),
 (63, 1, 3, 1, '2012-11-17', '2012-11-24', '0000-00-00', 0),
 (64, 1, 3, 1, '2012-11-20', '2012-11-27', '0000-00-00', 0),
-(65, 1, 4, 2, '2012-11-22', '2012-11-29', '0000-00-00', 0);
+(65, 1, 4, 2, '2012-11-22', '2012-11-29', '0000-00-00', 0),
+(66, 1, 1, 2, '2013-01-03', '2013-01-10', '2013-01-03', 0);
 
 -- --------------------------------------------------------
 
@@ -310,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `tb_elib_queue` (
   `availabledate` date NOT NULL DEFAULT '0000-00-00',
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `tb_elib_queue`
@@ -325,8 +327,27 @@ INSERT INTO `tb_elib_queue` (`id`, `amount`, `idpegawai`, `booksid`, `queuedate`
 (6, 1, 1, 2, '2012-11-15', '0000-00-00', 3),
 (7, 1, 4, 3, '2012-11-17', '2012-11-17', 3),
 (8, 1, 4, 3, '2012-11-17', '2012-11-17', 3),
-(9, 1, 4, 4, '2012-11-22', '0000-00-00', 0),
-(10, 1, 4, 4, '2012-11-22', '0000-00-00', 0);
+(9, 1, 4, 4, '2012-11-22', '0000-00-00', 3),
+(10, 1, 4, 4, '2012-11-22', '0000-00-00', 3),
+(11, 1, 4, 1, '2013-01-03', '2013-01-03', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_elib_setting`
+--
+
+CREATE TABLE IF NOT EXISTS `tb_elib_setting` (
+  `id` int(5) NOT NULL,
+  `late_fee` int(7) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tb_elib_setting`
+--
+
+INSERT INTO `tb_elib_setting` (`id`, `late_fee`) VALUES
+(0, 500);
 
 -- --------------------------------------------------------
 
@@ -349,3 +370,7 @@ INSERT INTO `tb_elib_userrole` (`id`, `userrole`) VALUES
 (3, 2),
 (4, 1),
 (6, 1);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
