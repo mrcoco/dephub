@@ -28,7 +28,7 @@
             <?php echo ucfirst($v); ?>
         </button>
         <?php } ?>
-        <button type="button" class="btn btn-danger" onclick="status(0,<?php echo $a['id']?>)">
+        <button type="button" class="btn btn-danger del_role" onclick="status(0,<?php echo $a['id']?>)">
             x
         </button>
         </div>

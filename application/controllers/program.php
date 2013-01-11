@@ -326,6 +326,7 @@ class Program extends CI_Controller {
         $this->template->display_with_sidebar('program/view_schedule_program', 'program', $data);
     }
 
+    
     function schedule_program($id) {
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');
@@ -650,7 +651,6 @@ class Program extends CI_Controller {
 
         $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
         
-//        $this->load->view('program/pdf_schedule',$data);
         $html=$this->load->view('program/pdf_schedule',$data,true);
         $this->load->helper('pdfexport');
         pdf_landscape($html, 'schedule program');
@@ -779,5 +779,14 @@ class Program extends CI_Controller {
             $retval.='asrama mencukupi';
         }
         echo $retval;
+    }
+    
+    function ajax_get_pendamping($like=''){
+        $res=$this->slng->get_pegawai(20,0,$like);
+        $json=array();
+        foreach($res as $r){
+            $json[]=$r['nama'];
+        }
+        echo json_encode($json);
     }
 }

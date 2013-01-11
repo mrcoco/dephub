@@ -244,6 +244,7 @@
                             data_json=data;
                             $('.nama_pmbcr').autocomplete({
                                     source: data_json[2],
+                                    minLength: 0,
                                     change: function(event, ui){
                                         if(ui.item){
                                             nama=$(this).val();
@@ -256,6 +257,9 @@
                                         }
                                     }
                                 });
+                            $('.nama_pmbcr').focus(function(){
+                                $(this).data("autocomplete").search($(this).val());
+                            });
                         })
                         
                     }else if(json['jenis']=='non materi'){
@@ -548,6 +552,24 @@
                         text = $('.sample2 > table > tbody').children().clone();
                         $('#event_edit_container #form_event').append(text);
                         jum_col_pndmpng++;
+                        $('.nama_pndmpng').live('keyup.automoplete',function(){
+                            like=$(this).val();
+                            $(this).autocomplete({
+                                source : '<?php echo base_url() ?>program/ajax_get_pendamping/'+like,
+                                minLength : 0,
+                                change: function(event, ui){
+                                    if(ui.item){
+                                        nama=$(this).val();
+                                        pid=$(this).siblings('input[type="hidden"]');
+                                        pid.val(data_json[1][nama]);
+                                    }else{
+                                        alert('Anda harus memilih dari daftar nama yang disediakan');
+                                        $(this).val('');
+                                        $(this).focus();
+                                    }
+                                }
+                            });
+                        })
                     }
     
                     $('.add_pmbcr').live('click',function(){
@@ -594,7 +616,7 @@
     <table>
         <tr class="tr_widyaiswara">
             <td>Pendamping</td>
-            <td>: <input type="text" name="pendamping[]"/> <span class="add_pndmpng btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
+            <td>: <input type="text" class="nama_pndmpng" name="pendamping[]"/> <span class="add_pndmpng btn btn-mini"><i class="icon-plus"></i>Tambah</span></td>
         </tr>
     </table>
 </div>
