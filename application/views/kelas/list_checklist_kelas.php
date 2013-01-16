@@ -111,14 +111,55 @@
 			?>/>
 			</td>
 			
-			<td class="pc1"><input type="text" class="angka" name="pc1" value="<?php echo $list[$i]['pc1']; ?>" />
-			<td class="pc2"><input type="text" class="angka" name="pc2" value="<?php echo $list[$i]['pc2']; ?>" />
-			<td class="pc3"><input type="text" class="angka" name="pc3" value="<?php echo $list[$i]['pc3']; ?>" />
-			<td class="pc4"><input type="text" class="angka" name="pc4" value="<?php echo $list[$i]['pc4']; ?>" />
-			<td class="jar"><input type="text" class="angka" name="jar" value="<?php echo $list[$i]['jar']; ?>" />
-			<td class="ac"><input type="text" class="angka" name="ac" value="<?php echo $list[$i]['ac']; ?>" />
-			<td class="remac"><input type="text" class="angka" name="remac" value="<?php echo $list[$i]['remac']; ?>" />
-			<td class="remlcd"><input type="text" class="angka" name="remlcd" value="<?php echo $list[$i]['remlcd']; ?>" />
+			
+			<td class="pc1"><input type="checkbox" name="pc1" value="1"
+			<?php 
+				if($list[$i]['pc1']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="pc2"><input type="checkbox" name="pc2" value="1"
+			<?php 
+				if($list[$i]['pc2']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="pc3"><input type="checkbox" name="pc3" value="1"
+			<?php 
+				if($list[$i]['pc3']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="pc4"><input type="checkbox" name="pc4" value="1"
+			<?php 
+				if($list[$i]['pc4']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="jar"><input type="checkbox" name="jar" value="1"
+			<?php 
+				if($list[$i]['jar']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="ac"><input type="checkbox" name="ac" value="1"
+			<?php 
+				if($list[$i]['ac']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="remac"><input type="checkbox" name="remac" value="1"
+			<?php 
+				if($list[$i]['remac']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="remlcd"><input type="checkbox" name="remlcd" value="1"
+			<?php 
+				if($list[$i]['remlcd']!=0)
+					echo "checked";
+			?>/>
+			</td>
 			
 			<td>
 				<input type="submit" class="btn btn-mini btn-primary" value="Simpan"/>

@@ -130,6 +130,14 @@ class Kelas extends CI_Controller{
 		$ins['wb']='0';
 		$ins['pb']='0';
 		$ins['fc']='0';
+		$ins['pc1']='0';
+		$ins['pc2']='0';
+		$ins['pc3']='0';
+		$ins['pc4']='0';
+		$ins['jar']='0';
+		$ins['ac']='0';
+		$ins['remac']='0';
+		$ins['remlcd']='0';
 		foreach(array_keys($_POST) as $var)
 		{
 			$ins[$var]=$_POST[$var];
