@@ -491,7 +491,7 @@ class Mdl_sarpras extends CI_Model {
     function get_check_list_kelas($var=NULL) {
 	if ($var == NULL) {
 		$this->db->select(
-		$this->table_check_list_kelas.'.id,id_kelas,l1,l2,l3,l4,s1,s2,m1,m2,m3,k1,k2,k3,wb,pb,fc,'.$this->table_kelas.'.nama as nama'
+		$this->table_check_list_kelas.'.id,id_kelas,l1,l2,l3,l4,s1,s2,m1,m2,m3,k1,k2,k3,wb,pb,fc,pc1,pc2,pc3,pc4,ac,jar,remac,remlcd,'.$this->table_kelas.'.nama as nama'
 		);
 		$this->db->from($this->table_check_list_kelas);
 		$this->db->join($this->table_kelas, $this->table_check_list_kelas.'.id_kelas = '.$this->table_kelas.'.id');

@@ -12,9 +12,13 @@
             <th width="10%" colspan='2'><div align="center">Sound System</div></th>
             <th width="15%" colspan='3'><div align="center">Meja</div></th>
             <th width="10%" colspan='3'><div align="center">Kursi</div></th>
-            <th width="5%"><div align="center">Whiteboard</div></th>
-            <th width="5%"><div align="center">Panaboard</div></th>
-            <th width="5%"><div align="center">Flipchart</div></th>
+            <th width="5%"><div align="center">White board</div></th>
+            <th width="5%"><div align="center">Pana board</div></th>
+            <th width="5%"><div align="center">Flip chart</div></th>
+            <th width="5%" colspan='4'><div align="center">PC</div></th>
+            <th width="5%" rowspan='2'><div align="center">Jaringan</div></th>
+            <th width="5%" rowspan='2'><div align="center">AC</div></th>
+            <th width="5%" colspan='2'><div align="center">Remote</div></th>
 			<th width="5%" rowspan='2'><div align="center">Aksi</div></th>
         </tr>
         <tr>
@@ -33,6 +37,12 @@
             <th>OK</th>
             <th>OK</th>
             <th>OK</th>
+            <th>CPU</th>
+            <th>Keyboard</th>
+            <th>Mouse</th>
+            <th>Monitor</th>
+            <th>AC</th>
+            <th>LCD</th>
         </tr>
     </thead>
     
@@ -100,6 +110,15 @@
 					echo "checked";
 			?>/>
 			</td>
+			
+			<td class="pc1"><input type="text" class="angka" name="pc1" value="<?php echo $list[$i]['pc1']; ?>" />
+			<td class="pc2"><input type="text" class="angka" name="pc2" value="<?php echo $list[$i]['pc2']; ?>" />
+			<td class="pc3"><input type="text" class="angka" name="pc3" value="<?php echo $list[$i]['pc3']; ?>" />
+			<td class="pc4"><input type="text" class="angka" name="pc4" value="<?php echo $list[$i]['pc4']; ?>" />
+			<td class="jar"><input type="text" class="angka" name="jar" value="<?php echo $list[$i]['jar']; ?>" />
+			<td class="ac"><input type="text" class="angka" name="ac" value="<?php echo $list[$i]['ac']; ?>" />
+			<td class="remac"><input type="text" class="angka" name="remac" value="<?php echo $list[$i]['remac']; ?>" />
+			<td class="remlcd"><input type="text" class="angka" name="remlcd" value="<?php echo $list[$i]['remlcd']; ?>" />
 			
 			<td>
 				<input type="submit" class="btn btn-mini btn-primary" value="Simpan"/>
