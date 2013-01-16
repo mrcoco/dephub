@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 16, 2013 at 09:03 AM
+-- Generation Time: Jan 16, 2013 at 10:09 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -25,6 +25,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Table structure for table `tb_sarpras_checklist_kelas`
 --
 
+DROP TABLE IF EXISTS `tb_sarpras_checklist_kelas`;
 CREATE TABLE IF NOT EXISTS `tb_sarpras_checklist_kelas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_kelas` varchar(45) DEFAULT NULL,
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `tb_sarpras_checklist_kelas` (
 --
 
 REPLACE INTO `tb_sarpras_checklist_kelas` (`id`, `id_kelas`, `l1`, `l2`, `l3`, `l4`, `s1`, `s2`, `m1`, `m2`, `m3`, `k1`, `k2`, `k3`, `wb`, `pb`, `fc`, `pc1`, `pc2`, `pc3`, `pc4`, `jar`, `ac`, `remac`, `remlcd`) VALUES
-(1, '1', '0', 1, 0, '0', '0', 0, '0', 1, 0, '0', 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(1, '1', '0', 1, 0, '0', '0', 0, '0', 1, 0, '0', 0, 44, 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0),
 (2, '2', '0', 0, 0, '0', '0', 1, '0', 0, 0, '0', 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (3, '3', '0', 0, 0, '0', '0', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (4, '4', '0', 0, 0, '0', '0', 0, '0', 0, 0, '0', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
