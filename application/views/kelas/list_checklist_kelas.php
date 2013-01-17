@@ -12,9 +12,13 @@
             <th width="10%" colspan='2'><div align="center">Sound System</div></th>
             <th width="15%" colspan='3'><div align="center">Meja</div></th>
             <th width="10%" colspan='3'><div align="center">Kursi</div></th>
-            <th width="5%"><div align="center">Whiteboard</div></th>
-            <th width="5%"><div align="center">Panaboard</div></th>
-            <th width="5%"><div align="center">Flipchart</div></th>
+            <th width="5%"><div align="center">White board</div></th>
+            <th width="5%"><div align="center">Pana board</div></th>
+            <th width="5%"><div align="center">Flip chart</div></th>
+            <th width="5%" colspan='4'><div align="center">PC</div></th>
+            <th width="5%" rowspan='2'><div align="center">Jaringan</div></th>
+            <th width="5%" rowspan='2'><div align="center">AC</div></th>
+            <th width="5%" colspan='2'><div align="center">Remote</div></th>
 			<th width="5%" rowspan='2'><div align="center">Aksi</div></th>
         </tr>
         <tr>
@@ -33,6 +37,12 @@
             <th>OK</th>
             <th>OK</th>
             <th>OK</th>
+            <th>CPU</th>
+            <th>Keyboard</th>
+            <th>Mouse</th>
+            <th>Monitor</th>
+            <th>AC</th>
+            <th>LCD</th>
         </tr>
     </thead>
     
@@ -97,6 +107,56 @@
 			<td class="fc"><input type="checkbox" name="fc" value="1"
 			<?php 
 				if($list[$i]['fc']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			
+			
+			<td class="pc1"><input type="checkbox" name="pc1" value="1"
+			<?php 
+				if($list[$i]['pc1']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="pc2"><input type="checkbox" name="pc2" value="1"
+			<?php 
+				if($list[$i]['pc2']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="pc3"><input type="checkbox" name="pc3" value="1"
+			<?php 
+				if($list[$i]['pc3']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="pc4"><input type="checkbox" name="pc4" value="1"
+			<?php 
+				if($list[$i]['pc4']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="jar"><input type="checkbox" name="jar" value="1"
+			<?php 
+				if($list[$i]['jar']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="ac"><input type="checkbox" name="ac" value="1"
+			<?php 
+				if($list[$i]['ac']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="remac"><input type="checkbox" name="remac" value="1"
+			<?php 
+				if($list[$i]['remac']!=0)
+					echo "checked";
+			?>/>
+			</td>
+			<td class="remlcd"><input type="checkbox" name="remlcd" value="1"
+			<?php 
+				if($list[$i]['remlcd']!=0)
 					echo "checked";
 			?>/>
 			</td>

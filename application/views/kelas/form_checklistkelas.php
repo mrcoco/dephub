@@ -118,6 +118,44 @@
             <td>Kondisi</td>
             <td><input class="fc" type="text" name="fc" placeholder="Type" value="<?php echo $kelas['fc'];?>"/></td>
 		</tr>
+        <tr>
+            <td colspan="2"><div><strong>PC</strong> </div></td>
+		</tr>
+        <tr>
+            <td>CPU</td>
+            <td><input class="pc1" type="text" name="fc" placeholder="CPU" value="<?php echo $kelas['pc1'];?>"/></td>
+		</tr>
+        <tr>
+            <td>Keyboard</td>
+            <td><input class="pc2" type="text" name="fc" placeholder="Keyboard" value="<?php echo $kelas['pc2'];?>"/></td>
+		</tr>
+        <tr>
+            <td>Mouse</td>
+            <td><input class="pc3" type="text" name="fc" placeholder="Mouse" value="<?php echo $kelas['pc3'];?>"/></td>
+		</tr>
+        <tr>
+            <td>Monitor</td>
+            <td><input class="pc4" type="text" name="fc" placeholder="Monitor" value="<?php echo $kelas['pc4'];?>"/></td>
+		</tr>
+        <tr>
+            <td>Jaringan</td>
+            <td><input class="jar" type="text" name="fc" placeholder="Jaringan" value="<?php echo $kelas['jar'];?>"/></td>
+		</tr>
+        <tr>
+            <td>AC</td>
+            <td><input class="ac" type="text" name="fc" placeholder="AC" value="<?php echo $kelas['ac'];?>"/></td>
+		</tr>
+        <tr>
+            <td colspan="2"><div><strong>Remote</strong> </div></td>
+		</tr>
+        <tr>
+            <td>AC</td>
+            <td><input class="remac" type="text" name="fc" placeholder="AC" value="<?php echo $kelas['remac'];?>"/></td>
+		</tr>
+        <tr>
+            <td>LCD Proyektor</td>
+            <td><input class="remlcd" type="text" name="fc" placeholder="LCD Proyektor" value="<?php echo $kelas['remlcd'];?>"/></td>
+		</tr>
     </tbody>
 </table>
     <div class="form-actions">
