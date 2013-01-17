@@ -36,7 +36,7 @@
             'id_diklat' : id_diklat
         }
         $.post("<?php echo base_url() ?>diklat/ajax_update_komentar",data,function(res){
-            
+            $('.catatan').text(data['komentar']);
         });
     }
 </script>
@@ -84,9 +84,16 @@
                         </div>
                     </span>
                 </div>
+                Catatan : <span class="catatan"><?php echo $list[$i]['komentar']?></span>
             </td>
             <td class="nip"><?php echo $list[$i]['nip'] ?></td>
-            <td class="unit"><?php echo $unit[$list[$i]['kode_unit']] ?></td>
+            <td class="unit">
+                <?php 
+                    if(array_key_exists($list[$i]['kode_unit'], $unit)){
+                        echo $unit[$list[$i]['kode_unit']];
+                    }
+                ?>
+            </td>
         <?php }?>
     </tbody>
 </table>

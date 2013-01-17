@@ -789,4 +789,12 @@ class Program extends CI_Controller {
         }
         echo json_encode($json);
     }
+    
+    function ajax_cek_pemateri_avail(){
+        $data['id_pembicara'] = $this->input->post('id_pembicara');
+        $data['jam_mulai'] = $this->input->post('jam_mulai');
+        $data['jam_selesai'] = $this->input->post('jam_selesai');
+        $data['tanggal']=$this->date->konversi3($this->input->post('tanggal'));
+        echo $this->slng->cek_jadwal_pemateri($data);
+    }
 }

@@ -703,4 +703,27 @@ class Mdl_penyelenggaraan extends CI_Model{
     function insert_alokasi_kamar($batch_data){
         $this->db->insert_batch('sarpras_pemakaian_kamar',$batch_data);
     }
+    
+    function cek_jadwal_pemateri($data){
+        $str_query = "SELECT * 
+                FROM tb_schedule
+                INNER JOIN tb_pemateri ON tb_schedule.id = tb_pemateri.id_schedule
+                WHERE id_pembicara =".$data['id_pembicara']."
+                AND tanggal =  '".$data['tanggal']."'
+                AND (
+                '".$data['jam_mulai']."'
+                BETWEEN jam_mulai
+                AND jam_selesai
+                OR  '".$data['jam_selesai']."'
+                BETWEEN jam_mulai
+                AND jam_selesai
+            )"
+        ;
+        $retval = $this->db->query($str_query)->num_rows();
+        if($retval>0){
+            return false;
+        }else{
+            return true;
+        }
+    }
 }
