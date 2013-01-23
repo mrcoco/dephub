@@ -49,7 +49,7 @@
         });
     });
     function add(){
-        $('.cont').append('<div class="item input-append"><input type="text" class="dosen input-xlarge"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>');
+        $('.cont').append('<div class="item input-append"><input type="text" placeholder="Masukkan nama/NIP pengajar" class="dosen input-xxlarge"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>');
         $('.dosen').typeahead({
             'source' : array_dosen
         });
@@ -58,9 +58,9 @@
 <p class="lead"><?php echo $materi['judul']?></p>
 <div class="cont">
     <?php foreach($pengajar as $p){?>
-    <div class="item input-append"><input type="text" class="dosen input-xlarge" disabled value="<?php echo $key_pembicara[$p['id_pembicara']]?>"/><span class="hapus btn btn-danger"><i class="icon-remove"></i> Hapus</span></div>
+    <div class="item input-append"><input type="text" class="dosen input-xxlarge" disabled value="<?php echo $key_pembicara[$p['id_pembicara']]?>"/><span class="hapus btn btn-danger"><i class="icon-remove"></i> Hapus</span></div>
     <?php } ?>
-    <div class="item input-append"><input type="text" class="dosen input-xlarge"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>
+    <div class="item input-append"><input type="text" placeholder="Masukkan nama/NIP pengajar" class="dosen input-xxlarge"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>
 </div>
 <span class="add btn btn-mini"><i class="icon-plus"></i> Tambah</span>
 <div class="form-actions">

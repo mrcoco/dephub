@@ -42,7 +42,7 @@ $(document).ready(function(){
     ['<?php echo $r['nama_kategori'] ?>',<?php echo number_format($r['avg(skor)'],2,',','') ?>],
     <?php } ?>
     ];
-    var evt = $.jqplot('chartdiv', [line3], {
+    $.jqplot('chartdiv', [line3], {
        animate: !$.jqplot.use_excanvas,
        series:[{renderer:$.jqplot.BarRenderer}],
        axes: {

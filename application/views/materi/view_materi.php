@@ -19,7 +19,13 @@
                 <ol>
                     <?php foreach($pengajar as $p){?>
                     <li>
+                        <?php if($peg[$p['id_pembicara']]){ ?>
+                        <a href="javascript:view_detail(<?php echo $id[$p['id_pembicara']]?>)" class="tip-right" title="Klik untuk detail">
+                        <?php }else{ ?>
+                        <a href="dosen_tamu/detail_dosen/<?php echo $id[$p['id_pembicara']]?>" target="_blank" class="tip-right" title="Klik untuk detail">
+                        <?php } ?>
                             <?php echo $key_pembicara[$p['id_pembicara']]?>
+                        </a>
                     </li>
                     <?php } ?>
                 </ol>                
