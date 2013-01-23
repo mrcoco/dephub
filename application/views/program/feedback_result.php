@@ -42,7 +42,7 @@ $(document).ready(function(){
     ['<?php echo $r['nama_kategori'] ?>',<?php echo number_format($r['avg(skor)'],2,',','') ?>],
     <?php } ?>
     ];
-    $.jqplot('chartdiv', [line3], {
+    var evt = $.jqplot('chartdiv', [line3], {
        animate: !$.jqplot.use_excanvas,
        series:[{renderer:$.jqplot.BarRenderer}],
        axes: {
@@ -51,7 +51,7 @@ $(document).ready(function(){
              labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
              tickRenderer: $.jqplot.CanvasAxisTickRenderer,
              tickOptions: {
-                 angle: -30,
+                 angle: 30,
                  fontFamily: 'Courier New',
                  fontSize: '9pt'
              }
@@ -65,9 +65,6 @@ $(document).ready(function(){
            }
          }
     });
-     
-     
 });
 </script>
-
 <!-- End additional plugins -->

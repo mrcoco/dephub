@@ -24,11 +24,11 @@
                 }else{
                     $c='';
                 } ?>
-        <button type="button" class="btn <?php echo $c ?>" onclick="status(<?php echo $k.','.$a['id']?>)">
+        <button type="button" class="btn btn-small <?php echo $c ?>" onclick="status(<?php echo $k.','.$a['id']?>)">
             <?php echo ucfirst($v); ?>
         </button>
         <?php } ?>
-        <button type="button" class="btn btn-danger del_role" onclick="status(0,<?php echo $a['id']?>)">
+        <button type="button" class="btn btn-small btn-danger del_role" onclick="status(0,<?php echo $a['id']?>)">
             x
         </button>
         </div>

@@ -35,6 +35,30 @@ class Program extends CI_Controller {
         }
         $this->template->display_with_sidebar('program/feedback_result','program',$data);
     }
+    function cetak_feedback_result($id){
+        $data['id']=$id;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+	$data['sub_title']='Rekap Evaluasi Diklat';
+        $data['n']=$this->slng->count_feedback_diklat($id);
+        $data['result']=$this->slng->feedback_diklat($id);
+        $this->load->model('mdl_feedback', 'fdb');
+        $data['kategori'] = $this->fdb->getall_kategori();
+        $saran=$this->slng->saran_diklat($id);
+        foreach($saran as $sar){
+            foreach($data['kategori'] as $kat){
+                if($sar['id_kategori']==$kat['id_kategori'])
+                $data['saran'][$kat['id_kategori']][]=$sar['saran'];
+            }
+        }
+        $this->load->helper('pdfexport_helper.php');
+        $pdf=$this->load->view('program/feedback_result',$data);
+        pdf_create($pdf,'Hasil Evaluasi');                                                                    
+    }
     function feedback_pengajar($id){
         $data['sub_title']='Evaluasi Pengajar';
         $data['program']=$this->rnc->get_program_by_id($id);

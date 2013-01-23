@@ -17,10 +17,12 @@
     <thead>
         <tr>
             <th width="3%">No</th>
-            <th width="30%">Nama</th>
+            <th width="5%">Ang.</th>
+            <th width="20%">Nama</th>
             <th width="16%">NIP</th>
             <th width="21%">Pangkat/Gol</th>
-            <th width="30%">Unit Kerja</th>
+            <th width="20%">Jabatan</th>
+            <th width="15%">Unit Kerja</th>
         </tr>
     </thead>
     <tbody>
@@ -31,9 +33,11 @@
         ?>
         <tr>
             <td align="center"><?php echo $i++ ?></td>
+            <td align="center"><?php echo $pil_angkatan[$l['id_program']] ?></td>
             <td><?php echo $l['nama'] ?></td>
             <td align="center"><?php echo $l['nip'] ?></td>
             <td align="center"><?php echo $l['pangkat'] ?>, <?php echo $l['golongan'] ?></td>
+            <td><?php echo $l['jabatan'] ?></td>
             <td><?php echo $l['unit_kerja'] ?></td>
         <?php 
                 }elseif($l['status']=='waiting'){$w=1;

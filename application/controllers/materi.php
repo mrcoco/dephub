@@ -100,9 +100,9 @@ class Materi extends CI_Controller{
         $data['id']=array();
         foreach($pembicara as $p){
             if($p['nama_peg']!=''){
-                $data['pembicara'][]=$p['nama_peg'];
+                $data['pembicara'][]=$p['nama_peg'].' ('.$p['nip'].')';
                 $data['id'][$p['nama_peg']]=$p['id'];
-                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
+                $data['key_pembicara'][$p['id']]=$p['nama_peg'].' ('.$p['nip'].')';
             }else{
                 $data['pembicara'][]=$p['nama_dostam'];
                 $data['id'][$p['nama_dostam']]=$p['id'];
