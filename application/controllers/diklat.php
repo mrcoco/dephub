@@ -297,10 +297,7 @@ class Diklat extends CI_Controller{
         }
         $data['judul']='DAFTAR CALON PESERTA '.strtoupper($data['program']['name']).'<br />
             KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>';
-        $pil_angkatan=$this->rnc->get_program_by_parent($id,$thn);
-        foreach($pil_angkatan as $p){
-            $data['pil_angkatan'][$p['id']]=$p['angkatan'];
-        }
+        $data['pil_angkatan']=$this->rnc->get_program_by_parent($id,$thn);
         $data['list']=$this->slng->getall_peserta($id,$thn);
         $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);
 //        $this->load->view('diklat/print_list_peserta',$data);

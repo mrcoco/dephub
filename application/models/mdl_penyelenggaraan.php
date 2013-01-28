@@ -414,6 +414,31 @@ class Mdl_penyelenggaraan extends CI_Model{
     function get_schedule_pemateri($id){
         
     }
+    function get_pemateri_program($id){
+        $this->db->where('id_program',$id);
+        $this->db->group_by('id_pembicara');
+        $this->db->join('pemateri','pemateri.id_schedule=schedule.id');
+        $this->db->join('pembicara','pembicara.id=pemateri.id_pembicara');
+        $pemateri=$this->db->get('schedule')->result_array();
+        $pengajar=array();
+        foreach($pemateri as $p){
+            if($p['jenis']!=3){
+                $this->db->select('nama, nip, golongan, pangkat, nama_instansi as instansi');
+                $this->db->where('pegawai.id',$p['id_tabel']);
+                $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+                $this->db->join('instansi','pegawai.instansi=instansi.kode_kantor');
+                $data=$this->db->get('pegawai')->row_array();
+            }else{
+                $this->db->select('nama, nip, golongan, instansi');
+                $this->db->join('golongan','dosen_tamu.kode_gol=golongan.id');
+                $this->db->where('dosen_tamu.id',$p['id_tabel']);
+                $data=$this->db->get('dosen_tamu')->row_array();
+            }
+            $pengajar[]=$data;
+            
+        }
+        return $pengajar;
+    }
     
     function insert_schedule($data,$materi){
         $this->db->insert('schedule',$data);

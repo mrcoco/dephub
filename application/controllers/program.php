@@ -55,9 +55,10 @@ class Program extends CI_Controller {
                 $data['saran'][$kat['id_kategori']][]=$sar['saran'];
             }
         }
-        $this->load->helper('pdfexport_helper.php');
-        $pdf=$this->load->view('program/feedback_result',$data);
-        pdf_create($pdf,'Hasil Evaluasi');                                                                    
+        $this->load->view('program/pdf_feedback_result',$data);
+//        $this->load->helper('pdfexport_helper.php');
+//        $pdf=$this->load->view('program/pdf_feedback_result',$data,TRUE);
+//        pdf_create($pdf,'Hasil Evaluasi');                                                                    
     }
     function feedback_pengajar($id){
         $data['sub_title']='Evaluasi Pengajar';
@@ -664,20 +665,21 @@ class Program extends CI_Controller {
             redirect(base_url() . 'error/error_priv');
         }
         $this->load->library('date');
-        $this->load->library('excel');
 
-        $data['program'] = $this->rnc->get_program_by_id($id);
-        if(!$data['program']){
+        $program = $this->rnc->get_program_by_id($id);
+        if(!$program){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $diklat = $this->rnc->get_diklat_by_id($program['parent']);
 
         $data['data_schedule'] = $this->slng->get_all_item_schedule_pdf($id);
-        
+        $data['pemateri'] = $this->slng->get_pemateri_program($id);
+        $data['judul'] = 'Jadwal '.$diklat['name'].'<br />Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'];
+//        $this->load->view('program/pdf_schedule',$data);
         $html=$this->load->view('program/pdf_schedule',$data,true);
         $this->load->helper('pdfexport');
-        pdf_landscape($html, 'schedule program');
+        pdf_landscape($html, 'Jadwal '.$diklat['name'].' '.$program['tahun_program'].' Ang '.$program['angkatan']);
     }
     
     function ajax_pembicara($id_materi) {
