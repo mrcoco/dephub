@@ -13,6 +13,8 @@ class Mdl_perencanaan extends CI_Model{
         $this->db->where(array('tahun_program'=>$thn,'tipe'=>3));
         $this->db->or_where('tipe',1);
         $this->db->or_where('tipe',2);
+        $this->db->order_by('parent','desc');
+        $this->db->order_by('angkatan','desc');
         $program = $this->db->get('program'); 
         if($program->num_rows()>0){
             return $program->result_array();
