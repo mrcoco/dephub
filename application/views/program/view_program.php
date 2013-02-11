@@ -58,7 +58,11 @@
             <th>Kelas</th>
             <td>
             <?php if($program['kelas']>0){
-                echo $kelas[$program['kelas']];
+                if(array_key_exists($program['kelas'], $kelas)){
+                    echo $kelas[$program['kelas']];
+                }else{
+                    echo 'Kelas tidak valid karena perubahan jumlah peserta';
+                }
             }else{
                 echo 'tidak ada';
             }?>

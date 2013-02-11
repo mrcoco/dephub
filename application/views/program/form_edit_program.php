@@ -107,9 +107,15 @@
                 </div>
                 <div class="control-group">
                     <label class="control-label">Ruang kelas</label>
+                    <?php if(count($kelas)>0) {?>
                     <div class="controls">
                         <?php echo form_dropdown('kelas',$kelas,$program['kelas'],'id="kelas"')?>
                     </div>
+                    <?php } else {?>
+                    <div class="controls">
+                        Tidak ada kelas yang dapat memenuhi jumlah peserta
+                    </div>
+                    <?php } ?>
                 </div>
                 <div class="control-group">
                     <label class="control-label">Asrama</label>
