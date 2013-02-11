@@ -425,12 +425,14 @@ class Program extends CI_Controller {
         //get list kamar yg dialokasiin
         $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);
         $list_gdung=$this->spr->get_gedung()->result_array();
+        
         foreach($list_gdung as $g){
             $gdng[$g['id']]=$g['nama'];
         }
         $data['kamar']['']='-';
+        
         foreach($alokasi_kamar as $k){
-            $k['id_kamar_asrama'][0]=$gdng[$k['id_kamar_asrama'][0]];
+            $k['id_kamar_asrama']=$gdng[$k['asrama']].$k['nomor'];
             $data['kamar'][$k['id_peserta']]=$k['id_kamar_asrama'];
         }
         $this->template->display_with_sidebar('program/alokasi_kamar', 'program', $data);

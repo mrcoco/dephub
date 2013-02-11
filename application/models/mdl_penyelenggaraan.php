@@ -694,10 +694,12 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_pemakaian_kamar($id){
-        $this->db->select('id_peserta, id_kamar_asrama');
+        $this->db->select('id_peserta, id_kamar_asrama, asrama, nomor');
         $this->db->group_by('id_peserta');
         $this->db->distinct();
+        $this->db->join('sarpras_kamar','sarpras_pemakaian_kamar.id_kamar_asrama=sarpras_kamar.id');
         $this->db->where('id_program',$id);
+        
         return $this->db->get('sarpras_pemakaian_kamar')->result_array();
     }
     
