@@ -33,6 +33,9 @@ Belum ada peserta yang mengisi evaluasi pengajar
 <?php }else{ ?>
 Belum ada saran
 <?php } ?>
+<div class="form-actions">
+    <a href="program/cetak_feedback_result_pengajar/<?=$id?>/<?=$materi['id']?>/<?=$pengajar['id']?>" class="btn btn-success">Cetak PDF</a>
+</div>
 
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasTextRenderer.min.js"></script>
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.logAxisRenderer.min.js"></script>

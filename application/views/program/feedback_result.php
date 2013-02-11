@@ -26,6 +26,9 @@ Belum ada peserta yang mengisi evaluasi diklat
         <?php } ?>
         </ul>
     <?php } ?>
+<div class="form-actions">
+    <a href="program/cetak_feedback_result/<?=$id?>" class="btn btn-success">Cetak PDF</a>
+</div>
 <?php } ?>
 <!-- Additional plugins go here -->
 

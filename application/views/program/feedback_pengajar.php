@@ -12,21 +12,18 @@
         <?php foreach($pengajar as $pg){ ?>
             <?php if($pg['id']==$pm['id_pembicara']){ ?>
             <tr>
-            <form class="searchform" action="program/feedback_result_pengajar/<?php echo $program['id'] ?>" method="POST">
                 <td>
                     <?php if($pg['nama_peg']!=''){echo $pg['nama_peg']; }  else {echo $pg['nama_dostam'];} ?>
                 </td>
                 <td>
                     <?php if($this->editor->cek_fdb_pengajar($program['id'],$m['id'],$pg['id'],$this->session->userdata('id_pes'))>0){ ?>
-                    <input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
-                    <input type="hidden" name="id_materi" value="<?php echo $m['id'] ?>"/>
-                    <input type="hidden" name="id_pengajar" value="<?php echo $pg['id'] ?>"/>
-                    <input type="submit" class="btn btn-mini" value="Lihat Feedback"/>
+                    <a class="btn btn-mini" href="program/feedback_result_pengajar/<?=$program['id'] ?>/<?=$m['id']?>/<?=$pg['id']?>">
+                        Lihat Feedback
+                    </a>
                     <?php }else{ ?>
                     <span class="label label-important">Belum diisi</span>
                     <?php } ?>
                 </td>
-            </form>
             </tr>
             <?php } ?>
         <?php } ?>

@@ -10,7 +10,7 @@ define("DOMPDF_DEFAULT_PAPER_SIZE", "A4");
 //define("DOMPDF_ENABLE_PHP", true);
 define("DOMPDF_ENABLE_REMOTE", true);
 //define("DOMPDF_ENABLE_CSS_FLOAT", true);
-//define("DOMPDF_ENABLE_JAVASCRIPT", false);
+//define("DOMPDF_ENABLE_JAVASCRIPT", true);
 //define("DEBUGPNG", true);
 //define("DEBUGKEEPTEMP", true);
 //define("DEBUGCSS", true);
