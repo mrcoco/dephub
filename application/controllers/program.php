@@ -35,6 +35,34 @@ class Program extends CI_Controller {
         }
         $this->template->display_with_sidebar('program/feedback_result','program',$data);
     }
+    function fr($id){
+        $result=$this->slng->feedback_diklat($id);
+        $program=$this->rnc->get_program_by_id($id);
+        $diklat=$this->rnc->get_diklat_by_id($program['parent']);
+        $x=array();
+        $y=array();
+        foreach($result as $r){
+            $x[]=$r['nama_kategori'];
+            $y[]=number_format($r['avg(skor)'],2,'.','');
+        }
+        $this->load->library('jpgraph');
+        $this->jpgraph->barchart($x,$y,"Evaluasi ".$diklat['name']." Angkatan ".$program['angkatan']);
+    }
+    function fr_pem($id){
+        $data['pengajar']=$this->slng->get_pembicara_id($_POST['id_pengajar']);
+        $data['program']=$this->rnc->get_program_by_id($_POST['id_program']);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
+        $x=array();
+        $y=array();
+        foreach($result as $r){
+            $x[]=$r['pertanyaan'];
+            $y[]=number_format($r['skor'],2,'.','');
+        }
+        $this->load->library('jpgraph');
+        $judul="Evaluasi Pengajar ".$data['diklat']['name']." Angkatan ".$data['program']['angkatan'];
+        $this->jpgraph->barchart($x,$y,$judul,'chart.png');
+    }
     function cetak_feedback_result($id){
         $data['id']=$id;
         $data['program']=$this->rnc->get_program_by_id($id);
@@ -55,10 +83,20 @@ class Program extends CI_Controller {
                 $data['saran'][$kat['id_kategori']][]=$sar['saran'];
             }
         }
-        $this->load->view('program/pdf_feedback_result',$data);
-//        $this->load->helper('pdfexport_helper.php');
-//        $pdf=$this->load->view('program/pdf_feedback_result',$data,TRUE);
-//        pdf_create($pdf,'Hasil Evaluasi');                                                                    
+        $x=array();
+        $y=array();
+        foreach($data['result'] as $r){
+            $x[]=$r['nama_kategori'];
+            $y[]=number_format($r['avg(skor)'],2,'.','');
+        }
+            $this->load->library('jpgraph');
+        $judul="Evaluasi ".$data['diklat']['name']." Angkatan ".$data['program']['angkatan'];
+        $data['chart']=$this->jpgraph->barchart($x,$y,$judul,'chart.png');
+//        $this->load->view('program/pdf_feedback_result',$data);
+        $this->load->helper('pdfexport_helper.php');
+        $html = $this->load->view('program/pdf_feedback_result',$data,TRUE);
+//        echo $html;
+        pdf_create($html,'Hasil Evaluasi');                                                       
     }
     function feedback_pengajar($id){
         $data['sub_title']='Evaluasi Pengajar';
@@ -88,18 +126,44 @@ class Program extends CI_Controller {
 //        echo '<pre>';print_r($data['result']);print_r($data['saran']);echo '</pre>';
         $this->template->display_with_sidebar('program/feedback_result_pembicara','program',$data);
     }
-    function feedback_result_pengajar($id){
+    function feedback_result_pengajar($id,$idm,$idp){
         $data['id']=$id;
-        $data['materi'] = $this->rnc->get_materi($_POST['id_materi']);
-        $data['pengajar']=$this->slng->get_pembicara_id($_POST['id_pengajar']);
-        $data['program']=$this->rnc->get_program_by_id($_POST['id_program']);
+        $data['materi'] = $this->rnc->get_materi($idm);
+        $data['pengajar']=$this->slng->get_pembicara_id($idp);
+        $data['program']=$this->rnc->get_program_by_id($id);
         $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
 	$data['sub_title']='Rekap Evaluasi Pengajar';
-        $data['result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
-        $data['n_result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
-        $data['saran']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
-        $data['n']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
+        $data['result']=$this->slng->feedback_pengajar($id,$idm,$idp)->result_array();
+        $data['n_result']=$this->slng->feedback_pengajar($id,$idm,$idp)->num_rows();
+        $data['saran']=$this->slng->feedback_saran_pengajar($id,$idm,$idp)->result_array();
+        $data['n']=$this->slng->feedback_saran_pengajar($id,$idm,$idp)->num_rows();
         $this->template->display_with_sidebar('program/feedback_result_pengajar','program',$data);
+    }
+    function cetak_feedback_result_pengajar($id,$idm,$idp){
+        $data['id']=$id;
+        $data['materi'] = $this->rnc->get_materi($idm);
+        $data['pengajar']=$this->slng->get_pembicara_id($idp);
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+	$data['sub_title']='Rekap Evaluasi Pengajar';
+        $data['result']=$this->slng->feedback_pengajar($id,$idm,$idp)->result_array();
+        $data['n_result']=$this->slng->feedback_pengajar($id,$idm,$idp)->num_rows();
+        $data['saran']=$this->slng->feedback_saran_pengajar($id,$idm,$idp)->result_array();
+        $data['n']=$this->slng->feedback_saran_pengajar($id,$idm,$idp)->num_rows();
+        $this->load->helper('pdfexport_helper.php');
+        $x=array();
+        $y=array();
+        $i=1;
+        foreach($data['result'] as $r){
+            $x[]=$i++;
+            $y[]=number_format($r['skor'],2,'.','');
+        }
+        $this->load->library('jpgraph');
+        $judul="Evaluasi Pengajar".$data['diklat']['name']." Angkatan ".$data['program']['angkatan'];
+        $data['chart']=$this->jpgraph->barchart($x,$y,$judul,'chart2.png');
+        $html=$this->load->view('program/pdf_feedback_result_pengajar',$data,TRUE);
+        pdf_create($html,'Hasil Evaluasi');                                                       
+        
     }
 
     function view_program($id) {
