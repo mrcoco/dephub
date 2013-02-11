@@ -155,8 +155,13 @@
                         }
                     }
                 }).show();
-
-                $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+                tgl = $calendar.weekCalendar("formatDate", calEvent.start);
+                $dialogContent.find(".date_holder").text(tgl);
+                objdate = new Date(tgl);
+                if(objdate>maxdate || objdate < mindate){
+                    $dialogContent.dialog('close');
+                    alert('Sudah di luar tanggal pelatihan');
+                }
                 setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 
             },
