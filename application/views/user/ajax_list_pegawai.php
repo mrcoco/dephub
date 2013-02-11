@@ -17,6 +17,7 @@
     <td><a class="tip-right" title="Klik untuk detail" href="javascript:view_detail(<?php echo $a['id']; ?>)"><?php echo $a['nama']?></a></td>
     <td><?php echo $a['nip']?></td>
     <td>
+        <?php if($a['id']!=$this->session->userdata('id')) {?>
         <div class="btn-group" data-toggle="buttons-radio">
         <?php foreach($role as $k=>$v){ ?>
         <?php    if($k==$a['id_role']){
@@ -32,6 +33,20 @@
             x
         </button>
         </div>
+        <?php }else{?>
+        <div class="btn-group" data-toggle="buttons-radio">
+        <?php foreach($role as $k=>$v){ ?>
+            <?php    
+                if($k==$a['id_role']){
+                    $c='active';
+                }else{
+                    $c='';
+                } 
+            ?>
+        <button type="button" class="btn btn-small <?php echo $c ?>" disabled><?php echo ucfirst($v); ?></button>
+        <?php } ?>
+        </div>
+        <?php } ?>
     </td>
 </tr>
 <?php $no++ ?>
