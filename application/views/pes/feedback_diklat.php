@@ -264,3 +264,8 @@
         </table>
     </div>
 </div>
+<script>
+    function printpage(){
+        window.print();
+    }
+</script>

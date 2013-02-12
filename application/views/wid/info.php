@@ -28,9 +28,9 @@
                         <input type="hidden" name="id_program" value="<?php echo $p['id_program'] ?>"/>
                         <input type="hidden" name="id_materi" value="<?php echo $m['id'] ?>"/>
                         <input type="hidden" name="id_pengajar" value="<?php echo $this->session->userdata('id_wid') ?>"/>
-                        <input type="submit" class="btn btn-mini" value="Lihat Feedback" />
+                        <input type="submit" class="btn btn-mini" value="Hasil Evaluasi" />
                         <?php }else{ ?>
-                        <span class="label label-important">Feedback belum diisi</span>
+                        <span class="label label-important">Evaluasi belum diisi</span>
                         <?php } ?>
                     </form>
                     </td>

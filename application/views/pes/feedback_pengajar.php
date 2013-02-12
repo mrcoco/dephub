@@ -21,7 +21,7 @@
                     <input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
                     <input type="hidden" name="id_materi" value="<?php echo $m['id'] ?>"/>
                     <input type="hidden" name="id_pengajar" value="<?php echo $pg['id'] ?>"/>
-                    <input type="submit" class="btn btn-mini" value="Isi Feedback"/>
+                    <input type="submit" class="btn btn-mini" value="Isi Evaluasi"/>
                     <?php }else{ ?>
                     <span class="label label-success">Sudah mengisi</span>
                     <?php } ?>

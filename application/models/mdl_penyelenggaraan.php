@@ -435,6 +435,31 @@ class Mdl_penyelenggaraan extends CI_Model{
     function get_schedule_pemateri($id){
         
     }
+    function get_pemateri_program($id){
+        $this->db->where('id_program',$id);
+        $this->db->group_by('id_pembicara');
+        $this->db->join('pemateri','pemateri.id_schedule=schedule.id');
+        $this->db->join('pembicara','pembicara.id=pemateri.id_pembicara');
+        $pemateri=$this->db->get('schedule')->result_array();
+        $pengajar=array();
+        foreach($pemateri as $p){
+            if($p['jenis']!=3){
+                $this->db->select('nama, nip, golongan, pangkat, nama_instansi as instansi');
+                $this->db->where('pegawai.id',$p['id_tabel']);
+                $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+                $this->db->join('instansi','pegawai.instansi=instansi.kode_kantor');
+                $data=$this->db->get('pegawai')->row_array();
+            }else{
+                $this->db->select('nama, nip, golongan, instansi');
+                $this->db->join('golongan','dosen_tamu.kode_gol=golongan.id');
+                $this->db->where('dosen_tamu.id',$p['id_tabel']);
+                $data=$this->db->get('dosen_tamu')->row_array();
+            }
+            $pengajar[]=$data;
+            
+        }
+        return $pengajar;
+    }
     
     function insert_schedule($data,$materi){
         $this->db->insert('schedule',$data);
@@ -592,7 +617,7 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_all_pembicara(){
-        $str_qry_pembicara='SELECT tb_pembicara.id, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam from tb_pembicara 
+        $str_qry_pembicara='SELECT tb_dosen_tamu.id as id_dostam, tb_pegawai.id as id_peg, tb_pembicara.id, tb_pegawai.nama as nama_peg, tb_pegawai.nip as nip, tb_dosen_tamu.nama as nama_dostam from tb_pembicara 
             left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
             left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3))';
         return $this->db->query($str_qry_pembicara)->result_array();
@@ -690,10 +715,12 @@ class Mdl_penyelenggaraan extends CI_Model{
     }
     
     function get_pemakaian_kamar($id){
-        $this->db->select('id_peserta, id_kamar_asrama');
+        $this->db->select('id_peserta, id_kamar_asrama, asrama, nomor');
         $this->db->group_by('id_peserta');
         $this->db->distinct();
+        $this->db->join('sarpras_kamar','sarpras_pemakaian_kamar.id_kamar_asrama=sarpras_kamar.id');
         $this->db->where('id_program',$id);
+        
         return $this->db->get('sarpras_pemakaian_kamar')->result_array();
     }
     
@@ -723,5 +750,28 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function insert_alokasi_kamar($batch_data){
         $this->db->insert_batch('sarpras_pemakaian_kamar',$batch_data);
+    }
+    
+    function cek_jadwal_pemateri($data){
+        $str_query = "SELECT * 
+                FROM tb_schedule
+                INNER JOIN tb_pemateri ON tb_schedule.id = tb_pemateri.id_schedule
+                WHERE id_pembicara =".$data['id_pembicara']."
+                AND tanggal =  '".$data['tanggal']."'
+                AND (
+                '".$data['jam_mulai']."'
+                BETWEEN jam_mulai
+                AND jam_selesai
+                OR  '".$data['jam_selesai']."'
+                BETWEEN jam_mulai
+                AND jam_selesai
+            )"
+        ;
+        $retval = $this->db->query($str_query)->num_rows();
+        if($retval>0){
+            return false;
+        }else{
+            return true;
+        }
     }
 }

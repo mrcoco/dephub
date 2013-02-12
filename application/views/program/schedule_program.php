@@ -155,8 +155,13 @@
                         }
                     }
                 }).show();
-
-                $dialogContent.find(".date_holder").text($calendar.weekCalendar("formatDate", calEvent.start));
+                tgl = $calendar.weekCalendar("formatDate", calEvent.start);
+                $dialogContent.find(".date_holder").text(tgl);
+                objdate = new Date(tgl);
+                if(objdate>maxdate || objdate < mindate){
+                    $dialogContent.dialog('close');
+                    alert('Sudah di luar tanggal pelatihan');
+                }
                 setupStartAndEndTimeFields(startField, endField, calEvent, $calendar.weekCalendar("getTimeslotTimes", calEvent.start));
 
             },
@@ -477,7 +482,6 @@
                             input=$(this).siblings("input[type='text']");
                             $.getJSON('<?php echo base_url() ?>program/ajax_pembicara/'+val, function(data){
                                 data_json=data;
-                                console.log(data_json);
                             }).then(function(){
                                 $('#event_edit_container .nama_pmbcr').autocomplete({
                                     source: data_json[2],
@@ -485,8 +489,27 @@
                                     change: function(event, ui){
                                         if(ui.item){
                                             nama=$(this).val();
-                                            pid=$(this).siblings('input[type="hidden"]');
-                                            pid.val(data_json[1][nama]);
+                                            var $dialogContent = $("#event_edit_container");
+                                            mulai=$dialogContent.find("select[name='mulai'] option:selected").text();
+                                            selesai=$dialogContent.find("select[name='selesai'] option:selected").text();
+                                            tanggal=$dialogContent.find(".date_holder").text();
+                                            id_pemateri=data_json[1][nama];
+                                            data_post={id_pembicara: id_pemateri,jam_mulai: mulai, jam_selesai: selesai, tanggal: tanggal}
+                                            var retval;
+                                            var item = $(this);
+                                            $.post("<?php echo base_url() ?>program/ajax_cek_pemateri_avail",data_post,function(data){
+                                                retval=data;
+                                            }).then(function(){
+                                                console.log(retval);
+                                                if(retval){
+                                                    pid=item.siblings('input[type="hidden"]');
+                                                    pid.val(data_json[1][nama]);
+                                                }else{
+                                                    alert(nama+' memiliki jadwal lain pada waktu yang sama');
+                                                    item.val('');
+                                                    item.focus();
+                                                }
+                                            });
                                         }else{
                                             alert('Anda harus memilih dari daftar nama yang disediakan');
                                             $(this).val('');
@@ -524,9 +547,7 @@
                         }else{
                             parent.after(text);
                         }
-                        console.log('Sebelum : '+jum_col_pmbcr);
                         jum_col_pmbcr++;
-                        console.log('Sesudah : '+jum_col_pmbcr);
                         if(autocomplete){
                             $('.nama_pmbcr').autocomplete({
                                 source: data_json[2],
@@ -534,8 +555,27 @@
                                 change: function(event, ui){
                                     if(ui.item){
                                         nama=$(this).val();
-                                        pid=$(this).siblings('input[type="hidden"]');
-                                        pid.val(data_json[1][nama]);
+                                        var $dialogContent = $("#event_edit_container");
+                                        mulai=$dialogContent.find("select[name='mulai'] option:selected").text();
+                                        selesai=$dialogContent.find("select[name='selesai'] option:selected").text();
+                                        tanggal=$dialogContent.find(".date_holder").text();
+                                        id_pemateri=data_json[1][nama];
+                                        data_post={id_pembicara: id_pemateri,jam_mulai: mulai, jam_selesai: selesai, tanggal: tanggal}
+                                        var retval;
+                                        var item = $(this);
+                                        $.post("<?php echo base_url() ?>program/ajax_cek_pemateri_avail",data_post,function(data){
+                                            retval=data;
+                                        }).then(function(){
+                                            console.log(retval);
+                                            if(retval){
+                                                pid=item.siblings('input[type="hidden"]');
+                                                pid.val(data_json[1][nama]);
+                                            }else{
+                                                alert(nama+' memiliki jadwal lain pada waktu yang sama');
+                                                item.val('');
+                                                item.focus();
+                                            }
+                                        });
                                     }else{
                                         alert('Anda harus memilih dari daftar nama yang disediakan');
                                         $(this).val('');
@@ -559,9 +599,7 @@
                                 minLength : 0,
                                 change: function(event, ui){
                                     if(ui.item){
-                                        nama=$(this).val();
-                                        pid=$(this).siblings('input[type="hidden"]');
-                                        pid.val(data_json[1][nama]);
+                                        
                                     }else{
                                         alert('Anda harus memilih dari daftar nama yang disediakan');
                                         $(this).val('');
@@ -571,7 +609,7 @@
                             });
                         })
                     }
-    
+                    
                     $('.add_pmbcr').live('click',function(){
                         console.log(jum_col_pmbcr);
                         if((jum_col_pmbcr-1)>0){

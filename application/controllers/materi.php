@@ -35,13 +35,15 @@ class Materi extends CI_Controller{
         $data['id']=array();
         foreach($pembicara as $p){
             if($p['nama_peg']!=''){
-                $data['pembicara'][]=$p['nama_peg'];
-                $data['id'][$p['nama_peg']]=$p['id'];
-                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
+                $data['pembicara'][]=$p['nama_peg'].' ('.$p['nip'].')';
+                $data['peg'][$p['id']]=TRUE;
+                $data['id'][$p['id']]=$p['id_peg'];
+                $data['key_pembicara'][$p['id']]=$p['nama_peg'].' ('.$p['nip'].')';
             }else{
-                $data['pembicara'][]=$p['nama_dostam'];
-                $data['id'][$p['nama_dostam']]=$p['id'];
-                $data['key_pembicara'][$p['id']]=$p['nama_dostam'];
+                $data['pembicara'][]=$p['nama_dostam'].' (Dosen Tamu)';
+                $data['peg'][$p['id']]=FALSE;
+                $data['id'][$p['id']]=$p['id_dostam'];
+                $data['key_pembicara'][$p['id']]=$p['nama_dostam'].' (Dosen Tamu)';
             }
         }
         $this->template->display('materi/view_materi',$data);
@@ -100,9 +102,9 @@ class Materi extends CI_Controller{
         $data['id']=array();
         foreach($pembicara as $p){
             if($p['nama_peg']!=''){
-                $data['pembicara'][]=$p['nama_peg'];
-                $data['id'][$p['nama_peg']]=$p['id'];
-                $data['key_pembicara'][$p['id']]=$p['nama_peg'];
+                $data['pembicara'][]=$p['nama_peg'].' ('.$p['nip'].')';
+                $data['id'][$p['nama_peg'].' ('.$p['nip'].')']=$p['id'];
+                $data['key_pembicara'][$p['id']]=$p['nama_peg'].' ('.$p['nip'].')';
             }else{
                 $data['pembicara'][]=$p['nama_dostam'];
                 $data['id'][$p['nama_dostam']]=$p['id'];

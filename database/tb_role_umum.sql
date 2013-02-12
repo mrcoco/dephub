@@ -1,0 +1,1 @@
+INSERT INTO `tb_list_role` (`id`, `nama`) VALUES (NULL, 'umum');

@@ -24,7 +24,7 @@
                 <li><a href="<?php echo base_url()?>dosen_tamu/add_dosen">Tambah Dosen Tamu</a></li>
             </ul>
         </li>
-        <li><a href="<?php echo base_url()?>feedback">Feedback</a></li>
+        <li><a href="<?php echo base_url()?>feedback">Evaluasi</a></li>
         <?php } ?>
         <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==4){?>
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Sarpras<b class="caret"></b></a>

@@ -26,6 +26,9 @@ Belum ada peserta yang mengisi evaluasi diklat
         <?php } ?>
         </ul>
     <?php } ?>
+<div class="form-actions">
+    <a href="program/cetak_feedback_result/<?=$id?>" class="btn btn-success">Cetak PDF</a>
+</div>
 <?php } ?>
 <!-- Additional plugins go here -->
 
@@ -51,7 +54,7 @@ $(document).ready(function(){
              labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
              tickRenderer: $.jqplot.CanvasAxisTickRenderer,
              tickOptions: {
-                 angle: -30,
+                 angle: 30,
                  fontFamily: 'Courier New',
                  fontSize: '9pt'
              }
@@ -65,9 +68,6 @@ $(document).ready(function(){
            }
          }
     });
-     
-     
 });
 </script>
-
 <!-- End additional plugins -->

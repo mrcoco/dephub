@@ -1,11 +1,11 @@
 <html>
     <head>
 <style>
-    table{
+    table.data{
         border: 1px #000 solid;
         border-left: 0;
     }
-    td, th{
+    .data td, .data th{
         border-left: 1px #000 solid;
         border-top: 1px #000 solid;
     }
@@ -13,9 +13,9 @@
     </head>
     <body>
 <h1 align="center">
-    <?php echo 'Jadwal '.$diklat['name'].'<br />Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
+    <?php echo $judul ?>
 </h1>
-        <table width="100%" cellspacing="0" align="center" cellpadding="3">
+        <table class="data" width="100%" cellspacing="0" align="center" cellpadding="3">
             <thead>
                 <tr>
                     <th width>Tanggal</th>
@@ -23,6 +23,7 @@
                     <th>Kegiatan</th>
                     <th>Tempat</th>
                     <th>Pengajar</th>
+                    <th>Pendamping</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,9 +76,50 @@
                         -
                         <?php } ?>
                     </td>
+                    <td>
+                        <?php if($d['ada_pendamping']){?>
+                            <?php   
+                            foreach($d['list_pendamping'] as $lp){
+                                echo $lp['nama'] .'<br/>';
+                            } 
+                            ?>
+                        <?php } else { ?>
+                        -
+                        <?php } ?>
+                    </td>
                 </tr>
                 <?php }?>
             </tbody>
         </table>
+        <br />
+        <h3>Daftar Pengajar:</h3>
+        <ol>
+            <?php foreach($pemateri as $p): ?>
+            <li>
+                <?=$p['nama']?><br />
+                <table cellpadding="0" cellspacing="0">
+                <?php if($p['nip']){?>
+                    <tr>
+                        <td>NIP</td>
+                        <td>: <?php if($p['nip'])echo $p['nip'];?></td>
+                    </tr>
+                <?php }?>
+                <?php if(isset($p['pangkat'])){?>
+                    <tr>
+                        <td>Pangkat/Gol.</td>
+                        <td>: <?=$p['pangkat'].' '.$p['golongan'];?></td>
+                    </tr>
+                <?php }?>
+                <?php if($p['instansi']){?>
+                    <tr>
+                        <td>Instansi</td>
+                        <td>: <?=$p['instansi']?></td>
+                    </tr>
+                <?php }?>
+                </table>
+                <br />
+            </li>
+            <?php endforeach; ?>
+        </ol>
     </body>
 </html>

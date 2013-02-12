@@ -15,6 +15,7 @@
                     <td>Kegiatan</td>
                     <td>Tempat</td>
                     <td>Pengajar</td>
+                    <td>Pendamping</td>
                 </tr>
             </thead>
             <tbody>
@@ -61,6 +62,17 @@
                                 }else{
                                     echo $l['nama_dostam'] .'<br/>';
                                 }
+                            } 
+                            ?>
+                        <?php } else { ?>
+                        -
+                        <?php } ?>
+                    </td>
+                    <td>
+                        <?php if($d['ada_pendamping']){?>
+                            <?php   
+                            foreach($d['list_pendamping'] as $lp){
+                                echo $lp['nama'] .'<br/>';
                             } 
                             ?>
                         <?php } else { ?>

@@ -140,7 +140,9 @@ class Diklat extends CI_Controller{
                 $batch[]=array('id_diklat'=>$id,'id_materi'=>$list[$m]);
             }
         }
-        $this->rnc->insert_materi_diklat($batch);
+        if(count($batch)>0){
+            $this->rnc->insert_materi_diklat($batch);
+        }
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah ditambahkan'));
         redirect(base_url().'diklat/view_diklat/'.$id);
     }
@@ -210,7 +212,9 @@ class Diklat extends CI_Controller{
                 $batch[]=array('id_diklat'=>$clause,'id_materi'=>$list[$m]);
             }
         }
-        $this->rnc->insert_materi_diklat($batch);
+        if(count($batch)>0){
+            $this->rnc->insert_materi_diklat($batch);
+        }
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Diklat telah diubah'));
 	redirect(base_url().'diklat/view_diklat/'.$clause);
     }
@@ -293,6 +297,7 @@ class Diklat extends CI_Controller{
         }
         $data['judul']='DAFTAR CALON PESERTA '.strtoupper($data['program']['name']).'<br />
             KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>';
+        $data['pil_angkatan']=$this->rnc->get_program_by_parent($id,$thn);
         $data['list']=$this->slng->getall_peserta($id,$thn);
         $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);
 //        $this->load->view('diklat/print_list_peserta',$data);
@@ -307,7 +312,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
-        $pil_angkatan=$this->rnc->get_program_by_parent($id,$this->thn_default);
+        $pil_angkatan=$this->rnc->get_program_by_parent($id,$thn);
         foreach($pil_angkatan as $p){
             $data['pil_angkatan'][$p['id']]='Angkatan '.$p['angkatan'];
         }
@@ -386,9 +391,8 @@ class Diklat extends CI_Controller{
     function ajax_toggle_status($status){
         if($status==1){
             $data['status']='accept';
-            $data['komentar']='';
         }if($status==2){
-            $data['komentar']='waiting';
+            $data['status']='waiting';
         }else if($status==0){
             $data['status']='daftar';
             $data['id_program']='';
@@ -402,7 +406,6 @@ class Diklat extends CI_Controller{
         
         $max_peserta = $this->input->post('max_peserta');
         $data['id_program']=$this->input->post('id_program');
-        $data['komentar']='';
         $clause['id_peserta']=$this->input->post('id_peserta');
         $clause['id_diklat']=$this->input->post('id_diklat');
         //get status peserta

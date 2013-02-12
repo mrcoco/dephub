@@ -116,19 +116,19 @@ class Image_Cache {
         list($width, $height, $type) = dompdf_getimagesize($resolved_url);
         
         // Known image type
-        if ( $width && $height && in_array($type, array(IMAGETYPE_GIF, IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_BMP)) ) {
+//        if ( $width && $height && in_array($type, array(IMAGETYPE_GIF, IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_BMP)) ) {
           //Don't put replacement image into cache - otherwise it will be deleted on cache cleanup.
           //Only execute on successfull caching of remote image.
-          if ( DOMPDF_ENABLE_REMOTE && $remote ) {
+//          if ( DOMPDF_ENABLE_REMOTE && $remote ) {
             self::$_cache[$full_url] = $resolved_url;
-          }
-        }
-        
-        // Unknown image type
-        else {
-          throw new DOMPDF_Image_Exception("Image type unknown");
-          unlink($resolved_url);
-        }
+//          }
+//        }
+//        
+//        // Unknown image type
+//        else {
+//          throw new DOMPDF_Image_Exception("Image type unknown");
+//          unlink($resolved_url);
+//        }
       }
     }
     catch(DOMPDF_Image_Exception $e) {

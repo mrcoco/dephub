@@ -2,6 +2,7 @@
 
 function pdf_create($html, $filename, $stream=TRUE) {
     require_once(APPPATH."/third_party/pdf/dompdf_config.inc.php");
+    require_once(APPPATH."/third_party/pdf/dompdf_config.custom.inc.php");
     
     $dompdf = new DOMPDF();
     $dompdf->load_html($html);

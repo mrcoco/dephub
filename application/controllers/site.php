@@ -132,6 +132,7 @@ class Site extends CI_Controller{
         foreach($diklat as $d){
             $nama_diklat[$d['id']]=$d['name'];
         }
+        
 	if (count($cal)== 0) {
 	    $data[0]['id'] = '';
 	    $data[0]['title'] = '';
@@ -141,15 +142,17 @@ class Site extends CI_Controller{
 	} else {
 	    foreach ($cal as $row) {
 		$data[$i]['id'] = $row['id'];
-		$data[$i]['title'] =$nama_diklat[$row['parent']].' angkatan '.$row['angkatan'];
-		$data[$i]['start'] = $row['tanggal_mulai'];
-		$data[$i]['end'] = $row['tanggal_akhir'];
-                if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) {
-        		$data[$i]['url'] = base_url().'program/view_program/' . $row['id'];
-                }else{
-                        $data[$i]['url'] = base_url().'site/view_program/' . $row['id'];
+                if(array_key_exists($row['parent'], $nama_diklat)){
+                    $data[$i]['title'] =$nama_diklat[$row['parent']].' angkatan '.$row['angkatan'];
+                    $data[$i]['start'] = $row['tanggal_mulai'];
+                    $data[$i]['end'] = $row['tanggal_akhir'];
+                    if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) {
+                            $data[$i]['url'] = base_url().'program/view_program/' . $row['id'];
+                    }else{
+                            $data[$i]['url'] = base_url().'site/view_program/' . $row['id'];
+                    }
+                    $i++;
                 }
-		$i++;
 	    }
 	}
 	$data['output'] = $data;
