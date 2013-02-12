@@ -130,6 +130,7 @@ class Pegawai extends CI_Controller{
 		$value['tmtjabatan']='';
 		$value['tmtjabbaru']='';
 		$value['tmtmutasi']='';
+        $data['history']='';
 		$data['data']=$value;
         
         $data['pil_instansi'][-1]='-- Pilih --';
@@ -144,10 +145,46 @@ class Pegawai extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //process penambahan pegawai
-        foreach($_POST as $key => $val){
-            $data[$key]=$this->input->post($key);
-        }
-        $this->slng->insert_pegawai($data);
+		$value['id']=$_POST['id'];
+		$value['nip']=$_POST['nip'];
+		$value['nama']=$_POST['nama'];
+		$value['kode_gol']=$_POST['kode_gol'];
+		$value['tempat_lahir']=$_POST['tempat_lahir'];
+		$value['tanggal_lahir']=$_POST['tanggal_lahir'];
+		$value['jabatan']=$_POST['jabatan'];
+		$value['instansi']=$_POST['instansi'];
+		$value['jenis_kelamin']=$_POST['jenis_kelamin'];
+		$value['gelar_akademis']=$_POST['gelar_akademis'];
+		$value['kode_pendidikan']=$_POST['kode_pendidikan'];
+		$value['unit_kerja']=$_POST['unit_kerja'];
+		$value['alamat_rumah']=$_POST['alamat_rumah'];
+		$value['agama']=$_POST['agama'];
+		$value['email']=$_POST['email'];
+		$value['telepon']=$_POST['telepon'];
+		$value['tmtgol']=$_POST['tmtgol'];
+		$value['tmtcpns']=$_POST['tmtcpns'];
+		$value['tmtpns']=$_POST['tmtpns'];
+		$value['tmtjabatan']=$_POST['tmtjabatan'];
+		$value['tmtjabbaru']=$_POST['tmtjabbaru'];
+		$value['tmtmutasi']=$_POST['tmtmutasi'];
+		
+		
+        $this->slng->insert_pegawai($value);
+        $datauser=$this->slng->get_data_pegawai_nip($_POST['nip']);
+		// die(var_dump($datauser));
+		
+		$data[0]['id_peserta']=$datauser['id'];
+		$data[0]['id_program']='';
+		$data[0]['nama_pelatihan']=$_POST['riwayat_jbtn'][0];
+		$data[0]['tahun']=$_POST['periode_jbtn'][0];
+        for($i=2;$i<count($_POST['periode_jbtn']);$i++){
+			$data[$i-1]['id_peserta']=$datauser['id'];
+			$data[$i-1]['id_program']='';
+			$data[$i-1]['nama_pelatihan']=$_POST['riwayat_jbtn'][$i];
+			$data[$i-1]['tahun']=$_POST['periode_jbtn'][$i];
+		}
+		
+        $this->slng->insert_history($data);
         
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah ditambahkan'));
         redirect(base_url().'pegawai');
@@ -163,6 +200,7 @@ class Pegawai extends CI_Controller{
         $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
         $pil_instansi=$this->slng->getall_instansi();
+        $data['history']=$this->slng->get_history($id);
         
         $value=$this->slng->get_data_pegawai_id($id);
 		$data['data']=$value;
@@ -180,10 +218,42 @@ class Pegawai extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //process pengeditan pegawai
-        foreach($_POST as $key => $val){
-            $data[$key]=$this->input->post($key);
-        }
-        $this->slng->update_pegawai($id,$data);
+		$value['id']=$id;
+		$value['nip']=$_POST['nip'];
+		$value['nama']=$_POST['nama'];
+		$value['kode_gol']=$_POST['kode_gol'];
+		$value['tempat_lahir']=$_POST['tempat_lahir'];
+		$value['tanggal_lahir']=$_POST['tanggal_lahir'];
+		$value['jabatan']=$_POST['jabatan'];
+		$value['instansi']=$_POST['instansi'];
+		$value['jenis_kelamin']=$_POST['jenis_kelamin'];
+		$value['gelar_akademis']=$_POST['gelar_akademis'];
+		$value['kode_pendidikan']=$_POST['kode_pendidikan'];
+		$value['unit_kerja']=$_POST['unit_kerja'];
+		$value['alamat_rumah']=$_POST['alamat_rumah'];
+		$value['agama']=$_POST['agama'];
+		$value['email']=$_POST['email'];
+		$value['telepon']=$_POST['telepon'];
+		$value['tmtgol']=$_POST['tmtgol'];
+		$value['tmtcpns']=$_POST['tmtcpns'];
+		$value['tmtpns']=$_POST['tmtpns'];
+		$value['tmtjabatan']=$_POST['tmtjabatan'];
+		$value['tmtjabbaru']=$_POST['tmtjabbaru'];
+		$value['tmtmutasi']=$_POST['tmtmutasi'];
+		
+		$this->slng->update_pegawai($id,$value);
+		
+        for($i=0;$i<count($_POST['periode_jbtn']);$i++){
+			if($_POST['riwayat_jbtn'][$i]!='')
+			{
+				$data[$i-1]['id_peserta']=$id;
+				$data[$i-1]['id_program']='';
+				$data[$i-1]['nama_pelatihan']=$_POST['riwayat_jbtn'][$i];
+				$data[$i-1]['tahun']=$_POST['periode_jbtn'][$i];
+			}
+		}
+		$this->slng->del_history($id);
+        $this->slng->insert_history($data);
         
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah diedit'));
         redirect(base_url().'pegawai');
@@ -195,6 +265,7 @@ class Pegawai extends CI_Controller{
         }
         //process penghapusan pegawai
         $this->slng->delete_pegawai($id);
+		$this->slng->del_history($id);
         
         $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah dihapus'));
         redirect(base_url().'pegawai');
