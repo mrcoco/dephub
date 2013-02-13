@@ -231,8 +231,8 @@ class Program extends CI_Controller {
         $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
             KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].'<br/>ANGKATAN '.$data['program']['angkatan'];
         $data['list']=$this->slng->get_terima_peserta($id,$thn);
-        $data['htmView'] = $this->load->view('diklat/print_list_peserta',$data,TRUE);
-//        $this->load->view('diklat/print_list_peserta',$data);
+        $data['htmView'] = $this->load->view('program/print_list_peserta',$data,TRUE);
+//        $this->load->view('program/print_list_peserta',$data);
                       
         pdf_create($data['htmView'],'Peserta '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan']);                                                                    
     }
