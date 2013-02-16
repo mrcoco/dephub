@@ -204,7 +204,7 @@ class Program extends CI_Controller {
         if($thn==''){
             $thn=$this->thn_default;
         }
-        $data['sub_title']="List Peserta";
+        $data['sub_title']="Daftar Peserta";
         $data['program'] = $this->rnc->get_program_by_id($id);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
@@ -225,7 +225,7 @@ class Program extends CI_Controller {
         $data['program']=$this->rnc->get_program_by_id($id);
         $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
         if(!$data['program']){
-            $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
         $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
@@ -235,6 +235,63 @@ class Program extends CI_Controller {
 //        $this->load->view('program/print_list_peserta',$data);
                       
         pdf_create($data['htmView'],'Peserta '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan']);                                                                    
+    }
+    
+    function ajax_daftar_peserta($id,$thn=''){
+        if($this->session->userdata('id_role')==3||$this->session->userdata('id_role')==4){
+            redirect(base_url().'error/error_priv');
+        }
+        if($thn==''){
+            $thn=$this->thn_default;
+        }
+        $data['tahun']=$thn;
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['list']=$this->slng->get_terima_peserta($id,$thn);
+        
+        $text = '';
+        $text .= 'Berikut ini adalah nama-nama peserta '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'].'<br/>';
+        $text .='<table class="table table-condensed table-bordered">';
+        $i=1;
+        $text .= '
+                <tr>
+                    <th width="5%">No</th>
+                    <th width="30%">Nama</th>
+                    <th width="20%">NIP</th>
+                    <th width="5%">Gol</th>
+                    <th width="30%">Unit Kerja</th>
+                    <th width="10%">Status</th>
+                </tr>
+            ';
+        foreach($data['list'] as $v){
+            $text .='<tr>';
+            $text .= '<td>'.$i++.'</td>';
+            $text .= '<td>'.$v['nama'].'</td>';
+            $text .= '<td>'.$v['nip'].'</td>';
+            $text .= '<td>'.$v['golongan'].'</td>';
+            $text .= '<td>'.$v['unit_kerja'].'</td>';
+            $text .= '<td>'.$this->editor->status($v['status']).'</td>';
+            $text .='</tr>';
+        }
+        $text .= '</table>';
+        $data['id']=$id;
+        $data['judul']='Daftar Panggilan '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'];
+        $data['isi']=$text;
+        $this->load->view('program/preview_peserta',$data);
+    }
+    function publish_daftar_peserta(){
+        $id=$this->input->post('id');
+        $data_post['judul']=$this->input->post('judul');
+        $data_post['isi']=$this->input->post('isi');
+        $data_post['waktu']=date('H:i');
+        $data_post['tanggal']=date('Y-m-d');
+        $this->slng->insert_pengumuman($data_post);
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Daftar peserta telah di-publish'));
+        redirect(base_url().'program/peserta_program/'.$id);
     }
     
     function buat_program($parent) {
