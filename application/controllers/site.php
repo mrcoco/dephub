@@ -143,15 +143,17 @@ class Site extends CI_Controller{
 	    foreach ($cal as $row) {
 		$data[$i]['id'] = $row['id'];
                 if(array_key_exists($row['parent'], $nama_diklat)){
-                    $data[$i]['title'] =$nama_diklat[$row['parent']].' angkatan '.$row['angkatan'];
-                    $data[$i]['start'] = $row['tanggal_mulai'];
-                    $data[$i]['end'] = $row['tanggal_akhir'];
-                    if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) {
-                            $data[$i]['url'] = base_url().'program/view_program/' . $row['id'];
-                    }else{
-                            $data[$i]['url'] = base_url().'site/view_program/' . $row['id'];
-                    }
-                    $i++;
+//                    $data[$i]['title'] =$nama_diklat[$row['parent']].' angkatan '.$row['angkatan'];
+//                    $data[$i]['start'] = $row['tanggal_mulai'];
+//                    $data[$i]['end'] = $row['tanggal_akhir'];
+//                    if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) {
+//                            $data[$i]['url'] = base_url().'program/view_program/' . $row['id'];
+//                    }else{
+//                            $data[$i]['url'] = base_url().'site/view_program/' . $row['id'];
+//                    }
+//                    $i++;
+                }else{
+                    echo $row['id'].'-';
                 }
 	    }
 	}
