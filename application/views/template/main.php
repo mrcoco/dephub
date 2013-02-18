@@ -60,6 +60,12 @@
             $('#display_dialog').modal('show');
         })
     }
+   function view_detail_pub(num){
+        $.get("<?php echo base_url() ?>about/detail_pegawai/"+num,function(result){
+            $('#display_dialog').html(result);
+            $('#display_dialog').modal('show');
+        })
+    }
 
 </script>
 
@@ -74,9 +80,8 @@
                     <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
 		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightblue" class="dropdown-toggle" href="#">Manajemen Diklat<b class="caret"></b></a>
 			<ul class="dropdown-menu">
-                            <li><a href="<?php echo base_url()?>">Perencanaan</a></li>
-                            <li><a href="<?php echo base_url()?>">Diklat</a></li>
-                            <li><a href="<?php echo base_url()?>">Pengajar</a></li>
+                            <li><a href="<?php echo base_url('site/front/'.date('Y'))?>">Daftar Diklat</a></li>
+                            <li><a href="<?php echo base_url('about/pengajar')?>">Daftar Pengajar</a></li>
                             <li><a href="<?php echo base_url()?>">Sarana Prasarana</a></li>
                             <li><a href="<?php echo base_url()?>">Asrama</a></li>
 			</ul>

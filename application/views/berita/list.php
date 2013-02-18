@@ -2,18 +2,20 @@
 <div class="row">
     <div class="span12"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
-<table width="100%" class="table table-striped table-bordered table-condensed">
+<table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
+            <th width="3%">No</th>
             <th width="50%">Judul</th>
             <th width="20%">Diperbarui</th>
-            <th width="30%">Aksi</th>
+            <th width="27%">Aksi</th>
         </tr>
     </thead>
     <tbody>
-        <?php if($berita){
+        <?php if($berita){ $i=1;
         foreach($berita as $a) {?>
         <tr>
+            <td><?php echo $i++; ?>
             <td><a href='berita/view/<?php echo $a['id']?>' class='tip-right' title="klik untuk lihat"><?php echo $a['judul'] ?></a></td>
             <td><?php echo $this->date->konversi5($a['tanggal']).', '.$a['waktu'] ?></td>
             <td>
@@ -27,7 +29,7 @@
         <?php }        
         }else{?>
         <tr>
-            <td colspan="2">Tidak ada data</td>
+            <td colspan="4">Tidak ada data</td>
         </tr>
         <?php } ?>    
     </tbody>
