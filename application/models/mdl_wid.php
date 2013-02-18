@@ -10,6 +10,12 @@ class Mdl_wid extends CI_Model{
         $this->db->join('materi','pengajar.id_materi=materi.id');
         return $this->db->get('pengajar')->result_array();
     }
+    function get_materi_peg($kode){
+        $this->db->where('id_tabel',$kode);
+        $this->db->join('pengajar','pembicara.id=pengajar.id_pembicara');
+        $this->db->join('materi','pengajar.id_materi=materi.id');
+        return $this->db->get('pembicara')->result_array();
+    }
     function get_program_wid($kode,$parent,$thn){
         $this->db->group_by('program.id');
         $this->db->where('id_pembicara',$kode);
@@ -31,6 +37,12 @@ class Mdl_wid extends CI_Model{
         $this->db->where($where);
         $this->db->join('schedule','schedule.id=pemateri.id_schedule');
         return $this->db->get('pemateri')->result_array();
+    }
+    function get_hours_peg($id,$id_materi){
+        $this->db->where('id_tabel',$id);
+        $this->db->join('pemateri','pembicara.id=pemateri.id_pembicara');
+        $this->db->join('schedule','schedule.id=pemateri.id_schedule');
+        return $this->db->get('pembicara')->result_array();
     }
     function get_schedule_wid($kode,$thn){
         $year="tanggal BETWEEN '$thn-01-01' AND '$thn-12-31'";
@@ -114,6 +126,10 @@ class Mdl_wid extends CI_Model{
     function get_detail_pes($kode){
         $this->db->where('id',$kode);
         return $this->db->get('pegawai')->result_array();
+    }
+    function get_detail_peg($kode){
+        $this->db->where('id',$kode);
+        return $this->db->get('pegawai')->row_array();
     }
     function insert_feedback_pembicara($data){
         $this->db->insert('feedback_pembicara',$data);

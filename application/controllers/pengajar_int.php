@@ -18,6 +18,7 @@ class Pengajar_int extends CI_Controller{
         if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
+        $data['sub_title']='Daftar Pengajar';
         $data['list']=$this->slng->getall_pembicara_int();
         $this->template->display('pembicara_int/list_pembicara_int',$data);
     }

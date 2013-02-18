@@ -1,4 +1,19 @@
 <script>   
+
+    $(document).ready(function(){	
+        $('.add_riwayat_jabatan').live('click',function(){
+            $(this).text('Delete');
+            $(this).attr('class','del btn btn-danger btn-mini');
+            $('.input_riwayat').clone().removeClass().appendTo('#riwayat');
+        });
+		
+        $('.del').live('click',function(){
+            $(this).parent().remove();
+        });
+	});
+	
+
+
     $(function(){
         $('.tanggal').datepicker({
             format: 'yyyy-mm-dd'
@@ -20,6 +35,7 @@
     </div>
     <table class="table table-condensed">
         <tbody>
+		<input class="nip" type="hidden"  name="id" value="<?php $data['id']?>">
         <tr>
             <td>NIP/Nama</td>
             <td><input class="nip" type="text" name="nip" placeholder="NIP" value="<?php echo $data['nip']?>"/> / <input class="nama" type="text" name="nama" placeholder="Nama"  value="<?php echo $data['nama']?>"/></td>
@@ -98,6 +114,36 @@
             <td><input class="tanggal tmtmutasi" type="text" name="tmtmutasi" placeholder="TMT Mutasi" value="<?php echo $data['tmtmutasi']?>"/></td>
         </tr>
         </tbody>
+		
+        <tr>
+            <td>History Pelatihan</td>
+            <td colspan="2" class="pns">
+                <div id="riwayat">
+                    <?php
+						if($history!='')
+						{
+						foreach($history as $h){
+					?>
+                    <div>
+                        <input type="text" class="input-small" name="periode_jbtn[]" value="<?php echo $h['tahun']?>"/>
+                        <input type="text" name="riwayat_jbtn[]" value="<?php echo $h['nama_pelatihan']?>"/>
+                        <button type="button" class="del btn btn-mini btn-danger">Delete</button>
+                    </div>
+                    <?php }} ?>
+                    <div>
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_jbtn[]"/>
+                        <input type="text" placeholder="Jabatan" name="riwayat_jbtn[]"/>
+                        <button type="button" class="add_riwayat_jabatan btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                    <div class="input_riwayat hide">
+                        <input type="text" class="input-small" placeholder="Tahun" name="periode_jbtn[]"/>
+                        <input type="text" placeholder="Jabatan" name="riwayat_jbtn[]"/>
+                        <button type="button" class="add_riwayat_jabatan btn btn-mini"><i class="icon-plus"></i> Tambah</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+		
     </table>
     <div class="form-actions">
         <input type="submit" class="btn btn-large btn-primary" value="Simpan" onclick="validate_form()"/>

@@ -30,6 +30,29 @@ class Mdl_administrator extends CI_Model{
         $this->db->where('id',$clause);
         $this->db->delete('about');
     }
+    function get_berita()
+    {
+        $this->db->order_by('tanggal','desc');
+        $this->db->order_by('waktu','desc');
+	return $this->db->get('post')->result_array();
+    }
+    function get_berita_id($id)
+    {
+	$this->db->where('id',$id);
+	return $this->db->get('post')->row_array();
+    }
+    function insert_berita($data){
+        $this->db->insert('post',$data);
+        return $this->db->insert_id();
+    }
+    function update_berita($clause,$data){
+        $this->db->where('id',$clause);
+        $this->db->update('post',$data);
+    }
+    function delete_berita($clause,$data){
+        $this->db->where('id',$clause);
+        $this->db->delete('post');
+    }
     function get_info()
     {
 	return $this->db->get($this->table_info);

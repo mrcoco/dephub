@@ -257,7 +257,18 @@ class Mdl_penyelenggaraan extends CI_Model{
     function get_history($id){
         return $this->db->get_where('history_pelatihan',array('id_peserta'=>$id))->result_array();
     }
+	
+    function del_history($id){
+        $this->db->where('id_peserta',$id);
+        $this->db->delete('history_pelatihan');
+        return TRUE;
+    }
     
+    function insert_history($data){
+        $this->db->insert_batch('history_pelatihan',$data);
+        return TRUE;
+    }
+	
     function getall_pembicara_int(){
         $str_query='select tb_pegawai.id,nama, nip, jenis from tb_pegawai inner join (select * from tb_pembicara where jenis!=3) as tb_p on tb_pegawai.id=tb_p.id_tabel';
         return $this->db->query($str_query)->result_array();
@@ -384,6 +395,16 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function get_data_pegawai_id($param){
         $query=$this->db->query('select * from tb_pegawai where id = '.$param);
+        //echo $param.'s'.$query->num_rows();
+        if($query->num_rows()==0){
+            return FALSE;
+        }else{
+            return $query->row_array();
+        }
+    }
+	
+    function get_data_pegawai_nip($param){
+        $query=$this->db->query('select * from tb_pegawai where nip = '.$param);
         //echo $param.'s'.$query->num_rows();
         if($query->num_rows()==0){
             return FALSE;

@@ -62,6 +62,7 @@
                 <li><a href="<?php echo base_url()?>user/manage_user">Kelola User</a></li>
             </ul>
         </li>
+        <li><a href="<?php echo base_url()?>berita">Berita</a></li>
         <?php } ?>
         <li class="pull-right">
             <a href="<?php echo base_url()?>site/logout"><i class="icon-off"></i> Logout</a>

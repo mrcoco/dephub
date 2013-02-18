@@ -60,6 +60,12 @@
             $('#display_dialog').modal('show');
         })
     }
+   function view_detail_pub(num){
+        $.get("<?php echo base_url() ?>about/detail_pegawai/"+num,function(result){
+            $('#display_dialog').html(result);
+            $('#display_dialog').modal('show');
+        })
+    }
 
 </script>
 
@@ -72,7 +78,14 @@
 <!--	    <div class="nav-collapse">-->
 		<ul class="nav">
                     <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
-		    <li><a style="color:lightblue" href="#">Manajemen Diklat</a></li>
+		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightblue" class="dropdown-toggle" href="#">Manajemen Diklat<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+                            <li><a href="<?php echo base_url('site/front/'.date('Y'))?>">Daftar Diklat</a></li>
+                            <li><a href="<?php echo base_url('about/pengajar')?>">Daftar Pengajar</a></li>
+                            <li><a href="<?php echo base_url()?>">Sarana Prasarana</a></li>
+                            <li><a href="<?php echo base_url()?>">Asrama</a></li>
+			</ul>
+		    </li>
                     <li><a style="color:lightcoral" href="<?php echo base_url()?>elearning" class="">E-Learning</a></li>
                     <li><a style="color:lightgreen" href="<?php echo base_url()?>site/email">E-Mail</a></li>
 <!--                    <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>-->
@@ -82,6 +95,7 @@
                             <?php foreach($profil as $p){ ?>
                             <li><a href="<?php echo base_url()?>about/profil/<?php echo $p['id'] ?>"><?php echo $p['judul'] ?></a></li>
                             <?php } ?>
+                            <li><a href="<?php echo base_url()?>about/pengajar">Daftar Pengajar</a></li>
 			</ul>
 		    </li>
 		</ul>
