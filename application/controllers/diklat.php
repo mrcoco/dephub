@@ -20,6 +20,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn']=$thn;
         $data['thn_program']=$this->rnc->get_thn_program();
         $data['thn']=$thn;
         $this->load->library('lib_perencanaan');
@@ -35,7 +36,8 @@ class Diklat extends CI_Controller{
         $this->template->display('diklat/daftar_diklat',$data);
     }
     
-    function view_diklat($id){
+    function view_diklat($id,$thn=''){
+        $data['thn']=$thn;
         $data['id']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
@@ -60,6 +62,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn']=$thn;
 	$data['sub_title']='Daftar Program Diklat Dibuka';
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
@@ -147,12 +150,13 @@ class Diklat extends CI_Controller{
         redirect(base_url().'diklat/view_diklat/'.$id);
     }
     
-    function edit_diklat($id){
+    function edit_diklat($id,$thn=''){
         if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
         
         $data['id']=$id;
+        $data['thn']=$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
@@ -219,10 +223,11 @@ class Diklat extends CI_Controller{
 	redirect(base_url().'diklat/view_diklat/'.$clause);
     }
     
-    function registrasi($id){
+    function registrasi($id,$thn=''){
         if($this->session->userdata('id_role')==3||$this->session->userdata('id_role')==4){
             redirect(base_url().'error/error_priv');
         }
+        $data['thn']=$thn;
         $data['id_diklat']=$id;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
@@ -260,6 +265,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn']=$thn;
         $data['tahun']=$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
@@ -288,6 +294,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn']=$thn;
         $this->load->helper('pdfexport_helper.php');
         $data['tahun']=$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
@@ -312,6 +319,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn']=$thn;
         $pil_angkatan=$this->rnc->get_program_by_parent($id,$thn);
         foreach($pil_angkatan as $p){
             $data['pil_angkatan'][$p['id']]='Angkatan '.$p['angkatan'];
@@ -367,6 +375,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
+        $data['thn']=$thn;
 	$data['sub_title']='Pilih Program Untuk Alokasi Kamar';
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
@@ -491,7 +500,7 @@ class Diklat extends CI_Controller{
         if($thn==''){
             $thn=$this->thn_default;
         }
-        
+        $data['thn']=$thn;
         $this->load->library('date');
         $this->load->library('excel');
         $this->load->library('lib_perencanaan');

@@ -66,7 +66,7 @@ class Lib_perencanaan {
         }
         echo "</ul>\n";
     }
-    function print_tree_table($array_kat,$parent=0,$k=0){
+    function print_tree_table($thn='',$array_kat,$parent=0,$k=0){
         if($k!=0){$l=$k*20;$p=' style="padding-left:'.$l.'px;"';}else{$p='';}
         $k++;
         foreach($array_kat as $diklat){
@@ -87,20 +87,20 @@ class Lib_perencanaan {
                     }
                     echo '</td></tr>';
                 }else if($diklat['tipe']==2){
-                    echo '<tr class="diklat"><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</a>';
+                    echo '<tr class="diklat"><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'diklat/view_diklat/'.$diklat['id'].'/'.$thn.'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</a>';
                     echo '</td><td>';
-                    if($diklat['jumlah_peserta']>0){
-                        echo 'Kuota peserta '.$diklat['jumlah_peserta'].' orang';
-                    }else{
-                        echo '-';
-                    }
                     if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){
 //                        echo '<td>'.$this->count_diklat($array_kat,$diklat['id']).'</td>';
-                        echo '<div class="btn-group hide">';
-                        echo '<a class="btn btn-mini" href="'.base_url().'diklat/edit_diklat/'.$diklat['id'].'">Ubah</a>';
-                        echo '<a class="btn btn-mini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_diklat/'.$diklat['id'].'">Hapus</a>';
+//                        echo '<div class="btn-group">';
+//                        echo '<a class="btn btn-mini" href="'.base_url().'diklat/edit_diklat/'.$diklat['id'].'">Ubah</a>';
+//                        echo '<a class="btn btn-mini" onclick="return confirm(\'Apakah Anda yakin ingin menghapus '.$diklat['name'].'?\')" href="'.base_url().'diklat/delete_diklat/'.$diklat['id'].'">Hapus</a>';
                         echo '<a class="btn btn-mini" href="'.base_url().'program/buat_program/'.$diklat['id'].'">Buat program</a>';
-                        echo '</div>';
+//                        echo '</div>';
+                    }
+                    if($diklat['jumlah_peserta']>0){
+                        echo ' Kuota peserta '.$diklat['jumlah_peserta'].' orang';
+                    }else{
+                        echo '-';
                     }
                     echo '</td>';
                     echo '</tr>';
@@ -120,7 +120,7 @@ class Lib_perencanaan {
                    echo '</tr>';
                  }
                 if($this->count_diklat($array_kat,$diklat['id'])>0){
-                $this->print_tree_table($array_kat,$diklat['id'],$k);}
+                $this->print_tree_table($thn,$array_kat,$diklat['id'],$k);}
             }
         }
     }
@@ -136,7 +136,7 @@ class Lib_perencanaan {
                     echo '</tr>';
                 }else if($diklat['tipe']==2){
                     if ($this->session->userdata('id_role') == 1 || $this->session->userdata('id_role') == 3) {
-                        echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'program/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
+                        echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
                     }else{
                         echo '<tr><td'.$p.'><a class="tip-right" title="Klik untuk detail" href="'.base_url().'site/view_diklat/'.$diklat['id'].'">'.$diklat['name'].' ('.$this->count_diklat($array_kat,$diklat['id']).')</td>';
                     }

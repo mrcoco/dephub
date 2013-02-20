@@ -37,7 +37,7 @@
             <?php $this->date->legend_status(); ?>
 <?php if($program){ ?>
         <table width="100%" class="table-striped table-condensed table">
-            <?php $this->lib_perencanaan->print_tree_table($program)?>
+            <?php $this->lib_perencanaan->print_tree_table($thn,$program)?>
         </table>
 <?php }else{?>
 Tidak ada data

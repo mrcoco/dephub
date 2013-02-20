@@ -294,10 +294,11 @@ class Program extends CI_Controller {
         redirect(base_url().'program/peserta_program/'.$id);
     }
     
-    function buat_program($parent) {
+    function buat_program($parent,$thn='') {
         if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
             redirect(base_url() . 'error/error_priv');
         }
+        $data['thn']=$thn;
 
         $this->load->library('editor');
 
