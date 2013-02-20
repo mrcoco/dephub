@@ -82,8 +82,8 @@
 			<ul class="dropdown-menu">
                             <li><a href="<?php echo base_url('site/front/'.date('Y'))?>">Daftar Diklat</a></li>
                             <li><a href="<?php echo base_url('about/pengajar')?>">Daftar Pengajar</a></li>
-                            <li><a href="<?php echo base_url()?>">Sarana Prasarana</a></li>
-                            <li><a href="<?php echo base_url()?>">Asrama</a></li>
+                            <li><a href="<?php echo base_url()?>">Informasi Kelas</a></li>
+                            <li><a href="<?php echo base_url()?>">Informasi Asrama</a></li>
 			</ul>
 		    </li>
                     <li><a style="color:lightcoral" href="<?php echo base_url()?>elearning" class="">E-Learning</a></li>
