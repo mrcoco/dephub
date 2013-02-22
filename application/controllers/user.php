@@ -47,7 +47,7 @@ class User extends CI_Controller{
         return 1;
     }
     function update_user(){
-        extract($_POST);
+//        extract($_POST);
 //        if($password){
 //            if($password==$password2){
 //                $data['password']=md5($password);
@@ -56,9 +56,9 @@ class User extends CI_Controller{
 //                redirect(base_url('user/edit_user'));
 //            }
 //        }
-        $data['username']=$username;
+//        $data['username']=$username;
         if($_FILES['foto']['size']){
-            $user=$this->usr->get_user_by_id($id);
+            $user=$this->usr->get_user_by_id($this->input->post('id'));
             $filename=$user['nip'];
             $config['file_name']=$filename;
             $config['overwrite']=TRUE;
@@ -78,9 +78,9 @@ class User extends CI_Controller{
                 $file_data=$this->upload->data();
                 $data['foto']=$filename.$file_data['file_ext'];
             }
+            $this->usr->update_user($id,$data);
+            $this->session->set_flashdata('msg',$this->editor->alert_ok('Profil telah diubah'));
         }
-        $this->usr->update_user($id,$data);
-        $this->session->set_flashdata('msg',$this->editor->alert_ok('Akun telah diubah'));
         redirect(base_url('user/edit_user'));
     }
     function delete_user($id){
@@ -89,7 +89,7 @@ class User extends CI_Controller{
         redirect(base_url('user'));
     }
     function edit_user(){
-        $data['sub_title']='Ubah Akun User';
+        $data['sub_title']='Ubah Profil';
         $id=$this->session->userdata('id');
         $data['user']=$this->usr->get_user_by_id($id);
         if($data['user']['foto']==''){

@@ -12,19 +12,19 @@
       </div>
     </div>
     <div class="control-group">
-      <label class="control-label" for="pp2">Ubah Foto</label>
+      <label class="control-label" for="pp2">Foto 3x4</label>
       <div class="controls">
         <input type="file" name="foto" id="pp2" />
-        <p class="help-inline">*.jpg,*.gif,*.png max 200kB</p>
+        <p>Jenis file: jpg, png, gif, max 200kB</p>
       </div>
     </div>
-    <div class="control-group">
+<!--    <div class="control-group">
       <label class="control-label" for="username">Username</label>
       <div class="controls">
         <input type="text" name="username" value="<?php echo $user['username'] ?>" id="username">
       </div>
     </div>
-<!--    <div class="control-group">
+    <div class="control-group">
       <label class="control-label" for="pass">Password</label>
       <div class="controls">
         <input type="password" name="password" id="pass">

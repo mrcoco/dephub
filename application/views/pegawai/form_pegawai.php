@@ -24,18 +24,25 @@
     });
 </script>
 <div class="alert alert-error fade in none"></div>
-
 <form name="form_reg" id="form_reg" action="<?php echo base_url();
     if($type=='add')
         echo "pegawai/tambah_pegawai_process"; 
     else
         echo "pegawai/edit_pegawai_process/".$data['id'];
-    ?>" method="POST">
+    ?>" method="POST" enctype="multipart/form-data">
     <div id="wrap_form">
     </div>
     <table class="table table-condensed">
         <tbody>
 		<input class="nip" type="hidden"  name="id" value="<?php $data['id']?>">
+        <tr>
+            <td>Foto 3x4</td>
+            <td>
+                <p><img src="assets/public/foto/<?php echo $data['foto'] ?>" height="100"/></p>
+                <input type="file" name="foto" />
+                <p>Jenis file: jpg, png, gif, max 200kB</p>
+            </td>
+        </tr>
         <tr>
             <td>NIP/Nama</td>
             <td><input class="nip" type="text" name="nip" placeholder="NIP" value="<?php echo $data['nip']?>"/> / <input class="nama" type="text" name="nama" placeholder="Nama"  value="<?php echo $data['nama']?>"/></td>
@@ -43,7 +50,7 @@
         <tr>
             <td>Tempat Tanggal Lahir</td>
             <td><input class="tempat" type="text" name="tempat_lahir" placeholder="Tempat Lahir" value="<?php echo $data['tempat_lahir']?>"/> / 
-                <input class="tgllahir" type="text" name="tanggal_lahir" placeholder="Tanggal Lahir (tgl-bln-thn)"  value="<?php echo $data['tanggal_lahir']?>"/></td>
+                <input class="tgllahir" type="text" name="tanggal_lahir" placeholder="Tanggal Lahir (tgl-bln-thn)"  <?php if ($data['tanggal_lahir']) echo 'value="'.$this->date->konversi1($data['tanggal_lahir']).'"'; ?>/></td>
         </tr>
         <tr>
             <td>Pangkat/Gol</td>

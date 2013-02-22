@@ -22,7 +22,6 @@ class Diklat extends CI_Controller{
         }
         $data['thn']=$thn;
         $data['thn_program']=$this->rnc->get_thn_program();
-        $data['thn']=$thn;
         $this->load->library('lib_perencanaan');
         $data['sub_title']='Daftar Diklat dan Program Tahun '.$thn;
         $data['program']=$this->rnc->get_all_program($thn);
@@ -63,7 +62,8 @@ class Diklat extends CI_Controller{
             $thn=$this->thn_default;
         }
         $data['thn']=$thn;
-	$data['sub_title']='Daftar Program Diklat Dibuka';
+        $data['thn_program']=$this->rnc->get_thn_program();
+	$data['sub_title']='Daftar Program Diklat Dibuka Tahun '.$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
@@ -266,13 +266,14 @@ class Diklat extends CI_Controller{
             $thn=$this->thn_default;
         }
         $data['thn']=$thn;
+        $data['thn_program']=$this->rnc->get_thn_program();
         $data['tahun']=$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['sub_title']='Pendaftar '.$data['program']['name'];
+        $data['sub_title']='Pendaftar '.$data['program']['name'].' Tahun '.$thn;
         $data['list']=$this->slng->getall_peserta($id,$thn);
         $this->load->model('mdl_unit','unit');
         $unit=$this->unit->get_all_unit();
@@ -376,7 +377,8 @@ class Diklat extends CI_Controller{
             $thn=$this->thn_default;
         }
         $data['thn']=$thn;
-	$data['sub_title']='Pilih Program Untuk Alokasi Kamar';
+        $data['thn_program']=$this->rnc->get_thn_program();
+	$data['sub_title']='Pilih Program Untuk Alokasi Kamar Tahun '.$thn;
         $data['program']=$this->rnc->get_diklat_by_id($id);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));

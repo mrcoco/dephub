@@ -44,6 +44,13 @@
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 <div id="display_dialog" class="modal hide modal-wide"></div>
+        <p>Pilih tahun: 
+        <?php foreach($thn_program as $th){ ?>
+            <?php if(checkdate(1,1,$th['tahun_program'])){?>
+            <a href="<?php echo base_url()?>diklat/terima_peserta/<?php echo $program['id']?>/<?php echo $th['tahun_program'] ?>"><?php echo $th['tahun_program'] ?></a> | 
+            <?php } ?>
+        <?php } ?>
+        </p>
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>

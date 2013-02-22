@@ -130,6 +130,7 @@ class Pegawai extends CI_Controller{
 		$value['tmtjabatan']='';
 		$value['tmtjabbaru']='';
 		$value['tmtmutasi']='';
+                $value['foto']='nopic.jpg';
         $data['history']='';
 		$data['data']=$value;
         
@@ -150,7 +151,7 @@ class Pegawai extends CI_Controller{
 		$value['nama']=$_POST['nama'];
 		$value['kode_gol']=$_POST['kode_gol'];
 		$value['tempat_lahir']=$_POST['tempat_lahir'];
-		$value['tanggal_lahir']=$_POST['tanggal_lahir'];
+		$value['tanggal_lahir']=$this->date->savetgl($_POST['tanggal_lahir']);
 		$value['jabatan']=$_POST['jabatan'];
 		$value['instansi']=$_POST['instansi'];
 		$value['jenis_kelamin']=$_POST['jenis_kelamin'];
@@ -167,7 +168,27 @@ class Pegawai extends CI_Controller{
 		$value['tmtjabatan']=$_POST['tmtjabatan'];
 		$value['tmtjabbaru']=$_POST['tmtjabbaru'];
 		$value['tmtmutasi']=$_POST['tmtmutasi'];
-		
+            if(!$_FILES['foto']['error']){
+                $filename=$value['nip'];
+                $config['file_name']=$filename;
+                $config['overwrite']=TRUE;
+                $config['upload_path'] = 'assets/public/foto/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']	= '200';
+                $config['max_width']  = '1024';
+                $config['max_height']  = '768';
+
+                $this->load->library('upload', $config);
+                if ( !$this->upload->do_upload('foto'))
+                {
+                    $error = $this->upload->display_errors('','');
+                    $this->session->set_flashdata('msg',$this->editor->alert_error($error));
+                    redirect(base_url().'pegawai');
+                }else{
+                    $file_data=$this->upload->data();
+                    $value['foto']=$filename.$file_data['file_ext'];
+                }
+            }
 		
         $this->slng->insert_pegawai($value);
         $datauser=$this->slng->get_data_pegawai_nip($_POST['nip']);
@@ -195,7 +216,7 @@ class Pegawai extends CI_Controller{
             redirect(base_url().'error/error_priv');
         }
         //menampilkan form untuk memasukkan data pegawai yg belum ada di database
-        $data['sub_title']='Pengeditan Pegawai';
+        $data['sub_title']='Ubah Data Pegawai';
 		$data['type']='edit';
         $data['pil_pendidikan']=$this->rnc->get_list_pendidikan();
         $data['pil_pangkat']=$this->rnc->get_pangkat_gol();
@@ -203,6 +224,10 @@ class Pegawai extends CI_Controller{
         $data['history']=$this->slng->get_history($id);
         
         $value=$this->slng->get_data_pegawai_id($id);
+//        print_r($value);
+        if($value['foto']==''){
+            $value['foto']='nopic.jpg';
+        }
 		$data['data']=$value;
 		
 		
@@ -223,7 +248,7 @@ class Pegawai extends CI_Controller{
 		$value['nama']=$_POST['nama'];
 		$value['kode_gol']=$_POST['kode_gol'];
 		$value['tempat_lahir']=$_POST['tempat_lahir'];
-		$value['tanggal_lahir']=$_POST['tanggal_lahir'];
+		$value['tanggal_lahir']=$this->date->savetgl($_POST['tanggal_lahir']);
 		$value['jabatan']=$_POST['jabatan'];
 		$value['instansi']=$_POST['instansi'];
 		$value['jenis_kelamin']=$_POST['jenis_kelamin'];
@@ -240,7 +265,27 @@ class Pegawai extends CI_Controller{
 		$value['tmtjabatan']=$_POST['tmtjabatan'];
 		$value['tmtjabbaru']=$_POST['tmtjabbaru'];
 		$value['tmtmutasi']=$_POST['tmtmutasi'];
-		
+            if(!$_FILES['foto']['error']){
+                $filename=$value['nip'];
+                $config['file_name']=$filename;
+                $config['overwrite']=TRUE;
+                $config['upload_path'] = 'assets/public/foto/';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']	= '200';
+                $config['max_width']  = '1024';
+                $config['max_height']  = '768';
+
+                $this->load->library('upload', $config);
+                if ( !$this->upload->do_upload('foto'))
+                {
+                    $error = $this->upload->display_errors('','');
+                    $this->session->set_flashdata('msg',$this->editor->alert_error($error));
+                    redirect(base_url().'pegawai');
+                }else{
+                    $file_data=$this->upload->data();
+                    $value['foto']=$filename.$file_data['file_ext'];
+                }
+            }
 		$this->slng->update_pegawai($id,$value);
 		
         for($i=0;$i<count($_POST['periode_jbtn']);$i++){
@@ -252,10 +297,11 @@ class Pegawai extends CI_Controller{
 				$data[$i-1]['tahun']=$_POST['periode_jbtn'][$i];
 			}
 		}
-		$this->slng->del_history($id);
-        $this->slng->insert_history($data);
-        
-        $this->session->set_flashdata('msg',$this->editor->alert_ok('Pegawai telah diedit'));
+        if(isset($data)){
+            $this->slng->del_history($id);
+            $this->slng->insert_history($data);
+        }
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Data pegawai telah diubah'));
         redirect(base_url().'pegawai');
     }
     
