@@ -10,7 +10,7 @@
         <tr>
             <th width="30%">Nama</th>
             <td><?php echo $pegawai['nama'] ?></td>
-            <td rowspan="4" width="77px"><center><img src="<?php echo $pegawai['foto'] ?>" width="75" height="100"/></center></td>
+            <td rowspan="4" width="77px"><center><img src="assets/public/foto/<?php echo $pegawai['foto'] ?>" height="100"/></center></td>
         </tr>
         <tr>
             <th>NIP</th>
