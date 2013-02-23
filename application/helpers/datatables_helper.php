@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 function ubah_status($kode,$id){
     switch ($kode) {
         case 1:
