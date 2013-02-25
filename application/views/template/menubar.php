@@ -4,7 +4,7 @@
         <li><a href="#">Home</a></li>
         <?php } ?>
         <li><a href="<?php echo base_url().'diklat'?>">Diklat</a></li>
-        <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){?>
+        <?php if($this->session->userdata('id_role')<=3){?>
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Materi<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url()?>materi">Daftar Materi</a></li>

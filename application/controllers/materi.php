@@ -14,7 +14,7 @@ class Materi extends CI_Controller{
     }
     
     function list_materi(){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         $data['sub_title']='Daftar Materi dan Tenaga Pengajar';
@@ -23,7 +23,7 @@ class Materi extends CI_Controller{
     }
 
     function view($id){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         $data['materi']=$this->rnc->get_materi($id);
@@ -50,7 +50,7 @@ class Materi extends CI_Controller{
     }
     
     function tambah(){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         $data['sub_title']='Tambah Materi';
@@ -66,7 +66,7 @@ class Materi extends CI_Controller{
     }
     
     function edit($id){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         $data['materi']=$this->rnc->get_materi($id);
@@ -90,7 +90,7 @@ class Materi extends CI_Controller{
     }
     
     function assign($id){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')>3){
             redirect(base_url().'error/error_priv');
         }
         $data['materi']=$this->rnc->get_materi($id);

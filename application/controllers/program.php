@@ -527,7 +527,7 @@ class Program extends CI_Controller {
 
     
     function alokasi_kamar($id,$thn=''){
-        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+        if ($this->session->userdata('id_role') >2) {
             redirect(base_url() . 'error/error_priv');
         }
         //disini ngelist daftar peserta dulu, terus ada tombol alokasi kamar
