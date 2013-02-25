@@ -198,7 +198,7 @@ class Program extends CI_Controller {
     }
 
     function peserta_program($id,$thn=''){
-        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+        if ($this->session->userdata('id_role') >2) {
             redirect(base_url() . 'error/error_priv');
         }
         if($thn==''){
@@ -214,7 +214,7 @@ class Program extends CI_Controller {
         $this->template->display_with_sidebar('program/list_peserta','program',$data);
     }
     function cetak_peserta_ang($id,$thn=''){
-        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')>2){
             redirect(base_url().'error/error_priv');
         }
         if($thn==''){
@@ -238,7 +238,7 @@ class Program extends CI_Controller {
     }
     
     function ajax_daftar_peserta($id,$thn=''){
-        if($this->session->userdata('id_role')==3||$this->session->userdata('id_role')==4){
+        if($this->session->userdata('id_role')>2){
             redirect(base_url().'error/error_priv');
         }
         if($thn==''){
@@ -295,7 +295,7 @@ class Program extends CI_Controller {
     }
     
     function buat_program($parent,$thn='') {
-        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+        if ($this->session->userdata('id_role')>3) {
             redirect(base_url() . 'error/error_priv');
         }
         $data['thn']=$thn;
@@ -475,7 +475,7 @@ class Program extends CI_Controller {
 
     
     function schedule_program($id) {
-        if ($this->session->userdata('id_role') == 2 || $this->session->userdata('id_role') == 4) {
+        if ($this->session->userdata('id_role') >2) {
             redirect(base_url() . 'error/error_priv');
         }
         $data['program'] = $this->rnc->get_program_by_id($id);

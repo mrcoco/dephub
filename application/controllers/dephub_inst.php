@@ -5,6 +5,10 @@ class Dephub_inst extends CI_Controller{
         if(!$this->session->userdata('is_login')){
             redirect(base_url());
         }
+        
+        if ($this->session->userdata('id_role') != 1 && $this->session->userdata('id_role') != 5) {
+            redirect(base_url() . 'error/error_priv');
+        }
         $this->load->model('mdl_inst','inst');
     }
     

@@ -12,7 +12,7 @@ class User extends CI_Model {
 	
         $this->load->helper('ldap_helper');
         
-        if(auth($usr,$pwd)){
+//        if(auth($usr,$pwd)){
             $where=array('username'=>$usr);
 
             $this->db->join('role','pegawai.id=role.id_pegawai','left');
@@ -23,9 +23,9 @@ class User extends CI_Model {
             }else{
                 return false;
             }
-        }else{
-            return false;
-        }
+//        }else{
+//            return false;
+//        }
     }
 }
 

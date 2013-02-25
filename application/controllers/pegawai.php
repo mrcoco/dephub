@@ -18,7 +18,7 @@ class Pegawai extends CI_Controller{
     }
     
     function list_pegawai(){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
@@ -28,7 +28,7 @@ class Pegawai extends CI_Controller{
     
     //function list_pegawai($page=1,$filter='all')
     function list_pegawai_ajax($page=1,$filter=''){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //melist pegawai, pake paging dan ada filter berdasarkan instansi
@@ -43,7 +43,7 @@ class Pegawai extends CI_Controller{
     }
     
     function detail_pegawai($id){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //menampilkan data detail pegawai
@@ -69,7 +69,7 @@ class Pegawai extends CI_Controller{
     }
     
     function detail_pegawai_print($id){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //menampilkan data detail pegawai
@@ -98,7 +98,7 @@ class Pegawai extends CI_Controller{
     }
     
     function tambah_pegawai(){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //menampilkan form untuk memasukkan data pegawai yg belum ada di database
@@ -142,7 +142,7 @@ class Pegawai extends CI_Controller{
     }
     
     function tambah_pegawai_process(){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //process penambahan pegawai
@@ -212,7 +212,7 @@ class Pegawai extends CI_Controller{
     }
     
     function edit_pegawai($id){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //menampilkan form untuk memasukkan data pegawai yg belum ada di database
@@ -239,7 +239,7 @@ class Pegawai extends CI_Controller{
     }
     
     function edit_pegawai_process($id){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //process pengeditan pegawai
@@ -306,7 +306,7 @@ class Pegawai extends CI_Controller{
     }
     
     function delete_pegawai($id){
-        if($this->session->userdata('id_role')!=1){
+        if($this->session->userdata('id_role')!=1&&$this->session->userdata('id_role')!=5){
             redirect(base_url().'error/error_priv');
         }
         //process penghapusan pegawai

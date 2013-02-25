@@ -2,7 +2,8 @@
 
 class conf {
 
-    static public $Host = '123.231.237.203';
+    //static public $Host = '123.231.237.203';
+    static public $Host = 'ns1.ppsdma.bpsdm.dephub.go.id';
     static public $Port = 389;
     static public $RDN = "dc=ns1,dc=ppsdma,dc=bpsdm,dc=dephub,dc=go,dc=id";
     static public $AdminUsername = "cn=admin";

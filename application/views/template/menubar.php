@@ -42,7 +42,7 @@
             </ul>
         </li>
         <?php }?>
-        <?php if($this->session->userdata('id_role')==1){?>
+        <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==5){?>
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pegawai<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url()?>pegawai">Daftar Pegawai</a></li>
@@ -56,6 +56,8 @@
                 <li><a href="<?php echo base_url()?>dephub_inst">Instansi</a></li>
             </ul>
         </li>
+        <?php } ?>
+        <?php if($this->session->userdata('id_role')==1){?>
         <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pengguna <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url()?>user">Daftar Pengguna</a></li>
