@@ -56,7 +56,7 @@ class Pegawai extends CI_Controller{
                 }
             }else{
                 if($item==''){
-                    $item=base_url().'assets/public/foto/nopic.jpg';
+                    $item='nopic.jpg';
                 }
             }
             $data['pegawai'][$key]=$item;

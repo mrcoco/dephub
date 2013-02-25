@@ -15,7 +15,7 @@ class User extends CI_Controller{
         if($this->session->userdata('id_role')!=1){
             redirect(base_url().'error/error_priv');
         }
-        $data['sub_title']='Daftar User Manajemen Diklat';
+        $data['sub_title']='Daftar Pengguna Manajemen Diklat';
         $data['list']=$this->usr->get_list_user();
         $data['role']=$this->usr->nama_role();
         //var_dump($data['role']);
@@ -85,7 +85,7 @@ class User extends CI_Controller{
     }
     function delete_user($id){
         $this->usr->delete($id);
-        $this->session->set_flashdata('msg',$this->editor->alert_warning('User role telah dihapus'));
+        $this->session->set_flashdata('msg',$this->editor->alert_warning('Role pengguna telah dihapus'));
         redirect(base_url('user'));
     }
     function edit_user(){

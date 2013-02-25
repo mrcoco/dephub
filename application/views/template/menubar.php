@@ -56,10 +56,10 @@
                 <li><a href="<?php echo base_url()?>dephub_inst">Instansi</a></li>
             </ul>
         </li>
-        <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b></a>
+        <li class="dropdown""><a href="#" data-toggle="dropdown" class="dropdown-toggle">Pengguna <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li><a href="<?php echo base_url()?>user">Daftar User</a></li>
-                <li><a href="<?php echo base_url()?>user/manage_user">Kelola User</a></li>
+                <li><a href="<?php echo base_url()?>user">Daftar Pengguna</a></li>
+                <li><a href="<?php echo base_url()?>user/manage_user">Kelola Pengguna</a></li>
             </ul>
         </li>
         <li><a href="<?php echo base_url()?>berita">Berita</a></li>

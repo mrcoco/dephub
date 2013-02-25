@@ -55,8 +55,9 @@
     <thead>
         <tr>
             <th width="3%">No</th>
-            <th width="50%">Nama</th>
+            <th width="45%">Nama</th>
             <th width="10%">NIP</th>
+            <th width="5%">Gol.</th>
             <th width="22%">Unit Kerja</th>
         </tr>
     </thead>
@@ -94,6 +95,7 @@
                 Catatan : <span class="catatan"><?php echo $list[$i]['komentar']?></span>
             </td>
             <td class="nip"><?php echo $list[$i]['nip'] ?></td>
+            <td class="gol"><?php echo $list[$i]['golongan'] ?></td>
             <td class="unit">
                 <?php 
                     if(array_key_exists($list[$i]['kode_unit'], $unit)){
