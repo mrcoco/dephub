@@ -1,13 +1,13 @@
 <div class="row">
     <div class="span12" align="center">
-	<a href="http://167.205.79.40/" class="btn btn-info">Login via Zimbra</a>
+	<a href="http://mail.ppsdma.bpsdm.dephub.go.id/" class="btn btn-info">Login via Zimbra</a>
     </div>
     <hr />
     <div class="span6 offset3" align="center">
 	<div class="well">
-	    <h4>Login Zimbra <small>Development</small></h4>
+	    <h4>Login Zimbra</h4>
 	    <hr />
-	    <form method="POST" action="http://167.205.79.40/zimbra" name="loginForm" accept-charset="UTF-8">
+	    <form method="POST" action="http://mail.ppsdma.bpsdm.dephub.go.id/" name="loginForm" accept-charset="UTF-8">
 		<input type="hidden" name="loginOp" value="login" />
 		<table>
 		    <tr>

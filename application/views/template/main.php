@@ -86,7 +86,7 @@
                             <li><a href="<?php echo base_url()?>">Informasi Asrama</a></li>
 			</ul>
 		    </li>
-                    <li><a style="color:lightcoral" href="<?php echo base_url()?>elearning" class="">E-Learning</a></li>
+                    <li><a style="color:lightcoral" href="http://ppsdma.bpsdm.dephub.go.id/elearning" class="">E-Learning</a></li>
                     <li><a style="color:lightgreen" href="<?php echo base_url()?>site/email">E-Mail</a></li>
 <!--                    <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>-->
 		    <li><a style="color:lightskyblue" href="<?php echo base_url()?>elibrary">Library</a></li>
