@@ -252,13 +252,16 @@ class Admin extends CI_Controller {
         function do_edit_user()
 	{
             $data['query']=$this->input->post();
-            if($this->elib->get_userrole(array('id'=>$data['query']['id']))){
+            $data['user']=$this->elib->get_userrole(array('id'=>$data['query']['id']));
+
+            if(isset($data['user'][0]['userrole'])){
                 //update
                 $this->elib->update_userrole($data['query']);
                 $this->session->set_flashdata('msg',$this->editor->alert_ok('Jenis anggota telah diubah.'));
                 redirect(base_url().'elibrary/admin/list_user');
             }
             else {
+                echo 'kedua';
                 $this->elib->insert_userrole($data['query']);
                 $this->session->set_flashdata('msg',$this->editor->alert_ok('Jenis anggota telah diubah.'));
                 redirect(base_url().'elibrary/admin/list_user');
