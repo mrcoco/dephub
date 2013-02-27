@@ -568,6 +568,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         for($i=0;$i<count($arr_schedule);$i++){
             //format tulisan tanggal
             $this->load->library('date');
+            $arr_schedule[$i]['date']=$arr_schedule[$i]['tanggal'];
             $arr_schedule[$i]['tanggal']=$this->date->konversi5($arr_schedule[$i]['tanggal']);
             //format jam mulai
             $jam_mulai = strtotime($arr_schedule[$i]['jam_mulai']);

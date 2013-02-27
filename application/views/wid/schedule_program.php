@@ -1,13 +1,13 @@
 <p class="lead">
-    <?php echo $judul ?><br/>
     <?php echo  'Total mengajar: '.$total_jam.' jam' ?>
 </p>
 <?php if(isset($tahun)){ ?>
 <p>
-    Pilih tahun : 
+    Pilih Jadwal : 
     <?php foreach($tahun as $t){ ?>
-    <a href="<?php echo base_url('wid/front/schedule_pengajar/'.$t) ?>"><?php echo $t ?></a> |
+    <a href="<?php echo base_url('wid/front/schedule_pengajar/'.$t) ?>">Tahun <?php echo $t ?></a> |
     <?php } ?>
+    <a href="<?php echo base_url('wid/front/schedule_pengajar/') ?>">Yang akan datang</a>
 </p>
 <?php } ?>
 
@@ -18,7 +18,7 @@
                     <td>Waktu</td>
                     <td>Kegiatan</td>
                     <td>Tempat</td>
-                    <td>Pengajar</td>
+                    <td>Rekan Pengajar</td>
                     <td>Pendamping</td>
                 </tr>
             </thead>
@@ -37,7 +37,11 @@
                 }
                 
                 ?>
-                <?php foreach($data_schedule as $d) {?>
+                <?php
+                foreach($data_schedule as $d) {
+                    $pelaksanaan=strtotime($d['date']);
+                    $sekarang=strtotime(date('Y-m-d'));
+                    if(($pelaksanaan>=$sekarang) || $lalu){?>
                 <tr>
                     <?php if(array_key_exists($d['tanggal'], $rowspan)){?>
                     <td rowspan="<?php echo $rowspan[$d['tanggal']]?>"><?php echo $d['tanggal']?></td>
@@ -61,10 +65,12 @@
                         <?php if($d['ada_pembicara']){?>
                             <?php   
                             foreach($d['list_pembicara'] as$l){
-                                if($l['nama_peg']!=''){
-                                    echo $l['nama_peg'] .'<br/>';
-                                }else{
-                                    echo $l['nama_dostam'] .'<br/>';
+                                if($l['nama_peg']!=$this->session->userdata('nama_wid')){
+                                    if($l['nama_peg']!=''){
+                                        echo $l['nama_peg'] .'<br/>';
+                                    }else{
+                                        echo $l['nama_dostam'] .'<br/>';
+                                    }
                                 }
                             } 
                             ?>
@@ -84,9 +90,9 @@
                         <?php } ?>
                     </td>
                 </tr>
-                <?php }?>
+                <?php } }?>
             </tbody>
         </table>
-<!--<div class="form-actions">
+<div class="form-actions">
     <a class="btn btn-success" href="<?php echo $link_pdf ?>">Cetak Jadwal PDF</a>
-</div>-->
+</div>

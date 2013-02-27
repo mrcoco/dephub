@@ -39,9 +39,9 @@ class Front extends CI_Controller{
         }
         $data['title']='Info Pengajar';
         $data['materi']=$this->wid->get_materi_wid($id);
-        $data['diklat']=array();
-        $data['program']=array();
+        $materi=array();
         foreach($data['materi'] as $m){
+            $materi[$m['id_materi']]=$m;
             $data['diklat'][$m['id_materi']]=$this->wid->get_diklat_materi($m['id_materi']);
             foreach($data['diklat'][$m['id_materi']] as $d){
                 $data['program'][$d['id']]=$this->wid->get_program_wid($id,$d['id'],$thn);
@@ -54,6 +54,13 @@ class Front extends CI_Controller{
                 $data['total_jam'][$m['id']]+=$this->date->hitung_jam($j['jam_mulai'],$j['jam_selesai']);
             }
         }
+        $data['all_diklat']=$this->wid->get_diklat_wid($id);
+        foreach($data['all_diklat'] as $a){
+            $data['a_materi'][$a['id_diklat']][]=$materi[$a['id_materi']];
+        }
+//        print_r($data['all_diklat']);
+//        print_r($data['a_materi']);
+//        print_r($data['total_jam']);
 //        print_r($data['materi']);
 //        print_r($data['diklat']);
         $this->template->display_wid('wid/info',$data);
@@ -353,64 +360,57 @@ class Front extends CI_Controller{
         }
         $this->template->display_wid('wid/feedback_pengajar',$data);
     }
-    function feedback_result_pengajar($id){
+    function feedback_result_pengajar($id,$id_materi,$id_pengajar){
         $data['id']=$id;
-        $data['materi'] = $this->rnc->get_materi($_POST['id_materi']);
-        $data['pengajar']=$this->slng->get_pembicara_id($_POST['id_pengajar']);
-        $data['program']=$this->rnc->get_program_by_id($_POST['id_program']);
+        $data['materi'] = $id_materi;
+        $data['pengajar']=$id_pengajar;
+        $data['program']=$id;
         $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
 	$data['sub_title']='Rekap Evaluasi Pengajar';
-        $data['result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
-        $data['n_result']=$this->slng->feedback_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
-        $data['saran']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->result_array();
-        $data['n']=$this->slng->feedback_saran_pengajar($_POST['id_program'],$_POST['id_materi'],$_POST['id_pengajar'])->num_rows();
+        $data['result']=$this->slng->feedback_pengajar($id,$id_materi,$id_pengajar)->result_array();
+        $data['n_result']=$this->slng->feedback_pengajar($id,$id_materi,$id_pengajar)->num_rows();
+        $data['saran']=$this->slng->feedback_saran_pengajar($id,$id_materi,$id_pengajar)->result_array();
+        $data['n']=$this->slng->feedback_saran_pengajar($id,$id_materi,$id_pengajar)->num_rows();
         $this->template->display_wid('wid/feedback_result_pengajar',$data);
     }
 
-    function schedule_pengajar($thn=''){
-        if($thn==''){$thn=$this->thn_def;}
+    function schedule_pengajar($thn='yad',$print=''){
+        $data['lalu']=TRUE;
+        $pilih=$thn;
+        if($thn=='yad'){$data['lalu']=FALSE;$thn=$this->thn_def;}
         $id=$this->session->userdata('id_wid');
         $tahun=$this->wid->get_thn_wid($id);
         foreach ($tahun as $t) {
             $data['tahun'][]=$t['tahun_program'];
         }
-        $data['title']='Jadwal Pengajar';
         $data['data_schedule']=$this->wid->get_schedule_wid($id,$thn);
         $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id));
         $data['total_jam']=0;
         foreach($jam as $j){
             $data['total_jam']+=$this->date->hitung_jam($j['jam_mulai'],$j['jam_selesai']);
         }
-        $data['judul']='Jadwal Keseluruhan';
-        $data['link_pdf']='wid/front/schedule_pengajar_print';
+        $data['title']='Jadwal Pengajar - '.$this->session->userdata('nama_wid');
+        $data['link_pdf']='wid/front/schedule_pengajar/'.$pilih.'/print';
 //        print_r($data['data_schedule']);
-        $this->template->display_wid('wid/schedule_program',$data);
-    }
-    function schedule_pengajar_print(){
-        $this->load->helper('pdfexport');
-        $id=$this->session->userdata('id_wid');
-        $data['title']='Jadwal Pengajar';
-        $data['data_schedule']=$this->wid->get_schedule_wid($id);
-        $data['judul']='Jadwal Pengajar - '.$this->session->userdata('nama_wid');
-        $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id));
-        $data['total_jam']=0;
-        foreach($jam as $j){
-            $data['total_jam']+=$this->date->hitung_jam($j['jam_mulai'],$j['jam_selesai']);
+        if($print=='print'){
+            $this->load->helper('pdfexport');
+            $print = $this->load->view('wid/pdf_schedule',$data,true);
+            pdf_create($print, $data['title']);
+        }else{
+            $this->template->display_wid('wid/schedule_program',$data);
         }
-//        print_r($data['data_schedule']);
-        $print = $this->load->view('wid/pdf_schedule',$data,true);
-        pdf_create($print, $data['judul']);
     }
 
     function schedule_program($id) {
-        $data['title']='Jadwal Program';
+        $data['lalu']=TRUE;
         $data['program'] = $this->rnc->get_program_by_id($id);
-        $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$data['program']['parent']);
+//        $data['ang']=$this->pes->get_program_pes($this->session->userdata('id_pes'),$data['program']['parent']);
         if(!$data['program']){
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['title']='Jadwal '.$data['diklat']['name'].' Tahun '.$data['program']['tahun_program'].' Angkatan '.$data['program']['angkatan'];
         $id_pem=$this->session->userdata('id_wid');
         $jam=$this->wid->get_hours_wid(array('id_pembicara'=>$id_pem,'id_program'=>$id));
         $data['total_jam']=0;
