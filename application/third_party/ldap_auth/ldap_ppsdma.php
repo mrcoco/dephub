@@ -129,7 +129,6 @@ class LDAP {
         $userdata = $this->getUserLdapInfo($user);
         $conn = ldap_connect($this->Host, $this->Port);
         ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
-        var_dump($userdata);
         $user = "cn=" . $userdata['cn'] . ',' . $this->OrganizationalUnit . ',' . $this->RDN;
         return (@ldap_bind($conn, $user, $passwd)) ? true : false;
     }
