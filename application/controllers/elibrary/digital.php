@@ -49,7 +49,7 @@ class Digital extends CI_Controller {
         
         function login(){
             $usr=$this->input->post('usr');
-            $pwd=md5($this->input->post('password'));
+            $pwd=$this->input->post('password');
             $this->load->library('access');
             $login_result=$this->access->login($usr,$pwd);
             if($login_result){
