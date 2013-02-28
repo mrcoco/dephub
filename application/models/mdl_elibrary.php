@@ -255,7 +255,7 @@ class Mdl_elibrary extends CI_Model{
 	}
 	function update_userrole($data){
             $this->db->where('id',$data['id']);
-            $this->db->update($data);
+            $this->db->update('elib_userrole',$data);
 	}
 	function delete_userrole(){
 	}
