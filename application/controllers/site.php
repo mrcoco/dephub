@@ -176,4 +176,24 @@ class Site extends CI_Controller{
         $login_result=$this->access->logout();
         redirect(base_url().'site');
     }
+	
+    function list_kamar($offset = 0) {
+        if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
+            redirect(base_url().'error/error_priv');
+        }
+        if (empty($offset))
+            $offset = 0;
+        $data['sub_title'] = 'Daftar Kamar';
+
+        $var = $this->spr->get_kamar($offset)->result_array();
+        $data['list'] = $var;
+		
+		$var2 = $this->spr->get_kamar_status($offset)->result_array();
+		$data['status'] = $var2;
+		
+        $var3 = $this->spr->get_pemakaian_kamar_detail('kamar')->result_array();
+		$data['pemakaian'] = $var3;
+		
+        $this->template->display('site/list_kamar', $data);
+    }
 }

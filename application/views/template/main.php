@@ -83,7 +83,7 @@
                             <li><a href="<?php echo base_url('site/front/'.date('Y'))?>">Daftar Diklat</a></li>
                             <li><a href="<?php echo base_url('about/pengajar')?>">Daftar Pengajar</a></li>
                             <li><a href="<?php echo base_url()?>">Informasi Kelas</a></li>
-                            <li><a href="<?php echo base_url()?>">Informasi Asrama</a></li>
+                            <li><a href="<?php echo base_url('site/list_kamar')?>">Informasi Asrama</a></li>
 			</ul>
 		    </li>
                     <li><a style="color:lightcoral" href="http://ppsdma.bpsdm.dephub.go.id/elearning" class="">E-Learning</a></li>
