@@ -13,17 +13,17 @@
     </head>
     <body>
 <h1 align="center">
-    <?php echo $judul ?>
+    <?php echo $title ?>
 </h1>
         <table width="100%" cellspacing="0" align="center" cellpadding="3">
             <thead>
                 <tr>
-                    <th width>Tanggal</th>
-                    <th>Waktu</th>
-                    <th>Kegiatan</th>
-                    <th>Tempat</th>
-                    <th>Pengajar</th>
-                    <th>Pendamping</th>
+                    <td>Tanggal</td>
+                    <td>Waktu</td>
+                    <td>Kegiatan</td>
+                    <td>Tempat</td>
+                    <td>Rekan Pengajar</td>
+                    <td>Pendamping</td>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +41,11 @@
                 }
                 
                 ?>
-                <?php foreach($data_schedule as $d) {?>
+                <?php
+                foreach($data_schedule as $d) {
+                    $pelaksanaan=strtotime($d['date']);
+                    $sekarang=strtotime(date('Y-m-d'));
+                    if(($pelaksanaan>=$sekarang) || $lalu){?>
                 <tr>
                     <?php if(array_key_exists($d['tanggal'], $rowspan)){?>
                     <td rowspan="<?php echo $rowspan[$d['tanggal']]?>"><?php echo $d['tanggal']?></td>
@@ -65,10 +69,12 @@
                         <?php if($d['ada_pembicara']){?>
                             <?php   
                             foreach($d['list_pembicara'] as$l){
-                                if($l['nama_peg']!=''){
-                                    echo $l['nama_peg'] .'<br/>';
-                                }else{
-                                    echo $l['nama_dostam'] .'<br/>';
+                                if($l['nama_peg']!=$this->session->userdata('nama_wid')){
+                                    if($l['nama_peg']!=''){
+                                        echo $l['nama_peg'] .'<br/>';
+                                    }else{
+                                        echo $l['nama_dostam'] .'<br/>';
+                                    }
                                 }
                             } 
                             ?>
@@ -88,7 +94,7 @@
                         <?php } ?>
                     </td>
                 </tr>
-                <?php }?>
+                <?php } }?>
             </tbody>
         </table>
     </body>

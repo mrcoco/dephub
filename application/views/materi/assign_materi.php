@@ -60,9 +60,9 @@
     <?php foreach($pengajar as $p){?>
     <div class="item input-append"><input type="text" class="dosen input-xxlarge" disabled value="<?php echo $key_pembicara[$p['id_pembicara']]?>"/><span class="hapus btn btn-danger"><i class="icon-remove"></i> Hapus</span></div>
     <?php } ?>
-    <div class="item input-append"><input type="text" placeholder="Masukkan nama/NIP pengajar" class="dosen input-xxlarge"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>
+    <div class="item input-append"><input type="text" placeholder="Masukkan nama/NIP pengajar" class="dosen input-xxlarge"/><span class="save btn btn-primary"><i class="icon-ok"></i> Simpan</span></div>
 </div>
 <span class="add btn btn-mini"><i class="icon-plus"></i> Tambah</span>
 <div class="form-actions">
-    <a href="<?php echo base_url()?>materi/list_materi" class="btn btn-primary"><i class="icon-arrow-left icon-white"></i> Daftar materi</a>
+    <a href="<?php echo base_url()?>materi/list_materi" class="btn"><i class="icon-arrow-left"></i> Kembali</a>
 </div>

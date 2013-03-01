@@ -1,10 +1,13 @@
 <div id="yw0" class="subnav">
     <ul class="nav nav-pills">
-        <?php if($this->session->userdata('id_role')==1){?>
+        <?php $all_role=$this->db->select('id')->get('list_role')->result_array();?>
+        <?php $role=array(); foreach($all_role as $ar){$role[]=$ar['id'];} ?>
+        <?php // if($this->session->userdata('id_role')==1){?>
         <li><a href="#">Home</a></li>
-        <?php } ?>
-        <li><a href="<?php echo base_url().'diklat'?>">Diklat</a></li>
+        <?php // } ?>
+        <?php if($this->session->userdata('id_role')!=''):?>
         <?php if($this->session->userdata('id_role')<=3){?>
+        <li><a href="<?php echo base_url().'diklat'?>">Diklat</a></li>
         <li class="dropdown"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Materi<b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li><a href="<?php echo base_url()?>materi">Daftar Materi</a></li>
@@ -66,11 +69,15 @@
         </li>
         <li><a href="<?php echo base_url()?>berita">Berita</a></li>
         <?php } ?>
+        <?php endif; ?>
         <li class="pull-right">
             <a href="<?php echo base_url()?>site/logout"><i class="icon-off"></i> Logout</a>
         </li>
         <li class="pull-right">
-            <a class="tip" title="klik untuk ubah profil" href="<?php echo base_url('user/edit_user')?>"><i class="icon-user"></i> <?php echo $this->session->userdata('nama')?></a>
+            <a class="tip" title="klik untuk ubah profil" href="<?php echo base_url('user/edit_user')?>">
+                <?php $user_role=$this->db->get_where('list_role',array('id'=>$this->session->userdata('id_role')))->row_array(); ?>
+                <i class="icon-user"></i> <?php echo $this->session->userdata('nama'); if($user_role){echo ' ('.ucfirst($user_role['nama']).')';} ?>
+            </a>
         </li>
     </ul>
 </div>

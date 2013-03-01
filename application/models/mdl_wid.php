@@ -56,6 +56,7 @@ class Mdl_wid extends CI_Model{
         for($i=0;$i<count($arr_schedule);$i++){
             //format tulisan tanggal
             $this->load->library('date');
+            $arr_schedule[$i]['date']=$arr_schedule[$i]['tanggal'];
             $arr_schedule[$i]['tanggal']=$this->date->konversi5($arr_schedule[$i]['tanggal']);
             //format jam mulai
             $jam_mulai = strtotime($arr_schedule[$i]['jam_mulai']);
@@ -107,6 +108,13 @@ class Mdl_wid extends CI_Model{
         $this->db->where('id_materi',$kode);
         $this->db->join('program','program.id=materi_diklat.id_diklat');
         return $this->db->get('materi_diklat')->result_array();
+    }
+    function get_diklat_wid($kode){
+        $this->db->where('id_pembicara',$kode);
+        $this->db->join('materi','pengajar.id_materi=materi.id');
+        $this->db->join('materi_diklat','materi_diklat.id_materi=materi.id');
+        $this->db->join('program','program.id=materi_diklat.id_diklat');
+        return $this->db->get('pengajar')->result_array();
     }
     
     function login_wid($data){
