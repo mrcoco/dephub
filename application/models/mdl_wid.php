@@ -118,16 +118,21 @@ class Mdl_wid extends CI_Model{
     }
     
     function login_wid($data){
-        $this->db->where($data);
-        $result=$this->db->get('pegawai')->num_rows();
-        $this->db->where($data);
-        if($result>0){
-            $this->db->join('pembicara','pembicara.id_tabel=pegawai.id');
-            return $this->db->get('pegawai');
-        }else{
-            $this->db->join('pembicara','pembicara.id_tabel=dosen_tamu.id');
-            return $this->db->get('dosen_tamu');
-        }
+        $this->load->helper('ldap_helper');
+		if(auth($data['username'],$data['password'])){
+			$this->db->where($data['username']);
+			$result=$this->db->get('pegawai')->num_rows();
+			$this->db->where($data);
+			if($result>0){
+				$this->db->join('pembicara','pembicara.id_tabel=pegawai.id');
+				return $this->db->get('pegawai');
+			}else{
+				$this->db->join('pembicara','pembicara.id_tabel=dosen_tamu.id');
+				return $this->db->get('dosen_tamu');
+			}
+		}else{
+			return -1;
+		}
     }
     
     
