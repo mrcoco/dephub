@@ -436,10 +436,10 @@ class Front extends CI_Controller{
     function login_process(){
 //        $data['jenis']=$this->input->post('jenis');
         $data['username']=$this->input->post('username');
-        $data['password']=md5($this->input->post('password'));
+        $data['password']=$this->input->post('password');
         $res=$this->wid->login_wid($data)->num_rows();
-        $pengajar=$this->wid->login_wid($data)->row_array();
         if($res>0){
+			$pengajar=$this->wid->login_wid($data)->row_array();
             $data_session=array(
                 'nama_wid'=>$pengajar['nama'],
                 'id_jenis'=>$pengajar['jenis'],
