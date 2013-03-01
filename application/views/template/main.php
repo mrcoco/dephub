@@ -82,7 +82,7 @@
 			<ul class="dropdown-menu">
                             <li><a href="<?php echo base_url('site/front/'.date('Y'))?>">Daftar Diklat</a></li>
                             <li><a href="<?php echo base_url('about/pengajar')?>">Daftar Pengajar</a></li>
-                            <li><a href="<?php echo base_url()?>">Informasi Kelas</a></li>
+                            <li><a href="<?php echo base_url('site/list_kelas')?>">Informasi Kelas</a></li>
                             <li><a href="<?php echo base_url('site/list_kamar')?>">Informasi Asrama</a></li>
 			</ul>
 		    </li>
