@@ -664,6 +664,14 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->delete('schedule');
     }
     
+    function delete_schedule_program($id_program){
+        $this->db->where('id_program',$id_program);
+        $list_schedule=$this->db->get('schedule')->result_array();
+        foreach($list_schedule as $l){
+            $this->del_schedule($l['id']);
+        }
+    }
+    
     function update_schedule($data,$materi,$where){
         //update schedule
         $this->db->where($where);

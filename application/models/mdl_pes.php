@@ -20,7 +20,7 @@ class Mdl_pes extends CI_Model{
     function login_pes($data){
 		$this->load->helper('ldap_helper');
 		if(auth($data['username'],$data['password'])){
-			$this->db->where('username'=>$username);
+			$this->db->where('username',$username);
 			return $this->db->get('pegawai');
 		}else{
 			return -1;

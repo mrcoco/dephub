@@ -120,7 +120,7 @@ class Mdl_wid extends CI_Model{
     function login_wid($data){
         $this->load->helper('ldap_helper');
 		if(auth($data['username'],$data['password'])){
-			$this->db->where($data['username']);
+			$this->db->where('username',$data['username']);
 			$result=$this->db->get('pegawai')->num_rows();
 			$this->db->where($data);
 			if($result>0){
