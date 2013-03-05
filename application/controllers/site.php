@@ -185,8 +185,20 @@ class Site extends CI_Controller{
         $var = $this->spr->get_kamar($offset)->result_array();
         $data['list'] = $var;
 		
-        $var2 = $this->spr->get_pemakaian_kamar_detail('kamar')->result_array();
-		$data['pemakaian'] = $var2;
+		$var2 = $this->spr->get_kamar_status($offset)->result_array();
+		$data['status'] = $var2;
+		
+        $var3 = $this->spr->get_pemakaian_kamar_detail('kamar')->result_array();
+		$data['pemakaian'] = $var3;
+		
+		$var4 = $this->spr->get_checklist_item()->result_array();
+		$data['item']=$var4;
+		
+		$var5=null;
+		foreach($var as $i) {
+			$var5[$i['id']] = $this->spr->get_checklist_kamar_kamar($i['id'])->result_array();
+		}
+		$data['checklist']=$var5;
 		
         $this->template->display('site/list_kamar', $data);
     }
