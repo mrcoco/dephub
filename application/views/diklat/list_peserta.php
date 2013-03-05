@@ -43,6 +43,7 @@
 <div class="row">
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
+<h2><?php echo $program['name'] ?></h2>
 <div id="display_dialog" class="modal hide modal-wide"></div>
         <p>Pilih tahun: 
         <?php foreach($thn_program as $th){ ?>

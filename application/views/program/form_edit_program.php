@@ -64,6 +64,7 @@
     <a class="close" data-dismiss="alert">&times;</a>
     <h4>Error!</h4>
 </div>
+<h2><?php echo $pil_diklat['name'] . ' Angkatan ' . $program['angkatan']; ?></h2>
 <form method="post" id="form1" action="program/update_program" class="form-horizontal">
     <input type="hidden" id="parent" name="parent" value="<?php echo $pil_diklat['id']?>"/>
     <input type="hidden" name="id" value="<?php echo $program['id']?>"/>
@@ -130,8 +131,8 @@
                             <label class="checkbox">
                                 <input type="checkbox"<?php echo $checked?> name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                             </label>
-                             &nbsp;<span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
-                            <p id="result"></p>
+                             <span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span>
+                            <span id="result"></span>
                             </div>
                         <?php }?>
                     </div>

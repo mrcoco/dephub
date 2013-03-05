@@ -1,6 +1,4 @@
-<p class="lead">
-    <?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
-</p>
+<h2><?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?></h2>
     <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==3){ ?>
     <p><a class="btn btn-mini" href="<?php echo base_url() ?>program/schedule_program/<?php echo $program['id'] ?>">
         <i class="icon-edit"></i> Ubah Jadwal

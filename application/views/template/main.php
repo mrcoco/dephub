@@ -5,7 +5,11 @@
     <base href="<?php echo base_url();?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
-    <title>Pusat Pengembangan SDM Aparatur Perhubungan</title>
+    <title>
+        Pusat Pengembangan SDM Aparatur Perhubungan | 
+        <?php if(isset($_title)){echo $_title;}?>
+        <?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?>
+    </title>
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
     <!--<link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />-->
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
@@ -42,11 +46,13 @@
             maxDate: '-15Y',
             defaultDate: '-25Y'
         });
+        $('.tgllahir').attr( "autocomplete", "off" );
         $( ".datepicker" ).datepicker({
             changeMonth: true,
             changeYear: true,
             dateFormat: "dd-mm-yy"
         });
+        $('.datepicker').attr( "autocomplete", "off" );
         $('#list').dataTable();
         $('#list_length').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');

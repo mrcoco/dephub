@@ -417,8 +417,8 @@ class Front extends CI_Controller{
         }
         $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
             KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].' ANGKATAN '.$data['program']['angkatan'];
-        $data['list']=$this->slng->get_terima_peserta($id,$thn);
-//        $data['list']=$this->slng->get_status_accept($id,$thn);
+//        $data['list']=$this->slng->get_terima_peserta($id,$thn);
+        $data['list']=$this->slng->get_status_accept($id,$thn);
 //        $this->load->view('wid/daftar_hadir',$data);                     
         $data['htmView'] = $this->load->view('wid/daftar_hadir',$data,TRUE);
         $filename='Daftar Hadir '.$this->date->konversi5($data['jadwal']['tanggal']).' '.$data['diklat']['name'];
@@ -450,6 +450,7 @@ class Front extends CI_Controller{
         $data['link_pdf']='program/print_schedule_pdf/'.$id;
         $this->template->display_wid('wid/schedule_program',$data);
     }
+    
     function login_form(){
         $data['title']='Login Pengajar';
         $this->template->display_wid('wid/login_form',$data);

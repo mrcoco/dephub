@@ -6,7 +6,7 @@ $(function(){
 //            list_pengajar=data;
 //        }).then(function(){
 //            console.log(list_pengajar);
-//            $('#pengajar').typeahead();
+//            $('#pengajar').typeahead().attr( "autocomplete", "off" );
 //            $('#pengajar').data('typeahead').source=list_pengajar;
 //        });
 //        

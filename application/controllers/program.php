@@ -210,6 +210,7 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         $data['list']=$this->slng->get_terima_peserta($id,$thn);
         $this->template->display_with_sidebar('program/list_peserta','program',$data);
     }
@@ -322,7 +323,7 @@ class Program extends CI_Controller {
         }
 
 
-        $data['sub_title'] = 'Buat Program Baru di ' . $data['pil_diklat']['name'];
+        $data['sub_title'] = 'Buat Program Baru';
         $this->template->display_with_sidebar('program/form_buat_program', 'diklat', $data);
     }
 
@@ -394,7 +395,7 @@ class Program extends CI_Controller {
         }
 
 
-        $data['sub_title'] = 'Edit Program ' . $data['pil_diklat']['name'] . ' Angkatan ' . $data['program']['angkatan'];
+        $data['sub_title'] = 'Revisi Program';
         $this->template->display_with_sidebar('program/form_edit_program', 'program', $data);
     }
 
@@ -542,7 +543,7 @@ class Program extends CI_Controller {
         
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         
-        $data['title']='Alokasi Kamar Peserta Diklat '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'];
+        $data['title']='Alokasi Kamar Peserta';
         $data['list']=$this->slng->get_status_accept_order($id,$thn);
         //get list kamar yg dialokasiin
         $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);
