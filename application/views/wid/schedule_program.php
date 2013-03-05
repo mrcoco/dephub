@@ -20,6 +20,7 @@
                     <td>Tempat</td>
                     <td>Rekan Pengajar</td>
                     <td>Pendamping</td>
+                    <td>Daftar Hadir</td>
                 </tr>
             </thead>
             <tbody>
@@ -88,6 +89,11 @@
                         <?php } else { ?>
                         -
                         <?php } ?>
+                    </td>
+                    <td>
+                        <a class="btn btn-mini" href="wid/front/cetak_daftar_hadir/<?php echo $d['id'] ?>">
+                            <i class="icon-list-alt"></i> Cetak Daftar Hadir
+                        </a>
                     </td>
                 </tr>
                 <?php } }?>

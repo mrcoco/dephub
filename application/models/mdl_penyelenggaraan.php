@@ -76,7 +76,7 @@ class Mdl_penyelenggaraan extends CI_Model{
             $this->db->where('registrasi.tahun_daftar',$thn);
         }
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
-        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id','left');
         $array=$this->db->get('registrasi')->result_array();
         $arr_angkatan=array();
         foreach($array as $a){
@@ -93,7 +93,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
         $this->db->where('status like',$stat);
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
-        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id','left');
         return $this->db->get('registrasi')->result_array();
     }
     function get_peserta_dik_stat($id_diklat,$stat,$thn=''){
@@ -105,7 +105,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
         $this->db->where('status like',$stat);
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
-        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id','left');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -118,7 +118,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
         $this->db->where('status !=','daftar');
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
-        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id','left');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -131,7 +131,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
         $this->db->where('status like','accept');
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
-        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id','left');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -145,7 +145,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->where('status like','accept');
         $this->db->order_by('jenis_kelamin');
         $this->db->join('pegawai','registrasi.id_peserta=pegawai.id');
-        $this->db->join('golongan','pegawai.kode_gol=golongan.id');
+        $this->db->join('golongan','pegawai.kode_gol=golongan.id','left');
         return $this->db->get('registrasi')->result_array();
     }
     
@@ -430,6 +430,11 @@ class Mdl_penyelenggaraan extends CI_Model{
     
     function get_schedule($id){
         return $this->db->get_where('schedule',array('id_program'=>$id))->result_array();
+    }
+    function get_schedule_by_id($id){
+        $this->db->where('schedule.id',$id);
+        $this->db->join('materi','materi.id=id_materi','left');
+        return $this->db->get('schedule')->row_array();
     }
     
     function get_schedule_pemateri($id){

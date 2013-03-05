@@ -127,7 +127,7 @@
                                 $checked=' checked="checked"';
                             } ?>
                             <div>
-                            <label class="checkbox inline">
+                            <label class="checkbox">
                                 <input type="checkbox"<?php echo $checked?> name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                             </label>
                              &nbsp;<span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />

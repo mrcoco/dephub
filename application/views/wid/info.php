@@ -23,9 +23,6 @@
             <?php foreach($a_materi[$a['id_diklat']] as $ma){ ?>
                     <tr>
                         <td width="200px"><?php echo $ma['judul'] ?></td>
-                        <td width="250px">
-                            (Total <?php echo $total_jam[$ma['id']] ?> jam)
-                        </td>
                         <td>
                             <a class="btn btn-mini" href="wid/front/schedule_program/<?php echo $pro['id_program'] ?>">Jadwal program</a>
                             <?php if($this->editor->cek_fdb_pengajar($pro['id_program'],$ma['id'],$this->session->userdata('id_wid'))>0){ ?>
@@ -38,9 +35,9 @@
                         </td>
                     </tr>
                 <?php } ?>
+        </table>
                 <?php }?>
             <?php } ?>
-        </table>
     <?php } ?>
     <?php }else{ ?>
         Anda belum ditugasi mengajar

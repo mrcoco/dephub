@@ -138,6 +138,7 @@ class LDAP {
 function auth_with_ldap($user, $pass) {
     $test = new LDAP();
     $test->connect();
+//    $out = TRUE;
     $out = $test->verifyUser($user, $pass);
     $test->disconnect();
     return $out;
