@@ -16,47 +16,47 @@ class Asrama extends CI_Controller{
     }
     
     function list_asrama($offset=0){
-	if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
-            redirect(base_url().'error/error_priv');
-        }
-        if(empty ($offset)) $offset=0;
-	$data['sub_title']='Checklist Prasarana Asrama';
+		if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
+				redirect(base_url().'error/error_priv');
+			}
+			if(empty ($offset)) $offset=0;
+		$data['sub_title']='Checklist Prasarana Asrama';
 
-	$var = $this->spr->get_checklist_item()->result_array();
-    $data['item']=$var;
-	
-	$var2=null;
-	$kmr = $this->spr->get_kamar()->result_array();
-	foreach($kmr as $i) {
-		$var2[$i['id']] = $this->spr->get_checklist_kamar_kamar($i['id'])->result_array();
-	}
-	$data['kamar']=$kmr;
-    $data['list']=$var2;
-	
-	$this->template->display('asrama/list_asrama',$data);
+		$var = $this->spr->get_checklist_item()->result_array();
+		$data['item']=$var;
+		
+		$var2=null;
+		$kmr = $this->spr->get_kamar()->result_array();
+		foreach($kmr as $i) {
+			$var2[$i['id']] = $this->spr->get_checklist_kamar_kamar($i['id'])->result_array();
+		}
+		$data['kamar']=$kmr;
+		$data['list']=$var2;
+		
+		$this->template->display('asrama/list_asrama',$data);
     }
 	
 	
     function list_asrama_simple($offset=0){
-	if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
-            redirect(base_url().'error/error_priv');
-        }
-        if(empty ($offset)) $offset=0;
-	$data['sub_title']='Checklist Prasarana Asrama';
+		if($this->session->userdata('id_role')==2||$this->session->userdata('id_role')==3){
+				redirect(base_url().'error/error_priv');
+			}
+			if(empty ($offset)) $offset=0;
+		$data['sub_title']='Checklist Prasarana Asrama';
 
-	$var = $this->spr->get_checklist_item()->result_array();
-    $data['item']=$var;
-	
-	$var2=null;
-	$kmr = $this->spr->get_kamar()->result_array();
-	foreach($kmr as $i) {
-		$var2[$i['id']] = $this->spr->get_checklist_kamar_kamar($i['id'])->result_array();
+		$var = $this->spr->get_checklist_item()->result_array();
+		$data['item']=$var;
+		
+		$var2=null;
+		$kmr = $this->spr->get_kamar()->result_array();
+		foreach($kmr as $i) {
+			$var2[$i['id']] = $this->spr->get_checklist_kamar_kamar($i['id'])->result_array();
+		}
+		$data['kamar']=$kmr;
+		$data['list']=$var2;
+		
+		$this->template->display('asrama/list_asrama_simple',$data);
 	}
-	$data['kamar']=$kmr;
-    $data['list']=$var2;
-	
-	$this->template->display('asrama/list_asrama_simple',$data);
-    }
 	
 	function update_checklist($id) {
 		//update checklist item kelas
