@@ -107,9 +107,9 @@ class Front extends CI_Controller{
     function login_process(){
         $data['username']=$this->input->post('username');
         $data['password']=$this->input->post('password');
-        $res=$this->pes->login_pes($data)->num_rows();
-        if($res>0){
-			$peserta=$this->pes->login_pes($data)->row_array();
+        $res=$this->pes->login_pes($data);
+        if($res){
+            $peserta=$this->pes->login_pes($data)->row_array();
             $data_session=array(
                 'nama_pes'=>$peserta['nama'],
                 'id_pes'=>$peserta['id'],
