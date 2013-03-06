@@ -461,9 +461,8 @@ class Front extends CI_Controller{
 //        $data['jenis']=$this->input->post('jenis');
         $data['username']=$this->input->post('username');
         $data['password']=$this->input->post('password');
-        $res=$this->wid->login_wid($data);
-        if($res){
-            $pengajar=$this->wid->login_wid($data)->row_array();
+        $pengajar=$this->wid->login_wid($data);
+        if($pengajar){
             $data_session=array(
                 'nama_wid'=>$pengajar['nama'],
                 'id_jenis'=>$pengajar['jenis'],

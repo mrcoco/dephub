@@ -45,9 +45,36 @@ if (!defined('BASEPATH'))
         $this->template->display_wid('wid/nilai_materi',$data);
     }
     
-    function item_nilai($id_materi){
+    function item($id_materi){
+        $data['materi']=$this->rnc->get_materi($id_materi);
         $data['title']='Unsur Penilaian';
         $this->template->display_wid('wid/nilai_item',$data);
+    }
+    
+    function input($id_materi,$id_program){
+        $data['materi']=$this->rnc->get_materi($id_materi);
+        $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['title']='Pengumpulan Nilai';
+        $this->template->display_wid('wid/nilai_input',$data);
+    }
+    
+    function insert(){
+        $id_materi=$this->input->post('id_materi');
+        $id_program=$this->input->post('id_program');
+        $id_wid=$this->session->userdata('id_wid');
+        
+        $this->session->set_flashdata('msg',$this->editor->alert_ok('Nilai telah dimasukkan'));
+        redirect(base_url().'wid/nilai/view/'.$id_materi.'/'.$id_program);
+    }
+    
+    function view($id_materi,$id_program){
+        $data['materi']=$this->rnc->get_materi($id_materi);
+        $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['title']='Daftar Nilai Peserta';
+        
+        $this->template->display_wid('wid/nilai_view',$data);
     }
 
 }

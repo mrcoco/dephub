@@ -134,10 +134,15 @@ class Mdl_wid extends CI_Model {
             $this->db->where('username',$data['username']);
             if ($result > 0) {
                 $this->db->join('pembicara', 'pembicara.id_tabel=pegawai.id');
-                return $this->db->get('pegawai');
+                $result=$this->db->get('pegawai')->row_array();
             } else {
                 $this->db->join('pembicara', 'pembicara.id_tabel=dosen_tamu.id');
-                return $this->db->get('dosen_tamu');
+                $result=$this->db->get('dosen_tamu')->row_array();
+            }
+            if($result){
+               return $result; 
+            }else{
+                return false;
             }
         } else {
             return false;

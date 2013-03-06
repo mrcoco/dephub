@@ -24,11 +24,11 @@
                     <tr>
                         <td width="200px"><?php echo $ma['judul'] ?></td>
                         <td>
-                            <a class="btn btn-mini" href="wid/nilai/item_nilai/<?php echo $ma['id'] ?>">Unsur Penilaian</a>
-                            <a class="btn btn-mini" href="wid/nilai/input_nilai/<?php echo $ma['id'] ?>">
+                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'] ?>">Unsur Penilaian</a>
+                            <a class="btn btn-mini" href="wid/nilai/input/<?php echo $ma['id'].'/'.$pro['id'] ?>">
                                 Pengumpulan Nilai
                             </a>
-                            <a class="btn btn-mini" href="wid/nilai/view_nilai/<?php echo $ma['id'] ?>">
+                            <a class="btn btn-mini" href="wid/nilai/view/<?php echo $ma['id'].'/'.$pro['id'] ?>">
                                 Lihat Nilai
                             </a>
                         </td>
@@ -56,11 +56,11 @@
                             <?php echo $this->date->konversi5($p['tanggal_mulai']).' - '.$this->date->konversi5($p['tanggal_akhir']) ?>
                         </td>
                         <td>
-                            <a class="btn btn-mini" href="wid/nilai/item_nilai/<?php echo $m['id'] ?>">Unsur Penilaian</a>
-                            <a class="btn btn-mini" href="wid/nilai/input_nilai/<?php echo $m['id'] ?>">
+                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'] ?>">Unsur Penilaian</a>
+                            <a class="btn btn-mini" href="wid/nilai/input/<?php echo $ma['id'].'/'.$pro['id'] ?>">
                                 Pengumpulan Nilai
                             </a>
-                            <a class="btn btn-mini" href="wid/nilai/view_nilai/<?php echo $m['id'] ?>">
+                            <a class="btn btn-mini" href="wid/nilai/view/<?php echo $ma['id'].'/'.$pro['id'] ?>">
                                 Lihat Nilai
                             </a>
                         </td>
