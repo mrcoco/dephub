@@ -11,20 +11,27 @@
     }
 
     $(document).ready(function() {
-        load(1,'');
+           saring(1);
         $('#cari').keyup(function(){
-            load(1,$(this).val());
+           saring(1);
+        });
+        $('#filter_btn').click(function(){
+           saring(1);
         });
     });
-    function load(page,filter){
+    function saring(page){
         $('#body_table').empty();
         $('#body_table').append('<center>Loading... <img src="<?php echo base_url()?>assets/img/spinner.gif"/></center>');
-        if(filter!=''){
-            $.get('<?php echo base_url()?>site/ajax_list_alumni/'+page+'/'+filter, function(result){
+        var cari=$('#cari').val(); 
+        var diklat=$('#filter_diklat').val(); 
+        var ang=$('#filter_ang').val(); 
+        var thn=$('#filter_thn').val();
+        if(cari!=''){
+            $.get('<?php echo base_url()?>site/ajax_filter_alumni/'+page+'?cari='+cari+'&diklat='+diklat+'&ang='+ang+'&thn='+thn, function(result){
                 $('#body_table').html(result);
             });
         }else{
-            $.get('<?php echo base_url()?>site/ajax_list_alumni/'+page, function(result){
+            $.get('<?php echo base_url()?>site/ajax_filter_alumni/'+page+'?diklat='+diklat+'&ang='+ang+'&thn='+thn, function(result){
                 $('#body_table').empty();
                 $('#body_table').html(result);
             });
@@ -84,6 +91,16 @@
         <?php } ?>
     </div>
     <div class="tab-pane" id="alumni">
+        <div>
+            
+            <span class="input-prepend input-append">
+            <input type="text" id="filter_diklat" placeholder="Masukkan Nama Diklat"/>
+            <span class="add-on">Angkatan</span><input type="text" class="input-small" id="filter_ang" placeholder="Nomor"/>
+            <input type="text" class="input-small" id="filter_thn" placeholder="Tahun"/>
+            <button type="button" class="btn btn-primary" id="filter_btn"><i class="icon-filter icon-white"></i> Saring</button>
+            </span>
+        </div>
+        <br />
         Cari: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
         <div id="body_table"></div>
     </div>

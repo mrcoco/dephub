@@ -32,7 +32,7 @@
 <div id="info" class="pull-right">Hal <?php echo $cur_page?> dari <?php echo $num_page?></div>
     <div id="paging" class="pagination">
         <ul>
-            <li><a href="javascript:void(0)" onclick="load(1,'<?php echo $filter ?>')">Awal</a></li>
+            <li><a href="javascript:void(0)" onclick="saring(1)">Awal</a></li>
         <?php 
             $ac='';
             if($cur_page<3){
@@ -43,21 +43,21 @@
                 }
                 for($i=1;$i<=$max;$i++){
                     if($i==$cur_page){$ac='active';}else{$ac='';}
-                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="load('.$i.',\''.$filter.'\')">'.$i.'</a></li>';
+                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="saring('.$i.')">'.$i.'</a></li>';
                 }
             }else if($cur_page>=3&&$cur_page<=($num_page-3)){
                 for($i=$cur_page-2;$i<=$cur_page+2;$i++){
                     if($i==$cur_page){$ac='active';}else{$ac='';}
-                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="load('.$i.',\''.$filter.'\')">'.$i.'</a></li>';
+                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="saring('.$i.')">'.$i.'</a></li>';
                 }
             }else if($cur_page>($num_page-3)){
                 for($i=$num_page-4;$i<=$num_page;$i++){
                     if($i==$cur_page){$ac='active';}else{$ac='';}
-                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="load('.$i.',\''.$filter.'\')">'.$i.'</a></li>';
+                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="saring('.$i.')">'.$i.'</a></li>';
                 }
             }
         ?>
-            <li><a href="javascript:void(0)" onclick="load(<?php echo $num_page.',\''.$filter.'\''?>)">Akhir</a></li>
+            <li><a href="javascript:void(0)" onclick="saring(<?php echo $num_page ?>)">Akhir</a></li>
         </ul>
     </div>
 </div>

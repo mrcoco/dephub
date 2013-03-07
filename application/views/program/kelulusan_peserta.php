@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <td><label for="no_sk">Nomor Surat</label></td>
-                <td><input type="text" id="no_sk" name="no_sk" value="<?php echo $alumni['no_sk'];?>"/></td>
+                <td><input type="text" id="no_sk" name="no_sk" value="<?php echo $alumni['no_sk'];?>" required/></td>
             </tr>
             <tr>
                 <td><label for="file_sk">File Surat</label></td>

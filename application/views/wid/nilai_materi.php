@@ -24,7 +24,7 @@
                     <tr>
                         <td width="200px"><?php echo $ma['judul'] ?></td>
                         <td>
-                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'] ?>">Unsur Penilaian</a>
+                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'].'/'.$pro['id'] ?>">Unsur Penilaian</a>
                             <a class="btn btn-mini" href="wid/nilai/input/<?php echo $ma['id'].'/'.$pro['id'] ?>">
                                 Pengumpulan Nilai
                             </a>
@@ -56,7 +56,7 @@
                             <?php echo $this->date->konversi5($p['tanggal_mulai']).' - '.$this->date->konversi5($p['tanggal_akhir']) ?>
                         </td>
                         <td>
-                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'] ?>">Unsur Penilaian</a>
+                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'].'/'.$pro['id'] ?>">Unsur Penilaian</a>
                             <a class="btn btn-mini" href="wid/nilai/input/<?php echo $ma['id'].'/'.$pro['id'] ?>">
                                 Pengumpulan Nilai
                             </a>

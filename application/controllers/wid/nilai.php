@@ -45,8 +45,10 @@ if (!defined('BASEPATH'))
         $this->template->display_wid('wid/nilai_materi',$data);
     }
     
-    function item($id_materi){
+    function item($id_materi,$id_program){
         $data['materi']=$this->rnc->get_materi($id_materi);
+        $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['sidebar']='sidebar_nilai';
         $data['title']='Unsur Penilaian';
         $this->template->display_wid('wid/nilai_item',$data);
     }
@@ -54,6 +56,7 @@ if (!defined('BASEPATH'))
     function input($id_materi,$id_program){
         $data['materi']=$this->rnc->get_materi($id_materi);
         $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['sidebar']='sidebar_nilai';
         $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
         $data['title']='Pengumpulan Nilai';
         $this->template->display_wid('wid/nilai_input',$data);
@@ -71,6 +74,7 @@ if (!defined('BASEPATH'))
     function view($id_materi,$id_program){
         $data['materi']=$this->rnc->get_materi($id_materi);
         $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['sidebar']='sidebar_nilai';
         $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
         $data['title']='Daftar Nilai Peserta';
         

@@ -26,20 +26,23 @@
             <td class="nip"><?php echo $list[$i]['nip'] ?></td>
             <td class="nip"><?php echo $list[$i]['unit_kerja'] ?></td>
             <td class="aksi">
+                <a href="diklat/terima_peserta/<?php echo $diklat['id'] ?>" target="_blank" class="tip-right" title="Klik untuk ubah">
+                    <?php echo $this->editor->status($list[$i]['status']); ?>
+                </a>
                 <?php
-                    echo $this->editor->status($list[$i]['status']);
-
                     $alumni=$this->slng->get_alumni($list[$i]['id_peserta'],$program['id']);
                     if($alumni){echo '&Lulus';}
                 ?>
             </td>
             <td>
+                <?php if($list[$i]['status']=='accept'){ ?>
                 <a href="javascript:kelulusan(<?php echo $list[$i]['id_peserta'].','.$program['id'] ?>)" class="btn btn-mini btn-primary">
                     <i class="icon-check icon-white"></i> Ubah
                 </a>
                 <a href="program/kelulusan_delete/<?php echo $list[$i]['id_peserta'].'/'.$program['id'] ?>" class="btn btn-mini btn-danger">
                     <i class="icon-remove icon-white"></i> Batal
                 </a>
+                <?php }else{ echo 'Belum diterima';} ?>
             </td>
         <?php }?>
     </tbody>

@@ -43,8 +43,12 @@ class Program extends CI_Controller {
                 $data['file_sk']=$file_data['file_name'];
             }
         }
-        $this->slng->insert_alumni($data);
-        $this->session->set_flashdata('msg',$this->editor->alert_ok('Data kelulusan telah disimpan'));
+        if($data['no_sk']){
+           $this->slng->insert_alumni($data);
+           $this->session->set_flashdata('msg',$this->editor->alert_ok('Data kelulusan telah disimpan'));
+        }else{
+           $this->session->set_flashdata('msg',$this->editor->alert_error('Anda belum memasukkan nomor SK'));
+        }
         redirect(base_url('program/peserta_program/'.$data['id_program']));
     }
     function kelulusan_delete($id_pes,$id_pro){
@@ -54,7 +58,7 @@ class Program extends CI_Controller {
         $alumni=$this->slng->get_alumni($id_pes,$id_pro);
         if($alumni){
             $this->slng->delete_alumni($id_pes,$id_pro);
-            $this->session->set_flashdata('msg',$this->editor->alert_ok('Data kelulusan telah dihapus'));
+            $this->session->set_flashdata('msg',$this->editor->alert_warning('Data kelulusan telah dihapus'));
             redirect(base_url('program/peserta_program/'.$id_pro));
         }else{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Data tidak ditemukan'));

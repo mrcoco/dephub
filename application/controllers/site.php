@@ -57,8 +57,22 @@ class Site extends CI_Controller{
         $data['array']=$this->slng->get_all_alumni($data['per_page'],$data['offset'],$data['filter']);
         $data['num_res']=count($data['array']);
         $data['num_page']=ceil($data['num_res']/$data['per_page']);
+        $this->load->view('site/ajax_list_alumni',$data);
+    }
+    function ajax_filter_alumni($page=1){
+        //melist pegawai, pake paging dan ada filter berdasarkan instansi
+        $data['cur_page']=$page;
+        $data['per_page']=25;
+//        $data['filter']= str_replace('%20', ' ', $filter);
+        $data['offset']=($data['cur_page']-1)*$data['per_page'];
+//        if(isset($_GET)){
+            $saring=$_GET;
+//        }
+        $data['array']=$this->slng->get_filter_alumni($data['per_page'],$data['offset'],$saring);
+        $data['num_res']=count($data['array']);
+        $data['num_page']=ceil($data['num_res']/$data['per_page']);
 //        print_r($data['array']);
-        $this->load->view('program/ajax_list_alumni',$data);
+        $this->load->view('site/ajax_list_alumni',$data);
     }
     
     function login(){

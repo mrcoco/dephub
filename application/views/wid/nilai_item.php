@@ -1,7 +1,7 @@
 <script>
 $(function(){
         $('.add').live('click',function(){
-            $('.cont').append('<p class="input-append input-prepend"><input type="text" class="item" name="item[]" placeholder="Unsur"/> <input type="text" class="bobot input-small" name="bobot[]" placeholder="Bobot"/><span class="add-on">%</span> <span class="btn btn-mini btn-danger del"><i class="icon-remove"></i> Hapus</span></p>');
+            $('.cont').append('<p class="input-append input-prepend"><input type="text" class="item" name="item[]" placeholder="Unsur Penilaian"/> <input type="text" class="bobot input-small" name="bobot[]" placeholder="Bobot"/><span class="add-on">%</span> <span class="btn btn-mini btn-danger del"><i class="icon-remove"></i> Hapus</span></p>');
         });
         
         $('.del').live('click',function(){
@@ -19,7 +19,7 @@ $(function(){
 <form action="wid/nilai/item_insert" method="POST">
 <div class="cont">
     <p class="input-append input-prepend">
-        <input type="text" class="item" name="item[]" placeholder="Unsur"/>
+        <input type="text" class="item" name="item[]" placeholder="Unsur Penilaian"/>
         <input type="text" class="bobot input-small" name="bobot[]" placeholder="Bobot"/><span class="add-on">%</span>
         <span class="btn btn-mini btn-danger del"><i class="icon-remove"></i> Hapus</span>
     </p>

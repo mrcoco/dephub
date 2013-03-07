@@ -12,12 +12,18 @@
     <tr>
         <td>Makalah</td>
         <td>50%</td>
-        <td><input type="file" name="id" /></td>
+        <td>
+            <input type="file" name="nilai" /><br />
+            <label class="checkbox"><input type="checkbox" name="timpa_nilai" />Perbarui nilai sebelumnya</label>
+        </td>
     </tr>
     <tr>
         <td>UAS</td>
         <td>30%</td>
-        <td><input type="file" name="id" /></td>
+        <td>
+            <input type="file" name="nilai" /><br />
+            <label class="checkbox"><input type="checkbox" name="timpa_nilai" />Perbarui nilai sebelumnya</label>
+        </td>
     </tr>
 </table>
 <div class="form-actions">

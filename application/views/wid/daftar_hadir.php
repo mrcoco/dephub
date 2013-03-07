@@ -27,14 +27,24 @@
             <tr>
                 <td width="10%">Tanggal</td>
                 <td width="40%">: <?php echo $this->date->konversi5($jadwal['tanggal'])?></td>
-                <td width="15%">Widyaiswara</td>
-                <td width="35%">: </td>
+                <td width="50%">Tanda Tangan Widyaiswara :</td>
             </tr>
             <tr>
                 <td>Waktu</td>
                 <td>: <?php echo date('H.i', strtotime($jadwal['jam_mulai'])).' - '.date('H.i', strtotime($jadwal['jam_selesai'])) ?> WIB</td>
-                <td rowspan="2">Tanda Tangan</td>
-                <td>: </td>
+                <td rowspan="2">
+                <?php if($jadwal['ada_pembicara']){?>
+                    <?php   
+                    foreach($jadwal['list_pembicara'] as$l){
+                        if($l['nama_peg']!=''){
+                            echo $l['nama_peg'] .' _______________<br/>';
+                        }else{
+                            echo $l['nama_dostam'] .' _______________<br/>';
+                        }
+                    } 
+                    ?>
+                <?php } ?>
+                </td>
             </tr>
             <tr>
                 <td>Kegiatan/Materi</td>

@@ -102,6 +102,9 @@ class Template {
         }else{
             $data['_title'] = $this->_ci->session->userdata('detail');
         }
+        if(isset($data['sidebar'])){
+            $data['_sidebar']=$this->_ci->load->view('sidebar/'.$data['sidebar'], $data, true);
+        }
         $data['_header'] = $this->_ci->load->view('template/header', $data, true);
         if($this->_ci->session->userdata('is_login_wid')){
             $data['_menu'] = $this->_ci->load->view('template/menubar_wid', $data, true);

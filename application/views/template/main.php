@@ -57,7 +57,7 @@
         $('#list_length').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');
         $('#list_filter input').attr('placeholder','Masukkan kata yang dicari');
-        $('.alert').delay(2 * 1000).fadeOut();
+        $('.alert').delay(3 * 1000).fadeOut();
         $('.tip-right').tooltip({placement:'right'});
     } );
    function view_detail(num){

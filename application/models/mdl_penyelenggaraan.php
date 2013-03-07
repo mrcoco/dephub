@@ -16,7 +16,7 @@ class Mdl_penyelenggaraan extends CI_Model{
             return FALSE;
         }
     }
-    function get_all_alumni($per_page,$offset,$filter){
+    function get_all_alumni($per_page,$offset,$filter){        
         $str_query='SELECT id_pegawai, id_program, nama, nip, tahun_program, angkatan, parent, no_sk, file_sk
             FROM tb_alumni
                     JOIN tb_pegawai ON tb_alumni.id_pegawai=tb_pegawai.id
@@ -24,12 +24,48 @@ class Mdl_penyelenggaraan extends CI_Model{
         if($filter!=''){
             $str_query.=" where (nama like '%$filter%'
                 or nip like '%$filter%'
-                or tahun_program like '%$filter%'
-                or angkatan like '%$filter%'
                 )";
         }
         $str_query.= ' limit '.$offset.', '.$per_page;
         $results=$this->db->query($str_query)->result_array();
+        $data=array();
+        foreach($results as $result){
+            $this->db->select('name');
+            $this->db->where('id',$result['parent']);
+            $diklat=$this->db->get('program')->row_array();
+            $result['diklat']=$diklat['name'];
+            $data[]=$result;
+        }
+        return $data;
+    }
+    function get_filter_alumni($per_page,$offset,$saring){
+        if($saring['diklat']){
+            $this->db->select('id');
+            $this->db->like('name',$saring['diklat'],'both');
+            $diklat=$this->db->get('program')->result_array();
+            $id_diklat='(';
+            foreach($diklat as $d){
+                $id_diklat.=$d['id'].',';
+            }
+            $id_diklat.='0)';
+            $this->db->where("parent IN $id_diklat");
+        }
+        if($saring['thn']){
+            $this->db->where('tahun_program',$saring['thn']);
+        }
+        if($saring['ang']){
+            $this->db->where('angkatan',$saring['ang']);
+        }
+        if(isset($saring['cari'])){
+            $this->db->or_like('nama',$saring['cari']);
+            $this->db->or_like('nip',$saring['cari']);
+            $this->db->or_like('no_sk',$saring['cari']);
+        }
+        $this->db->select('id_pegawai, id_program, nama, nip, tahun_program, angkatan, parent, no_sk, file_sk');
+        $this->db->join('pegawai','alumni.id_pegawai=pegawai.id');
+        $this->db->join('program','alumni.id_program=program.id');
+        $results=$this->db->get('alumni',$per_page,$offset)->result_array();
+        
         $data=array();
         foreach($results as $result){
             $this->db->select('name');
@@ -480,9 +516,26 @@ class Mdl_penyelenggaraan extends CI_Model{
         return $this->db->get_where('schedule',array('id_program'=>$id))->result_array();
     }
     function get_schedule_by_id($id){
-        $this->db->where('schedule.id',$id);
-        $this->db->join('materi','materi.id=id_materi','left');
-        return $this->db->get('schedule')->row_array();
+        $this->db->where('id',$id);
+        $result=$this->db->get('schedule')->row_array();
+        if($result['jenis']=='non materi'){
+            $result['judul']=$result['nama_kegiatan'];
+        }else{
+            $result['judul']=$this->db->get_where('materi',array('id'=>$result['id_materi']))->row()->judul;
+
+            $str_qry_pembicara='SELECT tb_pembicara.id, tb_pegawai.nama as nama_peg, tb_dosen_tamu.nama as nama_dostam from tb_pembicara 
+            left join tb_pegawai on (id_tabel = tb_pegawai.id AND (jenis =1 OR jenis =2))
+            left join tb_dosen_tamu ON (id_tabel = tb_dosen_tamu.id AND (jenis =3)) inner join tb_pemateri on tb_pembicara.id=tb_pemateri.id_pembicara
+            where tb_pemateri.id_schedule='.$result['id'];
+            $nama_dosen=$this->db->query($str_qry_pembicara)->result_array();
+            if(count($nama_dosen)>0){
+                $result['ada_pembicara']=true;
+                $result['list_pembicara']=$nama_dosen;
+            }else{
+                $result['ada_pembicara']=false;
+            }
+        }
+        return $result;
     }
     
     function get_schedule_pemateri($id){
