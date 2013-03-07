@@ -9,11 +9,36 @@
         $('#post'+id).slideUp('300');
         $('#btn'+id).text('Selengkapnya').attr('href','javascript:read('+id+')');
     }
+
+    $(document).ready(function() {
+        load(1,'');
+        $('#cari').keyup(function(){
+            load(1,$(this).val());
+        });
+    });
+    function load(page,filter){
+        $('#body_table').empty();
+        $('#body_table').append('<center>Loading... <img src="<?php echo base_url()?>assets/img/spinner.gif"/></center>');
+        if(filter!=''){
+            $.get('<?php echo base_url()?>site/ajax_list_alumni/'+page+'/'+filter, function(result){
+                $('#body_table').html(result);
+            });
+        }else{
+            $.get('<?php echo base_url()?>site/ajax_list_alumni/'+page, function(result){
+                $('#body_table').empty();
+                $('#body_table').html(result);
+            });
+        }
+    }
+    
+    
 </script>
+
 <div class="row"><div class="span9"><?php echo $this->session->flashdata('msg'); ?></div></div>
 <ul class="nav nav-tabs">
     <li class="<?php if(!$active)echo 'active';?>"><a href="#pengumuman" data-toggle="tab">Pengumuman</a></li>
     <li class="<?php if($active)echo 'active';?>"><a href="#diklat" data-toggle="tab">Daftar Diklat</a></li>
+    <li><a href="#alumni" data-toggle="tab">Daftar Alumni</a></li>
 </ul>
 
 <div class="tab-content">
@@ -57,5 +82,9 @@
         <?php }else{?>
         Tidak ada data
         <?php } ?>
+    </div>
+    <div class="tab-pane" id="alumni">
+        Cari: <input type="text" id="cari" placeholder="Masukkan nama/NIP"/>
+        <div id="body_table"></div>
     </div>
 </div>

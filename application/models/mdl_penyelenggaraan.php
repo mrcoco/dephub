@@ -1,6 +1,54 @@
 <?php
 class Mdl_penyelenggaraan extends CI_Model{
     
+    function delete_alumni($id_pegawai,$id_program){
+        $this->db->where('id_pegawai',$id_pegawai);
+        $this->db->where('id_program',$id_program);
+        $this->db->delete('alumni');
+    }
+    function get_alumni($id_pegawai,$id_program){
+        $this->db->where('id_pegawai',$id_pegawai);
+        $this->db->where('id_program',$id_program);
+        $result=$this->db->get('alumni');
+        if($result->num_rows()!=0){
+            return $result->row_array();
+        }else{
+            return FALSE;
+        }
+    }
+    function get_all_alumni($per_page,$offset,$filter){
+        $str_query='SELECT id_pegawai, id_program, nama, nip, tahun_program, angkatan, parent, no_sk, file_sk
+            FROM tb_alumni
+                    JOIN tb_pegawai ON tb_alumni.id_pegawai=tb_pegawai.id
+                    JOIN tb_program ON tb_alumni.id_program=tb_program.id';
+        if($filter!=''){
+            $str_query.=" where (nama like '%$filter%'
+                or nip like '%$filter%'
+                or tahun_program like '%$filter%'
+                or angkatan like '%$filter%'
+                )";
+        }
+        $str_query.= ' limit '.$offset.', '.$per_page;
+        $results=$this->db->query($str_query)->result_array();
+        $data=array();
+        foreach($results as $result){
+            $this->db->select('name');
+            $this->db->where('id',$result['parent']);
+            $diklat=$this->db->get('program')->row_array();
+            $result['diklat']=$diklat['name'];
+            $data[]=$result;
+        }
+        return $data;
+    }
+    function insert_alumni($data){
+        if($this->get_alumni($data['id_pegawai'], $data['id_program'])){
+            $this->db->where('id_pegawai',$data['id_pegawai']);
+            $this->db->where('id_program',$data['id_program']);
+            $this->db->update('alumni',$data);
+        }else{
+            $this->db->insert('alumni',$data);
+        }
+    }
     function insert_pengumuman($data){
         $this->db->insert('post',$data);
     }
