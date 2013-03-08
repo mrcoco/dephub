@@ -4,7 +4,7 @@
     $(document).ready(function() {    
         $('.materi').typeahead({
             'source':pil_materi
-        });
+        }).attr( "autocomplete", "off" );
         var container = $('div.alert');
         var validator = $("#form1").validate({
             errorLabelContainer: container,
@@ -37,7 +37,7 @@
             $(this).html('<i class="icon-remove"></i> Hapus');
             $('.materi').typeahead({
                 'source':pil_materi
-            });
+            }).attr( "autocomplete", "off" );
         });
         
         $('.del').live('click',function(){
@@ -49,7 +49,7 @@
     <a class="close" data-dismiss="alert">&times;</a>
     <h4>Error!</h4>
 </div>
-<p align="center" class="lead"><?php echo $program['name'] ?></p>
+<h2><?php echo $program['name'] ?></h2>
 <form id="form1" method="post" action="diklat/update_diklat" class="form-horizontal">
     <fieldset>
         <input type="hidden" name="id" value="<?php echo $program['id'] ?>"/>

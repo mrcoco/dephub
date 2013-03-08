@@ -9,7 +9,7 @@ $(document).ready(function(){
             $.each(list_unit, function (i, j) {
                document.form1.unit.options[i] = new Option(j);
             });
-//            $('#unit').typeahead();
+//            $('#unit').typeahead().attr( "autocomplete", "off" );
 //            $('#unit').data('typeahead').source=list_unit;
         });
         
@@ -29,3 +29,7 @@ $(document).ready(function(){
     <label>Password</label> <input type="password" name="password" placeholder="Masukkan password"/><br />
     <button class="btn btn-primary" type="submit">Login</button>
 </form>
+<br style="clear: both" />
+<div clas="row">
+    <a href="<?php echo base_url() ?>"><i class="icon-arrow-left"></i> Kembali ke Manajemen Diklat</a>
+</div>

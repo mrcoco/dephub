@@ -20,7 +20,7 @@
                         });
                         return item;
                     }
-                });
+                }).attr( "autocomplete", "off" );
             });
             
         });
@@ -30,7 +30,7 @@
         if(kode_kantor>0){
             $.getJSON('<?php echo base_url() ?>pegawai/json_list_pegawai/'+kode_kantor,function(result){
                 option=result;
-                $('#nip'+num).typeahead({'source':option});
+                $('#nip'+num).typeahead({'source':option}).attr( "autocomplete", "off" );
             });
         }else{
             alert('Masukkan instansi lebih dahulu');
@@ -219,6 +219,7 @@
     });
 </script>
 <div class="alert alert-error fade in none"></div>
+<h2>Peserta <?php echo $program['name'] ?></h2>
 <!-- Contoh buat di clone -->
 <table id="example" class="table table-condensed">
     <thead>

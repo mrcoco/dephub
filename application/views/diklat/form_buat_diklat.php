@@ -4,7 +4,7 @@
     $(document).ready(function() {    
         $('.materi').typeahead({
             'source':pil_materi
-        });
+        }).attr( "autocomplete", "off" );
         var container = $('div.alert');
         var validator = $("#form1").validate({
             errorLabelContainer: container,
@@ -35,7 +35,7 @@
             $('.cont').append('<p><input type="text" class="materi" name="materi[]"/> <span class="btn btn-mini btn-danger del"><i class="icon-remove"></i> Hapus</span></p>');
             $('.materi').typeahead({
                 'source':pil_materi
-            });
+            }).attr( "autocomplete", "off" );
         });
         
         $('.del').live('click',function(){

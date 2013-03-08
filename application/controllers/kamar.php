@@ -38,20 +38,20 @@ class Kamar extends CI_Controller {
 
 	function list_kamar_gedung($offset=0)
     {
-	if(empty ($offset)) $offset=0;
-        $gedung=$this->spr->get_gedung($offset)->row_array();
-	$data['sub_title']='Daftar Kamar di Gedung '.$gedung['nama'];
+		if(empty ($offset)) $offset=0;
+			$gedung=$this->spr->get_gedung($offset)->row_array();
+			$data['sub_title']='Daftar Kamar di Gedung '.$gedung['nama'];
 
-		$var = $this->spr->get_kamar_gedung($offset)->result_array();
-        $data['list']=$var;
-		
-		$var2 = $this->spr->get_kamar_status($offset)->result_array();
-		$data['status'] = $var2;
-		
-        $var3 = $this->spr->get_pemakaian_kamar_detail()->result_array();
-		$data['pemakaian'] = $var3;
-		
-	$this->template->display('kamar/list_kamar',$data);
+			$var = $this->spr->get_kamar_gedung($offset)->result_array();
+			$data['list']=$var;
+			
+			$var2 = $this->spr->get_kamar_status($offset)->result_array();
+			$data['status'] = $var2;
+			
+			$var3 = $this->spr->get_pemakaian_kamar_detail()->result_array();
+			$data['pemakaian'] = $var3;
+			
+		$this->template->display('kamar/list_kamar',$data);
     }
 	
 	function list_kamar_detail($id_kamar)

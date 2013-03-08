@@ -15,7 +15,7 @@
       <label class="control-label" for="pp2">Foto 3x4</label>
       <div class="controls">
         <input type="file" name="foto" id="pp2" />
-        <p>Jenis file: jpg, png, gif, max 200kB</p>
+        <p>Jenis file: jpg, png, gif</p>
       </div>
     </div>
 <!--    <div class="control-group">

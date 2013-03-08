@@ -228,7 +228,8 @@ class Mdl_sarpras extends CI_Model {
                 $this->table_gedung . '.nama as gedung,' . $this->table_gedung . '.id as id_gedung,' . $this->table_kamar . '.nomor as kamar,' . $this->table_kamar . '.id as id_kamar,' .
                 $this->table_kamar_status . '.id as id_status,' . $this->table_kamar_status . '.status as status,' .
                 $this->table_pegawai . '.nama as nama,' . $this->table_pegawai . '.nip as nip,' . $this->table_pegawai . '.jenis_kelamin as jenis_kelamin,' .
-                $this->table_program . '.name as program'
+                $this->table_program . '.name as program,' .
+				$this->table_program . '.angkatan as angkatan'
         );
 
         $this->db->from($this->table_pemakaian_asrama);
@@ -573,6 +574,26 @@ class Mdl_sarpras extends CI_Model {
         $this->db->where('id_program', $clause);
         $this->db->delete($this->table_pemakaian_kelas);
     }
+	
+	function get_pemakaian_kelas_detail() {
+        $this->db->select(
+                $this->table_kelas . '.id as id_kelas,' .
+                $this->table_kelas . '.nama as kelas,' .
+				$this->table_kelas . '.kapasitas as kapasitas,' .
+				$this->table_program . '.name as program,' .
+				$this->table_program . '.angkatan as angkatan'
+        );
+
+        $this->db->from($this->table_pemakaian_kelas);
+
+        $this->db->join($this->table_kelas, $this->table_pemakaian_kelas . '.id_kelas = ' . $this->table_kelas . '.id');
+        $this->db->join($this->table_program, $this->table_pemakaian_kelas . '.id_program = ' . $this->table_program . '.id');
+
+        $today = date("Y-m-d");
+        $this->db->where($this->table_pemakaian_kelas . '.tanggal', $today);
+
+        return $this->db->get();
+	}
 
     //----------------
 //    function get_pemakaian_kelas($var=NULL) {

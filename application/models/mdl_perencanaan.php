@@ -139,6 +139,16 @@ class Mdl_perencanaan extends CI_Model{
     }
     
     function delete_diklat($id){
+        
+        //mengambil seluruh program yg parentnya dia, parent=id, tipe=3
+        
+        $this->db->where(array('parent'=>$id,'tipe'=>3));
+        $res = $this->db->get('program')->result_array();
+        
+        foreach($res as $r){
+            $this->delete_program($r['id']);
+        }
+        
         $this->db->where('id',$id);
         $this->db->delete('program');
     }
@@ -151,6 +161,11 @@ class Mdl_perencanaan extends CI_Model{
     function delete_program($id){
         $this->db->where('id',$id);
         $this->db->delete('program');
+        
+        $this->load->model('mdl_sarpras','spr');
+        $this->spr->delete_alokasi_asrama($id);
+        $this->spr->delete_pemakaian_kamar($id);
+        $this->spr->delete_penggunaan_kelas($id);
     }
     
     function insert_feedback_sarpras($data){

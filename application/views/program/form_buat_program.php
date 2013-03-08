@@ -66,6 +66,7 @@
     <a class="close" data-dismiss="alert">&times;</a>
     <h4>Error!</h4>
 </div>
+<h2>Angkatan Baru <?php echo $pil_diklat['name'] ?></h2>
 <form method="post" id="form1" action="program/insert_program" class="form-horizontal">
     <input type="hidden" name="parent" value="<?php echo $pil_diklat['id']?>" id="parent"/>
     <fieldset>
@@ -122,13 +123,13 @@
                     <label class="control-label">Asrama</label>
                     <div class="controls">
                         <?php foreach($asrama as $a){?>
-                        <div>
-                        <label class="checkbox inline">
+                        <p>
+                        <label class="checkbox">
                             <input type="checkbox" name="asrama[]" value="<?php echo $a['id']?>"/> <?php echo $a['nama']?>
                         </label>
-                             &nbsp;<span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span><br />
-                            <p id="result"></p>
-                        </div>
+                             <span class="btn btn-mini" onclick="cek_asrama(<?php echo $a['id']?>,this)">Cek Ketersediaan</span>
+                            <span id="result"></span>
+                            </p>
                         <?php }?>
                     </div>
                 </div>
