@@ -14,7 +14,7 @@ class Admin extends CI_Controller {
                 $this->load->model('mdl_penyelenggaraan','slng');
                 
                 if(!$this->session->userdata('is_login')||$this->session->userdata('elib_userrole')!=1){ //melarang apabila bukan admin
-                redirect(base_url().'elibrary');
+                //CHECK redirect(base_url().'elibrary');
                 }
 	}
         
@@ -74,7 +74,7 @@ class Admin extends CI_Controller {
 	} */
         function list_category(){
             if($this->session->userdata('elib_userrole')!=1){
-                redirect(base_url().'error/error_priv');
+               //CHECK redirect(base_url().'error/error_priv');
             }
             //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
             $data['sub_title']='List Kategori Buku Digital dan Fisik';
@@ -83,7 +83,7 @@ class Admin extends CI_Controller {
         
         function list_category_ajax($page=1,$filter=''){
             if($this->session->userdata('elib_userrole')!=1){
-                redirect(base_url().'error/error_priv');
+              //CHECK  redirect(base_url().'error/error_priv');
             }
             //melist pegawai, pake paging dan ada filter berdasarkan instansi
             $data['cur_page']=$page;
@@ -129,7 +129,7 @@ class Admin extends CI_Controller {
 	}
         function list_author(){
             if($this->session->userdata('elib_userrole')!=1){
-                redirect(base_url().'error/error_priv');
+               //CHECK redirect(base_url().'error/error_priv');
             }
             //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
             $data['sub_title']='List Pengarang';
@@ -138,7 +138,7 @@ class Admin extends CI_Controller {
         
         function list_author_ajax($page=1,$filter=''){
             if($this->session->userdata('elib_userrole')!=1){
-                redirect(base_url().'error/error_priv');
+              //CHECK  redirect(base_url().'error/error_priv');
             }
             //melist pegawai, pake paging dan ada filter berdasarkan instansi
             $data['cur_page']=$page;
@@ -220,7 +220,7 @@ class Admin extends CI_Controller {
         */
         function list_user(){
             if($this->session->userdata('elib_userrole')!=1){
-                redirect(base_url().'error/error_priv');
+               //CHECK redirect(base_url().'error/error_priv');
             }
             //beentuknya kaya approve2 gitu, yg di list adalah list pegawai yg belum menjadi widyaiswara/non-widyaiswara
             $data['sub_title']='List Anggota';
@@ -229,7 +229,7 @@ class Admin extends CI_Controller {
         
         function list_user_ajax($page=1,$filter=''){
             if($this->session->userdata('elib_userrole')!=1){
-                redirect(base_url().'error/error_priv');
+             //CHECK   redirect(base_url().'error/error_priv');
             }
             //melist pegawai, pake paging dan ada filter berdasarkan instansi
             $data['cur_page']=$page;
@@ -300,7 +300,7 @@ class Admin extends CI_Controller {
 
             $category=$this->elib->get_category_by(array('categoryname'=>$this->input->post('categoryname')));
             $data['insert']['idcategory']=$category[0]['idcategory'];
-            $author=$this->elib->get_author_by(array('authoname'=>$this->input->post('authorname')));
+            $author=$this->elib->get_author_by(array('authorname'=>$this->input->post('authorname')));
             $data['insert']['idauthor']=$author[0]['idauthor'];
 
             $this->elib->insert_books($data['insert']);
