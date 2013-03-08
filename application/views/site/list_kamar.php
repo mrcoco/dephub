@@ -25,7 +25,64 @@
 		}
 		echo "<tr><td>TOTAL KAMAR </td><td>: ".count($list)."</td></tr>";
 	?>
+	<tr><td><div id="chartdiv" style="height:300px;width:300px; "></div></td></tr>
 </table>
+
+
+<!-- Additional plugins go here -->
+	<script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasTextRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.logAxisRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.barRenderer.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){   
+    var line3 = [ <?php
+	for($j=0;$j<count($status);$j++)
+	{
+		echo "['".strtoupper($status[$j]['status'])."',".$tot[$j]."],";
+	}
+	?>
+    ];
+    $.jqplot('chartdiv', [line3], {
+       animate: !$.jqplot.use_excanvas,
+       series:[{renderer:$.jqplot.BarRenderer}],
+       axes: {
+           xaxis: {
+             renderer: $.jqplot.CategoryAxisRenderer,
+             labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+             tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+             tickOptions: {
+                 angle: 30,
+                 fontFamily: 'Courier New',
+                 fontSize: '9pt'
+             }
+
+           },
+           yaxis: {
+             min :1,
+             max :<?php 
+				$max=0;
+				for($j=0;$j<count($status);$j++)
+				{
+					if($max<$tot[$j])
+					{
+						$max=$tot[$j];
+					}
+				}
+				echo $max;
+			 ?>,
+             renderer: $.jqplot.LogAxisRenderer,
+             labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+           }
+         }
+    });
+});
+</script>
+<!-- End additional plugins -->
+
 <br />
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
