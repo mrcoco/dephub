@@ -7,6 +7,7 @@
         <li><a href="<?php echo base_url()?>wid/front/detail_pegawai">Data Pribadi</a></li>
         <?php } ?>
         <li><a href="<?php echo base_url()?>wid/front/schedule_pengajar">Jadwal Pengajar</a></li>
+        <li><a href="<?php echo base_url()?>wid/nilai">Penilaian</a></li>
         <li class="pull-right">
             <a href="<?php echo base_url()?>wid/front/logout"><i class="icon-off"></i> Logout</a>
         </li>

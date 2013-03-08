@@ -5,7 +5,11 @@
     <base href="<?php echo base_url();?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="utf-8" />
-    <title>Pusat Pengembangan SDM Aparatur Perhubungan</title>
+    <title>
+        Pusat Pengembangan SDM Aparatur Perhubungan | 
+        <?php if(isset($_title)){echo $_title;}?>
+        <?php if(!isset($sub_title)){echo '';}else{echo $sub_title;}?>
+    </title>
     <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
     <!--<link rel='stylesheet' type='text/css' href='assets/css/jquery.dataTables.css' />-->
     <link rel='stylesheet' type='text/css' href='assets/js/fullcalendar/fullcalendar.css' />
@@ -42,16 +46,18 @@
             maxDate: '-15Y',
             defaultDate: '-25Y'
         });
+        $('.tgllahir').attr( "autocomplete", "off" );
         $( ".datepicker" ).datepicker({
             changeMonth: true,
             changeYear: true,
             dateFormat: "dd-mm-yy"
         });
+        $('.datepicker').attr( "autocomplete", "off" );
         $('#list').dataTable();
         $('#list_length').addClass('pull-right');
         $('select[name="list_length"]').addClass('input-mini');
         $('#list_filter input').attr('placeholder','Masukkan kata yang dicari');
-        $('.alert').delay(2 * 1000).fadeOut();
+        $('.alert').delay(3 * 1000).fadeOut();
         $('.tip-right').tooltip({placement:'right'});
     } );
    function view_detail(num){
@@ -78,18 +84,19 @@
 <!--	    <div class="nav-collapse">-->
 		<ul class="nav">
                     <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
-		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightblue" class="dropdown-toggle" href="#">Manajemen Diklat<b class="caret"></b></a>
+		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightblue" class="dropdown-toggle" href="#">E-Manajemen Diklat<b class="caret"></b></a>
 			<ul class="dropdown-menu">
                             <li><a href="<?php echo base_url('site/front/'.date('Y'))?>">Daftar Diklat</a></li>
                             <li><a href="<?php echo base_url('about/pengajar')?>">Daftar Pengajar</a></li>
                             <li><a href="<?php echo base_url('site/list_kelas')?>">Informasi Kelas</a></li>
                             <li><a href="<?php echo base_url('site/list_kamar')?>">Informasi Asrama</a></li>
+                            <li><a href="<?php echo base_url()?>">Login Manajemen Diklat</a></li>
 			</ul>
 		    </li>
                     <li><a style="color:lightcoral" href="http://ppsdma.bpsdm.dephub.go.id/elearning" class="">E-Learning</a></li>
+		    <li><a style="color:lightskyblue" href="<?php echo base_url()?>elibrary">E-Library</a></li>
+                    <li><a style="color:orange" href="http://ppsdma.bpsdm.dephub.go.id/eoffice" class="">E-Office</a></li>
                     <li><a style="color:lightgreen" href="<?php echo base_url()?>site/email">E-Mail</a></li>
-<!--                    <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>-->
-		    <li><a style="color:lightskyblue" href="<?php echo base_url()?>elibrary">Library</a></li>
 		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightsalmon" class="dropdown-toggle" href="#">Profil<b class="caret"></b></a>
 			<ul class="dropdown-menu">
                             <?php foreach($profil as $p){ ?>

@@ -400,7 +400,30 @@ class Front extends CI_Controller{
             $this->template->display_wid('wid/schedule_program',$data);
         }
     }
-
+    
+    function cetak_daftar_hadir($id_jadwal,$thn=''){
+        if($thn==''){
+            $thn=$this->thn_def;
+        }
+        $this->load->helper('pdfexport_helper.php');
+        $data['tahun']=$thn;
+        $data['jadwal']=$this->slng->get_schedule_by_id($id_jadwal);
+        $id=$data['jadwal']['id_program'];
+        $data['program']=$this->rnc->get_program_by_id($id);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
+            KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].' ANGKATAN '.$data['program']['angkatan'];
+//        $data['list']=$this->slng->get_terima_peserta($id,$thn);
+        $data['list']=$this->slng->get_status_accept($id,$thn);
+//        $this->load->view('wid/daftar_hadir',$data);                     
+        $data['htmView'] = $this->load->view('wid/daftar_hadir',$data,TRUE);
+        $filename='Daftar Hadir '.$this->date->konversi5($data['jadwal']['tanggal']).' '.$data['diklat']['name'];
+        pdf_create($data['htmView'],$filename);                                                                    
+    }
     function schedule_program($id) {
         $data['lalu']=TRUE;
         $data['program'] = $this->rnc->get_program_by_id($id);
@@ -427,6 +450,7 @@ class Front extends CI_Controller{
         $data['link_pdf']='program/print_schedule_pdf/'.$id;
         $this->template->display_wid('wid/schedule_program',$data);
     }
+    
     function login_form(){
         $data['title']='Login Pengajar';
         $this->template->display_wid('wid/login_form',$data);
@@ -437,9 +461,8 @@ class Front extends CI_Controller{
 //        $data['jenis']=$this->input->post('jenis');
         $data['username']=$this->input->post('username');
         $data['password']=$this->input->post('password');
-        $res=$this->wid->login_wid($data)->num_rows();
-        if($res>0){
-			$pengajar=$this->wid->login_wid($data)->row_array();
+        $pengajar=$this->wid->login_wid($data);
+        if($pengajar){
             $data_session=array(
                 'nama_wid'=>$pengajar['nama'],
                 'id_jenis'=>$pengajar['jenis'],

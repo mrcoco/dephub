@@ -4,6 +4,7 @@ class Site extends CI_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model('mdl_perencanaan', 'rnc');
+        $this->load->model('mdl_penyelenggaraan','slng');
         $this->load->model('mdl_sarpras', 'spr');
         $this->thn_default=date('Y');
         $this->limit_post=8;
@@ -14,7 +15,6 @@ class Site extends CI_Controller{
     }
     
     function front($thn=''){
-        $this->load->model('mdl_penyelenggaraan','slng');
         $data['title']='Sistem Informasi Manajemen Diklat';
         $data['lim']=$this->limit_post;
         $data['data_post'] = $this->slng->load_pengumuman(0,$data['lim']);
@@ -30,13 +30,27 @@ class Site extends CI_Controller{
         $this->template->display_with_sidebar('site/front_view','login',$data);
     }
     function news($offset=0){
-        $this->load->model('mdl_penyelenggaraan','slng');
         $data['title']='Arsip Berita dan Pengumuman';
         $data['offset']=$offset;
         $data['num_post'] = $this->slng->count_pengumuman();
         $data['lim']=$this->limit_post;
         $data['data_post'] = $this->slng->load_pengumuman($offset,$data['lim']);
         $this->template->display_with_sidebar('site/news','login',$data);
+    }
+       
+    function ajax_filter_alumni($page=1){
+        $data['cur_page']=$page;
+        $data['per_page']=25;
+//        $data['filter']= str_replace('%20', ' ', $filter);
+        $data['offset']=($data['cur_page']-1)*$data['per_page'];
+//        if(isset($_GET)){
+            $saring=$_GET;
+//        }
+        $data['array']=$this->slng->get_filter_alumni($saring,$data['per_page'],$data['offset']);
+        $data['num_res']=$this->slng->get_filter_alumni($saring);
+        $data['num_page']=ceil($data['num_res']/$data['per_page']);
+//        print_r($data['array']);
+        $this->load->view('site/ajax_list_alumni',$data);
     }
     
     function login(){

@@ -6,7 +6,7 @@
     $(function(){
         $('.dosen').typeahead({
             'source' : array_dosen
-        });
+        }).attr( "autocomplete", "off" );
         
         $('.add').live('click',function(){
             add();
@@ -52,7 +52,7 @@
         $('.cont').append('<div class="item input-append"><input type="text" placeholder="Masukkan nama/NIP pengajar" class="dosen input-xxlarge"/><span class="save btn"><i class="icon-ok"></i> Simpan</span></div>');
         $('.dosen').typeahead({
             'source' : array_dosen
-        });
+        }).attr( "autocomplete", "off" );
     }
 </script>
 <p class="lead"><?php echo $materi['judul']?></p>

@@ -15,7 +15,7 @@
         $.getJSON('<?php echo base_url() ?>unit/front/json_unit_pegawai/'+kode_kantor,function(result){
             option=result;
             console.log(option);
-            $('#nip'+num).typeahead({'source':option});
+            $('#nip'+num).typeahead({'source':option}).attr( "autocomplete", "off" );
         });
     }
     

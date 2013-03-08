@@ -13,6 +13,84 @@ class Program extends CI_Controller {
         $this->load->library('date');
         $this->thn_default=date('Y');
     }
+    function kelulusan(){
+        if ($this->session->userdata('id_role') == 5 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        $data['id_pegawai'] = $this->input->post('id_peserta');
+        $data['id_program'] = $this->input->post('id_program');
+        $data['nilai_akhir'] = $this->input->post('nilai_akhir');
+        $data['grade'] = $this->input->post('grade');
+        $data['predikat'] = $this->input->post('predikat');
+        $data['tgl_lulus'] = $this->date->savetgl($this->input->post('tgl_lulus'));
+        $data['no_sk'] = $this->input->post('no_sk');
+        $data['ket'] = $this->input->post('ket');
+        if($_FILES['file_sk']['size']){
+            $filename=strip;
+            $config['file_name']=$data['no_sk'];
+            $config['overwrite']=FALSE;
+            $config['upload_path'] = 'assets/public/file/';
+            $config['allowed_types'] = 'pdf|doc|docx|ppt|xls|xlsx|pptx|odt|jpg|png|gif';
+
+            $this->load->library('upload', $config);
+            if ( !$this->upload->do_upload('file_sk'))
+            {
+                $error = $this->upload->display_errors('','');
+                $this->session->set_flashdata('msg',$this->editor->alert_error($error));
+                redirect(base_url('program/peserta_program/'.$data['id_program']));
+            }else{
+                $file_data=$this->upload->data();
+                $data['file_sk']=$file_data['file_name'];
+            }
+        }
+        if($data['no_sk']){
+           $this->slng->insert_alumni($data);
+           $this->session->set_flashdata('msg',$this->editor->alert_ok('Data kelulusan telah disimpan'));
+        }else{
+           $this->session->set_flashdata('msg',$this->editor->alert_error('Anda belum memasukkan nomor SK'));
+        }
+        redirect(base_url('program/peserta_program/'.$data['id_program']));
+    }
+    function kelulusan_delete($id_pes,$id_pro){
+        if ($this->session->userdata('id_role') == 5 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        $alumni=$this->slng->get_alumni($id_pes,$id_pro);
+        if($alumni){
+            $this->slng->delete_alumni($id_pes,$id_pro);
+            $this->session->set_flashdata('msg',$this->editor->alert_warning('Data kelulusan telah dihapus'));
+            redirect(base_url('program/peserta_program/'.$id_pro));
+        }else{
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Data tidak ditemukan'));
+            redirect(base_url('program/peserta_program/'.$id_pro));
+        }
+    }
+    function ajax_kelulusan($id_pes,$id_pro){
+        if ($this->session->userdata('id_role') == 5 || $this->session->userdata('id_role') == 4) {
+            redirect(base_url() . 'error/error_priv');
+        }
+        $data['program']=$this->rnc->get_program_by_id($id_pro);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['peserta']=$this->slng->get_data_peserta_id($id_pes);
+        $alumni=$this->slng->get_alumni($id_pes,$id_pro);
+        if($alumni){
+            $data['alumni']=$alumni;
+        }else{
+            $data['alumni']['nilai_akhir']='';
+            $data['alumni']['grade']='';
+            $data['alumni']['predikat']='';
+            $data['alumni']['tgl_lulus']='';
+            $data['alumni']['no_sk']='';
+            $data['alumni']['file_sk']='';
+            $data['alumni']['ket']='';
+        }
+//        print_r($data);
+        $this->load->view('program/kelulusan_peserta',$data);
+    }
     function feedback_result($id){
         $data['id']=$id;
         $data['program']=$this->rnc->get_program_by_id($id);
@@ -210,6 +288,7 @@ class Program extends CI_Controller {
             $this->session->set_flashdata('msg',$this->editor->alert_error('Diklat tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         $data['list']=$this->slng->get_terima_peserta($id,$thn);
         $this->template->display_with_sidebar('program/list_peserta','program',$data);
     }
@@ -322,7 +401,7 @@ class Program extends CI_Controller {
         }
 
 
-        $data['sub_title'] = 'Buat Program Baru di ' . $data['pil_diklat']['name'];
+        $data['sub_title'] = 'Buat Program Baru';
         $this->template->display_with_sidebar('program/form_buat_program', 'diklat', $data);
     }
 
@@ -394,7 +473,7 @@ class Program extends CI_Controller {
         }
 
 
-        $data['sub_title'] = 'Edit Program ' . $data['pil_diklat']['name'] . ' Angkatan ' . $data['program']['angkatan'];
+        $data['sub_title'] = 'Revisi Program';
         $this->template->display_with_sidebar('program/form_edit_program', 'program', $data);
     }
 
@@ -542,7 +621,7 @@ class Program extends CI_Controller {
         
         $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
         
-        $data['title']='Alokasi Kamar Peserta Diklat '.$data['diklat']['name'].' Angkatan '.$data['program']['angkatan'];
+        $data['title']='Alokasi Kamar Peserta';
         $data['list']=$this->slng->get_status_accept_order($id,$thn);
         //get list kamar yg dialokasiin
         $alokasi_kamar=$this->slng->get_pemakaian_kamar($id);

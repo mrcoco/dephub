@@ -3,7 +3,7 @@
         <?php $all_role=$this->db->select('id')->get('list_role')->result_array();?>
         <?php $role=array(); foreach($all_role as $ar){$role[]=$ar['id'];} ?>
         <?php // if($this->session->userdata('id_role')==1){?>
-        <li><a href="#">Home</a></li>
+        <li><a href="<?php echo base_url() ?>">Home</a></li>
         <?php // } ?>
         <?php if($this->session->userdata('id_role')!=''):?>
         <?php if($this->session->userdata('id_role')<=3){?>

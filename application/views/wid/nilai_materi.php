@@ -2,7 +2,7 @@
     <?php if(isset($tahun)){ ?>
         Pilih tahun : 
         <?php foreach($tahun as $t){ ?>
-        <a href="<?php echo base_url('wid/front/info_pengajar/'.$t) ?>"><?php echo $t ?></a> |
+        <a href="<?php echo base_url('wid/nilai/index/'.$t) ?>"><?php echo $t ?></a> |
         <?php } ?>
     <?php } ?>
     </p>
@@ -24,14 +24,13 @@
                     <tr>
                         <td width="200px"><?php echo $ma['judul'] ?></td>
                         <td>
-                            <a class="btn btn-mini" href="wid/front/schedule_program/<?php echo $pro['id_program'] ?>">Jadwal program</a>
-                            <?php if($this->editor->cek_fdb_pengajar($pro['id_program'],$ma['id'],$this->session->userdata('id_wid'))>0){ ?>
-                            <a class="btn btn-mini" href="wid/front/feedback_result_pengajar/<?php echo $pro['id_program'].'/'.$ma['id'].'/'.$this->session->userdata('id_wid') ?>">
-                                Hasil Evaluasi
+                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'].'/'.$pro['id'] ?>">Unsur Penilaian</a>
+                            <a class="btn btn-mini" href="wid/nilai/input/<?php echo $ma['id'].'/'.$pro['id'] ?>">
+                                Pengumpulan Nilai
                             </a>
-                            <?php }else{ ?>
-                            <span class="label label-important">Evaluasi belum diisi</span>
-                            <?php } ?>
+                            <a class="btn btn-mini" href="wid/nilai/view/<?php echo $ma['id'].'/'.$pro['id'] ?>">
+                                Lihat Nilai
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>
@@ -57,14 +56,13 @@
                             <?php echo $this->date->konversi5($p['tanggal_mulai']).' - '.$this->date->konversi5($p['tanggal_akhir']) ?>
                         </td>
                         <td>
-                            <a class="btn btn-mini" href="wid/front/schedule_program/<?php echo $pro['id_program'] ?>">Jadwal program</a>
-                            <?php if($this->editor->cek_fdb_pengajar($pro['id_program'],$ma['id'],$this->session->userdata('id_wid'))>0){ ?>
-                            <a class="btn btn-mini" href="wid/front/feedback_result_pengajar/<?php echo $pro['id_program'].'/'.$ma['id'].'/'.$this->session->userdata('id_wid') ?>">
-                                Hasil Evaluasi
+                            <a class="btn btn-mini" href="wid/nilai/item/<?php echo $ma['id'].'/'.$pro['id'] ?>">Unsur Penilaian</a>
+                            <a class="btn btn-mini" href="wid/nilai/input/<?php echo $ma['id'].'/'.$pro['id'] ?>">
+                                Pengumpulan Nilai
                             </a>
-                            <?php }else{ ?>
-                            <span class="label label-important">Evaluasi belum diisi</span>
-                            <?php } ?>
+                            <a class="btn btn-mini" href="wid/nilai/view/<?php echo $ma['id'].'/'.$pro['id'] ?>">
+                                Lihat Nilai
+                            </a>
                         </td>
                     </tr>
                 <?php } ?>

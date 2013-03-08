@@ -1,6 +1,4 @@
-<p class="lead">
-    <?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?>
-</p>
+<h2><?php echo $diklat['name'].' Tahun '.$program['tahun_program'].' Angkatan '.$program['angkatan'] ?></h2>
 <?php foreach($materi as $m){ ?>
 <br/><h4><?php echo $m['judul'] ?></h4>
     <table width="400px" class="table-striped">

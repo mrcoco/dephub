@@ -1,4 +1,4 @@
-<h2><?php echo $program['name'] ?></h2>
+<h2>Pilih Program <?php echo $program['name'] ?></h2>
         <p>Pilih tahun: 
         <?php foreach($thn_program as $th){ ?>
             <?php if(checkdate(1,1,$th['tahun_program'])){?>
