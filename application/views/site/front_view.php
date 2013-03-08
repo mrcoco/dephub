@@ -78,7 +78,9 @@
         </div>
         <p>Pilih tahun: 
         <?php foreach($thn_program as $th){ ?>
+            <?php if(checkdate(1,1,$th['tahun_program'])){?>
             <a href="<?php echo base_url()?>site/front/<?php echo $th['tahun_program'] ?>"><?php echo $th['tahun_program'] ?></a> | 
+            <?php } ?>
         <?php } ?>
         </p>
         <?php $this->date->legend_status(); ?>

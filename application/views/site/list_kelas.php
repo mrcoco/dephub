@@ -70,6 +70,3 @@
         <?php }?>
     </tbody>
 </table>
-<div class="form-actions">
-    <a href="kamar/add_kamar" class="btn btn-primary"><i class="icon-plus-sign icon-white"></i> Tambah</a>
-</div>

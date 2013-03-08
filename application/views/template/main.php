@@ -84,18 +84,19 @@
 <!--	    <div class="nav-collapse">-->
 		<ul class="nav">
                     <li><a class="brand" href="<?php echo site_url();?>"><img src="assets/img/dephub-icon.png" /></a></li>
-		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightblue" class="dropdown-toggle" href="#">Manajemen Diklat<b class="caret"></b></a>
+		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightblue" class="dropdown-toggle" href="#">E-Manajemen Diklat<b class="caret"></b></a>
 			<ul class="dropdown-menu">
                             <li><a href="<?php echo base_url('site/front/'.date('Y'))?>">Daftar Diklat</a></li>
                             <li><a href="<?php echo base_url('about/pengajar')?>">Daftar Pengajar</a></li>
                             <li><a href="<?php echo base_url('site/list_kelas')?>">Informasi Kelas</a></li>
                             <li><a href="<?php echo base_url('site/list_kamar')?>">Informasi Asrama</a></li>
+                            <li><a href="<?php echo base_url()?>">Login Manajemen Diklat</a></li>
 			</ul>
 		    </li>
                     <li><a style="color:lightcoral" href="http://ppsdma.bpsdm.dephub.go.id/elearning" class="">E-Learning</a></li>
+		    <li><a style="color:lightskyblue" href="<?php echo base_url()?>elibrary">E-Library</a></li>
+                    <li><a style="color:orange" href="http://ppsdma.bpsdm.dephub.go.id/eoffice" class="">E-Office</a></li>
                     <li><a style="color:lightgreen" href="<?php echo base_url()?>site/email">E-Mail</a></li>
-<!--                    <li><a href="<?php echo base_url()?>">Manajemen Diklat</a></li>-->
-		    <li><a style="color:lightskyblue" href="<?php echo base_url()?>elibrary">Library</a></li>
 		    <li class="dropdown"><a data-toggle="dropdown" style="color:lightsalmon" class="dropdown-toggle" href="#">Profil<b class="caret"></b></a>
 			<ul class="dropdown-menu">
                             <?php foreach($profil as $p){ ?>

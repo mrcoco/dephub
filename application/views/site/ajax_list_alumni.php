@@ -1,5 +1,4 @@
 <div id="display_dialog" class="modal hide modal-wide"></div>
-
 <table width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
@@ -19,7 +18,11 @@
     <td><a class="tip-right" title="Klik untuk detail" href="javascript:view_detail_pub(<?php echo $a['id_pegawai']; ?>)"><?php echo $a['nama']?></a></td>
     <td><?php echo $a['nip']?></td>
     <td>
-        <a href="assets/public/file/<?php echo $a['file_sk']?>" target="_blank"><?php echo $a['no_sk'] ?></a>
+        <?php if($a['file_sk']){ ?>
+        <a class="tip-right" title="Klik untuk download SK" download="assets/public/file/<?php echo $a['file_sk'] ?>" href="#">
+            <?php echo $a['no_sk'] ?>
+        </a>
+        <?php }else{ echo $a['no_sk']; } ?>
     </td>
     <td><?php echo $a['diklat'].' Angkatan '.$a['angkatan']?></td>
     <td><?php echo $a['tahun_program']?></td>
@@ -29,10 +32,10 @@
 </tbody>
 </table>
 <div id="footer">
-<div id="info" class="pull-right">Hal <?php echo $cur_page?> dari <?php echo $num_page?></div>
+<div id="info" class="pull-right">Total : <?=$num_res?> org | Hal <?php echo $cur_page?> dari <?php echo $num_page?></div>
     <div id="paging" class="pagination">
         <ul>
-            <li><a href="javascript:void(0)" onclick="saring(1)">Awal</a></li>
+            <li><a href="javascript:saring(1)">Awal</a></li>
         <?php 
             $ac='';
             if($cur_page<3){
@@ -43,21 +46,21 @@
                 }
                 for($i=1;$i<=$max;$i++){
                     if($i==$cur_page){$ac='active';}else{$ac='';}
-                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="saring('.$i.')">'.$i.'</a></li>';
+                    echo '<li class="'.$ac.'"><a href="javascript:saring('.$i.')">'.$i.'</a></li>';
                 }
             }else if($cur_page>=3&&$cur_page<=($num_page-3)){
                 for($i=$cur_page-2;$i<=$cur_page+2;$i++){
                     if($i==$cur_page){$ac='active';}else{$ac='';}
-                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="saring('.$i.')">'.$i.'</a></li>';
+                    echo '<li class="'.$ac.'"><a href="javascript:saring('.$i.')">'.$i.'</a></li>';
                 }
             }else if($cur_page>($num_page-3)){
                 for($i=$num_page-4;$i<=$num_page;$i++){
                     if($i==$cur_page){$ac='active';}else{$ac='';}
-                    echo '<li class="'.$ac.'"><a href="javascript:void(0)" onclick="saring('.$i.')">'.$i.'</a></li>';
+                    echo '<li class="'.$ac.'"><a href="javascript:saring('.$i.')">'.$i.'</a></li>';
                 }
             }
         ?>
-            <li><a href="javascript:void(0)" onclick="saring(<?php echo $num_page ?>)">Akhir</a></li>
+            <li><a href="javascript:saring(<?php echo $num_page ?>)">Akhir</a></li>
         </ul>
     </div>
 </div>

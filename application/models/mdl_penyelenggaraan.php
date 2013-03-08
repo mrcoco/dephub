@@ -38,7 +38,7 @@ class Mdl_penyelenggaraan extends CI_Model{
         }
         return $data;
     }
-    function get_filter_alumni($per_page,$offset,$saring){
+    function get_filter_alumni($saring,$per_page='',$offset=''){
         if($saring['diklat']){
             $this->db->select('id');
             $this->db->like('name',$saring['diklat'],'both');
@@ -64,17 +64,21 @@ class Mdl_penyelenggaraan extends CI_Model{
         $this->db->select('id_pegawai, id_program, nama, nip, tahun_program, angkatan, parent, no_sk, file_sk');
         $this->db->join('pegawai','alumni.id_pegawai=pegawai.id');
         $this->db->join('program','alumni.id_program=program.id');
-        $results=$this->db->get('alumni',$per_page,$offset)->result_array();
-        
-        $data=array();
-        foreach($results as $result){
-            $this->db->select('name');
-            $this->db->where('id',$result['parent']);
-            $diklat=$this->db->get('program')->row_array();
-            $result['diklat']=$diklat['name'];
-            $data[]=$result;
+        if($per_page!=''){
+            $results=$this->db->get('alumni',$per_page,$offset)->result_array();
+
+            $data=array();
+            foreach($results as $result){
+                $this->db->select('name');
+                $this->db->where('id',$result['parent']);
+                $diklat=$this->db->get('program')->row_array();
+                $result['diklat']=$diklat['name'];
+                $data[]=$result;
+            }
+            return $data;
+        }else{
+            return $this->db->get('alumni')->num_rows();
         }
-        return $data;
     }
     function insert_alumni($data){
         if($this->get_alumni($data['id_pegawai'], $data['id_program'])){
