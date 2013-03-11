@@ -26,6 +26,10 @@
                 $(item).val(-1);
                 alert('Program sudah penuh');
             }
+            td = $(item).parent().parent().parent();
+            idx = td.parent().children('.no').html();
+            new_content = $(item).find('option:selected').text();
+            $('#list2').dataTable().fnUpdate(new_content,(idx-1),6);    
         });
     }
 
@@ -43,8 +47,8 @@
     $(document).ready(function() {
         $('#list2').dataTable({
             "aoColumnDefs": [
-                {"bSearchable": true, "bVisible": true, "aTargets": [5]},
-                {"bSearchable": true, "bVisible": true, "aTargets": [6]}
+                {"bSearchable": true, "bVisible": false, "aTargets": [5]},
+                {"bSearchable": true, "bVisible": false, "aTargets": [6]}
             ]
         });
         
@@ -125,7 +129,7 @@ Filter angkatan : <?php echo form_dropdown('filter_angkatan', $pil_angkatan,'','
                     ?>
                 </td>
                 <td><?php echo $list[$i]['status'] ?></td>
-                <td><?php
+                <td id="angkatan_<?php echo $list[$i]['id_peserta']?>"><?php
                     if (array_key_exists($list[$i]['id_program'], $pil_angkatan))
                         echo $pil_angkatan[$list[$i]['id_program']]
                         ?>
