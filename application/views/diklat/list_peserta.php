@@ -59,6 +59,13 @@
             }
             $('#list2').dataTable().fnFilter( string1,6);
         });
+        $('#filter_status').change(function(){
+            string1 = $(this).find('option:selected').text();
+            if(string1=='---'){
+                string1='';
+            }
+            $('#list2').dataTable().fnFilter( string1,5);
+        });
     });
 </script>
 <div class="row">
@@ -74,6 +81,7 @@
     <?php } ?>
 </p>
 Filter angkatan : <?php echo form_dropdown('filter_angkatan', $pil_angkatan,'','id="filter_angkatan"')?>
+Filter status : <?php echo form_dropdown('filter_status',array('---','accept','daftar','waiting'),'','id="filter_status"')?>
 <table id="list2" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>
