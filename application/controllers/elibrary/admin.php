@@ -114,7 +114,7 @@ class Admin extends CI_Controller {
         
         function delete_category($id)
 	{
-                 if ($this->elib->count_books_by(array('idcategory'=>$id))>0 ||$this->elib->count_bibliography_by(array('idcategory'=>$id))>0){
+                 if ($this->elib->count_books_by(array('idcategory'=>$id))>0 ||$this->elib->count_bibliography_by(array('t1.idcategory'=>$id))>0){
                    $this->session->set_flashdata('msg',$this->editor->alert_error('Kategori tidak berhasil dihapus karena ada buku/file yang terhubung'));
                    redirect(base_url().'elibrary/admin/list_category');
                  }
