@@ -5,7 +5,8 @@
     <thead>
         <tr>
             <th width="5%" id="no">No</th>
-            <th width="30%" id="nama">Nama</th>
+            <th width="15%" id="namasingkat">Nama Singkat</th>
+            <th width="30%" id="nama">Nama Kategori</th>
             
             <th >Aksi</th>
         </tr>
@@ -15,6 +16,7 @@
 <?php foreach($data as $a){?>
 <tr>
     <td><?php echo $no?></td>
+    <td><?php echo $a['categoryshortname']?></td>
     <td><?php echo $a['categoryname']?></td>
     
     <td>
