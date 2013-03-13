@@ -48,8 +48,11 @@ class Admin extends CI_Controller {
         function do_add_category()
 	{
                 $data['insert']['categoryname']=  $this->input->post('categoryname');
+                $data['insert']['categoryshortname']=  $this->input->post('categoryshortname');
                 $this->elib->insert_category($data['insert']);
-                        $this->session->set_flashdata('msg',$this->editor->alert_ok('Kategori telah ditambah '+$data['insert']['categoryname']));
+                $string.="Kategori telah ditambahkan :";
+                $string.=$data['insert']['categoryname'];
+                        $this->session->set_flashdata('msg',$this->editor->alert_ok($string));
                         redirect(base_url().'elibrary/admin/list_category');
 		
 	}
