@@ -195,4 +195,67 @@ class Mdl_wid extends CI_Model {
         $this->db->delete('feedback_diklat');
     }
 
+    function insert_komponen_penilaian($id_materi,$id_program,$batch){
+        foreach($batch as $b){
+            $this->db->where(array('id_materi'=>$id_materi,'id_program'=>$id_program,'nama_komponen'=>$b['nama_komponen']));
+            $res = $this->db->get('komponen_penilaian');
+            if($res->num_rows()>0){
+                //udah ada, update
+                $data = $res->row_array();
+                $this->db->where('id',$data['id']);
+                $this->db->update('komponen_penilaian',$b);
+            }else{
+                $this->db->insert('komponen_penilaian',$b);
+            }
+        }
+    }
+    
+    function get_komponen_penilaian($id_materi,$id_program){
+        //hapus data yang sudah ada
+        $this->db->where(array('id_materi'=>$id_materi,'id_program'=>$id_program));
+        return $this->db->get('komponen_penilaian')->result_array();
+    }
+    
+    function get_nama_komponen($id_komponen){
+        $this->db->where(array('id'=>$id_komponen));
+        return $this->db->get('komponen_penilaian')->row_array();
+    }
+    
+    function insert_nilai($id_komponen,$id_wid,$batch,$array_id_peserta){
+        //hapus nilai sebelumnya
+        if(count($array_id_peserta)){
+            $in = '('.implode($array_id_peserta,',').')';
+            $this->db->where('id_peserta in '.$in);
+        }
+        $this->db->where('id_komponen',$id_komponen);
+        $this->db->where('id_pengajar',$id_wid);
+        $this->db->delete('nilai_peserta');
+        
+        $this->db->insert_batch('nilai_peserta',$batch);
+    }
+    
+    function get_nilai_peserta($id_komponen){
+//        SELECT id_peserta, AVG( nilai ) , id_komponen
+//FROM  `tb_nilai_peserta` 
+//GROUP BY id_komponen, id_peserta
+//WHERE id_komponen=$id_komponen
+        $this->db->select('id_peserta');
+        $this->db->select('AVG(nilai) as nilai');
+        $this->db->where('id_komponen',$id_komponen);
+        $this->db->group_by('id_peserta');
+        return $this->db->get('nilai_peserta')->result_array();
+    }
+    
+    function cek_status_pengumpulan($id_komponen){
+        $this->db->distinct();
+        $this->db->select('id_pengajar');
+        $this->db->where('id_komponen',$id_komponen);
+        $this->db->where('id_pengajar',$this->session->userdata('id_wid'));
+        $res = $this->db->get('nilai_peserta')->num_rows();
+        if($res>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

@@ -17,6 +17,17 @@ $(function(){
 </script>
 <h2><?php echo $materi['judul'] ?></h2>
 <form action="wid/nilai/item_insert" method="POST">
+<input type="hidden" name="id_materi" value="<?php echo $indeks['id_materi']?>"/>
+<input type="hidden" name="id_program" value="<?php echo $indeks['id_program']?>"/>
+<?php foreach($list_komponen as $l){?>
+<div class="cont">
+    <p class="input-append input-prepend">
+        <input type="text" class="item" name="item[]" placeholder="Unsur Penilaian" value="<?php echo $l['nama_komponen']?>"/>
+        <input type="text" class="bobot input-small" name="bobot[]" placeholder="Bobot" value="<?php echo $l['bobot']?>"/><span class="add-on">%</span>
+        <span class="btn btn-mini btn-danger del"><i class="icon-remove"></i> Hapus</span>
+    </p>
+</div>
+<?php } ?>
 <div class="cont">
     <p class="input-append input-prepend">
         <input type="text" class="item" name="item[]" placeholder="Unsur Penilaian"/>

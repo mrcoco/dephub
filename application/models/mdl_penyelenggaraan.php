@@ -711,7 +711,11 @@ class Mdl_penyelenggaraan extends CI_Model{
                 if($arr_schedule[$i]['jenis_tempat']=='kelas'){
                     $this->db->where('id',$arr_schedule[$i]['id_ruangan']);
                     $data_kelas=$this->db->get('sarpras_kelas')->row_array();
-                    $arr_schedule[$i]['nama_ruangan']=$data_kelas['nama'];
+                    if(count($data_kelas)>0){
+                        $arr_schedule[$i]['nama_ruangan']=$data_kelas['nama'];
+                    }else{
+                        $arr_schedule[$i]['nama_ruangan']='Belum ditentukan';
+                    }
                 }
                 
                 //mengambil data pendamping

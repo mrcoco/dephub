@@ -44,6 +44,7 @@ $route['unit'] = 'unit/front';
 $route['inst'] = 'inst/front';
 $route['pes'] = 'pes/front';
 $route['wid'] = 'wid/front';
+$route['wid/nilai'] = 'wid/nilai';
 $route['404_override'] = 'site/error';
 
 
