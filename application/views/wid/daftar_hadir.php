@@ -1,11 +1,20 @@
 <html>
     <head>
 <style>
+@page {
+            margin-top: 0.6em;
+            margin-bottom: 0.6em;
+            margin-left: 1.5em;
+            margin-right: 1.5em;
+        }
+        body{
+            font-size: smaller;
+        }
     .bordered{
         border-bottom: 1px #000 solid;
         border-right: 1px #000 solid;
         border-left: 0;
-        font-size: x-small;
+        font-size: 8.5pt;
     }
     .bordered td, th{
         border-left: 1px #000 solid;
@@ -20,20 +29,22 @@
 <h3 align="center">
     <?php echo $judul ?>
 </h3>
-        <h2 align="center">
+        <h4 align="center">
             DAFTAR HADIR
-        </h2>
+        </h4>
         <table width="100%">
             <tr>
-                <td width="10%">Tanggal</td>
-                <td width="40%">: <?php echo $this->date->konversi5($jadwal['tanggal'])?></td>
+                <td width="10%">Hari/Tanggal</td>
+                <td width="1%">:</td>
+                <td width="39%"><?php echo $this->date->hari_tgl($jadwal['tanggal']).', '.$this->date->konversi5($jadwal['tanggal'])?></td>
                 <td width="50%">Tanda Tangan Widyaiswara :</td>
             </tr>
             <tr>
                 <td>Waktu</td>
-                <td>: <?php echo date('H.i', strtotime($jadwal['jam_mulai'])).' - '.date('H.i', strtotime($jadwal['jam_selesai'])) ?> WIB</td>
+                <td>:</td>
+                <td><?php echo date('H.i', strtotime($jadwal['jam_mulai'])).' - '.date('H.i', strtotime($jadwal['jam_selesai'])) ?> WIB</td>
                 <td rowspan="2">
-                <?php if($jadwal['ada_pembicara']){?>
+                <?php if(isset($jadwal['ada_pembicara'])){?>
                     <?php   
                     foreach($jadwal['list_pembicara'] as$l){
                         if($l['nama_peg']!=''){
@@ -48,16 +59,17 @@
             </tr>
             <tr>
                 <td>Kegiatan/Materi</td>
-                <td>: <?php if($jadwal['judul']){echo $jadwal['judul'];}else{echo $jadwal['nama_kegiatan'];} ?></td>
+                <td>:</td>
+                <td><?php if($jadwal['judul']){echo $jadwal['judul'];}else{echo $jadwal['nama_kegiatan'];} ?></td>
             </tr>
         </table>
         <br />
 <table class="bordered" width="100%" align="center" cellspacing="0" cellpadding="1">
     <thead>
         <tr>
-            <th width="5%">NO</th>
-            <th width="27%">NAMA</th>
-            <th width="18%">NIP</th>
+            <th width="3%">NO</th>
+            <th width="30%">NAMA</th>
+            <th width="17%">NIP</th>
             <th width="5%">GOL</th>
             <th width="20%">UNIT KERJA</th>
             <th width="25%">TANDA TANGAN</th>

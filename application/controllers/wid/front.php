@@ -415,8 +415,8 @@ class Front extends CI_Controller{
             $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
             redirect(base_url().'diklat/daftar_diklat/');
         }
-        $data['judul']='DAFTAR PESERTA '.strtoupper($data['diklat']['name']).'<br />
-            KEMENTERIAN PERHUBUNGAN TAHUN '.$data['tahun'].' ANGKATAN '.$data['program']['angkatan'];
+        $data['judul']='PENDIDIKAN DAN PELATIHAN '.strtoupper($data['diklat']['name']).'<br />
+            KEMENTERIAN PERHUBUNGAN ANGKATAN '.$data['program']['angkatan'].' TAHUN '.$data['tahun'];
 //        $data['list']=$this->slng->get_terima_peserta($id,$thn);
         $data['list']=$this->slng->get_status_accept($id,$thn);
 //        $this->load->view('wid/daftar_hadir',$data);                     

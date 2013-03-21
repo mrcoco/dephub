@@ -50,6 +50,12 @@ class Date{
         $arr_date = array('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu');
         return $arr_date[$idx-1];
     }
+    function hari_tgl($in){
+        $tgl = date_create_from_format('Y-m-d', $in);
+        $idx = date_format($tgl,'N');
+        $arr_date = array('Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu');
+        return $arr_date[$idx-1];
+    }
     
     function savetgl($in){
         //merubah format tanggal yy-mm-dd jadi dd-mm-yy

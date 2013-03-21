@@ -49,8 +49,13 @@ form label.required {
     border-radius: 5px;
 }
 #content {
-    background: #FFF;
-    padding: 15px;
+    /*background: #FFF;*/
+background: #eee; /* for non-css3 browsers */
+
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee'); /* for IE */
+background: -webkit-gradient(linear, left bottom, left 25%, from(#eee), to(#fff)); /* for webkit browsers */
+background: -moz-linear-gradient(bottom,  #eee, #fff); /* for firefox 3.6+ */
+padding: 15px;
     margin-top: 40px;
 /*
 -webkit-border-radius: 5px;
