@@ -39,9 +39,11 @@
                 <a href="javascript:kelulusan(<?php echo $list[$i]['id_peserta'].','.$program['id'] ?>)" class="btn btn-mini btn-primary">
                     <i class="icon-check icon-white"></i> Ubah
                 </a>
+                <?php if($alumni){ ?>
                 <a href="program/kelulusan_delete/<?php echo $list[$i]['id_peserta'].'/'.$program['id'] ?>" class="btn btn-mini btn-danger">
                     <i class="icon-remove icon-white"></i> Batal
                 </a>
+                <?php } ?>
                 <?php }else{ echo 'Belum diterima';} ?>
             </td>
         <?php }?>

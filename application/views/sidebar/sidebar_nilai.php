@@ -6,7 +6,7 @@
                     <a href="wid/nilai/item/<?php echo $materi['id'].'/'.$program['id'] ?>"><i class="icon-chevron-right"></i> Unsur Penilaian</a>
                 </li>
                 <?php if(isset($program)){ ?>
-                <li <?php if($t=='input')echo 'class="active"' ?>>
+                <li <?php if($t=='input' || $t=='upload_nilai')echo 'class="active"' ?>>
                     <a href="wid/nilai/input/<?php echo $materi['id'].'/'.$program['id'] ?>"><i class="icon-chevron-right"></i> Pengumpulan Nilai</a>
                 </li>
                 <li <?php if($t=='view')echo 'class="active"' ?>>

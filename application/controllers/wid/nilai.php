@@ -51,6 +51,7 @@ class nilai extends CI_Controller {
         $data['sidebar']='sidebar_nilai';
         $data['title']='Unsur Penilaian';
         $data['list_komponen']=$this->wid->get_komponen_penilaian($id_materi,$id_program);
+        $data['tot']=$this->wid->tot_bobot_penilaian($id_materi,$id_program);
         $data['indeks']['id_materi']=$id_materi;
         $data['indeks']['id_program']=$id_program;
         $this->template->display_wid('wid/nilai_item',$data);
@@ -75,6 +76,12 @@ class nilai extends CI_Controller {
         $this->wid->insert_komponen_penilaian($id_materi,$id_program,$ins_batch);
         redirect(base_url().'wid/nilai/item/'.$id_materi.'/'.$id_program);
     }
+    function item_hapus(){
+        $data['id_program']=$this->input->post('id_program');
+        $data['id_materi']=$this->input->post('id_materi');
+        $data['id']=$this->input->post('id_komponen');
+        echo $this->wid->hapus_komponen($data);
+    }
     
     function input($id_materi,$id_program){
         $data['materi']=$this->rnc->get_materi($id_materi);
@@ -90,6 +97,7 @@ class nilai extends CI_Controller {
     }
     
     function upload_nilai($id_materi,$id_program,$id_komponen){
+        $data['title']='Pengumpulan Nilai';
         $data['materi']=$this->rnc->get_materi($id_materi);
         $data['program']=$this->rnc->get_program_by_id($id_program);
         $data['komponen']=$this->wid->get_nama_komponen($id_komponen);
@@ -142,7 +150,7 @@ class nilai extends CI_Controller {
                 
                 $cellket = $sheet->getCellByColumnAndRow(4,$row);
                 $ket = $cellket->getValue();
-                
+                if(!$ket){$ket="";}
                 
                 $batch[]=array(
                     'id_komponen'=>$id_komponen,
@@ -225,7 +233,7 @@ class nilai extends CI_Controller {
         $obj_writer->save('php://output');
     }
     
-    function view($id_materi,$id_program){
+    function view($id_materi,$id_program,$print=""){
         $thn=  $this->thn_def;
         $data['materi']=$this->rnc->get_materi($id_materi);
         $data['program']=$this->rnc->get_program_by_id($id_program);
@@ -244,6 +252,14 @@ class nilai extends CI_Controller {
         $data['list_peserta']=$this->slng->get_terima_peserta($id_program,$thn);
         
         $this->template->display_wid('wid/nilai_view',$data);
+        if($print=="print"){
+            $data['judul']='PENDIDIKAN DAN PELATIHAN '.strtoupper($data['diklat']['name']).'<br />
+                KEMENTERIAN PERHUBUNGAN ANGKATAN '.$data['program']['angkatan'].' TAHUN '.$data['program']['tahun_program'];
+            $this->load->helper('pdfexport_helper.php');
+            $data['htmView'] = $this->load->view('wid/nilai_print',$data,TRUE);
+            $filename='Nilai Peserta '.$data['diklat']['name'].' Ang '.$data['program']['angkatan'].' Materi '.$data['materi']['id'];
+            pdf_create($data['htmView'],$filename);                                                                    
+        }
     }
 
 }

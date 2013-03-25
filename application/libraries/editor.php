@@ -19,6 +19,32 @@ class Editor {
             default      : return "Mendaftar";break;
         }
     }
+    function grading($var){
+        if($var>80){
+            return 'A';         
+        }else if($var>65){
+            return 'B';         
+        }else if($var>55){
+            return 'C';         
+        }else if($var>45){
+            return 'D';         
+        }else if($var>0){
+            return 'E';         
+        }else{
+            return '-';
+        }        
+    }
+    function predikat($var){
+        if($var>80){
+            return 'Dengan Pujian';         
+        }else if($var>65){
+            return 'Sangat Memuaskan';         
+        }else if($var>55){
+            return 'Memuaskan';         
+        }else{
+            return '-';
+        }        
+    }
     function cek_fdb_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta=null){
         $this->_ci->load->model('mdl_feedback','fdb');
         return $this->_ci->fdb->cek_feedback_pengajar($id_program,$id_materi,$id_pengajar,$id_peserta);

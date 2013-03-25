@@ -26,7 +26,6 @@ class Program extends CI_Controller {
         $data['no_sk'] = $this->input->post('no_sk');
         $data['ket'] = $this->input->post('ket');
         if($_FILES['file_sk']['size']){
-            $filename=strip;
             $config['file_name']=$data['no_sk'];
             $config['overwrite']=FALSE;
             $config['upload_path'] = 'assets/public/file/';
@@ -77,12 +76,14 @@ class Program extends CI_Controller {
         }
         $data['peserta']=$this->slng->get_data_peserta_id($id_pes);
         $alumni=$this->slng->get_alumni($id_pes,$id_pro);
+        $this->load->model('mdl_wid','wid');
+        $nilai=$this->wid->get_nilai_peserta_id($id_pes,$id_pro);
         if($alumni){
             $data['alumni']=$alumni;
         }else{
-            $data['alumni']['nilai_akhir']='';
-            $data['alumni']['grade']='';
-            $data['alumni']['predikat']='';
+            $data['alumni']['nilai_akhir']=  number_format($nilai,2,',','.');
+            $data['alumni']['grade']=$this->editor->grading($nilai);
+            $data['alumni']['predikat']=$this->editor->predikat($nilai);
             $data['alumni']['tgl_lulus']='';
             $data['alumni']['no_sk']='';
             $data['alumni']['file_sk']='';

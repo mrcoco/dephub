@@ -7,7 +7,7 @@
     <tr>
         <th>Unsur</th>
         <th>Bobot</th>
-        <th>Input Nilai</th>
+        <th>Aksi</th>
         <th>Status</th>
     </tr>
     </thead>
@@ -17,15 +17,15 @@
         <td><?php echo $l['nama_komponen']?></td>
         <td><?php echo $l['bobot']?>%</td>
         <td>
-            <a href="wid/nilai/upload_nilai/<?php echo $materi['id'] ?>/<?php echo $program['id'] ?>/<?php echo $l['id']?>">
-                <?php 
-                if($l['status']){
-                    echo 'Update nilai';
-                }else{
-                    echo 'Input nilai';
-                }
-                ?>
+            <?php if($l['status']){ ?>
+            <a class="btn btn-small" href="wid/nilai/upload_nilai/<?php echo $materi['id'].'/'.$program['id'].'/'.$l['id']?>">
+                <i class="icon-edit"></i> Perbarui nilai
             </a>
+                <?php }else{ ?>
+            <a class="btn btn-small btn-primary" href="wid/nilai/upload_nilai/<?php echo $materi['id'].'/'.$program['id'].'/'.$l['id']?>">
+                <i class="icon-plus-sign icon-white"></i> Masukkan nilai
+            </a>
+                <?php } ?>
         </td>
         <td><?php 
             if($l['status']){

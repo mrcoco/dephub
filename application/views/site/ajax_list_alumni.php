@@ -19,7 +19,7 @@
     <td><?php echo $a['nip']?></td>
     <td>
         <?php if($a['file_sk']){ ?>
-        <a class="tip-right" title="Klik untuk download SK" download="assets/public/file/<?php echo $a['file_sk'] ?>" href="assets/public/file/<?php echo $a['file_sk'] ?>">
+        <a class="tip-right" title="Klik untuk download SK" download="<?php echo $a['file_sk'] ?>" href="assets/public/file/<?php echo $a['file_sk'] ?>">
             <?php echo $a['no_sk'] ?>
         </a>
         <?php }else{ echo $a['no_sk']; } ?>

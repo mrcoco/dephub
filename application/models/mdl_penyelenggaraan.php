@@ -61,9 +61,10 @@ class Mdl_penyelenggaraan extends CI_Model{
             $this->db->or_like('nip',$saring['cari']);
             $this->db->or_like('no_sk',$saring['cari']);
         }
-        $this->db->select('id_pegawai, id_program, nama, nip, tahun_program, angkatan, parent, no_sk, file_sk');
+        $this->db->select('alumni.id, id_pegawai, id_program, nama, nip, tahun_program, angkatan, parent, no_sk, file_sk');
         $this->db->join('pegawai','alumni.id_pegawai=pegawai.id');
         $this->db->join('program','alumni.id_program=program.id');
+        $this->db->order_by("alumni.id","desc");
         if($per_page!=''){
             $results=$this->db->get('alumni',$per_page,$offset)->result_array();
 

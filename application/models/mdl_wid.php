@@ -195,6 +195,11 @@ class Mdl_wid extends CI_Model {
         $this->db->delete('feedback_diklat');
     }
 
+    function hapus_komponen($data){
+        $this->db->where($data);
+        $this->db->delete('komponen_penilaian');
+        return true;
+    }
     function insert_komponen_penilaian($id_materi,$id_program,$batch){
         foreach($batch as $b){
             $this->db->where(array('id_materi'=>$id_materi,'id_program'=>$id_program,'nama_komponen'=>$b['nama_komponen']));
@@ -214,6 +219,13 @@ class Mdl_wid extends CI_Model {
         //hapus data yang sudah ada
         $this->db->where(array('id_materi'=>$id_materi,'id_program'=>$id_program));
         return $this->db->get('komponen_penilaian')->result_array();
+    }
+    function tot_bobot_penilaian($id_materi,$id_program){
+        $this->db->select('sum(bobot) as tot');
+        $this->db->where(array('id_materi'=>$id_materi,'id_program'=>$id_program));
+        $res=$this->db->get('komponen_penilaian')->row_array();
+        if(!$res['tot']){$res['tot']=0;}
+        return $res['tot'];
     }
     
     function get_nama_komponen($id_komponen){
@@ -244,6 +256,28 @@ class Mdl_wid extends CI_Model {
         $this->db->where('id_komponen',$id_komponen);
         $this->db->group_by('id_peserta');
         return $this->db->get('nilai_peserta')->result_array();
+    }
+    function get_nilai_peserta_id($id_peserta,$id_program){
+        $this->db->select('id');
+        $this->db->where('id_program',$id_program);
+        $list=$this->db->get('komponen_penilaian')->result_array();
+        $list_komponen=array();
+        foreach($list as $l){
+            $list_komponen[]=$l['id'];
+        }
+//        SELECT id_peserta, AVG( nilai ) , id_komponen
+//FROM  `tb_nilai_peserta` 
+//GROUP BY id_komponen, id_peserta
+//WHERE id_komponen=$id_komponen
+        $this->db->select('AVG(nilai) as nilai');
+        $this->db->where('id_peserta',$id_peserta);
+        $this->db->where_in('id_komponen', $list_komponen);
+        $res=$this->db->get('nilai_peserta')->row_array();
+        if($res['nilai']){
+            return $res['nilai'];
+        }else{
+            return '(belum ada)';
+        }
     }
     
     function cek_status_pengumpulan($id_komponen){

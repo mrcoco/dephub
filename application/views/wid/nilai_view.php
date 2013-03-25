@@ -1,6 +1,6 @@
 <h2><?php echo $materi['judul'] ?></h2>
 <h3><?php echo $diklat['name'].' Angkatan '.$program['angkatan'] ?></h3>
-<table width="100%" class="table table-bordered table-condensed table-striped">
+<table id="list" width="100%" class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>
             <th width="3%">No</th>
@@ -35,21 +35,12 @@
             <?php } ?>
             <td><?php echo $list_peserta[$i]['nilai_akhir']?></td>
             <td>
-                <?php
-                    if($list_peserta[$i]['nilai_akhir']>80){
-                        echo 'A';         
-                    }else if($list_peserta[$i]['nilai_akhir']>65){
-                        echo 'B';         
-                    }else if($list_peserta[$i]['nilai_akhir']>55){
-                        echo 'C';         
-                    }else if($list_peserta[$i]['nilai_akhir']>45){
-                        echo 'D';         
-                    }else{
-                        echo 'E';         
-                    }
-                ?>
+                <?php echo $this->editor->grading($list_peserta[$i]['nilai_akhir']) ?>
             </td>
         </tr>
         <?php } ?>
     </tbody>
 </table>
+<div class="form-actions">
+    <a class="btn btn-success" href="<?php echo current_url() ?>/print">Cetak PDF</a>
+</div>
