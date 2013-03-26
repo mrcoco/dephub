@@ -2,6 +2,9 @@
     <?php echo $diklat['name'] ?> Angkatan <?php echo $program['angkatan'] ?><br />
     <?php echo $materi['judul'] ?> oleh
     <?php if($pengajar['nama_peg']!=''){echo $pengajar['nama_peg']; }  else {echo $pengajar['nama_dostam'];} ?></h2>
+<div class="form-actions">
+    <a href="program/cetak_feedback_result_pengajar/<?=$id?>/<?=$materi['id']?>/<?=$pengajar['id']?>" class="btn btn-success">Cetak PDF</a>
+</div>
 <?php if($n_result==0){?>
 Belum ada peserta yang mengisi evaluasi pengajar
 <?php }else{ ?>
@@ -33,9 +36,6 @@ Belum ada peserta yang mengisi evaluasi pengajar
 <?php }else{ ?>
 Belum ada saran
 <?php } ?>
-<div class="form-actions">
-    <a href="program/cetak_feedback_result_pengajar/<?=$id?>/<?=$materi['id']?>/<?=$pengajar['id']?>" class="btn btn-success">Cetak PDF</a>
-</div>
 
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.canvasTextRenderer.min.js"></script>
     <script class="include" type="text/javascript" src="assets/js/plugins/jqplot.logAxisRenderer.min.js"></script>

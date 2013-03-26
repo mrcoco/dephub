@@ -24,8 +24,8 @@ class Jpgraph
 //        $graph->title->SetFont(FF_VERDANA,FS_BOLD,12);
 
         // Setup font for axis
-        $graph->xaxis->SetFont(FF_VERDANA,FS_NORMAL,7);
-        $graph->yaxis->SetFont(FF_VERDANA,FS_NORMAL,10);
+//        $graph->xaxis->SetFont(FF_VERDANA,FS_NORMAL,7);
+//        $graph->yaxis->SetFont(FF_VERDANA,FS_NORMAL,10);
 
         // Show 0 label on Y-axis (default is not to show)
         $graph->yscale->ticks->SupressZeroLabel(false);

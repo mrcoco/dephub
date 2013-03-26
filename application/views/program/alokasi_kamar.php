@@ -2,7 +2,7 @@
     <div class="span9"><?php echo $this->session->flashdata('msg'); ?></div>
 </div>
 <div id="display_dialog" class="modal hide modal-wide"></div>
-<h2><?php echo $diklat['name'] . ' Angkatan ' . $program['angkatan']; ?></h2>
+<h2><?php echo $diklat['name'] . ' Angkatan ' . $program['angkatan'].' Tahun '.$program['tahun_program'] ?></h2>
 <table id="list" width="100%" class="table table-striped table-bordered table-condensed">
     <thead>
         <tr>

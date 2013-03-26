@@ -1,4 +1,7 @@
 <h2><?php echo $diklat['name'] ?> Angkatan <?php echo $program['angkatan'] ?></h2>
+<div class="form-actions">
+    <a href="program/cetak_feedback_result/<?=$id?>" class="btn btn-success">Cetak PDF</a>
+</div>
 <?php if($n==0){?>
 Belum ada peserta yang mengisi evaluasi diklat
 <?php }else{ ?>
@@ -26,9 +29,6 @@ Belum ada peserta yang mengisi evaluasi diklat
         <?php } ?>
         </ul>
     <?php } ?>
-<div class="form-actions">
-    <a href="program/cetak_feedback_result/<?=$id?>" class="btn btn-success">Cetak PDF</a>
-</div>
 <?php } ?>
 <!-- Additional plugins go here -->
 
