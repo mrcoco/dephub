@@ -42,9 +42,12 @@ function edit(id,itemval,bobotval){
 }
 </script>
 <h2><?php echo $materi['judul'] ?></h2>
+<h3><?php echo $diklat['name'].' Angkatan '.$program['angkatan'] ?></h3>
+<?php if($this->uri->segment(1)=='program'){$this->load->view('sidebar/subnav_nilai');} ?>
 <form action="wid/nilai/item_insert" method="POST">
 <input type="hidden" name="id_materi" value="<?php echo $indeks['id_materi']?>"/>
 <input type="hidden" name="id_program" value="<?php echo $indeks['id_program']?>"/>
+<input type="hidden" name="redirect_url" value="<?php echo current_url()?>"/>
 <?php if($list_komponen){ ?>
     <table class="table">
         <tr>

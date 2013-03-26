@@ -7,6 +7,7 @@
         <li <?php if($t=='edit_program')echo 'class="active"' ?>><a href="<?php echo base_url()?>program/edit_program/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Revisi Program</a></li>
         <?php } ?>
         <li <?php if($t=='peserta_program')echo 'class="active"' ?>><a href="<?php echo base_url()?>program/peserta_program/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Daftar Peserta</a></li>
+        <li <?php if(in_array($t,array('penilaian','nilai_view','nilai_input','nilai_item','upload_nilai')))echo 'class="active"' ?>><a href="<?php echo base_url()?>program/penilaian/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Penilaian Peserta</a></li>
         <li <?php if($t=='view_schedule_program')echo 'class="active"' ?>><a href="<?php echo base_url()?>program/view_schedule_program/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Lihat Jadwal</a></li>
         <?php if($this->session->userdata('id_role')==1||$this->session->userdata('id_role')==2){ ?>
         <li <?php if($t=='schedule_program')echo 'class="active"' ?>><a href="<?php echo base_url()?>program/schedule_program/<?php echo $program['id']?>"><i class="icon icon-chevron-right"></i> Ubah Jadwal</a></li>

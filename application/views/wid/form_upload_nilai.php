@@ -3,12 +3,20 @@
     <?php echo $materi['judul']?><br />
     <?php echo $diklat['name'].' Angkatan '.$program['angkatan'] ?>
 </h3>
-<hr/>
+<?php
+    if($this->uri->segment(1)=='program'){
+        $this->load->view('sidebar/subnav_nilai');$link='program/nilai_view';
+    }else{
+        $link='wid/nilai/view';        
+    }
+?>
 <?php echo $this->session->flashdata('msg');?>
 <?php echo form_open_multipart('wid/nilai/insert')?>
 <input type="hidden" name="id_materi" value="<?php echo $materi['id'] ?>"/>
 <input type="hidden" name="id_program" value="<?php echo $program['id'] ?>"/>
 <input type="hidden" name="id_komponen" value="<?php echo $komponen['id'] ?>"/>
+<input type="hidden" name="fail_url" value="<?php echo current_url() ?>"/>
+<input type="hidden" name="redirect_url" value="<?php echo $link.'/'.$materi['id'].'/'.$program['id'] ?>"/>
 Langkah-langkah mengumpulkan nilai:
 <ol>
     <li>Download format pengisian nilai. Klik di sini :

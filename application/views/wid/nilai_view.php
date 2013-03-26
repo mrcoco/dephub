@@ -1,5 +1,6 @@
 <h2><?php echo $materi['judul'] ?></h2>
 <h3><?php echo $diklat['name'].' Angkatan '.$program['angkatan'] ?></h3>
+<?php if($this->uri->segment(1)=='program'){$this->load->view('sidebar/subnav_nilai');} ?>
 <table id="list" width="100%" class="table table-bordered table-condensed table-striped">
     <thead>
         <tr>

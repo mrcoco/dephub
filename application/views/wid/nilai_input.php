@@ -1,8 +1,14 @@
 <h2><?php echo $materi['judul'] ?></h2>
 <h3><?php echo $diklat['name'].' Angkatan '.$program['angkatan'] ?></h3>
-<input type="hidden" name="id_materi" value="<?php echo $materi['id'] ?>" />
-<input type="hidden" name="id_program" value="<?php echo $program['id'] ?>" />
-<table class="table-bordered table-condensed table-striped" width="100%">
+<?php
+    if($this->uri->segment(1)=='program'){
+        $this->load->view('sidebar/subnav_nilai');$link='program';
+    }else{
+        $link='wid/nilai';        
+    }
+?>
+<?php if($list_komponen){ ?>
+<table class="table table-bordered table-condensed table-striped" width="100%">
     <thead>
     <tr>
         <th>Unsur</th>
@@ -18,11 +24,11 @@
         <td><?php echo $l['bobot']?>%</td>
         <td>
             <?php if($l['status']){ ?>
-            <a class="btn btn-small" href="wid/nilai/upload_nilai/<?php echo $materi['id'].'/'.$program['id'].'/'.$l['id']?>">
+            <a class="btn btn-small" href="<?php echo $link ?>/upload_nilai/<?php echo $materi['id'].'/'.$program['id'].'/'.$l['id']?>">
                 <i class="icon-edit"></i> Perbarui nilai
             </a>
                 <?php }else{ ?>
-            <a class="btn btn-small btn-primary" href="wid/nilai/upload_nilai/<?php echo $materi['id'].'/'.$program['id'].'/'.$l['id']?>">
+            <a class="btn btn-small btn-primary" href="<?php echo $link ?>/upload_nilai/<?php echo $materi['id'].'/'.$program['id'].'/'.$l['id']?>">
                 <i class="icon-plus-sign icon-white"></i> Masukkan nilai
             </a>
                 <?php } ?>
@@ -39,3 +45,6 @@
     <?php }?>
     </tbody>
 </table>
+<?php }else{ ?>
+Tidak ada unsur penilaian
+<?php } ?>

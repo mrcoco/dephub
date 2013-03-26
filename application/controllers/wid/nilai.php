@@ -74,7 +74,8 @@ class nilai extends CI_Controller {
             }
         }
         $this->wid->insert_komponen_penilaian($id_materi,$id_program,$ins_batch);
-        redirect(base_url().'wid/nilai/item/'.$id_materi.'/'.$id_program);
+//        redirect(base_url().'wid/nilai/item/'.$id_materi.'/'.$id_program);
+        redirect($this->input->post('redirect_url'));
     }
     function item_hapus(){
         $data['id_program']=$this->input->post('id_program');
@@ -119,7 +120,7 @@ class nilai extends CI_Controller {
         if ( ! $this->upload->do_upload('file_nilai')){
             $error = $this->upload->display_errors();
             $this->session->set_flashdata('msg',$this->editor->alert_error('Upload gagal, '.  $error));
-            redirect(base_url().'wid/nilai/upload_nilai/'.$id_materi.'/'.$id_program.'/'.$id_komponen);
+            redirect($this->input->post('fail_url'));
         }
         $data = $this->upload->data();
         $file = './assets/public/upload_nilai/'.$data['file_name'];
@@ -163,7 +164,7 @@ class nilai extends CI_Controller {
             }
         }
         $this->wid->insert_nilai($id_komponen,$id_wid,$batch,$array_id_peserta);
-        redirect(base_url().'wid/nilai/view/'.$id_materi.'/'.$id_program);
+        redirect($this->input->post('redirect_url'));
     }
     
     function gen_form($id_materi,$id_program,$id_komponen){
@@ -251,7 +252,6 @@ class nilai extends CI_Controller {
         }
         $data['list_peserta']=$this->slng->get_terima_peserta($id_program,$thn);
         
-        $this->template->display_wid('wid/nilai_view',$data);
         if($print=="print"){
             $data['judul']='PENDIDIKAN DAN PELATIHAN '.strtoupper($data['diklat']['name']).'<br />
                 KEMENTERIAN PERHUBUNGAN ANGKATAN '.$data['program']['angkatan'].' TAHUN '.$data['program']['tahun_program'];
@@ -259,6 +259,8 @@ class nilai extends CI_Controller {
             $data['htmView'] = $this->load->view('wid/nilai_print',$data,TRUE);
             $filename='Nilai Peserta '.$data['diklat']['name'].' Ang '.$data['program']['angkatan'].' Materi '.$data['materi']['id'];
             pdf_create($data['htmView'],$filename);                                                                    
+        }else{
+            $this->template->display_wid('wid/nilai_view',$data);
         }
     }
 

@@ -11,6 +11,7 @@ class Program extends CI_Controller {
         $this->load->model('mdl_sarpras', 'spr');
         $this->load->model('mdl_penyelenggaraan', 'slng');
         $this->load->library('date');
+        $this->load->model('mdl_wid','wid');
         $this->thn_default=date('Y');
     }
     function kelulusan(){
@@ -1027,4 +1028,78 @@ class Program extends CI_Controller {
         $data['tanggal']=$this->date->konversi3($this->input->post('tanggal'));
         echo $this->slng->cek_jadwal_pemateri($data);
     }
+    
+    function penilaian($id){
+        $this->load->library('date');
+        $data['sub_title']="Penilaian Peserta";
+        $data['program'] = $this->rnc->get_program_by_id($id);
+        if(!$data['program']){
+            $this->session->set_flashdata('msg',$this->editor->alert_error('Program tidak ditemukan'));
+            redirect(base_url().'diklat/daftar_diklat/');
+        }
+        $data['diklat'] = $this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['materi'] = $this->rnc->get_materi_diklat($data['program']['parent']);
+        $this->template->display_with_sidebar('program/penilaian', 'program', $data);
+    }
+    function nilai_item($id_materi,$id_program){
+        $data['materi']=$this->rnc->get_materi($id_materi);
+        $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['title']='Unsur Penilaian';
+        $data['list_komponen']=$this->wid->get_komponen_penilaian($id_materi,$id_program);
+        $data['tot']=$this->wid->tot_bobot_penilaian($id_materi,$id_program);
+        $data['indeks']['id_materi']=$id_materi;
+        $data['indeks']['id_program']=$id_program;
+        $this->template->display_with_sidebar('wid/nilai_item', 'program', $data);
+    }
+    
+    function nilai_input($id_materi,$id_program){
+        $data['materi']=$this->rnc->get_materi($id_materi);
+        $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['title']='Pengumpulan Nilai';
+        $data['list_komponen']=$this->wid->get_komponen_penilaian($id_materi,$id_program);
+        for($i=0;$i<count($data['list_komponen']);$i++){
+            $data['list_komponen'][$i]['status']=$this->wid->cek_status_pengumpulan($data['list_komponen'][$i]['id']);
+        }
+        $this->template->display_with_sidebar('wid/nilai_input', 'program', $data);
+    }
+    
+    function upload_nilai($id_materi,$id_program,$id_komponen){
+        $data['title']='Pengumpulan Nilai';
+        $data['materi']=$this->rnc->get_materi($id_materi);
+        $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['komponen']=$this->wid->get_nama_komponen($id_komponen);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        $this->template->display_with_sidebar('wid/form_upload_nilai','program',$data);
+    }
+    function nilai_view($id_materi,$id_program,$print=""){
+        $thn=  $this->thn_default;
+        $data['materi']=$this->rnc->get_materi($id_materi);
+        $data['program']=$this->rnc->get_program_by_id($id_program);
+        $data['diklat']=$this->rnc->get_diklat_by_id($data['program']['parent']);
+        $data['title']='Daftar Nilai Peserta';
+        $data['list_komponen']=$this->wid->get_komponen_penilaian($id_materi,$id_program);
+        $data['nilai'] = array();
+        foreach($data['list_komponen'] as $l){
+            $res = $this->wid->get_nilai_peserta($l['id']);
+            $data['nilai'][$l['id']]=array();
+            foreach($res as $r){
+                $data['nilai'][$l['id']][$r['id_peserta']]=$r['nilai'];
+            }
+        }
+        $data['list_peserta']=$this->slng->get_terima_peserta($id_program,$thn);
+        
+        if($print=="print"){
+            $data['judul']='PENDIDIKAN DAN PELATIHAN '.strtoupper($data['diklat']['name']).'<br />
+                KEMENTERIAN PERHUBUNGAN ANGKATAN '.$data['program']['angkatan'].' TAHUN '.$data['program']['tahun_program'];
+            $this->load->helper('pdfexport_helper.php');
+            $data['htmView'] = $this->load->view('wid/nilai_print',$data,TRUE);
+            $filename='Nilai Peserta '.$data['diklat']['name'].' Ang '.$data['program']['angkatan'].' Materi '.$data['materi']['id'];
+            pdf_create($data['htmView'],$filename);                                                                    
+        }else{
+            $this->template->display_with_sidebar('wid/nilai_view','program',$data);
+        }
+    }
+    
 }
